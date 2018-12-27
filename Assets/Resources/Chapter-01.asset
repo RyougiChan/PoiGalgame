@@ -9,13 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 244c26ad3cb297c4ca8a0c5bdb279f11, type: 3}
-  m_Name: Chapter-01.gs
+  m_Name: Chapter-01
   m_EditorClassIdentifier: 
-  ScriptName: t1
-  ScriptName2: t2
+  ScriptName: 1
+  ScriptName2: 1
   ScriptProperties:
-  - Line: This is a loooooooooooooooooooooooooooooooooooooooooooooooooooooong line
+  - Line: 1
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
     Background: {fileID: 0}
-    Character: 0
+    Actor: 1
