@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Model
+namespace Assets.Scripts.Models
 {
     /// <summary>
     /// A scene in a script | 剧本中的某一幕

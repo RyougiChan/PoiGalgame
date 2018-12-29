@@ -11,11 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 244c26ad3cb297c4ca8a0c5bdb279f11, type: 3}
   m_Name: Chapter-01
   m_EditorClassIdentifier: 
-  ScriptName: 1
-  ScriptName2: 1
-  ScriptProperties:
-  - Line: 1
+  ScriptName: THE NUTCRACKER
+  ChapterName: ACT  I
+  ChapterAbstract: ACT  I
+  Bg: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  Bgm: {fileID: 0}
+  GalgameActions:
+  - Line: Oh, look at all the Christmas tree decorations!.  Look, Fritz, at all the
+      chocolates and candy canes hanging on the tree!.
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
     Background: {fileID: 0}
-    Actor: 1
+    Actor: 0
+    ActorAnimator: {fileID: 0}

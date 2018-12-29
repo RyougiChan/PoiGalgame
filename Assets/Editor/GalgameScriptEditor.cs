@@ -8,26 +8,35 @@ namespace Assets.Scripts.Editors
     public class GalgameScriptEditor : Editor
     {
         SerializedProperty ScriptName;
-        SerializedProperty ScriptName2;
-        SerializedProperty ScriptProperties;
+        SerializedProperty ChapterName;
+        SerializedProperty ChapterAbstract;
+        SerializedProperty Bg;
+        SerializedProperty Bgm;
+        SerializedProperty GalgameActions;
 
         private void OnEnable()
         {
             ScriptName = serializedObject.FindProperty("ScriptName");
-            ScriptName2 = serializedObject.FindProperty("ScriptName2");
-            ScriptProperties = serializedObject.FindProperty("ScriptProperties");
+            ChapterName = serializedObject.FindProperty("ChapterName");
+            ChapterAbstract = serializedObject.FindProperty("ChapterAbstract");
+            Bg = serializedObject.FindProperty("Bg");
+            Bgm = serializedObject.FindProperty("Bgm");
+            GalgameActions = serializedObject.FindProperty("GalgameActions");
         }
 
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
             EditorGUILayout.PropertyField(ScriptName);
-            EditorGUILayout.PropertyField(ScriptName2);
+            EditorGUILayout.PropertyField(ChapterName);
+            EditorGUILayout.PropertyField(ChapterAbstract);
+            EditorGUILayout.PropertyField(Bg);
+            EditorGUILayout.PropertyField(Bgm);
 
-            for (int i = 0; i < ScriptProperties.arraySize; i++)
+            for (int i = 0; i < GalgameActions.arraySize; i++)
             {
                 GUILayout.BeginVertical("GroupBox");
-                var state = ScriptProperties.GetArrayElementAtIndex(i);
+                var state = GalgameActions.GetArrayElementAtIndex(i);
                 EditorGUILayout.PropertyField(state, true);
                 GUILayout.BeginHorizontal();
                 GUILayout.Space(200);
@@ -36,8 +45,8 @@ namespace Assets.Scripts.Editors
             }
             if (GUILayout.Button("Add"))
             {
-                var index = ScriptProperties.arraySize;
-                ScriptProperties.InsertArrayElementAtIndex(index);
+                var index = GalgameActions.arraySize;
+                GalgameActions.InsertArrayElementAtIndex(index);
             }
             serializedObject.ApplyModifiedProperties();
         }

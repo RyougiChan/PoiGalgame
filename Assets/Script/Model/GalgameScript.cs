@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Models
@@ -15,6 +14,6 @@ namespace Assets.Scripts.Models
         public Sprite Bg;                                   // 初始背景图片
         public AudioClip Bgm;                               // 初始背景音乐
                                                             // 剧本幕集合
-        public List<GalgameAction> GalgameScenes = new List<GalgameAction>();
+        public List<GalgameAction> GalgameActions = new List<GalgameAction>();
     }
 }

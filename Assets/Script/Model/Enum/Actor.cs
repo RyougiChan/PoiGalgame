@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Scripts.Model
+namespace Assets.Scripts.Models
 {
     /// <summary>
     /// Actor list | 演员列表
