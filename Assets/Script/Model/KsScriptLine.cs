@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Assets.Script.Model
 {
-    public enum FontStyle
+    public class KsScriptLine
     {
-        nornal, bold, italic
+        public GalgameKsScriptTag tag;
+        public List<KsScriptLineProperty> props;
     }
 }

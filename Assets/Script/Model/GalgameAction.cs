@@ -14,6 +14,6 @@ namespace Assets.Scripts.Models
         public AudioClip Voice;                 // Actor's voice | 台词语音
         public Sprite Background;               // Background in current scene | 当前幕的背景/环境
         public Actor Actor;                     // Actor's name | 演员名称
-        public Animator ActorAnimator;          // Actor's animator: blink, speck, smile and etc. | 演员动作: 眨眼，说话，笑等等
+        public string ActorAnimation;           // Actor's animation: blink, speck, smile and etc. | 演员动作: 眨眼，说话，笑等等
     }
 }

@@ -130,7 +130,7 @@
     - 文本类标签公共属性
         - `linespacing`     文本行距
         - `align`           对齐方式 `lt | lm | lb | mt | mm | mb | rt | rm | rb`
-        - `fcolor`          文本颜色 `rgba/0x000000-0xffffff`
+        - `fcolor`          文本颜色 `0x000000-0xffffff`
         - `fsize`           文本字体大小
         - `fstyle`          文本风格 `normal | bold | italic`
         - `ffamily`         字体类型 `Arial` 等

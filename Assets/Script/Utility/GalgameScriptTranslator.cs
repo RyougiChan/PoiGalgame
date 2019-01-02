@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Script.Model;
+using Assets.Scripts.Models;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -17,7 +20,7 @@ namespace Assets.Script.Utility
         /// <param name="ksFileFullPath"></param>
         /// <param name="assetFileFullPath"></param>
         /// <returns></returns>
-        public void KsToAsset(string ksFileFullPath)
+        public void KsToAsset(string ksFileFullPath, string assetFileFullPath)
         {
             if(File.Exists(ksFileFullPath))
             {
@@ -26,17 +29,19 @@ namespace Assets.Script.Utility
                     using (StreamReader reader = new StreamReader(kfs))
                     {
                         // All lines in ksFileFullPath
-                        Dictionary<string, Dictionary<string, string>> lines = new Dictionary<string, Dictionary<string, string>>();
+                        List<KsScriptLine> ksScriptLines = new List<KsScriptLine>();
                         Regex tagRegex = new Regex(@"\[(\w+)", RegexOptions.IgnoreCase);
                         Regex propRegex = new Regex(@"(\w+?)=""(.*?)""", RegexOptions.IgnorePatternWhitespace);
                         string currentLine = string.Empty;
                         string tagType = string.Empty;
                         string propName = string.Empty;
                         string propValue = string.Empty;
-                        Dictionary<string, string> propPairs = new Dictionary<string, string>();
+                        KsScriptLine line = null;
+                        List<KsScriptLineProperty> propPairs = new List<KsScriptLineProperty>();
                         // Analysis | 解析
                         while (null != (currentLine = reader.ReadLine()))
                         {
+                            line = new KsScriptLine();
                             // Tag | 标签类型
                             if(tagRegex.IsMatch(currentLine))
                             {
@@ -49,19 +54,16 @@ namespace Assets.Script.Utility
                                 {
                                     propName = propMatch.Groups[1].Value;
                                     propValue = propMatch.Groups[2].Value;
-                                    propPairs.Add(propName, propValue);
+                                    propPairs.Add(new KsScriptLineProperty() { name=propName, value=propValue });
                                 }
                             }
-
-                            if(propPairs.Count != 0)
-                            {
-                                propPairs.Clear();
-                            }
+                            line.tag = (GalgameKsScriptTag)Enum.Parse(typeof(GalgameKsScriptTag), tagType);
+                            line.props = propPairs;
+                            ksScriptLines.Add(line);
                         }
-                        if(!string.IsNullOrEmpty(tagType))
-                        {
-                            lines.Add(tagType, propPairs);
-                        }
+                        // Convert to GalgameScript
+                        GalgameScript gs = GalgameScriptUtil.KsScriptToGalgameScript(ksScriptLines);
+                        GalgameScriptUtil.CreateGalgameScriptAsset(gs, assetFileFullPath);
                     }
                 }
             }

@@ -15,7 +15,6 @@ namespace Assets.Scripts.Editors
         [MenuItem("GameObject/GalgameObject/Script"), MenuItem("Assets/GalgameObject/Script")]
         static void CreateGalgameScript()
         {
-            Debug.Log("CreateGalgameScript_Script");
             GalgameScript ggs = CreateInstance<GalgameScript>();
             string path = AssetDatabase.GetAssetPath(Selection.activeObject);
             if (path == "")
