@@ -13,7 +13,10 @@ namespace Assets.Script.Utility
     /// </summary>
     public class GalgameScriptTranslator : MonoBehaviour
     {
-
+        public void KsToAsset(string ksFileFullPath)
+        {
+            KsToAsset(ksFileFullPath, null);
+        }
         /// <summary>
         /// Translator to translate .ks file to Unity asset
         /// </summary>
@@ -37,13 +40,16 @@ namespace Assets.Script.Utility
                         string propName = string.Empty;
                         string propValue = string.Empty;
                         KsScriptLine line = null;
-                        List<KsScriptLineProperty> propPairs = new List<KsScriptLineProperty>();
+                        List<KsScriptLineProperty> propPairs;
                         // Analysis | 解析
                         while (null != (currentLine = reader.ReadLine()))
                         {
+                            // Skip Empty line
+                            if (string.IsNullOrEmpty(currentLine.Trim())) continue;
                             line = new KsScriptLine();
+                            propPairs = new List<KsScriptLineProperty>();
                             // Tag | 标签类型
-                            if(tagRegex.IsMatch(currentLine))
+                            if (tagRegex.IsMatch(currentLine))
                             {
                                 tagType = tagRegex.Match(currentLine).Groups[1].Value;
                             }

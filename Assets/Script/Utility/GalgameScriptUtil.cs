@@ -12,7 +12,7 @@ namespace Assets.Script.Utility
 {
     public class GalgameScriptUtil : ScriptableObject
     {
-        public static string[] GalgameScriptTags;
+        //public static string[] GalgameScriptTags;
         public static void CreateGalgameScriptAsset()
         {
             GalgameScript ggs = CreateInstance<GalgameScript>();
@@ -50,9 +50,10 @@ namespace Assets.Script.Utility
         public static GalgameScript KsScriptToGalgameScript(List<KsScriptLine> ksScript)
         {
             if (null == ksScript || ksScript.Count == 0) return null;
-            if (null == GalgameScriptTags) GalgameScriptTags = Enum.GetNames(typeof(GalgameKsScriptTag));
+            //if (null == GalgameScriptTags) GalgameScriptTags = Enum.GetNames(typeof(GalgameKsScriptTag));
             GalgameScript galgameScript = new GalgameScript();
-            List<GalgameAction> galgameActions = null;
+            List<GalgameAction> galgameActions = new List<GalgameAction>();
+            GalgameAction galgameAction = null;
             foreach (KsScriptLine ksScriptLine in ksScript)
             {
                 GalgameKsScriptTag tag = ksScriptLine.tag;
@@ -68,10 +69,6 @@ namespace Assets.Script.Utility
                 {
                     string propName = prop.name.ToLower();
                     string propValue = prop.value;
-                    if (!GalgameScriptTags.Contains(propName))
-                    {
-                        continue;
-                    }
                     // Set properties
                     switch(propName)
                     {
@@ -154,16 +151,16 @@ namespace Assets.Script.Utility
                             break;
                     }
                 }
-                galgameActions.Add(new GalgameAction()
-                {
-                    Line = ksTagProperty.line,
-                    //Load a Audio file (Assets/Resources/Audio/...)
-                    Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.bgmsrc, typeof(AudioClip)),
-                    Voice = (AudioClip)Resources.Load("Audio/" + ksTagProperty.voice, typeof(AudioClip)),
-                    Background = (Sprite)Resources.Load("Sprite/" + ksTagProperty.bgsrc, typeof(AudioClip)),
-                    Actor = (Actor)Enum.Parse(typeof(Actor), ksTagProperty.actor),
-                    ActorAnimation = ksTagProperty.anim
-                });
+                galgameAction = new GalgameAction();
+
+                if (null != ksTagProperty.line) galgameAction.Line = ksTagProperty.line;
+                if (null != ksTagProperty.bgmsrc) galgameAction.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.bgmsrc, typeof(AudioClip));
+                if (null != ksTagProperty.voice) galgameAction.Voice = (AudioClip)Resources.Load("Audio/" + ksTagProperty.voice, typeof(AudioClip));
+                if (null != ksTagProperty.bgsrc) galgameAction.Background = (Sprite)Resources.Load("Sprite/" + ksTagProperty.bgsrc, typeof(Sprite));
+                if (null != ksTagProperty.actor) galgameAction.Actor = (Actor)Enum.Parse(typeof(Actor), ksTagProperty.actor);
+                if (null != ksTagProperty.anim) galgameAction.ActorAnimation = ksTagProperty.anim;
+
+                galgameActions.Add(galgameAction);
             }
             if(null != galgameActions)
             {
