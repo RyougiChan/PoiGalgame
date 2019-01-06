@@ -26,16 +26,7 @@ namespace Assets.Script.Model
         line = 202,
         bg = 203,
         fg = 204,
-        font = 205,
-        MediaTags = 300,
-        // Action tags
-        playbgm = 301,
-        pausebgm = 302,
-        resumebgm = 303,
-        stopbgm = 304,
-        playvideo = 305,
-        pausevideo = 306,
-        resumevideo = 307,
-        stopvideo = 308
+        bgm = 205,
+        video = 206
     }
 }

@@ -99,21 +99,13 @@
         - `[line]`          台词
         - `[bg]`            背景图片
         - `[fg]`            前景图片
-        - `[font]`          文本（带样式）
-    - 动作标签
-        - `[playbgm]`       播放背景音乐
-        - `[pausebgm]`      暂停背景音乐
-        - `[stopbgm]`       停止背景音乐
-        - `[resumebgm]`     继续播放背景音乐
-        - `[playvideo]`     播放视频
-        - `[pausevideo]`    暂停播放视频
-        - `[stopvideo]`     停止播放视频
-        - `[resumevideo]`   继续播放视频
+        - `[bgm]`           背景音乐
+        - `[video]`         视频
     - 公共属性标识
-        - `[pos]`           位置
+        - ~~`[pos]`           位置~~
         - `[style]`         样式定义
         - `[tran]`          转换效果
-        - `[effect]`        特效（下雨，下雪等）
+        - ~~`[effect]`        特效（下雨，下雪等）~~
 - 属性
     - 公共元素属性
         - `tag`             元素类标识
@@ -127,6 +119,7 @@
         - `layer`           元素所在层 `f3 | f2 | f1 | g | b1 | b2 | b3`
         - `method`          元素调用方法名
         - `canskip`         是否可跳过该元素
+        - `time`            持续时间
     - 文本类标签公共属性
         - `linespacing`     文本行距
         - `align`           对齐方式 `lt | lm | lb | mt | mm | mb | rt | rm | rb`
@@ -140,6 +133,7 @@
         - `src`             音频/视频路径
         - `volume`          音量
         - `loop`            循环
+        - `action`          操作 `pause | resume | stop | play`
     - 台词专用属性
         - `actor`           演员名称
         - `voice`           台词语音

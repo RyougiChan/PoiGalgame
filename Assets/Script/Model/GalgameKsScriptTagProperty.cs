@@ -20,6 +20,7 @@ namespace Assets.Script.Model
         public Layer layer;
         public string method;
         public bool canskip;
+        public int time;
         // Text-like tag properties
         public float linespacing;
         public Align align;
@@ -35,6 +36,7 @@ namespace Assets.Script.Model
         // Video|Audio tag properties
         public float volume;
         public bool loop;
+        public string action;
         // Line tag properties
         public string actor;
         public string voice;

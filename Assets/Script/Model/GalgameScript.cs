@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
-namespace Assets.Scripts.Models
+namespace Assets.Script.Model
 {
     /// <summary>
     /// Script model of a story | 剧本实体模型
@@ -13,6 +14,7 @@ namespace Assets.Scripts.Models
         public string ChapterAbstract;                      // 章节简介
         public Sprite Bg;                                   // 初始背景图片
         public AudioClip Bgm;                               // 初始背景音乐
+        public VideoClip Video;                             // 开场视频
                                                             // 剧本幕集合
         public List<GalgameAction> GalgameActions = new List<GalgameAction>();
     }

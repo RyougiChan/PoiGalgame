@@ -1,5 +1,5 @@
 ﻿#if UNITY_EDITOR
-using Assets.Scripts.Models;
+using Assets.Script.Model;
 using System;
 using System.IO;
 using UnityEditor;
