@@ -1,5 +1,4 @@
 ﻿using Assets.Script.Model;
-using Assets.Script.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;

@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using Assets.Script.Model;
+using Assets.Script.Utility;
 using System;
 using System.IO;
 using UnityEditor;
@@ -15,23 +16,7 @@ namespace Assets.Scripts.Editors
         [MenuItem("GameObject/GalgameObject/Script"), MenuItem("Assets/GalgameObject/Script")]
         static void CreateGalgameScript()
         {
-            GalgameScript ggs = CreateInstance<GalgameScript>();
-            string path = AssetDatabase.GetAssetPath(Selection.activeObject);
-            if (path == "")
-            {
-                path = "Assets";
-            }
-            else if (Path.GetExtension(path) != "")
-            {
-                path = path.Replace(Path.GetFileName(AssetDatabase.GetAssetPath(Selection.activeObject)), "");
-            }
-
-            string assetFullPath = AssetDatabase.GenerateUniqueAssetPath(path + "/NewGalgameScript.gs.asset");
-            AssetDatabase.CreateAsset(ggs, assetFullPath);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-            EditorUtility.FocusProjectWindow();
-            Selection.activeObject = ggs;
+            GalgameScriptUtil.CreateGalgameScriptAsset();
         }
 
         /// <summary>

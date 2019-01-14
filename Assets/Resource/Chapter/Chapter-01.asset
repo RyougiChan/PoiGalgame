@@ -16,11 +16,11 @@ MonoBehaviour:
   ChapterAbstract: ACT  I
   Bg: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   Bgm: {fileID: 0}
+  Video: {fileID: 0}
   GalgameActions:
-  - Line: Oh, look at all the Christmas tree decorations!.  Look, Fritz, at all the
-      chocolates and candy canes hanging on the tree!.
+  - Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
-    Background: {fileID: 0}
+    Background: {fileID: 21300000, guid: 9cf743dade05786478f5f10e6d607c20, type: 3}
     Actor: 0
-    ActorAnimator: {fileID: 0}
+    ActorAnimation: 
