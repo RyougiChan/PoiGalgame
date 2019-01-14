@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Script.Model
 {
+    [Serializable]
     public class GalgameScriptLine
     {
         public string text;

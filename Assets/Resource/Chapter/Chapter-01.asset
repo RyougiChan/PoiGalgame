@@ -14,11 +14,47 @@ MonoBehaviour:
   ScriptName: THE NUTCRACKER
   ChapterName: ACT  I
   ChapterAbstract: ACT  I
-  Bg: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  Bg: {fileID: 21300000, guid: 9cf743dade05786478f5f10e6d607c20, type: 3}
   Bgm: {fileID: 0}
   Video: {fileID: 0}
   GalgameActions:
-  - Video: {fileID: 0}
+  - Line:
+      text: This is line 1
+      ffamily: 
+      fcolor: 
+      fsize: 10
+      linespacing: 0
+      align: 0
+      fstyle: 0
+    Video: {fileID: 0}
+    Bgm: {fileID: 0}
+    Voice: {fileID: 0}
+    Background: {fileID: 21300000, guid: 9cf743dade05786478f5f10e6d607c20, type: 3}
+    Actor: 0
+    ActorAnimation: 
+  - Line:
+      text: This is line 2
+      ffamily: 
+      fcolor: 
+      fsize: 20
+      linespacing: 0
+      align: 0
+      fstyle: 0
+    Video: {fileID: 0}
+    Bgm: {fileID: 0}
+    Voice: {fileID: 0}
+    Background: {fileID: 21300000, guid: 9cf743dade05786478f5f10e6d607c20, type: 3}
+    Actor: 0
+    ActorAnimation: 
+  - Line:
+      text: This is line 3
+      ffamily: 
+      fcolor: 
+      fsize: 30
+      linespacing: 0
+      align: 0
+      fstyle: 0
+    Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
     Background: {fileID: 21300000, guid: 9cf743dade05786478f5f10e6d607c20, type: 3}
