@@ -1,5 +1,6 @@
 ﻿using Assets.Script.Model;
 using Assets.Script.Utility;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,10 +13,18 @@ public class ChapterController : MonoBehaviour {
 
     public GalgameScript currentScript;
     public SpriteRenderer spriteRenderer;
+    public float textShowDuration = 0.1f;
 
     private List<GalgameAction> galgameActions;
     private GalgameAction currentGalgameAction;
     private int currentLineIndex;
+    private int currentLineCharIndex;
+    private bool isShowingLine;
+    private bool isBreakShowingLine;
+    private string newLine;
+    private Coroutine currentCoroutine;
+
+    private static WaitForSeconds textWaitForSeconds;
 
     // Use this for initialization
     void Start () {
@@ -27,13 +36,14 @@ public class ChapterController : MonoBehaviour {
         {
             spriteRenderer.sprite = currentScript.Bg;
         }
+        textWaitForSeconds = new WaitForSeconds(textShowDuration);
     }
 
     // Update is called once per frame
     void Update () {
 		if(Input.GetButtonDown("Fire1"))
         {
-            if(currentLineIndex < galgameActions.Count)
+            if(currentLineIndex <= galgameActions.Count)
             {
                 SwitchLine();
             }
@@ -42,11 +52,35 @@ public class ChapterController : MonoBehaviour {
 
     private void SwitchLine()
     {
+        Debug.Log(DateTime.Now.ToString() + " --> isShowingLine = " + isShowingLine);
+        if(isShowingLine)
+        {
+            Debug.Log(DateTime.Now.ToString() + "准备跳过");
+            if (null != currentCoroutine)
+            {
+                StopCoroutine(currentCoroutine);
+                line.text = newLine;
+                isShowingLine = false;
+                Debug.Log(DateTime.Now.ToString() + "已跳过");
+                return;
+            }
+        }
+        if (currentLineIndex == galgameActions.Count)
+        {
+            // this chapter is end
+            // maybe consider loading another chapter?
+            return;
+        }
+
         Debug.Log("galgameActions'Size: " + galgameActions.Count + " currentLineIndex: " + currentLineIndex);
+        line.text = string.Empty; // clear previous line
+        currentLineCharIndex = -1; // read from index: -1
         currentGalgameAction = galgameActions[currentLineIndex];
-        line.text = currentGalgameAction.Line.text;
+        newLine = currentGalgameAction.Line.text;
+        currentCoroutine = StartCoroutine(ShowLineTimeOut(newLine));
+
         // font
-        if(null != font)
+        if (null != font)
         {
             line.font = font;
         }
@@ -84,5 +118,21 @@ public class ChapterController : MonoBehaviour {
         }
         // Move index to next
         currentLineIndex++;
+    }
+
+    private IEnumerator ShowLineTimeOut(string newLine)
+    {
+        isShowingLine = true;
+        foreach (char lineChar in newLine)
+        {
+            currentLineCharIndex++;
+            line.text += lineChar;
+            if(currentLineCharIndex == newLine.Length - 1)
+            {
+                isShowingLine = false;
+                Debug.Log("currentLineCharIndex: " + currentLineCharIndex);
+            }
+            yield return textWaitForSeconds;
+        }
     }
 }
