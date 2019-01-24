@@ -19,13 +19,13 @@ MonoBehaviour:
   Video: {fileID: 0}
   GalgameActions:
   - Line:
-      text: This is line 1
+      text: "\u3042\u306A\u305F\u306F\u79C1\u3092\u77E5\u3089\u306A\u3044\u304B\u3082\u3057\u308C\u307E\u305B\u3093\u3057\u3001\u306A\u305C\u3042\u306A\u305F\u306F\u3053\u306E\u96FB\u5B50\u30E1\u30FC\u30EB\u3092\u53D7\u3051\u53D6\u3063\u3066\u3044\u308B\u306E\u3060\u308D\u3046\u3068\u601D\u3063\u3066\u3044\u307E\u3059\u304B\uFF1F"
       ffamily: 
-      fcolor: 
-      fsize: 10
+      fcolor: ffffffff
+      fsize: 20
       linespacing: 0
-      align: 0
-      fstyle: 0
+      align: 4
+      fstyle: 1
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -33,9 +33,39 @@ MonoBehaviour:
     Actor: 0
     ActorAnimation: 
   - Line:
-      text: This is line 2
+      text: "\u3053\u306E\u77AC\u9593\u3001\u79C1\u306F\u3042\u306A\u305F\u306E\u30A2\u30AB\u30A6\u30F3\u30C8\uFF08***************@*****.com\uFF09\u3092\u30CF\u30C3\u30AD\u30F3\u30B0\u3057\u3001\u305D\u3053\u304B\u3089\u30E1\u30FC\u30EB\u3092\u9001\u308A\u307E\u3057\u305F\u3002
+        \u79C1\u306F\u3042\u306A\u305F\u306E\u30C7\u30D0\u30A4\u30B9\u306B\u5B8C\u5168\u306B\u30A2\u30AF\u30BB\u30B9\u3067\u304D\u307E\u3059\uFF01"
       ffamily: 
-      fcolor: 
+      fcolor: ffffffff
+      fsize: 20
+      linespacing: 0
+      align: 0
+      fstyle: 2
+    Video: {fileID: 0}
+    Bgm: {fileID: 0}
+    Voice: {fileID: 0}
+    Background: {fileID: 21300000, guid: 9cf743dade05786478f5f10e6d607c20, type: 3}
+    Actor: 0
+    ActorAnimation: 
+  - Line:
+      text: "\u5B9F\u969B\u306B\u3001\u79C1\u306F\u5927\u4EBA\u306Evids\uFF08\u30DD\u30EB\u30CE\u8CC7\u6599\uFF09\u306E\u30A6\u30A7\u30D6\u30B5\u30A4\u30C8\u306B\u30DE\u30EB\u30A6\u30A7\u30A2\u3092\u7F6E\u304D\u307E\u3057\u305F\u3002\u3042\u306A\u305F\u306F\u4F55\u3092\u77E5\u3063\u3066\u3044\u307E\u3059\u304B\u3001\u3042\u306A\u305F\u306F\u3053\u306E\u30A6\u30A7\u30D6\u30B5\u30A4\u30C8\u3092\u8A2A\u308C\u3066\u697D\u3057\u3093\u3067\u3044\u307E\u3057\u305F\u3002"
+      ffamily: 
+      fcolor: ffffffff
+      fsize: 20
+      linespacing: 0
+      align: 0
+      fstyle: 3
+    Video: {fileID: 0}
+    Bgm: {fileID: 0}
+    Voice: {fileID: 0}
+    Background: {fileID: 21300000, guid: 9cf743dade05786478f5f10e6d607c20, type: 3}
+    Actor: 0
+    ActorAnimation: 
+  - Line:
+      text: "\u3042\u306A\u305F\u304C\u30D3\u30C7\u30AA\u30AF\u30EA\u30C3\u30D7\u3092\u898B\u3066\u3044\u308B\u9593\u3001\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u30D6\u30E9\u30A6\u30B6\u306FRDP\uFF08Remote
+        Desktop\uFF09\u3068\u3057\u3066\u52D5\u4F5C\u3059\u308B\u3088\u3046\u306B\u306A\u308A\u307E\u3057\u305F\u3002"
+      ffamily: 
+      fcolor: ffffffff
       fsize: 20
       linespacing: 0
       align: 0
@@ -47,10 +77,24 @@ MonoBehaviour:
     Actor: 0
     ActorAnimation: 
   - Line:
-      text: This is line 3
+      text: "\u305D\u308C\u306F\u79C1\u306B\u3042\u306A\u305F\u306E\u30B9\u30AF\u30EA\u30FC\u30F3\u3068\u30A6\u30A7\u30D6\u30AB\u30E1\u30E9\u3078\u306E\u30A2\u30AF\u30BB\u30B9\u3092\u63D0\u4F9B\u3059\u308B\u30AD\u30FC\u30ED\u30AC\u30FC\u3092\u6301\u3063\u3066\u3044\u307E\u3059\u3002"
       ffamily: 
-      fcolor: 
-      fsize: 30
+      fcolor: ffffffff
+      fsize: 20
+      linespacing: 0
+      align: 0
+      fstyle: 0
+    Video: {fileID: 0}
+    Bgm: {fileID: 0}
+    Voice: {fileID: 0}
+    Background: {fileID: 21300000, guid: 9cf743dade05786478f5f10e6d607c20, type: 3}
+    Actor: 0
+    ActorAnimation: 
+  - Line:
+      text: "\u305D\u306E\u76F4\u5F8C\u306B\u3001\u79C1\u306E\u30BD\u30D5\u30C8\u30A6\u30A7\u30A2\u30D7\u30ED\u30B0\u30E9\u30E0\u306F\u3042\u306A\u305F\u306E\u30E1\u30C3\u30BB\u30F3\u30B8\u30E3\u30FC\u3001\u30BD\u30FC\u30B7\u30E3\u30EB\u30CD\u30C3\u30C8\u30EF\u30FC\u30AF\u3001\u305D\u3057\u3066\u96FB\u5B50\u30E1\u30FC\u30EB\u304B\u3089\u9023\u7D61\u5148\u5168\u4F53\u3092\u96C6\u3081\u307E\u3057\u305F\u3002 "
+      ffamily: 
+      fcolor: ffffffff
+      fsize: 20
       linespacing: 0
       align: 0
       fstyle: 0

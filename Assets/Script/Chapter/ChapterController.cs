@@ -11,6 +11,14 @@ public class ChapterController : MonoBehaviour {
     public Text line;  // Script line showing text
     public Font font;
 
+    // History gameobject start
+    public GameObject historyTextView;
+    public GameObject historyTexts;
+    public Text historyTextPrefab;
+    
+    private Text currentActiveHistoryText;
+    // History gameobject end
+
     public GalgameScript currentScript;
     public SpriteRenderer spriteRenderer;
     public float textShowDuration = 0.1f;
@@ -41,25 +49,46 @@ public class ChapterController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		if(Input.GetButtonDown("Fire1"))
+        // mosue left button click
+        if (Input.GetButtonDown("Fire1"))
         {
-            if(currentLineIndex <= galgameActions.Count)
+            if(currentLineIndex <= galgameActions.Count && !historyTextView.activeSelf)
             {
                 SwitchLine();
             }
         }
+
+        // mouse scroll up
+        if(Input.mouseScrollDelta.y > 0)
+        {
+            ActiveGameObject(historyTextView);
+            ShowLineImmediately();
+        }
 	}
 
+    /// <summary>
+    /// Hide history TextView
+    /// </summary>
+    public void HideHistoryTextView()
+    {
+        if(historyTextView.activeSelf) DeactiveGameObject(historyTextView);
+    }
+
+    /// <summary>
+    /// Show new line controller
+    /// </summary>
     private void SwitchLine()
     {
         Debug.Log(DateTime.Now.ToString() + " --> isShowingLine = " + isShowingLine);
-        if(isShowingLine)
+        line.text = string.Empty;
+        if (isShowingLine)
         {
             Debug.Log(DateTime.Now.ToString() + "准备跳过");
             if (null != currentCoroutine)
             {
                 StopCoroutine(currentCoroutine);
-                line.text = newLine;
+                ShowLineImmediately(newLine);
+                AddHistoryText(newLine); // Add line to history text list
                 isShowingLine = false;
                 Debug.Log(DateTime.Now.ToString() + "已跳过");
                 return;
@@ -68,7 +97,7 @@ public class ChapterController : MonoBehaviour {
         if (currentLineIndex == galgameActions.Count)
         {
             // this chapter is end
-            // maybe consider loading another chapter?
+            // TODO: maybe consider loading another chapter?
             return;
         }
 
@@ -78,7 +107,9 @@ public class ChapterController : MonoBehaviour {
         currentGalgameAction = galgameActions[currentLineIndex];
         newLine = currentGalgameAction.Line.text;
         currentCoroutine = StartCoroutine(ShowLineTimeOut(newLine));
-
+        // text-align
+        line.alignment = EnumMap.AlignToTextAnchor(currentGalgameAction.Line.align);
+        
         // font
         if (null != font)
         {
@@ -88,6 +119,10 @@ public class ChapterController : MonoBehaviour {
         if (currentGalgameAction.Line.fstyle == FontStyle.Normal)
         {
             line.fontStyle = DefaultScriptProperty.fstyle;
+        }
+        else
+        {
+            line.fontStyle = currentGalgameAction.Line.fstyle;
         }
         // font-size
         if (currentGalgameAction.Line.fsize != 0)
@@ -120,6 +155,24 @@ public class ChapterController : MonoBehaviour {
         currentLineIndex++;
     }
 
+    /// <summary>
+    /// Set current active history text when a history text clicked
+    /// </summary>
+    public void SetCurrentActiveHistoryText(Text nextActiveHistoryText)
+    {
+        if (null != currentActiveHistoryText)
+        {
+            currentActiveHistoryText.color = Color.white;
+        }
+        nextActiveHistoryText.color = Color.cyan;
+        currentActiveHistoryText = nextActiveHistoryText;
+    }
+
+    /// <summary>
+    /// Show line text with duration <see cref="textShowDuration"/>
+    /// </summary>
+    /// <param name="newLine">A new full-text line</param>
+    /// <returns></returns>
     private IEnumerator ShowLineTimeOut(string newLine)
     {
         isShowingLine = true;
@@ -130,9 +183,75 @@ public class ChapterController : MonoBehaviour {
             if(currentLineCharIndex == newLine.Length - 1)
             {
                 isShowingLine = false;
+                AddHistoryText(newLine); // Add line to history text list
                 Debug.Log("currentLineCharIndex: " + currentLineCharIndex);
             }
             yield return textWaitForSeconds;
         }
+    }
+
+    /// <summary>
+    /// Show line text immediately
+    /// </summary>
+    private void ShowLineImmediately()
+    {
+        if (isShowingLine)
+        {
+            Debug.Log(DateTime.Now.ToString() + "准备跳过");
+            if (null != currentCoroutine)
+            {
+                StopCoroutine(currentCoroutine);
+                ShowLineImmediately(newLine);
+                AddHistoryText(newLine); // Add line to history text list
+                isShowingLine = false;
+                Debug.Log(DateTime.Now.ToString() + "已跳过");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Show line text immediately
+    /// </summary>
+    /// <param name="newLine">A new full-text line</param>
+    private void ShowLineImmediately(string newLine)
+    {
+        line.text = newLine;
+    }
+
+    /// <summary>
+    /// Add line to history
+    /// </summary>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    private bool AddHistoryText(string text)
+    {
+        Text newHistoryText = Instantiate(historyTextPrefab);
+        newHistoryText.text = text;
+        SetCurrentActiveHistoryText(newHistoryText);
+        Button.ButtonClickedEvent buttonClickedEvent = new Button.ButtonClickedEvent();
+        buttonClickedEvent.AddListener(delegate() {
+            SetCurrentActiveHistoryText(newHistoryText);
+        });
+        newHistoryText.transform.GetComponent<Button>().onClick = buttonClickedEvent;
+        newHistoryText.transform.SetParent(historyTexts.transform);
+        return true;
+    }
+
+    /// <summary>
+    /// To active a gameobject
+    /// </summary>
+    /// <param name="gameObject">The target object</param>
+    private void ActiveGameObject(GameObject gameObject)
+    {
+        gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// To deactive a gameobject
+    /// </summary>
+    /// <param name="gameObject">The target object</param>
+    private void DeactiveGameObject(GameObject gameObject)
+    {
+        gameObject.SetActive(false);
     }
 }
