@@ -4,24 +4,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ChapterController : MonoBehaviour {
 
-    public Text line;  // Script line showing text
+    #region Fields
+    public Text line;   // Script line showing text
     public Font font;
 
     // History gameobject start
+    public GameObject mainCanvas;
     public GameObject historyTextView;
     public GameObject historyTexts;
     public Text historyTextPrefab;
-    
     private Text currentActiveHistoryText;
     // History gameobject end
 
     public GalgameScript currentScript;
     public SpriteRenderer spriteRenderer;
     public float textShowDuration = 0.1f;
+    public float lineSwitchDuration = 5.0f;
 
     private List<GalgameAction> galgameActions;
     private GalgameAction currentGalgameAction;
@@ -30,9 +33,12 @@ public class ChapterController : MonoBehaviour {
     private bool isShowingLine;
     private bool isBreakShowingLine;
     private string newLine;
-    private Coroutine currentCoroutine;
+    private Coroutine currentTextShowCoroutine;
+    private Coroutine currentLineSwitchCoroutine;
 
-    private static WaitForSeconds textWaitForSeconds;
+    private static WaitForSeconds textShowWaitForSeconds;
+    private static WaitForSeconds lineSwitchWaitForSeconds;
+    #endregion
 
     // Use this for initialization
     void Start () {
@@ -44,7 +50,8 @@ public class ChapterController : MonoBehaviour {
         {
             spriteRenderer.sprite = currentScript.Bg;
         }
-        textWaitForSeconds = new WaitForSeconds(textShowDuration);
+        textShowWaitForSeconds = new WaitForSeconds(textShowDuration);
+        lineSwitchWaitForSeconds = new WaitForSeconds(lineSwitchDuration);
     }
 
     // Update is called once per frame
@@ -52,9 +59,22 @@ public class ChapterController : MonoBehaviour {
         // mosue left button click
         if (Input.GetButtonDown("Fire1"))
         {
-            if(currentLineIndex <= galgameActions.Count && !historyTextView.activeSelf)
+            GameObject hitUIObject = null;
+
+            if(EventSystem.current.IsPointerOverGameObject())
             {
-                SwitchLine();
+                hitUIObject = GetMouseOverUIObject(mainCanvas);
+                Debug.Log("---- EventSystem.current.IsPointerOverGameObject ----" + GetMouseOverUIObject(mainCanvas).tag);
+            }
+
+            // Debug.Log(null == hitObject ? "null == hitObject" : "hitObject: " + hitObject.name);
+
+            if (currentLineIndex <= galgameActions.Count && !historyTextView.activeSelf)
+            {
+                if(null == hitUIObject || (null != hitUIObject && hitUIObject.tag.Trim() != "OperationButton"))
+                {
+                    SwitchLine();
+                }
             }
         }
 
@@ -66,6 +86,7 @@ public class ChapterController : MonoBehaviour {
         }
 	}
 
+    #region Pubilc scene action
     /// <summary>
     /// Hide history TextView
     /// </summary>
@@ -74,6 +95,24 @@ public class ChapterController : MonoBehaviour {
         if(historyTextView.activeSelf) DeactiveGameObject(historyTextView);
     }
 
+    /// <summary>
+    /// Auto Reading
+    /// </summary>
+    public void AutoReading()
+    {
+        if(null == currentLineSwitchCoroutine)
+        {
+            currentLineSwitchCoroutine = StartCoroutine(SwitchLineAutoly());
+        }
+        else
+        {
+            StopCoroutine(currentLineSwitchCoroutine);
+            currentLineSwitchCoroutine = null;
+        }
+    }
+    #endregion
+
+    #region Private methods
     /// <summary>
     /// Show new line controller
     /// </summary>
@@ -84,9 +123,9 @@ public class ChapterController : MonoBehaviour {
         if (isShowingLine)
         {
             Debug.Log(DateTime.Now.ToString() + "准备跳过");
-            if (null != currentCoroutine)
+            if (null != currentTextShowCoroutine)
             {
-                StopCoroutine(currentCoroutine);
+                StopCoroutine(currentTextShowCoroutine);
                 ShowLineImmediately(newLine);
                 AddHistoryText(newLine); // Add line to history text list
                 isShowingLine = false;
@@ -106,7 +145,7 @@ public class ChapterController : MonoBehaviour {
         currentLineCharIndex = -1; // read from index: -1
         currentGalgameAction = galgameActions[currentLineIndex];
         newLine = currentGalgameAction.Line.text;
-        currentCoroutine = StartCoroutine(ShowLineTimeOut(newLine));
+        currentTextShowCoroutine = StartCoroutine(ShowLineTimeOut(newLine));
         // text-align
         line.alignment = EnumMap.AlignToTextAnchor(currentGalgameAction.Line.align);
         
@@ -158,7 +197,7 @@ public class ChapterController : MonoBehaviour {
     /// <summary>
     /// Set current active history text when a history text clicked
     /// </summary>
-    public void SetCurrentActiveHistoryText(Text nextActiveHistoryText)
+    private void SetCurrentActiveHistoryText(Text nextActiveHistoryText)
     {
         if (null != currentActiveHistoryText)
         {
@@ -169,11 +208,23 @@ public class ChapterController : MonoBehaviour {
     }
 
     /// <summary>
+    /// Switch line autoly with duration while the 
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator SwitchLineAutoly()
+    {
+        Debug.Log("0: "+Time.deltaTime);
+        yield return lineSwitchWaitForSeconds;
+        Debug.Log("1: " + Time.deltaTime);
+    }
+
+    /// <summary>
     /// Show line text with duration <see cref="textShowDuration"/>
     /// </summary>
     /// <param name="newLine">A new full-text line</param>
+    /// <param name="autoSwitchLine">Auto reading mode</param>
     /// <returns></returns>
-    private IEnumerator ShowLineTimeOut(string newLine)
+    private IEnumerator ShowLineTimeOut(string newLine, bool autoSwitchLine = false)
     {
         isShowingLine = true;
         foreach (char lineChar in newLine)
@@ -186,7 +237,7 @@ public class ChapterController : MonoBehaviour {
                 AddHistoryText(newLine); // Add line to history text list
                 Debug.Log("currentLineCharIndex: " + currentLineCharIndex);
             }
-            yield return textWaitForSeconds;
+            yield return textShowWaitForSeconds;
         }
     }
 
@@ -198,9 +249,9 @@ public class ChapterController : MonoBehaviour {
         if (isShowingLine)
         {
             Debug.Log(DateTime.Now.ToString() + "准备跳过");
-            if (null != currentCoroutine)
+            if (null != currentTextShowCoroutine)
             {
-                StopCoroutine(currentCoroutine);
+                StopCoroutine(currentTextShowCoroutine);
                 ShowLineImmediately(newLine);
                 AddHistoryText(newLine); // Add line to history text list
                 isShowingLine = false;
@@ -254,4 +305,20 @@ public class ChapterController : MonoBehaviour {
     {
         gameObject.SetActive(false);
     }
+
+    private GameObject GetMouseOverUIObject(GameObject canvas)
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = Input.mousePosition;
+        GraphicRaycaster gr = canvas.GetComponent<GraphicRaycaster>();
+        List<RaycastResult> results = new List<RaycastResult>();
+        gr.Raycast(pointerEventData, results);
+        if (results.Count != 0)
+        {
+            return results[0].gameObject;
+        }
+
+        return null;
+    }
+    #endregion
 }
