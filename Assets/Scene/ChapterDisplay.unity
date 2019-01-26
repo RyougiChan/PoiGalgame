@@ -212,7 +212,7 @@ MonoBehaviour:
   currentScript: {fileID: 11400000, guid: 14ba337e2d923af4482bfbe163d7763b, type: 2}
   spriteRenderer: {fileID: 608068933}
   textShowDuration: 0.1
-  lineSwitchDuration: 5
+  lineSwitchDuration: 3
 --- !u!1 &196405539
 GameObject:
   m_ObjectHideFlags: 0

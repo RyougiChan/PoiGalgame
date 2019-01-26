@@ -31,6 +31,7 @@ public class ChapterController : MonoBehaviour {
     private int currentLineIndex;
     private int currentLineCharIndex;
     private bool isShowingLine;
+    private bool isAutoReadingModeOn;
     private bool isBreakShowingLine;
     private string newLine;
     private Coroutine currentTextShowCoroutine;
@@ -45,6 +46,7 @@ public class ChapterController : MonoBehaviour {
         // Init line
         // Init currentScript, galgameActions, currentLineIndex
         // currentLineIndex = 0; // ?
+        isAutoReadingModeOn = false;
         galgameActions = currentScript.GalgameActions;
         if(null != currentScript.Bg)
         {
@@ -65,6 +67,20 @@ public class ChapterController : MonoBehaviour {
             {
                 hitUIObject = GetMouseOverUIObject(mainCanvas);
                 Debug.Log("---- EventSystem.current.IsPointerOverGameObject ----" + GetMouseOverUIObject(mainCanvas).tag);
+            }
+
+            if (null != hitUIObject && hitUIObject.tag.Trim() == "OperationButton")
+            {
+                Debug.Log("hitUIObject.name: " + hitUIObject.name);
+                switch (hitUIObject.name)
+                {
+                    // Click on UI button named 'AutoPlayBtn'
+                    case "AutoPlay":
+                        // Change text style
+                        Debug.Log("isAutoReadingModeOn: " + isAutoReadingModeOn);
+                        hitUIObject.GetComponent<Text>().color = isAutoReadingModeOn ? Color.black : Color.cyan;
+                        break;
+                }
             }
 
             // Debug.Log(null == hitObject ? "null == hitObject" : "hitObject: " + hitObject.name);
@@ -90,9 +106,17 @@ public class ChapterController : MonoBehaviour {
     /// <summary>
     /// Hide history TextView
     /// </summary>
-    public void HideHistoryTextView()
+    public IEnumerator HideHistoryTextView()
     {
-        if(historyTextView.activeSelf) DeactiveGameObject(historyTextView);
+        if(historyTextView.activeSelf)
+        {
+            DeactiveGameObject(historyTextView);
+            if(isAutoReadingModeOn)
+            {
+                yield return lineSwitchWaitForSeconds;
+                SwitchLine();
+            }
+        }
     }
 
     /// <summary>
@@ -100,14 +124,10 @@ public class ChapterController : MonoBehaviour {
     /// </summary>
     public void AutoReading()
     {
-        if(null == currentLineSwitchCoroutine)
+        isAutoReadingModeOn = isAutoReadingModeOn ? false : true;
+        if (isAutoReadingModeOn && !isShowingLine)
         {
-            currentLineSwitchCoroutine = StartCoroutine(SwitchLineAutoly());
-        }
-        else
-        {
-            StopCoroutine(currentLineSwitchCoroutine);
-            currentLineSwitchCoroutine = null;
+            SwitchLine();
         }
     }
     #endregion
@@ -208,17 +228,6 @@ public class ChapterController : MonoBehaviour {
     }
 
     /// <summary>
-    /// Switch line autoly with duration while the 
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator SwitchLineAutoly()
-    {
-        Debug.Log("0: "+Time.deltaTime);
-        yield return lineSwitchWaitForSeconds;
-        Debug.Log("1: " + Time.deltaTime);
-    }
-
-    /// <summary>
     /// Show line text with duration <see cref="textShowDuration"/>
     /// </summary>
     /// <param name="newLine">A new full-text line</param>
@@ -236,6 +245,11 @@ public class ChapterController : MonoBehaviour {
                 isShowingLine = false;
                 AddHistoryText(newLine); // Add line to history text list
                 Debug.Log("currentLineCharIndex: " + currentLineCharIndex);
+                if(isAutoReadingModeOn)
+                {
+                    yield return lineSwitchWaitForSeconds;
+                    SwitchLine();
+                }
             }
             yield return textShowWaitForSeconds;
         }
@@ -256,6 +270,11 @@ public class ChapterController : MonoBehaviour {
                 AddHistoryText(newLine); // Add line to history text list
                 isShowingLine = false;
                 Debug.Log(DateTime.Now.ToString() + "已跳过");
+                // If isAutoReadingModeOn == true, call SwitchLine()
+                if (isAutoReadingModeOn && !historyTextView.activeSelf)
+                {
+                    SwitchLine();
+                }
             }
         }
     }
