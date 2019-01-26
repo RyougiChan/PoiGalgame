@@ -3,6 +3,7 @@ using Assets.Script.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -36,6 +37,7 @@ public class ChapterController : MonoBehaviour {
     private string newLine;
     private Coroutine currentTextShowCoroutine;
     private Coroutine currentLineSwitchCoroutine;
+    private Coroutine hideHistoryTextViewCoroutine;
 
     private static WaitForSeconds textShowWaitForSeconds;
     private static WaitForSeconds lineSwitchWaitForSeconds;
@@ -106,17 +108,9 @@ public class ChapterController : MonoBehaviour {
     /// <summary>
     /// Hide history TextView
     /// </summary>
-    public IEnumerator HideHistoryTextView()
+    public void HideHistoryTextView()
     {
-        if(historyTextView.activeSelf)
-        {
-            DeactiveGameObject(historyTextView);
-            if(isAutoReadingModeOn)
-            {
-                yield return lineSwitchWaitForSeconds;
-                SwitchLine();
-            }
-        }
+        hideHistoryTextViewCoroutine = StartCoroutine(HideHistoryTextViewTimeOut());
     }
 
     /// <summary>
@@ -125,14 +119,31 @@ public class ChapterController : MonoBehaviour {
     public void AutoReading()
     {
         isAutoReadingModeOn = isAutoReadingModeOn ? false : true;
-        if (isAutoReadingModeOn && !isShowingLine)
+        // If isAutoReadingModeOn == true, call SwitchLine()
+        if (isAutoReadingModeOn && !historyTextView.activeSelf && !isShowingLine)
         {
-            SwitchLine();
+            currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
         }
     }
     #endregion
 
     #region Private methods
+    /// <summary>
+    /// Hide history TextView with duration
+    /// </summary>
+    private IEnumerator HideHistoryTextViewTimeOut()
+    {
+        if (historyTextView.activeSelf)
+        {
+            DeactiveGameObject(historyTextView);
+            if (isAutoReadingModeOn)
+            {
+                yield return lineSwitchWaitForSeconds;
+                SwitchLine();
+            }
+        }
+    }
+
     /// <summary>
     /// Show new line controller
     /// </summary>
@@ -273,7 +284,7 @@ public class ChapterController : MonoBehaviour {
                 // If isAutoReadingModeOn == true, call SwitchLine()
                 if (isAutoReadingModeOn && !historyTextView.activeSelf)
                 {
-                    SwitchLine();
+                    currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
                 }
             }
         }
@@ -286,6 +297,22 @@ public class ChapterController : MonoBehaviour {
     private void ShowLineImmediately(string newLine)
     {
         line.text = newLine;
+
+        // If isAutoReadingModeOn == true, call SwitchLine()
+        if (isAutoReadingModeOn && !historyTextView.activeSelf)
+        {
+            Debug.Log("1: historyTextView.activeSelf=" + historyTextView.activeSelf);
+            currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
+        }
+    }
+
+    private IEnumerator SwitchLineTimeout()
+    {
+        yield return lineSwitchWaitForSeconds;
+        if(!isShowingLine && !historyTextView.activeSelf)
+        {
+            SwitchLine();
+        }
     }
 
     /// <summary>
@@ -338,6 +365,26 @@ public class ChapterController : MonoBehaviour {
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Wait for seconds
+    /// </summary>
+    /// <param name="seconds"></param>
+    /// <returns></returns>
+    private IEnumerator WaitForSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+    }
+
+    /// <summary>
+    /// Wait for seconds
+    /// </summary>
+    /// <param name="waitForSeconds"></param>
+    /// <returns></returns>
+    private IEnumerator WaitForSeconds(WaitForSeconds waitForSeconds)
+    {
+        yield return waitForSeconds;
     }
     #endregion
 }
