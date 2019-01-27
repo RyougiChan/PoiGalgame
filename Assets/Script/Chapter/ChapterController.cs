@@ -8,64 +8,93 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChapterController : MonoBehaviour {
+public class ChapterController : MonoBehaviour
+{
 
     #region Fields
     public Text line;   // Script line showing text
     public Font font;
 
-    // History gameobject start
+    #region Game objects
+    #region History gameobjects
     public GameObject mainCanvas;
     public GameObject historyTextView;
     public GameObject historyTexts;
     public Text historyTextPrefab;
     private Text currentActiveHistoryText;
-    // History gameobject end
+    #endregion
 
+    #region Operation buttons
+    public GameObject autoPlayButon;
+    public GameObject skipButton;
+    public GameObject saveButton;
+    public GameObject loadButton;
+    public GameObject settingButton;
+    #endregion
+    #endregion
+
+    // Game objects end
+
+
+    // Current displaying script
     public GalgameScript currentScript;
     public SpriteRenderer spriteRenderer;
+    // Setting: Duration of text showing speed, in seconds
     public float textShowDuration = 0.1f;
-    public float lineSwitchDuration = 5.0f;
+    // Setting: Duration of line auto switch speed, in seconds
+    public float lineSwitchDuration = 3.0f;
+    // Duration of line switch speed under skip mode, in seconds
+    private float skipModeLineSwitchDuration = 0.1f;
 
     private List<GalgameAction> galgameActions;
     private GalgameAction currentGalgameAction;
+    // Current showing line's index in `currentScript`
     private int currentLineIndex;
+    // Current showing line text's index of char
     private int currentLineCharIndex;
+    // Is a line text is showing
     private bool isShowingLine;
+    // Is auto-reading mode is actived
     private bool isAutoReadingModeOn;
-    private bool isBreakShowingLine;
-    private string newLine;
+    // Is skip mode is actived
+    private bool isSkipModeOn;
+    // Next line to display
+    private string nextLine;
+
     private Coroutine currentTextShowCoroutine;
     private Coroutine currentLineSwitchCoroutine;
     private Coroutine hideHistoryTextViewCoroutine;
-
     private static WaitForSeconds textShowWaitForSeconds;
     private static WaitForSeconds lineSwitchWaitForSeconds;
+    private static WaitForSeconds skipModeLineSwitchWaitForSeconds;
     #endregion
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         // Init line
         // Init currentScript, galgameActions, currentLineIndex
         // currentLineIndex = 0; // ?
         isAutoReadingModeOn = false;
         galgameActions = currentScript.GalgameActions;
-        if(null != currentScript.Bg)
+        if (null != currentScript.Bg)
         {
             spriteRenderer.sprite = currentScript.Bg;
         }
         textShowWaitForSeconds = new WaitForSeconds(textShowDuration);
         lineSwitchWaitForSeconds = new WaitForSeconds(lineSwitchDuration);
+        skipModeLineSwitchWaitForSeconds = new WaitForSeconds(skipModeLineSwitchDuration);
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         // mosue left button click
         if (Input.GetButtonDown("Fire1"))
         {
             GameObject hitUIObject = null;
 
-            if(EventSystem.current.IsPointerOverGameObject())
+            if (EventSystem.current.IsPointerOverGameObject())
             {
                 hitUIObject = GetMouseOverUIObject(mainCanvas);
                 Debug.Log("---- EventSystem.current.IsPointerOverGameObject ----" + GetMouseOverUIObject(mainCanvas).tag);
@@ -80,7 +109,14 @@ public class ChapterController : MonoBehaviour {
                     case "AutoPlay":
                         // Change text style
                         Debug.Log("isAutoReadingModeOn: " + isAutoReadingModeOn);
+                        if (null == autoPlayButon) autoPlayButon = hitUIObject;
                         hitUIObject.GetComponent<Text>().color = isAutoReadingModeOn ? Color.black : Color.cyan;
+                        break;
+                    case "Skip":
+                        // Change text style
+                        Debug.Log("isSkipModeOn: " + isSkipModeOn);
+                        if (null == skipButton) skipButton = hitUIObject;
+                        hitUIObject.GetComponent<Text>().color = isSkipModeOn ? Color.black : Color.cyan;
                         break;
                 }
             }
@@ -89,7 +125,7 @@ public class ChapterController : MonoBehaviour {
 
             if (currentLineIndex <= galgameActions.Count && !historyTextView.activeSelf)
             {
-                if(null == hitUIObject || (null != hitUIObject && hitUIObject.tag.Trim() != "OperationButton"))
+                if (null == hitUIObject || (null != hitUIObject && hitUIObject.tag.Trim() != "OperationButton"))
                 {
                     SwitchLine();
                 }
@@ -97,14 +133,22 @@ public class ChapterController : MonoBehaviour {
         }
 
         // mouse scroll up
-        if(Input.mouseScrollDelta.y > 0)
+        if (Input.mouseScrollDelta.y > 0)
         {
-            ActiveGameObject(historyTextView);
-            ShowLineImmediately();
+            ShowHistoryTextView();
         }
-	}
+    }
 
     #region Pubilc scene action
+    /// <summary>
+    /// Show history TextView
+    /// </summary>
+    public void ShowHistoryTextView()
+    {
+        ActiveGameObject(historyTextView);
+        ShowLineImmediately();
+    }
+
     /// <summary>
     /// Hide history TextView
     /// </summary>
@@ -125,9 +169,93 @@ public class ChapterController : MonoBehaviour {
             currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
         }
     }
+
+    /// <summary>
+    /// Enable/Disable skip mode
+    /// </summary>
+    public void ChangeSkipMode()
+    {
+        isSkipModeOn = isSkipModeOn ? false : true;
+        if(isSkipModeOn)
+        {
+            StopAllCoroutines();
+            ShowLineImmediately();
+            SwitchLine();
+        }
+    }
+
+    /// <summary>
+    /// Save
+    /// </summary>
+    public void Save()
+    {
+
+    }
+
+    /// <summary>
+    /// Quick save
+    /// </summary>
+    public void QuickSave()
+    {
+
+    }
+
+    /// <summary>
+    /// Load saved data
+    /// </summary>
+    public void Load()
+    {
+
+    }
+
+    /// <summary>
+    /// System configuration
+    /// </summary>
+    public void ChangeSetting()
+    {
+
+    }
+
+    /// <summary>
+    /// Request full screen mode
+    /// </summary>
+    public void FullScreen()
+    {
+
+    }
+
+    /// <summary>
+    /// Return to title screen
+    /// </summary>
+    public void ReturnToTitleScreen()
+    {
+
+    }
+
+    /// <summary>
+    /// Hide text display panel
+    /// </summary>
+    public void HideMessage()
+    {
+
+    }
+
+    /// <summary>
+    /// Close game
+    /// </summary>
+    public void CloseGame()
+    {
+
+    }
+
     #endregion
 
     #region Private methods
+    private void DisableSkipMode()
+    {
+        isSkipModeOn = false;
+        skipButton.GetComponent<Text>().color = Color.black;
+    }
     /// <summary>
     /// Hide history TextView with duration
     /// </summary>
@@ -157,8 +285,8 @@ public class ChapterController : MonoBehaviour {
             if (null != currentTextShowCoroutine)
             {
                 StopCoroutine(currentTextShowCoroutine);
-                ShowLineImmediately(newLine);
-                AddHistoryText(newLine); // Add line to history text list
+                ShowLineImmediately(nextLine);
+                AddHistoryText(nextLine); // Add line to history text list
                 isShowingLine = false;
                 Debug.Log(DateTime.Now.ToString() + "已跳过");
                 return;
@@ -166,6 +294,10 @@ public class ChapterController : MonoBehaviour {
         }
         if (currentLineIndex == galgameActions.Count)
         {
+            if(isSkipModeOn)
+            {
+                DisableSkipMode();
+            }
             // this chapter is end
             // TODO: maybe consider loading another chapter?
             return;
@@ -175,11 +307,18 @@ public class ChapterController : MonoBehaviour {
         line.text = string.Empty; // clear previous line
         currentLineCharIndex = -1; // read from index: -1
         currentGalgameAction = galgameActions[currentLineIndex];
-        newLine = currentGalgameAction.Line.text;
-        currentTextShowCoroutine = StartCoroutine(ShowLineTimeOut(newLine));
+        nextLine = currentGalgameAction.Line.text;
+        if (isSkipModeOn)
+        {
+            ShowLineImmediately();
+        }
+        else
+        {
+            currentTextShowCoroutine = StartCoroutine(ShowLineTimeOut(nextLine));
+        }
         // text-align
         line.alignment = EnumMap.AlignToTextAnchor(currentGalgameAction.Line.align);
-        
+
         // font
         if (null != font)
         {
@@ -251,12 +390,12 @@ public class ChapterController : MonoBehaviour {
         {
             currentLineCharIndex++;
             line.text += lineChar;
-            if(currentLineCharIndex == newLine.Length - 1)
+            if (currentLineCharIndex == newLine.Length - 1)
             {
                 isShowingLine = false;
                 AddHistoryText(newLine); // Add line to history text list
                 Debug.Log("currentLineCharIndex: " + currentLineCharIndex);
-                if(isAutoReadingModeOn)
+                if (isAutoReadingModeOn)
                 {
                     yield return lineSwitchWaitForSeconds;
                     SwitchLine();
@@ -277,16 +416,23 @@ public class ChapterController : MonoBehaviour {
             if (null != currentTextShowCoroutine)
             {
                 StopCoroutine(currentTextShowCoroutine);
-                ShowLineImmediately(newLine);
-                AddHistoryText(newLine); // Add line to history text list
                 isShowingLine = false;
-                Debug.Log(DateTime.Now.ToString() + "已跳过");
-                // If isAutoReadingModeOn == true, call SwitchLine()
-                if (isAutoReadingModeOn && !historyTextView.activeSelf)
-                {
-                    currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
-                }
             }
+        }
+        AddHistoryText(nextLine); // Add line to history text list
+        ShowLineImmediately(nextLine);
+        Debug.Log(DateTime.Now.ToString() + "已跳过");
+        // If isAutoReadingModeOn == true, call SwitchLine()
+        if (isAutoReadingModeOn && !historyTextView.activeSelf && !isSkipModeOn)
+        {
+            currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
+        }
+
+        if (isSkipModeOn)
+        {
+            // ShowLineImmediately();
+            Debug.Log("StartCoroutine(SwitchLineTimeout(skipModeLineSwitchWaitForSeconds))");
+            StartCoroutine(SwitchLineTimeout(skipModeLineSwitchWaitForSeconds));
         }
     }
 
@@ -306,10 +452,19 @@ public class ChapterController : MonoBehaviour {
         }
     }
 
+    private IEnumerator SwitchLineTimeout(WaitForSeconds waitForSeconds)
+    {
+        yield return waitForSeconds;
+        if (!isShowingLine && !historyTextView.activeSelf)
+        {
+            SwitchLine();
+        }
+    }
+
     private IEnumerator SwitchLineTimeout()
     {
         yield return lineSwitchWaitForSeconds;
-        if(!isShowingLine && !historyTextView.activeSelf)
+        if (!isShowingLine && !historyTextView.activeSelf && !isSkipModeOn)
         {
             SwitchLine();
         }
@@ -326,7 +481,8 @@ public class ChapterController : MonoBehaviour {
         newHistoryText.text = text;
         SetCurrentActiveHistoryText(newHistoryText);
         Button.ButtonClickedEvent buttonClickedEvent = new Button.ButtonClickedEvent();
-        buttonClickedEvent.AddListener(delegate() {
+        buttonClickedEvent.AddListener(delegate ()
+        {
             SetCurrentActiveHistoryText(newHistoryText);
         });
         newHistoryText.transform.GetComponent<Button>().onClick = buttonClickedEvent;
