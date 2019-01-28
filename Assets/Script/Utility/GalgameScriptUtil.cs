@@ -1,4 +1,5 @@
-﻿using Assets.Script.Model;
+﻿#if UNITY_EDITOR
+using Assets.Script.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -46,7 +47,6 @@ namespace Assets.Script.Utility
             EditorUtility.FocusProjectWindow();
             Selection.activeObject = ggs;
         }
-
         public static GalgameScript KsScriptToGalgameScript(List<KsScriptLine> ksScript)
         {
             if (null == ksScript || ksScript.Count == 0) return null;
@@ -270,3 +270,4 @@ namespace Assets.Script.Utility
         }
     }
 }
+#endif

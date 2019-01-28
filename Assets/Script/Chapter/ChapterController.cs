@@ -554,25 +554,6 @@ public class ChapterController : MonoBehaviour
             saveDataClickEvent.AddListener(delegate ()
             {
                 // Click Callback
-                Debug.Log("Application.dataPath: " + Application.dataPath);
-                Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
-                Debug.Log("Application.streamingAssetsPath: " + Application.streamingAssetsPath);
-                Debug.Log("Application.temporaryCachePath: " + Application.temporaryCachePath);
-                Debug.Log("AppDomain.CurrentDomain.BaseDirectory: " + AppDomain.CurrentDomain.BaseDirectory);
-                Debug.Log("AppDomain.CurrentDomain.DynamicDirectory: " + AppDomain.CurrentDomain.DynamicDirectory);
-                if(!Directory.Exists("D:/Workspaces/Github/PoiGalgame/Logs/"))
-                {
-                    Directory.CreateDirectory("D:/Workspaces/Github/PoiGalgame/Logs/");
-                }
-                using (StreamWriter w = new StreamWriter(new FileStream("D:/Workspaces/Github/PoiGalgame/Logs/" + DateTime.Now.ToString("yyyyMMdd") + ".log", FileMode.OpenOrCreate)))
-                {
-                    w.WriteLine("Application.dataPath: " + Application.dataPath);
-                    w.WriteLine("Application.persistentDataPath: " + Application.persistentDataPath);
-                    w.WriteLine("Application.streamingAssetsPath: " + Application.streamingAssetsPath);
-                    w.WriteLine("Application.temporaryCachePath: " + Application.temporaryCachePath);
-                    w.WriteLine("AppDomain.CurrentDomain.BaseDirectory: " + AppDomain.CurrentDomain.BaseDirectory);
-                    w.WriteLine("AppDomain.CurrentDomain.DynamicDirectory: " + AppDomain.CurrentDomain.DynamicDirectory);
-                }
             });
             newEmptySaveDataModel.onClick = saveDataClickEvent;
             newEmptySaveDataModel.transform.SetParent(savedDataPanel.transform);

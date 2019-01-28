@@ -1,4 +1,5 @@
-﻿using Assets.Script.Model;
+﻿#if UNITY_EDITOR
+using Assets.Script.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -75,3 +76,4 @@ namespace Assets.Script.Utility
         }
     }
 }
+#endif

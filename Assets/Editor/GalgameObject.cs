@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Editors
 {
+    
     public class GalgameObject : ScriptableObject
     {
         /// <summary>
