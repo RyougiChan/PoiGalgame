@@ -1,6 +1,7 @@
 ﻿using Assets.Script.Model;
 using Assets.Script.Utility;
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -17,15 +18,21 @@ public class ChapterController : MonoBehaviour
 
     #region Game objects
     public GameObject mainCanvas;
+
+    #region Prefabs
+    public Text historyTextPrefab;
+    public Button saveDataModelPrefab;
+    #endregion
+
     #region History gameobjects
     public GameObject historyField;
     public GameObject historyTexts;
-    public Text historyTextPrefab;
     private Text currentActiveHistoryText;
     #endregion
 
     #region Saved data field
     public GameObject savedDataField;
+    public GameObject savedDataPanel;
     #endregion
 
     #region Setting field
@@ -130,12 +137,10 @@ public class ChapterController : MonoBehaviour
                         break;
                     case "Save":
                         if (null == saveButton) saveButton = hitUIObject;
-                        ActiveGameObject(savedDataField);
                         break;
                     case "Load":
                         // Change text style
                         if (null == loadButton) loadButton = hitUIObject;
-                        ActiveGameObject(savedDataField);
                         break;
                     case "Setting":
                         // Change text style
@@ -210,6 +215,9 @@ public class ChapterController : MonoBehaviour
     /// </summary>
     public void SaveData()
     {
+        Debug.Log("AddEmptySavedDataModels");
+        AddEmptySavedDataModels(12);
+        ActiveGameObject(savedDataField);
         Debug.Log(string.Format("Save Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
     }
 
@@ -226,6 +234,7 @@ public class ChapterController : MonoBehaviour
     /// </summary>
     public void LoadSavedData()
     {
+        ActiveGameObject(savedDataField);
         Debug.Log(string.Format("Load Saved Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
     }
 
@@ -242,7 +251,7 @@ public class ChapterController : MonoBehaviour
     /// </summary>
     public void FullScreen()
     {
-
+        
     }
 
     /// <summary>
@@ -528,6 +537,56 @@ public class ChapterController : MonoBehaviour
         newHistoryText.transform.GetComponent<Button>().onClick = buttonClickedEvent;
         newHistoryText.transform.SetParent(historyTexts.transform);
         return true;
+    }
+
+    /// <summary>
+    /// Add empty saved data model to <see cref="savedDataPanel"/> with specific number
+    /// </summary>
+    /// <param name="number">The specific number</param>
+    /// <returns></returns>
+    private List<Button> AddEmptySavedDataModels(int number)
+    {
+        List<Button> currentSaveDataList = new List<Button>();
+        for(int i = 0; i < number; i++)
+        {
+            Button newEmptySaveDataModel = Instantiate(saveDataModelPrefab);
+            Button.ButtonClickedEvent saveDataClickEvent = new Button.ButtonClickedEvent();
+            saveDataClickEvent.AddListener(delegate ()
+            {
+                // Click Callback
+                Debug.Log("Application.dataPath: " + Application.dataPath);
+                Debug.Log("Application.persistentDataPath: " + Application.persistentDataPath);
+                Debug.Log("Application.streamingAssetsPath: " + Application.streamingAssetsPath);
+                Debug.Log("Application.temporaryCachePath: " + Application.temporaryCachePath);
+                Debug.Log("AppDomain.CurrentDomain.BaseDirectory: " + AppDomain.CurrentDomain.BaseDirectory);
+                Debug.Log("AppDomain.CurrentDomain.DynamicDirectory: " + AppDomain.CurrentDomain.DynamicDirectory);
+                if(!Directory.Exists("D:/Workspaces/Github/PoiGalgame/Logs/"))
+                {
+                    Directory.CreateDirectory("D:/Workspaces/Github/PoiGalgame/Logs/");
+                }
+                using (StreamWriter w = new StreamWriter(new FileStream("D:/Workspaces/Github/PoiGalgame/Logs/" + DateTime.Now.ToString("yyyyMMdd") + ".log", FileMode.OpenOrCreate)))
+                {
+                    w.WriteLine("Application.dataPath: " + Application.dataPath);
+                    w.WriteLine("Application.persistentDataPath: " + Application.persistentDataPath);
+                    w.WriteLine("Application.streamingAssetsPath: " + Application.streamingAssetsPath);
+                    w.WriteLine("Application.temporaryCachePath: " + Application.temporaryCachePath);
+                    w.WriteLine("AppDomain.CurrentDomain.BaseDirectory: " + AppDomain.CurrentDomain.BaseDirectory);
+                    w.WriteLine("AppDomain.CurrentDomain.DynamicDirectory: " + AppDomain.CurrentDomain.DynamicDirectory);
+                }
+            });
+            newEmptySaveDataModel.onClick = saveDataClickEvent;
+            newEmptySaveDataModel.transform.SetParent(savedDataPanel.transform);
+            newEmptySaveDataModel.name = string.Format("SaveData_{0}", i+1);
+            newEmptySaveDataModel.GetComponent<RectTransform>().localScale = Vector3.one;
+            currentSaveDataList.Add(newEmptySaveDataModel);
+        }
+        return currentSaveDataList;
+    }
+
+    private List<Button> LoadSaveDataModels()
+    {
+        string rootPath = Application.dataPath;
+        return null;
     }
 
     /// <summary>

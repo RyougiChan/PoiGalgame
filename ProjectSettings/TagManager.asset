@@ -6,6 +6,7 @@ TagManager:
   tags:
   - OperationButtonSet
   - OperationButton
+  - SaveData
   layers:
   - Default
   - TransparentFX
