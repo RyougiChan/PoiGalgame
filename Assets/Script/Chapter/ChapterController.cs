@@ -8,6 +8,8 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 public class ChapterController : MonoBehaviour
 {
@@ -75,6 +77,10 @@ public class ChapterController : MonoBehaviour
     private bool isSkipModeOn;
     // Is menu is actived
     private bool isMenuActive;
+    // Is saving saved data now
+    private bool isSavingGameData;
+    // Is loading saved data now
+    private bool isLoadingSavedData;
     // Next line to display
     private string nextLine;
 
@@ -84,6 +90,7 @@ public class ChapterController : MonoBehaviour
     private static WaitForSeconds textShowWaitForSeconds;
     private static WaitForSeconds lineSwitchWaitForSeconds;
     private static WaitForSeconds skipModeLineSwitchWaitForSeconds;
+    private static List<SavedDataModel> savedDatas;
     #endregion
 
     // Use this for initialization
@@ -101,6 +108,7 @@ public class ChapterController : MonoBehaviour
         textShowWaitForSeconds = new WaitForSeconds(textShowDuration);
         lineSwitchWaitForSeconds = new WaitForSeconds(lineSwitchDuration);
         skipModeLineSwitchWaitForSeconds = new WaitForSeconds(skipModeLineSwitchDuration);
+        savedDatas = new List<SavedDataModel>(120);
     }
 
     // Update is called once per frame
@@ -139,11 +147,9 @@ public class ChapterController : MonoBehaviour
                         if (null == saveButton) saveButton = hitUIObject;
                         break;
                     case "Load":
-                        // Change text style
                         if (null == loadButton) loadButton = hitUIObject;
                         break;
                     case "Setting":
-                        // Change text style
                         if (null == settingButton) settingButton = hitUIObject;
                         break;
                 }
@@ -180,7 +186,7 @@ public class ChapterController : MonoBehaviour
     /// </summary>
     public void HidehistoryField()
     {
-        hidehistoryFieldCoroutine = StartCoroutine(HidehistoryFieldTimeOut());
+        hidehistoryFieldCoroutine = StartCoroutine(HideHistoryFieldTimeOut());
     }
 
     /// <summary>
@@ -190,7 +196,7 @@ public class ChapterController : MonoBehaviour
     {
         isAutoReadingModeOn = isAutoReadingModeOn ? false : true;
         // If isAutoReadingModeOn == true, call SwitchLine()
-        if (isAutoReadingModeOn && IsSwitchLineAllowed() && !isShowingLine)
+        if (isAutoReadingModeOn && IsSwitchLineAllowed() && !isSkipModeOn && !isShowingLine)
         {
             currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
         }
@@ -215,6 +221,7 @@ public class ChapterController : MonoBehaviour
     /// </summary>
     public void SaveData()
     {
+        isSavingGameData = true;
         Debug.Log("AddEmptySavedDataModels");
         AddEmptySavedDataModels(12);
         ActiveGameObject(savedDataField);
@@ -234,6 +241,7 @@ public class ChapterController : MonoBehaviour
     /// </summary>
     public void LoadSavedData()
     {
+        isLoadingSavedData = true;
         ActiveGameObject(savedDataField);
         Debug.Log(string.Format("Load Saved Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
     }
@@ -287,7 +295,7 @@ public class ChapterController : MonoBehaviour
     /// <returns></returns>
     private bool IsSwitchLineAllowed()
     {
-        return !isSkipModeOn && !isMenuActive && !historyField.activeSelf && !savedDataField.activeSelf && !settingField.activeSelf;
+        return !isMenuActive && !historyField.activeSelf && !savedDataField.activeSelf && !settingField.activeSelf;
     }
 
     /// <summary>
@@ -302,7 +310,7 @@ public class ChapterController : MonoBehaviour
     /// <summary>
     /// Hide history TextView with duration
     /// </summary>
-    private IEnumerator HidehistoryFieldTimeOut()
+    private IEnumerator HideHistoryFieldTimeOut()
     {
         if (historyField.activeSelf)
         {
@@ -465,7 +473,7 @@ public class ChapterController : MonoBehaviour
         ShowLineImmediately(nextLine);
         Debug.Log(DateTime.Now.ToString() + "已跳过");
         // If isAutoReadingModeOn == true, call SwitchLine()
-        if (isAutoReadingModeOn && IsSwitchLineAllowed())
+        if (!isSkipModeOn && isAutoReadingModeOn && IsSwitchLineAllowed())
         {
             currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
         }
@@ -487,7 +495,7 @@ public class ChapterController : MonoBehaviour
         line.text = newLine;
 
         // If isAutoReadingModeOn == true, call SwitchLine()
-        if (isAutoReadingModeOn && IsSwitchLineAllowed())
+        if (!isSkipModeOn && isAutoReadingModeOn && IsSwitchLineAllowed())
         {
             Debug.Log("1: historyField.activeSelf=" + historyField.activeSelf);
             currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
@@ -513,7 +521,7 @@ public class ChapterController : MonoBehaviour
     private IEnumerator SwitchLineTimeout()
     {
         yield return lineSwitchWaitForSeconds;
-        if (!isShowingLine && IsSwitchLineAllowed())
+        if (!isSkipModeOn && !isShowingLine && IsSwitchLineAllowed())
         {
             SwitchLine();
         }
@@ -540,6 +548,7 @@ public class ChapterController : MonoBehaviour
     }
 
     /// <summary>
+    /// TestMethod: Need to be replace.
     /// Add empty saved data model to <see cref="savedDataPanel"/> with specific number
     /// </summary>
     /// <param name="number">The specific number</param>
@@ -554,6 +563,20 @@ public class ChapterController : MonoBehaviour
             saveDataClickEvent.AddListener(delegate ()
             {
                 // Click Callback
+                if(isSavingGameData)
+                {
+                    // Save game data
+
+                    // TODO: Save current status of game.
+                }
+                if(isLoadingSavedData)
+                {
+                    // Load saved game data
+                    SavedDataModel theSavedData = LoadSavedData(i);
+                    if (null == theSavedData) return;
+
+                    // TODO: Refresh scene via the saved data.
+                }
             });
             newEmptySaveDataModel.onClick = saveDataClickEvent;
             newEmptySaveDataModel.transform.SetParent(savedDataPanel.transform);
@@ -564,10 +587,76 @@ public class ChapterController : MonoBehaviour
         return currentSaveDataList;
     }
 
-    private List<Button> LoadSaveDataModels()
+
+    /// <summary>
+    /// Save a saveddata at index of `index` and write to file [savedata]
+    /// </summary>
+    /// <param name="savedData">This data model to be saved</param>
+    /// <returns></returns>
+    private bool SaveData(SavedDataModel savedData)
     {
-        string rootPath = Application.dataPath;
+        if(null != savedData)
+        {
+            savedDatas.Add(savedData);
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    private List<SavedDataModel> LoadSavedDatas()
+    {
+        if(savedDatas.Count == 0)
+        {
+            string rootPath = Application.dataPath;
+            string savedDataPath = rootPath + "/Resource/SavedData/savedata.dat";
+
+            using (FileStream fs = new FileStream(savedDataPath, FileMode.OpenOrCreate))
+            {
+                using (StreamReader sr = new StreamReader(fs))
+                {
+                    string savedDataJson = sr.ReadToEnd();
+                    if (!string.IsNullOrEmpty(savedDataJson))
+                    {
+                        JArray savedDataJArray = JArray.Parse(savedDataJson);
+                        foreach(JToken jSavedData in savedDataJArray)
+                        {
+                            savedDatas.Add(JsonConvert.DeserializeObject<SavedDataModel>(jSavedData.ToString()));
+                        }
+                        return savedDatas;
+                    }
+                }
+            }
+        }
         return null;
+    }
+
+    /// <summary>
+    /// Load a saved data from the specific `index`
+    /// </summary>
+    /// <param name="index">The specific index</param>
+    /// <returns>Return null if data in the `index` is null</returns>
+    private SavedDataModel LoadSavedData(int index)
+    {
+        return savedDatas[index];
+    }
+
+    /// <summary>
+    /// Initial savedDatas Array, fullfill it with empty SavedDataModel
+    /// </summary>
+    /// <param name="size"></param>
+    /// <returns></returns>
+    [Obsolete]
+    internal List<SavedDataModel> initialSavedDatas(int size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            savedDatas.Add(new SavedDataModel());
+        }
+        return savedDatas;
     }
 
     /// <summary>
@@ -585,6 +674,11 @@ public class ChapterController : MonoBehaviour
     /// <param name="gameObject">The target object</param>
     public void DeactiveGameObject(GameObject gameObject)
     {
+        if(gameObject.name == "CloseSaveData")
+        {
+            isSavingGameData = false;
+            isLoadingSavedData = false;
+        }
         gameObject.SetActive(false);
     }
 

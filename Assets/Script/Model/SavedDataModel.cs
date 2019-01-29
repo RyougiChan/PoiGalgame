@@ -7,9 +7,9 @@ namespace Assets.Script.Model
 {
     public class SavedDataModel
     {
+        public int savedDataIndex;
         public DateTime savedTime;
         public GalgameScript galgameScript;
-        public int savedDataIndex;
         public int galgameActionIndex;
     }
 }
