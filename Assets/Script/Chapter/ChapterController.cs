@@ -55,13 +55,15 @@ public class ChapterController : MonoBehaviour
 
     // Current displaying script
     public GalgameScript currentScript;
-    public SpriteRenderer spriteRenderer;
+    public SpriteRenderer bgSpriteRenderer;
     // Setting: Duration of text showing speed, in seconds
     public float textShowDuration = 0.1f;
     // Setting: Duration of line auto switch speed, in seconds
     public float lineSwitchDuration = 3.0f;
     // Duration of line switch speed under skip mode, in seconds
     private float skipModeLineSwitchDuration = 0.1f;
+    // The index of current active saved data page
+    private int activeSavedDataPageIndex;
 
     private List<GalgameAction> galgameActions;
     private GalgameAction currentGalgameAction;
@@ -91,6 +93,7 @@ public class ChapterController : MonoBehaviour
     private static WaitForSeconds lineSwitchWaitForSeconds;
     private static WaitForSeconds skipModeLineSwitchWaitForSeconds;
     private static List<SavedDataModel> savedDatas;
+    private static List<List<Button>> savedDataButtons;
     #endregion
 
     // Use this for initialization
@@ -99,16 +102,18 @@ public class ChapterController : MonoBehaviour
         // Init line
         // Init currentScript, galgameActions, currentLineIndex
         // currentLineIndex = 0; // ?
+        activeSavedDataPageIndex = 0;
         isAutoReadingModeOn = false;
         galgameActions = currentScript.GalgameActions;
         if (null != currentScript.Bg)
         {
-            spriteRenderer.sprite = currentScript.Bg;
+            bgSpriteRenderer.sprite = currentScript.Bg;
         }
         textShowWaitForSeconds = new WaitForSeconds(textShowDuration);
         lineSwitchWaitForSeconds = new WaitForSeconds(lineSwitchDuration);
         skipModeLineSwitchWaitForSeconds = new WaitForSeconds(skipModeLineSwitchDuration);
         savedDatas = new List<SavedDataModel>(120);
+        savedDataButtons = new List<List<Button>>(10);
     }
 
     // Update is called once per frame
@@ -165,8 +170,9 @@ public class ChapterController : MonoBehaviour
         }
 
         // mouse scroll up
-        if (Input.mouseScrollDelta.y > 0)
+        if (Input.mouseScrollDelta.y > 0 && !historyField.activeSelf)
         {
+            // TODO: Fix bug of adding double history text
             ShowhistoryField();
         }
     }
@@ -223,7 +229,7 @@ public class ChapterController : MonoBehaviour
     {
         isSavingGameData = true;
         Debug.Log("AddEmptySavedDataModels");
-        AddEmptySavedDataModels(12);
+        GetSavedDataModelButtons(0, 12);
         ActiveGameObject(savedDataField);
         Debug.Log(string.Format("Save Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
     }
@@ -458,7 +464,7 @@ public class ChapterController : MonoBehaviour
     /// <summary>
     /// Show line text immediately
     /// </summary>
-    private void ShowLineImmediately()
+    private void ShowLineImmediately(bool addHistory = true)
     {
         if (isShowingLine)
         {
@@ -469,7 +475,10 @@ public class ChapterController : MonoBehaviour
                 isShowingLine = false;
             }
         }
-        AddHistoryText(nextLine); // Add line to history text list
+        if(addHistory)
+        {
+            AddHistoryText(nextLine); // Add line to history text list
+        }
         ShowLineImmediately(nextLine);
         Debug.Log(DateTime.Now.ToString() + "已跳过");
         // If isAutoReadingModeOn == true, call SwitchLine()
@@ -536,7 +545,6 @@ public class ChapterController : MonoBehaviour
     {
         Text newHistoryText = Instantiate(historyTextPrefab);
         newHistoryText.text = text;
-        SetCurrentActiveHistoryText(newHistoryText);
         Button.ButtonClickedEvent buttonClickedEvent = new Button.ButtonClickedEvent();
         buttonClickedEvent.AddListener(delegate ()
         {
@@ -544,49 +552,100 @@ public class ChapterController : MonoBehaviour
         });
         newHistoryText.transform.GetComponent<Button>().onClick = buttonClickedEvent;
         newHistoryText.transform.SetParent(historyTexts.transform);
+        newHistoryText.GetComponent<RectTransform>().localScale = Vector3.one;
+        SetCurrentActiveHistoryText(newHistoryText);
         return true;
     }
 
     /// <summary>
-    /// TestMethod: Need to be replace.
-    /// Add empty saved data model to <see cref="savedDataPanel"/> with specific number
+    /// 
     /// </summary>
-    /// <param name="number">The specific number</param>
+    /// <param name="pageIndex">The index of page, total number of page will be 10.</param>
+    /// <param name="number">The page size, default: 12.</param>
     /// <returns></returns>
-    private List<Button> AddEmptySavedDataModels(int number)
+    private List<Button> GetSavedDataModelButtons(int pageIndex, int number = 12)
+    {
+        int savedDataPageNumbers = savedDataPanel.transform.childCount;
+
+        if(savedDataPageNumbers >= pageIndex + 1)
+        {
+            // Saved data buttons are already initialized, load from cache
+            return savedDataButtons[pageIndex];
+        }
+        else
+        {
+            // No saved data buttons in this page yet, initial they
+            List<Button> pageButtons = initSavedDataPage(pageIndex, number);
+            savedDataButtons.Add(pageButtons);
+            return pageButtons;
+        }
+    }
+
+    internal List<Button> initSavedDataPage(int pageIndex, int number = 12)
     {
         List<Button> currentSaveDataList = new List<Button>();
-        for(int i = 0; i < number; i++)
+        for (int i = 0; i < number; i++)
         {
             Button newEmptySaveDataModel = Instantiate(saveDataModelPrefab);
             Button.ButtonClickedEvent saveDataClickEvent = new Button.ButtonClickedEvent();
+            int savedDataIndex = pageIndex * number + i;
             saveDataClickEvent.AddListener(delegate ()
             {
                 // Click Callback
-                if(isSavingGameData)
+                if (isSavingGameData)
                 {
                     // Save game data
 
-                    // TODO: Save current status of game.
+                    // TODO: Test it
+                    // Save current status of game.
+                    if(null == savedDatas[savedDataIndex])
+                    {
+                        savedDatas[savedDataIndex] = new SavedDataModel()
+                        {
+                            savedDataIndex = savedDataIndex,
+                            savedTime = DateTime.Now,
+                            galgameScript = currentScript,
+                            galgameActionIndex = currentLineIndex
+                        };
+                    }
+                    else
+                    {
+                        savedDatas[savedDataIndex].savedDataIndex = savedDataIndex;
+                        savedDatas[savedDataIndex].savedTime = DateTime.Now;
+                        savedDatas[savedDataIndex].galgameScript = currentScript;
+                        savedDatas[savedDataIndex].galgameActionIndex = currentLineIndex;
+                    }
+
+                    // Renew saved data display field
+                    RenewSavedDataField(newEmptySaveDataModel, savedDatas[savedDataIndex]);
                 }
-                if(isLoadingSavedData)
+                if (isLoadingSavedData)
                 {
                     // Load saved game data
-                    SavedDataModel theSavedData = LoadSavedData(i);
+                    SavedDataModel theSavedData = LoadSavedData(savedDataIndex);
                     if (null == theSavedData) return;
 
-                    // TODO: Refresh scene via the saved data.
+                    // TODO: Test it
+                    // Refresh scene via the saved data.
+                    currentGalgameAction = galgameActions[theSavedData.galgameActionIndex];
+                    bgSpriteRenderer.sprite = currentGalgameAction.Background;
                 }
             });
             newEmptySaveDataModel.onClick = saveDataClickEvent;
             newEmptySaveDataModel.transform.SetParent(savedDataPanel.transform);
-            newEmptySaveDataModel.name = string.Format("SaveData_{0}", i+1);
+            newEmptySaveDataModel.name = string.Format("SaveData_{0}", i + 1);
             newEmptySaveDataModel.GetComponent<RectTransform>().localScale = Vector3.one;
             currentSaveDataList.Add(newEmptySaveDataModel);
         }
         return currentSaveDataList;
     }
 
+    internal void RenewSavedDataField(Button b, SavedDataModel sdm)
+    {
+        Text t = b.GetComponent<Text>();
+        // TODO: Make decision of what show be renew. Background, display text for example.
+        t.text = string.Format("Saved Date: {0}\nSaved Time: {1}", sdm.savedTime.ToString("yyyy/MM/dd"), sdm.savedTime.ToString("hh:mm:ss"));
+    }
 
     /// <summary>
     /// Save a saveddata at index of `index` and write to file [savedata]
@@ -604,9 +663,9 @@ public class ChapterController : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Load saved game data from saveddata file
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Return saved datas list, including null value</returns>
     private List<SavedDataModel> LoadSavedDatas()
     {
         if(savedDatas.Count == 0)
@@ -635,7 +694,7 @@ public class ChapterController : MonoBehaviour
     }
 
     /// <summary>
-    /// Load a saved data from the specific `index`
+    /// Load a saved data from the specific `index` for all saved datas
     /// </summary>
     /// <param name="index">The specific index</param>
     /// <returns>Return null if data in the `index` is null</returns>

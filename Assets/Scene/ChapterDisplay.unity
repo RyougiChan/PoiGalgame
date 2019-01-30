@@ -343,7 +343,7 @@ MonoBehaviour:
   loadButton: {fileID: 0}
   settingButton: {fileID: 0}
   currentScript: {fileID: 11400000, guid: 14ba337e2d923af4482bfbe163d7763b, type: 2}
-  spriteRenderer: {fileID: 608068933}
+  bgSpriteRenderer: {fileID: 608068933}
   textShowDuration: 0.1
   lineSwitchDuration: 3
 --- !u!1 &196405539
@@ -944,8 +944,6 @@ GameObject:
   - component: {fileID: 667811633}
   - component: {fileID: 667811637}
   - component: {fileID: 667811636}
-  - component: {fileID: 667811635}
-  - component: {fileID: 667811634}
   m_Layer: 10
   m_Name: SavedDataPanel
   m_TagString: Untagged
@@ -971,40 +969,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 9.539993}
   m_SizeDelta: {x: -100.5, y: -81.09}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!156049354 &667811634
-Grid:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 667811632}
-  m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 1}
-  m_CellGap: {x: 0, y: 0, z: 0}
-  m_CellLayout: 0
-  m_CellSwizzle: 0
---- !u!114 &667811635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 667811632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 200, y: 120}
-  m_Spacing: {x: 1, y: 1}
-  m_Constraint: 0
-  m_ConstraintCount: 2
 --- !u!114 &667811636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2260,11 +2224,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 173560123}
-        m_MethodName: HideHistoryTextView
-        m_Mode: 1
+        m_MethodName: DeactiveGameObject
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1670913074}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
