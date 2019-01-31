@@ -10,11 +10,16 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System.Text;
 
 public class ChapterController : MonoBehaviour
 {
 
     #region Fields
+    private static string rootPath;
+    private static string savedDataPath;
+    private static string savedDataFile;
+
     public Text line;   // Script line showing text
     public Font font;
 
@@ -35,6 +40,7 @@ public class ChapterController : MonoBehaviour
     #region Saved data field
     public GameObject savedDataField;
     public GameObject savedDataPanel;
+    public int savdDataPageCount;
     #endregion
 
     #region Setting field
@@ -52,7 +58,7 @@ public class ChapterController : MonoBehaviour
 
     // Game objects end
 
-
+    // TODO: GalgameScript object may be a large data, so something must be done to optimize RAM.
     // Current displaying script
     public GalgameScript currentScript;
     public SpriteRenderer bgSpriteRenderer;
@@ -62,8 +68,6 @@ public class ChapterController : MonoBehaviour
     public float lineSwitchDuration = 3.0f;
     // Duration of line switch speed under skip mode, in seconds
     private float skipModeLineSwitchDuration = 0.1f;
-    // The index of current active saved data page
-    private int activeSavedDataPageIndex;
 
     private List<GalgameAction> galgameActions;
     private GalgameAction currentGalgameAction;
@@ -77,7 +81,7 @@ public class ChapterController : MonoBehaviour
     private bool isAutoReadingModeOn;
     // Is skip mode is actived
     private bool isSkipModeOn;
-    // 
+    // The previous skip time
     private DateTime preSkipTime;
     // Is menu is actived
     private bool isMenuActive;
@@ -87,6 +91,8 @@ public class ChapterController : MonoBehaviour
     private bool isLoadingSavedData;
     // Next line to display
     private string nextLine;
+    // Last loaded savedDataPage
+    private int lastLoadedSavedDataPage;
 
     private Coroutine currentTextShowCoroutine;
     private Coroutine currentLineSwitchCoroutine;
@@ -101,10 +107,14 @@ public class ChapterController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        rootPath = Application.dataPath;
+        savedDataPath = rootPath + "/Resources/SavedData/";
+        savedDataFile = "savedata.dat";
         // Init line
         // Init currentScript, galgameActions, currentLineIndex
         // currentLineIndex = 0; // ?
-        activeSavedDataPageIndex = 0;
+        lastLoadedSavedDataPage = 0;
+        savdDataPageCount = 10;
         isAutoReadingModeOn = false;
         galgameActions = currentScript.GalgameActions;
         if (null != currentScript.Bg)
@@ -114,10 +124,10 @@ public class ChapterController : MonoBehaviour
         textShowWaitForSeconds = new WaitForSeconds(textShowDuration);
         lineSwitchWaitForSeconds = new WaitForSeconds(lineSwitchDuration);
         skipModeLineSwitchWaitForSeconds = new WaitForSeconds(skipModeLineSwitchDuration);
-        // savedDatas = new List<SavedDataModel>(120);
-        savedDatas = InitList<SavedDataModel>(120);
-        //savedDataButtons = new List<List<Button>>(10);
-        savedDataButtons = InitList<List<Button>>(10);
+
+        savedDatas = LoadSavedDatas();
+
+        savedDataButtons = InitList<List<Button>>(savdDataPageCount);
     }
 
     // Update is called once per frame
@@ -164,6 +174,7 @@ public class ChapterController : MonoBehaviour
                     case "CloseSaveData":
                         isSavingGameData = false;
                         isLoadingSavedData = false;
+                        lastLoadedSavedDataPage = 0;
                         break;
                 }
             }
@@ -246,7 +257,6 @@ public class ChapterController : MonoBehaviour
     public void SaveData()
     {
         isSavingGameData = true;
-        Debug.Log("AddEmptySavedDataModels");
         SetSavedDataModelButtons(0, 12);
         ActiveGameObject(savedDataField);
         Debug.Log(string.Format("Save Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
@@ -266,8 +276,30 @@ public class ChapterController : MonoBehaviour
     public void LoadSavedData()
     {
         isLoadingSavedData = true;
+        SetSavedDataModelButtons(0, 12);
         ActiveGameObject(savedDataField);
         Debug.Log(string.Format("Load Saved Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
+    }
+
+    public void SwitchSavedDataPage(int step)
+    {
+        // If out of range, do nothing
+        if (lastLoadedSavedDataPage + step < 0 || lastLoadedSavedDataPage + step >= savdDataPageCount) return;
+        // Hide previous display saved data page
+        Transform target = savedDataPanel.transform.Find(string.Format("SavedDataPage_{0}", lastLoadedSavedDataPage));
+        if(null != target)
+        {
+            DeactiveGameObject(target.gameObject);
+        }
+
+        lastLoadedSavedDataPage += step;
+        Transform nTarget = savedDataPanel.transform.Find(string.Format("SavedDataPage_{0}", lastLoadedSavedDataPage));
+        if (null != nTarget)
+        {
+            ActiveGameObject(nTarget.gameObject);
+        }
+        // Set now display saved data page
+        SetSavedDataModelButtons(lastLoadedSavedDataPage);
     }
 
     /// <summary>
@@ -577,7 +609,7 @@ public class ChapterController : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="pageIndex">The index of page, total number of page will be 10.</param>
+    /// <param name="pageIndex">The index of page, total number of page will be `savdDataPageCount`.</param>
     /// <param name="number">The page size, default: 12.</param>
     /// <returns></returns>
     private List<Button> SetSavedDataModelButtons(int pageIndex, int number = 12)
@@ -594,16 +626,22 @@ public class ChapterController : MonoBehaviour
         else
         {
             // No saved data buttons in this page yet, initial they
-            pageButtons = initSavedDataButton(pageIndex, number);
-            savedDataButtons.Add(pageButtons);
+            pageButtons = InitSavedDataButton(pageIndex, number);
+            savedDataButtons[lastLoadedSavedDataPage] = pageButtons;
             return pageButtons;
         }
     }
 
-    internal List<Button> initSavedDataButton(int pageIndex, int number = 12)
+    /// <summary>
+    /// Init saved data button in SavedDataPage
+    /// </summary>
+    /// <param name="pageIndex">Index of SavedDataPage, 0 as start</param>
+    /// <param name="number">Button number per page, default: 12</param>
+    /// <returns></returns>
+    internal List<Button> InitSavedDataButton(int pageIndex, int number = 12)
     {
         List<Button> currentSaveDataList = new List<Button>();
-        GameObject gameObject = new GameObject("savedDataPage");
+        GameObject gameObject = new GameObject(string.Format("SavedDataPage_{0}", lastLoadedSavedDataPage));
         Grid savedDataGrid = gameObject.AddComponent<Grid>();
         GridLayoutGroup savedDataGroup = gameObject.AddComponent<GridLayoutGroup>();
         savedDataGroup.cellSize = new Vector2(200.0f, 120.0f);
@@ -629,7 +667,6 @@ public class ChapterController : MonoBehaviour
                         {
                             savedDataIndex = savedDataIndex,
                             savedTime = DateTime.Now,
-                            galgameScript = currentScript,
                             galgameActionIndex = currentLineIndex
                         };
                     }
@@ -637,10 +674,11 @@ public class ChapterController : MonoBehaviour
                     {
                         savedDatas[savedDataIndex].savedDataIndex = savedDataIndex;
                         savedDatas[savedDataIndex].savedTime = DateTime.Now;
-                        savedDatas[savedDataIndex].galgameScript = currentScript;
                         savedDatas[savedDataIndex].galgameActionIndex = currentLineIndex;
                     }
-
+                    // TODO: Considering doing this then application exit to avoid unnecessary IO operations?
+                    // Persist saved data
+                    PersistSavedDatas();
                     // Renew saved data display field
                     RenewSavedDataField(newEmptySaveDataModel, savedDatas[savedDataIndex]);
                 }
@@ -661,6 +699,11 @@ public class ChapterController : MonoBehaviour
             newEmptySaveDataModel.transform.SetParent(gameObject.transform);
             newEmptySaveDataModel.name = string.Format("SaveData_{0}", i + 1);
             newEmptySaveDataModel.GetComponent<RectTransform>().localScale = Vector3.one;
+            // Set display data
+            if(null != savedDatas[savedDataIndex])
+            {
+                RenewSavedDataField(newEmptySaveDataModel, savedDatas[savedDataIndex]);
+            }
             currentSaveDataList.Add(newEmptySaveDataModel);
         }
         // Append saved data list to `savedDataPanel`
@@ -671,6 +714,11 @@ public class ChapterController : MonoBehaviour
         return currentSaveDataList;
     }
 
+    /// <summary>
+    /// Set current galgame action.
+    /// TODO: The SavedDataModel class will be modeified. The method must to be adjusted.
+    /// </summary>
+    /// <param name="theSavedData"></param>
     internal void SetCurrentGalgameAction(SavedDataModel theSavedData)
     {
         currentLineIndex = theSavedData.galgameActionIndex;
@@ -693,18 +741,31 @@ public class ChapterController : MonoBehaviour
     }
 
     /// <summary>
-    /// Save a saveddata at index of `index` and write to file [savedata]
+    /// Save a saveddata at index of `index` and write to file [savedata.dat]
     /// </summary>
     /// <param name="savedData">This data model to be saved</param>
     /// <returns></returns>
-    private bool SaveData(SavedDataModel savedData)
+    private bool PersistSavedDatas()
     {
-        if(null != savedData)
+        try
         {
-            savedDatas.Add(savedData);
-            return true;
+            if(!Directory.Exists(savedDataPath))
+            {
+                Directory.CreateDirectory(savedDataPath);
+            }
+            using (StreamWriter w = new StreamWriter(savedDataPath + savedDataFile, false, Encoding.UTF8))
+            {
+                // TODO: This convertion will fail as the SavedDataModel contains
+                string savedDataJson = JsonConvert.SerializeObject(savedDatas);
+                Debug.Log(savedDataJson);
+                w.Write(savedDataJson);
+                return true;
+            }
         }
-        return false;
+        catch
+        {
+            return false;
+        }
     }
 
     /// <summary>
@@ -713,29 +774,32 @@ public class ChapterController : MonoBehaviour
     /// <returns>Return saved datas list, including null value</returns>
     private List<SavedDataModel> LoadSavedDatas()
     {
-        if(savedDatas.Count == 0)
+        if (!Directory.Exists(savedDataPath))
         {
-            string rootPath = Application.dataPath;
-            string savedDataPath = rootPath + "/Resource/SavedData/savedata.dat";
-
-            using (FileStream fs = new FileStream(savedDataPath, FileMode.OpenOrCreate))
+            Directory.CreateDirectory(savedDataPath);
+        }
+        using (FileStream fs = new FileStream(savedDataPath + savedDataFile, FileMode.OpenOrCreate))
+        {
+            using (StreamReader sr = new StreamReader(fs, Encoding.UTF8))
             {
-                using (StreamReader sr = new StreamReader(fs))
+                string savedDataJson = sr.ReadToEnd();
+                if (null == savedDatas) savedDatas = InitList<SavedDataModel>(savdDataPageCount * 12);
+                if (!string.IsNullOrEmpty(savedDataJson))
                 {
-                    string savedDataJson = sr.ReadToEnd();
-                    if (!string.IsNullOrEmpty(savedDataJson))
+                    JArray savedDataJArray = JArray.Parse(savedDataJson);
+                    foreach (JToken jSavedData in savedDataJArray)
                     {
-                        JArray savedDataJArray = JArray.Parse(savedDataJson);
-                        foreach(JToken jSavedData in savedDataJArray)
+                        if(null != jSavedData && jSavedData.Type != JTokenType.Null)
                         {
-                            savedDatas.Add(JsonConvert.DeserializeObject<SavedDataModel>(jSavedData.ToString()));
+                            SavedDataModel thisModel = JsonConvert.DeserializeObject<SavedDataModel>(jSavedData.ToString());
+                            savedDatas[thisModel.savedDataIndex] = thisModel;
                         }
-                        return savedDatas;
                     }
+                    return savedDatas;
                 }
             }
         }
-        return null;
+        return InitList<SavedDataModel>(savdDataPageCount * 12);
     }
 
     /// <summary>

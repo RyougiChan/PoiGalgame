@@ -5,11 +5,13 @@ using System.Text;
 
 namespace Assets.Script.Model
 {
+    [Serializable]
     public class SavedDataModel
     {
         public int savedDataIndex;
         public DateTime savedTime;
-        public GalgameScript galgameScript;
+        // TODO: Remove it, replace it with `GalgameAction` or other
+        public GalgameActionForSavedData galgameAction;
         public int galgameActionIndex;
     }
 }

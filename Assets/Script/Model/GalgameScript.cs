@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -7,6 +8,7 @@ namespace Assets.Script.Model
     /// <summary>
     /// Script model of a story | 剧本实体模型
     /// </summary>
+    [Serializable]
     public class GalgameScript : ScriptableObject
     {
         public string ScriptName;                           // 剧本名称
