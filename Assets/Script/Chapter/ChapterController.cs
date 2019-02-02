@@ -143,7 +143,7 @@ public class ChapterController : MonoBehaviour
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 hitUIObject = GetMouseOverUIObject(mainCanvas);
-                Debug.Log("---- EventSystem.current.IsPointerOverGameObject ----" + GetMouseOverUIObject(mainCanvas).tag);
+                Debug.Log("---- EventSystem.current.IsPointerOverGameObject ----" + hitUIObject);
             }
 
             if (null != hitUIObject && hitUIObject.tag.Trim() == "OperationButton")
