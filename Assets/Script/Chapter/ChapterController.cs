@@ -128,6 +128,8 @@ public class ChapterController : MonoBehaviour
         savedDatas = LoadSavedDatas();
 
         savedDataButtons = InitList<List<Button>>(savdDataPageCount);
+
+        InitSceneGameObject();
     }
 
     // Update is called once per frame
@@ -345,6 +347,15 @@ public class ChapterController : MonoBehaviour
     #endregion
 
     #region Private methods
+
+    private void InitSceneGameObject()
+    {
+        Vector2 sceneDeltaSize = mainCanvas.GetComponent<RectTransform>().sizeDelta;
+
+        historyField.GetComponent<RectTransform>().sizeDelta = sceneDeltaSize;
+        savedDataField.GetComponent<RectTransform>().sizeDelta = sceneDeltaSize;
+    }
+
     /// <summary>
     /// Whether switch line operation is allow or not
     /// </summary>
