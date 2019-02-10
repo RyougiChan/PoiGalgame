@@ -309,6 +309,7 @@ public class ChapterController : MonoBehaviour
     /// </summary>
     public void ChangeSetting()
     {
+        ActiveGameObject(settingField);
         Debug.Log(string.Format("Change Setting"));
     }
 
