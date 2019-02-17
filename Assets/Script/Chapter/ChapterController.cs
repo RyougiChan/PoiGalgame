@@ -11,6 +11,7 @@ using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Text;
+using UnityEngine.Video;
 
 public class ChapterController : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class ChapterController : MonoBehaviour
     private static string savedDataPath;
     private static string savedDataFile;
 
+    public GameObject title;
+    public GameObject lineContainer;
+    public Text actorName;
     public Text line;   // Script line showing text
     public Font font;
 
@@ -62,6 +66,9 @@ public class ChapterController : MonoBehaviour
     // Current displaying script
     public GalgameScript currentScript;
     public SpriteRenderer bgSpriteRenderer;
+    public GameObject videoPlayer;
+    public GameObject audioSource;
+    public GameObject voiceAudioSource;
     // Setting: Duration of text showing speed, in seconds
     public float textShowDuration = 0.1f;
     // Setting: Duration of line auto switch speed, in seconds
@@ -102,6 +109,10 @@ public class ChapterController : MonoBehaviour
     private static WaitForSeconds skipModeLineSwitchWaitForSeconds;
     private static List<SavedDataModel> savedDatas;
     private static List<List<Button>> savedDataButtons;
+    private VideoPlayer _video;
+    private AudioSource _audio;
+    private AudioSource _voiceAudio;
+    private AudioClip bgmMusic;
     #endregion
 
     // Use this for initialization
@@ -113,6 +124,8 @@ public class ChapterController : MonoBehaviour
         // Init line
         // Init currentScript, galgameActions, currentLineIndex
         // currentLineIndex = 0; // ?
+        line = lineContainer.transform.Find("Line").GetComponent<Text>();
+        actorName = lineContainer.transform.Find("ActorName").GetComponent<Text>();
         lastLoadedSavedDataPage = 0;
         savdDataPageCount = 10;
         isAutoReadingModeOn = false;
@@ -124,6 +137,10 @@ public class ChapterController : MonoBehaviour
         textShowWaitForSeconds = new WaitForSeconds(textShowDuration);
         lineSwitchWaitForSeconds = new WaitForSeconds(lineSwitchDuration);
         skipModeLineSwitchWaitForSeconds = new WaitForSeconds(skipModeLineSwitchDuration);
+
+        _video = videoPlayer.GetComponent<VideoPlayer>();
+        _audio = audioSource.GetComponent<AudioSource>();
+        _voiceAudio = voiceAudioSource.GetComponent<AudioSource>();
 
         savedDatas = LoadSavedDatas();
 
@@ -138,6 +155,12 @@ public class ChapterController : MonoBehaviour
         // mosue left button click
         if (Input.GetButtonDown("Fire1"))
         {
+
+            if(title.activeSelf)
+            {
+                return;
+            }
+
             GameObject hitUIObject = null;
 
             if (EventSystem.current.IsPointerOverGameObject())
@@ -183,6 +206,10 @@ public class ChapterController : MonoBehaviour
 
             if (currentLineIndex <= galgameActions.Count && IsSwitchLineAllowed())
             {
+                if (!lineContainer.activeSelf)
+                {
+                    lineContainer.SetActive(true);
+                }
                 if (null == hitUIObject || (null != hitUIObject && hitUIObject.tag.Trim() != "OperationButton"))
                 {
                     SwitchLine();
@@ -192,6 +219,10 @@ public class ChapterController : MonoBehaviour
 
         if (isSkipModeOn && (null == preSkipTime || (DateTime.Now - preSkipTime).TotalSeconds > skipModeLineSwitchDuration))
         {
+            if (!lineContainer.activeSelf)
+            {
+                lineContainer.SetActive(true);
+            }
             SwitchLine();
             preSkipTime = DateTime.Now;
         }
@@ -260,6 +291,7 @@ public class ChapterController : MonoBehaviour
     {
         isSavingGameData = true;
         SetSavedDataModelButtons(0, 12);
+        ShowCG();
         ActiveGameObject(savedDataField);
         Debug.Log(string.Format("Save Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
     }
@@ -279,6 +311,7 @@ public class ChapterController : MonoBehaviour
     {
         isLoadingSavedData = true;
         SetSavedDataModelButtons(0, 12);
+        ShowCG();
         ActiveGameObject(savedDataField);
         Debug.Log(string.Format("Load Saved Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
     }
@@ -309,6 +342,7 @@ public class ChapterController : MonoBehaviour
     /// </summary>
     public void ChangeSetting()
     {
+        ShowCG();
         ActiveGameObject(settingField);
         Debug.Log(string.Format("Change Setting"));
     }
@@ -343,6 +377,14 @@ public class ChapterController : MonoBehaviour
     public void CloseGame()
     {
         
+    }
+
+    public void ShowCG()
+    {
+        lineContainer.SetActive(false);
+        historyField.SetActive(false);
+        savedDataField.SetActive(false);
+        settingField.SetActive(false);
     }
 
     #endregion
@@ -418,6 +460,7 @@ public class ChapterController : MonoBehaviour
                 DisableSkipMode();
             }
             // TODO: maybe consider loading another chapter?
+            line.text = "『つづく...』";
             return;
         }
 
@@ -434,8 +477,27 @@ public class ChapterController : MonoBehaviour
         {
             currentTextShowCoroutine = StartCoroutine(ShowLineTimeOut(nextLine));
         }
-        // current background
-        bgSpriteRenderer.sprite = currentGalgameAction.Background;
+        if(null != currentGalgameAction.Bgm)
+        {
+            // bgm
+            _audio.clip = currentGalgameAction.Bgm;
+            _audio.Play();
+        }
+        if (null != currentGalgameAction.Voice)
+        {
+            // voice
+            _voiceAudio.clip = currentGalgameAction.Voice;
+            _voiceAudio.Play();
+        }
+        if (currentGalgameAction.Actor != Actor.NULL) {
+            // actor's name
+            actorName.text = currentGalgameAction.Actor.ToString();
+        }
+        if (null != currentGalgameAction.Background)
+        {
+            // current background
+            bgSpriteRenderer.sprite = currentGalgameAction.Background;
+        }
         // text-align
         line.alignment = EnumMap.AlignToTextAnchor(currentGalgameAction.Line.align);
 
