@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 namespace Assets.Script.Chapter
@@ -20,9 +21,12 @@ namespace Assets.Script.Chapter
         private GameObject historyField;
         private GameObject savedDataField;
         private GameObject settingField;
+        private GameObject popupWindow;
         private VideoPlayer _video;
         private AudioSource _audio;
         private AudioClip bgmMusic;
+
+        private Text popupCallbackText;
 
         void Awake()
         {
@@ -32,6 +36,8 @@ namespace Assets.Script.Chapter
             historyField = displayCanvas.transform.Find("HistoryField").gameObject;
             savedDataField = displayCanvas.transform.Find("SavedDataField").gameObject;
             settingField = displayCanvas.transform.Find("SettingField").gameObject;
+            popupWindow = displayCanvas.transform.Find("PopupWindow").gameObject;
+            popupCallbackText = popupWindow.transform.Find("CallbackMethod").gameObject.GetComponent<Text>();
             _video = videoPlayer.GetComponent<VideoPlayer>();
             _audio = audioSource.GetComponent<AudioSource>();
 
@@ -41,6 +47,21 @@ namespace Assets.Script.Chapter
             _audio.Play();
         }
 
+
+        /// <summary>
+        /// Clear all display items in screen and show CG picture
+        /// </summary>
+        public void ShowCG()
+        {
+            DeactiveGameObject(titleContainer);
+            DeactiveGameObject(lineContainer);
+            DeactiveGameObject(historyField);
+            DeactiveGameObject(savedDataField);
+            DeactiveGameObject(settingField);
+            DeactiveGameObject(popupWindow);
+        }
+
+        #region Title Screen
         /// <summary>
         /// Play game from the very start
         /// </summary>
@@ -48,7 +69,7 @@ namespace Assets.Script.Chapter
         {
             bg.sprite = null;
             _audio.Stop();
-            Resources.UnloadUnusedAssets();
+            ReleaseMemory();
             titleContainer.SetActive(false);
         }
 
@@ -58,6 +79,70 @@ namespace Assets.Script.Chapter
         public void QuitGame()
         {
             Application.Quit();
+        }
+        #endregion
+
+        /// <summary>
+        /// Open popup window with comfirm callback
+        /// </summary>
+        /// <param name="callback">The comfirm callback</param>
+        public void OpenPopup(string callback)
+        {
+            popupCallbackText.text = callback;
+            ActiveGameObject(popupWindow);
+        }
+
+        /// <summary>
+        /// Close popup window
+        /// </summary>
+        public void ClosePopup()
+        {
+            DeactiveGameObject(popupWindow);
+        }
+
+        /// <summary>
+        /// Return to the title screen
+        /// </summary>
+        public void BackToTitle()
+        {
+            bg.sprite = Resources.Load<Sprite>("Sprite/STT_BG00");
+            // Release menory
+            ReleaseMemory();
+            // Deactive display objects
+            DeactiveGameObject(lineContainer);
+            DeactiveGameObject(historyField);
+            DeactiveGameObject(savedDataField);
+            DeactiveGameObject(settingField);
+            DeactiveGameObject(popupWindow);
+            // Active title menu
+            ActiveGameObject(titleContainer);
+        }
+
+        /// <summary>
+        /// To active a gameobject
+        /// </summary>
+        /// <param name="gameObject">The target object</param>
+        public void ActiveGameObject(GameObject gameObject)
+        {
+            gameObject.SetActive(true);
+        }
+
+        /// <summary>
+        /// To deactive a gameobject
+        /// </summary>
+        /// <param name="gameObject">The target object</param>
+        public void DeactiveGameObject(GameObject gameObject)
+        {
+            gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// Release RAM
+        /// </summary>
+        public void ReleaseMemory()
+        {
+            Resources.UnloadUnusedAssets();
+            GC.Collect();
         }
     }
 }
