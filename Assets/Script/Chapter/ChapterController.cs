@@ -46,7 +46,11 @@ namespace Assets.Script.Chapter
         #region Saved data field
         public GameObject savedDataField;
         public GameObject savedDataPanel;
-        public int savdDataPageCount;
+        public static List<List<Button>> savedDataButtons;
+        public static List<SavedDataModel> savedDatas;
+        public static int savdDataPageCount;
+        // Last loaded savedDataPage
+        public static int lastLoadedSavedDataPage;
         #endregion
 
         #region Setting field
@@ -100,8 +104,6 @@ namespace Assets.Script.Chapter
         private bool isLoadingSavedData;
         // Next line to display
         private string nextLine;
-        // Last loaded savedDataPage
-        private int lastLoadedSavedDataPage;
 
         private GameController gameController;
 
@@ -111,8 +113,6 @@ namespace Assets.Script.Chapter
         private static WaitForSeconds textShowWaitForSeconds;
         private static WaitForSeconds lineSwitchWaitForSeconds;
         private static WaitForSeconds skipModeLineSwitchWaitForSeconds;
-        private static List<SavedDataModel> savedDatas;
-        private static List<List<Button>> savedDataButtons;
         private VideoPlayer _video;
         private AudioSource _audio;
         private AudioSource _voiceAudio;
@@ -122,10 +122,6 @@ namespace Assets.Script.Chapter
         // Use this for initialization
         void Start()
         {
-            rootPath = Application.dataPath;
-            savedDataPath = rootPath + "/Resources/SavedData/";
-            savedDataFile = "savedata.dat";
-
             gameController = Camera.main.GetComponent<GameController>();
 
             // Init line
@@ -133,8 +129,6 @@ namespace Assets.Script.Chapter
             // currentLineIndex = 0; // ?
             line = lineContainer.transform.Find("Line").GetComponent<Text>();
             actorName = lineContainer.transform.Find("ActorName").GetComponent<Text>();
-            lastLoadedSavedDataPage = 0;
-            savdDataPageCount = 10;
             isAutoReadingModeOn = false;
             galgameActions = currentScript.GalgameActions;
             if (null != currentScript.Bg)
@@ -149,9 +143,11 @@ namespace Assets.Script.Chapter
             _audio = audioSource.GetComponent<AudioSource>();
             _voiceAudio = voiceAudioSource.GetComponent<AudioSource>();
 
-            savedDatas = LoadSavedDatas();
-
-            savedDataButtons = InitList<List<Button>>(savdDataPageCount);
+            // savedDatas = gameController.LoadSavedDatas();
+            lastLoadedSavedDataPage = GameController.lastLoadedSavedDataPage;
+            savdDataPageCount = GameController.savdDataPageCount;
+            savedDatas = GameController.savedDatas;
+            savedDataButtons = gameController.InitList<List<Button>>(savdDataPageCount);
 
             InitSceneGameObject();
         }
@@ -215,7 +211,7 @@ namespace Assets.Script.Chapter
                 {
                     if (!lineContainer.activeSelf)
                     {
-                        lineContainer.SetActive(true);
+                        gameController.ActiveGameObject(lineContainer);
                     }
                     if (null == hitUIObject || (null != hitUIObject && hitUIObject.tag.Trim() != "OperationButton"))
                     {
@@ -228,7 +224,7 @@ namespace Assets.Script.Chapter
             {
                 if (!lineContainer.activeSelf)
                 {
-                    lineContainer.SetActive(true);
+                    gameController.ActiveGameObject(lineContainer);
                 }
                 SwitchLine();
                 preSkipTime = DateTime.Now;
@@ -248,7 +244,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         public void ShowhistoryField()
         {
-            ActiveGameObject(historyField);
+            gameController.ActiveGameObject(historyField);
             // If `currentTextShowCoroutine` is going
             if (isShowingLine)
             {
@@ -298,8 +294,8 @@ namespace Assets.Script.Chapter
         {
             isSavingGameData = true;
             SetSavedDataModelButtons(0, 12);
-            ShowCG();
-            ActiveGameObject(savedDataField);
+            gameController.ShowCG();
+            gameController.ActiveGameObject(savedDataField);
             Debug.Log(string.Format("Save Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
         }
 
@@ -318,8 +314,8 @@ namespace Assets.Script.Chapter
         {
             isLoadingSavedData = true;
             SetSavedDataModelButtons(0, 12);
-            ShowCG();
-            ActiveGameObject(savedDataField);
+            gameController.ShowCG();
+            gameController.ActiveGameObject(savedDataField);
             Debug.Log(string.Format("Load Saved Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
         }
 
@@ -331,14 +327,14 @@ namespace Assets.Script.Chapter
             Transform target = savedDataPanel.transform.Find(string.Format("SavedDataPage_{0}", lastLoadedSavedDataPage));
             if (null != target)
             {
-                DeactiveGameObject(target.gameObject);
+                gameController.DeactiveGameObject(target.gameObject);
             }
 
             lastLoadedSavedDataPage += step;
             Transform nTarget = savedDataPanel.transform.Find(string.Format("SavedDataPage_{0}", lastLoadedSavedDataPage));
             if (null != nTarget)
             {
-                ActiveGameObject(nTarget.gameObject);
+                gameController.ActiveGameObject(nTarget.gameObject);
             }
             // Set now display saved data page
             SetSavedDataModelButtons(lastLoadedSavedDataPage);
@@ -349,8 +345,8 @@ namespace Assets.Script.Chapter
         /// </summary>
         public void ChangeSetting()
         {
-            ShowCG();
-            ActiveGameObject(settingField);
+            gameController.ShowCG();
+            gameController.ActiveGameObject(settingField);
             Debug.Log(string.Format("Change Setting"));
         }
 
@@ -384,14 +380,6 @@ namespace Assets.Script.Chapter
         public void CloseGame()
         {
 
-        }
-
-        public void ShowCG()
-        {
-            lineContainer.SetActive(false);
-            historyField.SetActive(false);
-            savedDataField.SetActive(false);
-            settingField.SetActive(false);
         }
 
         #endregion
@@ -431,7 +419,7 @@ namespace Assets.Script.Chapter
         {
             if (historyField.activeSelf)
             {
-                DeactiveGameObject(historyField);
+                gameController.DeactiveGameObject(historyField);
                 if (isAutoReadingModeOn)
                 {
                     yield return lineSwitchWaitForSeconds;
@@ -668,27 +656,6 @@ namespace Assets.Script.Chapter
         }
 
         /// <summary>
-        /// Add line to history
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        private bool AddHistoryText(string text)
-        {
-            Text newHistoryText = Instantiate(historyTextPrefab);
-            newHistoryText.text = text;
-            Button.ButtonClickedEvent buttonClickedEvent = new Button.ButtonClickedEvent();
-            buttonClickedEvent.AddListener(delegate ()
-            {
-                SetCurrentActiveHistoryText(newHistoryText);
-            });
-            newHistoryText.transform.GetComponent<Button>().onClick = buttonClickedEvent;
-            newHistoryText.transform.SetParent(historyTexts.transform);
-            newHistoryText.GetComponent<RectTransform>().localScale = Vector3.one;
-            SetCurrentActiveHistoryText(newHistoryText);
-            return true;
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="pageIndex">The index of page, total number of page will be `savdDataPageCount`.</param>
@@ -736,14 +703,14 @@ namespace Assets.Script.Chapter
                 int savedDataIndex = pageIndex * number + i;
                 saveDataClickEvent.AddListener(delegate ()
                 {
-                // Click Callback
-                if (isSavingGameData)
+                    // Click Callback
+                    if (isSavingGameData)
                     {
-                    // Save game data
+                        // Save game data
 
-                    // TODO: Test it
-                    // Save current status of game.
-                    if (null == savedDatas[savedDataIndex])
+                        // TODO: Test it
+                        // Save current status of game.
+                        if (null == savedDatas[savedDataIndex])
                         {
                             savedDatas[savedDataIndex] = new SavedDataModel()
                             {
@@ -758,21 +725,21 @@ namespace Assets.Script.Chapter
                             savedDatas[savedDataIndex].savedTime = DateTime.Now;
                             savedDatas[savedDataIndex].galgameActionIndex = currentLineIndex;
                         }
-                    // TODO: Considering doing this then application exit to avoid unnecessary IO operations?
-                    // Persist saved data
-                    PersistSavedDatas();
-                    // Renew saved data display field
-                    RenewSavedDataField(newEmptySaveDataModel, savedDatas[savedDataIndex]);
+                        // TODO: Considering doing this then application exit to avoid unnecessary IO operations?
+                        // Persist saved data
+                        gameController.PersistSavedDatas();
+                        // Renew saved data display field
+                        RenewSavedDataField(newEmptySaveDataModel, savedDatas[savedDataIndex]);
                     }
                     if (isLoadingSavedData)
                     {
-                    // Load saved game data
-                    SavedDataModel theSavedData = LoadSavedData(savedDataIndex);
+                        // Load saved game data
+                        SavedDataModel theSavedData = gameController.LoadSavedData(savedDataIndex);
                         if (null == theSavedData) return;
 
-                    // TODO: Test it
-                    // Refresh scene via the saved data.
-                    DeactiveGameObject(savedDataField);
+                        // TODO: Test it
+                        // Refresh scene via the saved data.
+                        gameController.DeactiveGameObject(savedDataField);
                         isLoadingSavedData = false;
                         SetCurrentGalgameAction(theSavedData);
                     }
@@ -796,6 +763,18 @@ namespace Assets.Script.Chapter
             return currentSaveDataList;
         }
 
+        internal void RenewSavedDataPage(List<Button> button)
+        {
+
+        }
+
+        internal void RenewSavedDataField(Button b, SavedDataModel sdm)
+        {
+            Text t = b.gameObject.transform.GetChild(0).GetComponent<Text>();
+            // TODO: Make decision of what show be renew. Background, display text for example.
+            t.text = string.Format("Saved Date: {0}\nSaved Time: {1}", sdm.savedTime.ToString("yyyy/MM/dd"), sdm.savedTime.ToString("hh:mm:ss"));
+        }
+
         /// <summary>
         /// Set current galgame action.
         /// TODO: The SavedDataModel class will be modeified. The method must to be adjusted.
@@ -810,121 +789,25 @@ namespace Assets.Script.Chapter
             line.text = string.Empty;
         }
 
-        internal void RenewSavedDataPage(List<Button> button)
-        {
-
-        }
-
-        internal void RenewSavedDataField(Button b, SavedDataModel sdm)
-        {
-            Text t = b.gameObject.transform.GetChild(0).GetComponent<Text>();
-            // TODO: Make decision of what show be renew. Background, display text for example.
-            t.text = string.Format("Saved Date: {0}\nSaved Time: {1}", sdm.savedTime.ToString("yyyy/MM/dd"), sdm.savedTime.ToString("hh:mm:ss"));
-        }
-
         /// <summary>
-        /// Save a saveddata at index of `index` and write to file [savedata.dat]
+        /// Add line to history
         /// </summary>
-        /// <param name="savedData">This data model to be saved</param>
+        /// <param name="text"></param>
         /// <returns></returns>
-        private bool PersistSavedDatas()
+        private bool AddHistoryText(string text)
         {
-            try
+            Text newHistoryText = Instantiate(historyTextPrefab);
+            newHistoryText.text = text;
+            Button.ButtonClickedEvent buttonClickedEvent = new Button.ButtonClickedEvent();
+            buttonClickedEvent.AddListener(delegate ()
             {
-                if (!Directory.Exists(savedDataPath))
-                {
-                    Directory.CreateDirectory(savedDataPath);
-                }
-                using (StreamWriter w = new StreamWriter(savedDataPath + savedDataFile, false, Encoding.UTF8))
-                {
-                    // TODO: This convertion will fail as the SavedDataModel contains
-                    string savedDataJson = JsonConvert.SerializeObject(savedDatas);
-                    Debug.Log(savedDataJson);
-                    w.Write(savedDataJson);
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Load saved game data from saveddata file
-        /// </summary>
-        /// <returns>Return saved datas list, including null value</returns>
-        private List<SavedDataModel> LoadSavedDatas()
-        {
-            if (!Directory.Exists(savedDataPath))
-            {
-                Directory.CreateDirectory(savedDataPath);
-            }
-            using (FileStream fs = new FileStream(savedDataPath + savedDataFile, FileMode.OpenOrCreate))
-            {
-                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8))
-                {
-                    string savedDataJson = sr.ReadToEnd();
-                    if (null == savedDatas) savedDatas = InitList<SavedDataModel>(savdDataPageCount * 12);
-                    if (!string.IsNullOrEmpty(savedDataJson))
-                    {
-                        JArray savedDataJArray = JArray.Parse(savedDataJson);
-                        foreach (JToken jSavedData in savedDataJArray)
-                        {
-                            if (null != jSavedData && jSavedData.Type != JTokenType.Null)
-                            {
-                                SavedDataModel thisModel = JsonConvert.DeserializeObject<SavedDataModel>(jSavedData.ToString());
-                                savedDatas[thisModel.savedDataIndex] = thisModel;
-                            }
-                        }
-                        return savedDatas;
-                    }
-                }
-            }
-            return InitList<SavedDataModel>(savdDataPageCount * 12);
-        }
-
-        /// <summary>
-        /// Load a saved data from the specific `index` for all saved datas
-        /// </summary>
-        /// <param name="index">The specific index</param>
-        /// <returns>Return null if data in the `index` is null</returns>
-        private SavedDataModel LoadSavedData(int index)
-        {
-            return savedDatas[index];
-        }
-
-        /// <summary>
-        /// Initial savedDatas Array, fullfill it with empty SavedDataModel
-        /// </summary>
-        /// <param name="size"></param>
-        /// <returns></returns>
-        [Obsolete]
-        internal List<SavedDataModel> initialSavedDatas(int size)
-        {
-            for (int i = 0; i < size; i++)
-            {
-                savedDatas.Add(new SavedDataModel());
-            }
-            return savedDatas;
-        }
-
-        /// <summary>
-        /// To active a gameobject
-        /// </summary>
-        /// <param name="gameObject">The target object</param>
-        public void ActiveGameObject(GameObject gameObject)
-        {
-            gameObject.SetActive(true);
-        }
-
-        /// <summary>
-        /// To deactive a gameobject
-        /// </summary>
-        /// <param name="gameObject">The target object</param>
-        public void DeactiveGameObject(GameObject gameObject)
-        {
-            gameObject.SetActive(false);
+                SetCurrentActiveHistoryText(newHistoryText);
+            });
+            newHistoryText.transform.GetComponent<Button>().onClick = buttonClickedEvent;
+            newHistoryText.transform.SetParent(historyTexts.transform);
+            newHistoryText.GetComponent<RectTransform>().localScale = Vector3.one;
+            SetCurrentActiveHistoryText(newHistoryText);
+            return true;
         }
 
         /// <summary>
@@ -965,19 +848,6 @@ namespace Assets.Script.Chapter
         private IEnumerator WaitForSeconds(WaitForSeconds waitForSeconds)
         {
             yield return waitForSeconds;
-        }
-
-        private List<T> InitList<T>(int size)
-        {
-            List<T> newList = new List<T>();
-            if (size > 0)
-            {
-                for (int i = 0; i < size; i++)
-                {
-                    newList.Add(default(T));
-                }
-            }
-            return newList;
         }
         #endregion
     }

@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Assets.Script.Model;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -28,6 +32,13 @@ namespace Assets.Script.Chapter
 
         private Text popupCallbackText;
 
+        public static string rootPath;
+        public static string savedDataPath;
+        public static string savedDataFile;
+        public static List<SavedDataModel> savedDatas;
+        public static int savdDataPageCount;
+        public static int lastLoadedSavedDataPage;
+
         void Awake()
         {
             bg = background.transform.Find("Bg").gameObject.GetComponent<SpriteRenderer>();
@@ -37,11 +48,19 @@ namespace Assets.Script.Chapter
             savedDataField = displayCanvas.transform.Find("SavedDataField").gameObject;
             settingField = displayCanvas.transform.Find("SettingField").gameObject;
             popupWindow = displayCanvas.transform.Find("PopupWindow").gameObject;
-            popupCallbackText = popupWindow.transform.Find("CallbackMethod").gameObject.GetComponent<Text>();
+            popupCallbackText = popupWindow.transform.Find("Popup").Find("CallbackMethod").gameObject.GetComponent<Text>();
             _video = videoPlayer.GetComponent<VideoPlayer>();
             _audio = audioSource.GetComponent<AudioSource>();
 
             bgmMusic = (AudioClip)Resources.Load("Audio/BGM30", typeof(AudioClip));
+
+            rootPath = Application.dataPath;
+            savedDataPath = rootPath + "/Resources/SavedData/";
+            savedDataFile = "savedata.dat";
+            savdDataPageCount = 10;
+            lastLoadedSavedDataPage = 0;
+            savedDatas = LoadSavedDatas();
+
             _audio.clip = bgmMusic;
             _audio.loop = true;
             _audio.Play();
@@ -61,7 +80,7 @@ namespace Assets.Script.Chapter
             DeactiveGameObject(popupWindow);
         }
 
-        #region Title Screen
+        #region Title Menu Callback
         /// <summary>
         /// Play game from the very start
         /// </summary>
@@ -69,8 +88,8 @@ namespace Assets.Script.Chapter
         {
             bg.sprite = null;
             _audio.Stop();
+            DeactiveGameObject(titleContainer);
             ReleaseMemory();
-            titleContainer.SetActive(false);
         }
 
         /// <summary>
@@ -82,6 +101,101 @@ namespace Assets.Script.Chapter
         }
         #endregion
 
+        #region Menu Callback
+        /// <summary>
+        /// Return to the title screen
+        /// </summary>
+        public void BackToTitle()
+        {
+            bg.sprite = Resources.Load<Sprite>("Sprite/STT_BG00");
+            // Deactive display objects
+            DeactiveGameObject(lineContainer);
+            DeactiveGameObject(historyField);
+            DeactiveGameObject(savedDataField);
+            DeactiveGameObject(settingField);
+            DeactiveGameObject(popupWindow);
+            // Active title menu
+            ActiveGameObject(titleContainer);
+            // Release menory
+            ReleaseMemory();
+        }
+        #endregion
+
+        #region Saved data
+        /// <summary>
+        /// Save a saveddata at index of `index` and write to file [savedata.dat]
+        /// </summary>
+        /// <param name="savedData">This data model to be saved</param>
+        /// <returns></returns>
+        public bool PersistSavedDatas()
+        {
+            try
+            {
+                if (!Directory.Exists(savedDataPath))
+                {
+                    Directory.CreateDirectory(savedDataPath);
+                }
+                using (StreamWriter w = new StreamWriter(savedDataPath + savedDataFile, false, Encoding.UTF8))
+                {
+                    // TODO: This convertion will fail as the SavedDataModel contains
+                    string savedDataJson = JsonConvert.SerializeObject(savedDatas);
+                    Debug.Log(savedDataJson);
+                    w.Write(savedDataJson);
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Load saved game data from saveddata file
+        /// </summary>
+        /// <returns>Return saved datas list, including null value</returns>
+        public List<SavedDataModel> LoadSavedDatas()
+        {
+            if (!Directory.Exists(savedDataPath))
+            {
+                Directory.CreateDirectory(savedDataPath);
+            }
+            using (FileStream fs = new FileStream(savedDataPath + savedDataFile, FileMode.OpenOrCreate))
+            {
+                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8))
+                {
+                    string savedDataJson = sr.ReadToEnd();
+                    if (null == savedDatas) savedDatas = InitList<SavedDataModel>(savdDataPageCount * 12);
+                    if (!string.IsNullOrEmpty(savedDataJson))
+                    {
+                        JArray savedDataJArray = JArray.Parse(savedDataJson);
+                        foreach (JToken jSavedData in savedDataJArray)
+                        {
+                            if (null != jSavedData && jSavedData.Type != JTokenType.Null)
+                            {
+                                SavedDataModel thisModel = JsonConvert.DeserializeObject<SavedDataModel>(jSavedData.ToString());
+                                savedDatas[thisModel.savedDataIndex] = thisModel;
+                            }
+                        }
+                        return savedDatas;
+                    }
+                }
+            }
+            return InitList<SavedDataModel>(savdDataPageCount * 12);
+        }
+
+        /// <summary>
+        /// Load a saved data from the specific `index` for all saved datas
+        /// </summary>
+        /// <param name="index">The specific index</param>
+        /// <returns>Return null if data in the `index` is null</returns>
+        public SavedDataModel LoadSavedData(int index)
+        {
+            return savedDatas[index];
+        }
+        #endregion
+
+        #region Popup Window
         /// <summary>
         /// Open popup window with comfirm callback
         /// </summary>
@@ -99,24 +213,7 @@ namespace Assets.Script.Chapter
         {
             DeactiveGameObject(popupWindow);
         }
-
-        /// <summary>
-        /// Return to the title screen
-        /// </summary>
-        public void BackToTitle()
-        {
-            bg.sprite = Resources.Load<Sprite>("Sprite/STT_BG00");
-            // Release menory
-            ReleaseMemory();
-            // Deactive display objects
-            DeactiveGameObject(lineContainer);
-            DeactiveGameObject(historyField);
-            DeactiveGameObject(savedDataField);
-            DeactiveGameObject(settingField);
-            DeactiveGameObject(popupWindow);
-            // Active title menu
-            ActiveGameObject(titleContainer);
-        }
+        #endregion
 
         /// <summary>
         /// To active a gameobject
@@ -143,6 +240,25 @@ namespace Assets.Script.Chapter
         {
             Resources.UnloadUnusedAssets();
             GC.Collect();
+        }
+
+        /// <summary>
+        /// Init a empty <see cref="List"/> with size
+        /// </summary>
+        /// <typeparam name="T">Type of list</typeparam>
+        /// <param name="size">length of list</param>
+        /// <returns></returns>
+        public List<T> InitList<T>(int size)
+        {
+            List<T> newList = new List<T>();
+            if (size > 0)
+            {
+                for (int i = 0; i < size; i++)
+                {
+                    newList.Add(default(T));
+                }
+            }
+            return newList;
         }
     }
 }
