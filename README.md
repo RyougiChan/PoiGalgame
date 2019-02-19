@@ -19,6 +19,7 @@ There are some famous galgame development engine such as `KIRIKIRI`, `NScriptor`
 
 ## Development Goals
 
+- [x] Basic Galgame elements
 - [x] Visual editing script framework
 - [x] Create a more readable script(like kirikiri)
 - [ ] Script update behavior monitoring (to be evaluated)
@@ -29,6 +30,10 @@ There are some famous galgame development engine such as `KIRIKIRI`, `NScriptor`
 ## Getting Start
 
 **WARNING:** This project is still under development!
+
+## Releases
+
+**WARNING:** This project is still under development! So there is no release so far! But you can build one for yourself(Choose Scene `ChapterDisplay`).
 
 ## Documentation
 
