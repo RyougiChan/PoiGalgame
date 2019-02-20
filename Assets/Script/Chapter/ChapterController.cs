@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Text;
 using UnityEngine.Video;
+using UnityEditor;
 
 namespace Assets.Script.Chapter
 {
@@ -58,7 +59,8 @@ namespace Assets.Script.Chapter
         #endregion
 
         #region Operation buttons
-        public GameObject autoPlayButon;
+        public GameObject operationButtons;
+        public GameObject autoPlayButton;
         public GameObject skipButton;
         public GameObject saveButton;
         public GameObject loadButton;
@@ -114,7 +116,7 @@ namespace Assets.Script.Chapter
         private static WaitForSeconds lineSwitchWaitForSeconds;
         private static WaitForSeconds skipModeLineSwitchWaitForSeconds;
         private VideoPlayer _video;
-        private AudioSource _audio;
+        private AudioSource _bgmAudio;
         private AudioSource _voiceAudio;
         private AudioClip bgmMusic;
         #endregion
@@ -139,8 +141,16 @@ namespace Assets.Script.Chapter
             lineSwitchWaitForSeconds = new WaitForSeconds(lineSwitchDuration);
             skipModeLineSwitchWaitForSeconds = new WaitForSeconds(skipModeLineSwitchDuration);
 
+            // opearation buttons
+            autoPlayButton = operationButtons.transform.Find("AutoPlayBtn").gameObject;
+            skipButton = operationButtons.transform.Find("SkipBtn").gameObject;
+            saveButton = operationButtons.transform.Find("SaveBtn").gameObject;
+            loadButton = operationButtons.transform.Find("LoadBtn").gameObject;
+            settingButton = operationButtons.transform.Find("SettingBtn").gameObject;
+
+            // media player
             _video = videoPlayer.GetComponent<VideoPlayer>();
-            _audio = audioSource.GetComponent<AudioSource>();
+            _bgmAudio = audioSource.GetComponent<AudioSource>();
             _voiceAudio = voiceAudioSource.GetComponent<AudioSource>();
 
             // savedDatas = gameController.LoadSavedDatas();
@@ -181,8 +191,11 @@ namespace Assets.Script.Chapter
                         case "AutoPlay":
                             // Change text style
                             Debug.Log("isAutoReadingModeOn: " + isAutoReadingModeOn);
-                            if (null == autoPlayButon) autoPlayButon = hitUIObject;
-                            hitUIObject.GetComponent<Text>().color = isAutoReadingModeOn ? Color.black : Color.cyan;
+                            if (null == autoPlayButton) autoPlayButton = hitUIObject;
+                            if(!isSkipModeOn)
+                            {
+                                hitUIObject.GetComponent<Text>().color = isAutoReadingModeOn ? Color.black : Color.cyan;
+                            }
                             break;
                         case "Skip":
                             // Change text style
@@ -220,7 +233,7 @@ namespace Assets.Script.Chapter
                 }
             }
 
-            if (isSkipModeOn && (null == preSkipTime || (DateTime.Now - preSkipTime).TotalSeconds > skipModeLineSwitchDuration))
+            if (isSkipModeOn && IsSwitchLineAllowed() && (null == preSkipTime || (DateTime.Now - preSkipTime).TotalSeconds > skipModeLineSwitchDuration))
             {
                 if (!lineContainer.activeSelf)
                 {
@@ -261,14 +274,39 @@ namespace Assets.Script.Chapter
         }
 
         /// <summary>
+        /// Set reading mode to manual
+        /// </summary>
+        /// <param name="manual"></param>
+        public void SetManualMode(bool manual)
+        {
+            if(manual)
+            {
+                isAutoReadingModeOn = false;
+                isSkipModeOn = false;
+            }
+        }
+
+        /// <summary>
         /// Auto Reading
         /// </summary>
         public void AutoReading()
         {
-            isAutoReadingModeOn = !isAutoReadingModeOn;
+            SetAutoMode(!isAutoReadingModeOn);
+        }
+
+        /// <summary>
+        /// Set auto mode
+        /// </summary>
+        /// <param name="auto"></param>
+        public void SetAutoMode(bool auto)
+        {
+            isSkipModeOn = false;
+            skipButton.GetComponent<Text>().color = Color.black;
+            isAutoReadingModeOn = auto;
             // If isAutoReadingModeOn == true, call SwitchLine()
             if (isAutoReadingModeOn && IsSwitchLineAllowed() && !isSkipModeOn && !isShowingLine)
             {
+                autoPlayButton.GetComponent<Text>().color = Color.cyan;
                 currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
             }
         }
@@ -278,9 +316,21 @@ namespace Assets.Script.Chapter
         /// </summary>
         public void ChangeSkipMode()
         {
-            isSkipModeOn = !isSkipModeOn;
-            if (isSkipModeOn)
+            SetSkipMode(!isSkipModeOn);
+        }
+
+        /// <summary>
+        /// Set skip mode
+        /// </summary>
+        /// <param name="skip"></param>
+        public void SetSkipMode(bool skip)
+        {
+            isAutoReadingModeOn = false;
+            autoPlayButton.GetComponent<Text>().color = Color.black;
+            isSkipModeOn = skip;
+            if (isSkipModeOn && IsSwitchLineAllowed())
             {
+                skipButton.GetComponent<Text>().color = Color.cyan;
                 StopAllCoroutines();
                 ShowLineImmediately();
                 SwitchLine();
@@ -349,39 +399,6 @@ namespace Assets.Script.Chapter
             gameController.ActiveGameObject(settingField);
             Debug.Log(string.Format("Change Setting"));
         }
-
-        /// <summary>
-        /// Request full screen mode
-        /// </summary>
-        public void FullScreen()
-        {
-
-        }
-
-        /// <summary>
-        /// Return to title screen
-        /// </summary>
-        public void ReturnToTitleScreen()
-        {
-
-        }
-
-        /// <summary>
-        /// Hide text display panel
-        /// </summary>
-        public void HideMessage()
-        {
-
-        }
-
-        /// <summary>
-        /// Close game
-        /// </summary>
-        public void CloseGame()
-        {
-
-        }
-
         #endregion
 
         #region Private methods
@@ -475,8 +492,8 @@ namespace Assets.Script.Chapter
             if (null != currentGalgameAction.Bgm)
             {
                 // bgm
-                _audio.clip = currentGalgameAction.Bgm;
-                _audio.Play();
+                _bgmAudio.clip = currentGalgameAction.Bgm;
+                _bgmAudio.Play();
             }
             if (null != currentGalgameAction.Voice)
             {

@@ -17,7 +17,8 @@ namespace Assets.Script.Chapter
         public GameObject background;
         public GameObject displayCanvas;
         public GameObject videoPlayer;
-        public GameObject audioSource;
+        public GameObject bgmAudioSource;
+        public GameObject voiceAudioSource;
 
         private SpriteRenderer bg;
         private GameObject titleContainer;
@@ -27,7 +28,8 @@ namespace Assets.Script.Chapter
         private GameObject settingField;
         private GameObject popupWindow;
         private VideoPlayer _video;
-        private AudioSource _audio;
+        private AudioSource _bgmAudio;
+        private AudioSource _voiceAudio;
         private AudioClip bgmMusic;
 
         private Text popupCallbackText;
@@ -50,7 +52,8 @@ namespace Assets.Script.Chapter
             popupWindow = displayCanvas.transform.Find("PopupWindow").gameObject;
             popupCallbackText = popupWindow.transform.Find("Popup").Find("CallbackMethod").gameObject.GetComponent<Text>();
             _video = videoPlayer.GetComponent<VideoPlayer>();
-            _audio = audioSource.GetComponent<AudioSource>();
+            _bgmAudio = bgmAudioSource.GetComponent<AudioSource>();
+            _voiceAudio = voiceAudioSource.GetComponent<AudioSource>();
 
             bgmMusic = (AudioClip)Resources.Load("Audio/BGM30", typeof(AudioClip));
 
@@ -61,9 +64,9 @@ namespace Assets.Script.Chapter
             lastLoadedSavedDataPage = 0;
             savedDatas = LoadSavedDatas();
 
-            _audio.clip = bgmMusic;
-            _audio.loop = true;
-            _audio.Play();
+            _bgmAudio.clip = bgmMusic;
+            _bgmAudio.loop = true;
+            _bgmAudio.Play();
         }
 
 
@@ -87,7 +90,7 @@ namespace Assets.Script.Chapter
         public void NewGame()
         {
             bg.sprite = null;
-            _audio.Stop();
+            _bgmAudio.Stop();
             DeactiveGameObject(titleContainer);
             ReleaseMemory();
         }
@@ -202,7 +205,7 @@ namespace Assets.Script.Chapter
         /// <param name="callback">The comfirm callback</param>
         public void OpenPopup(string callback)
         {
-            popupCallbackText.text = callback;
+            popupCallbackText.text = callback.Trim();
             ActiveGameObject(popupWindow);
         }
 
@@ -213,7 +216,66 @@ namespace Assets.Script.Chapter
         {
             DeactiveGameObject(popupWindow);
         }
+
+        /// <summary>
+        /// popup window confirm button click listener
+        /// </summary>
+        public void PopupCallback()
+        {
+            switch(popupCallbackText.text)
+            {
+                case "QuitGame":
+                    QuitGame();
+                    break;
+                default:
+                    break;
+            }
+        }
         #endregion
+
+        /// <summary>
+        /// Request full screen mode
+        /// </summary>
+        public void FullScreen()
+        {
+            Screen.fullScreen = true;
+        }
+
+        /// <summary>
+        /// Set volume of BGM to mute or not
+        /// </summary>
+        /// <param name="mute"></param>
+        public void SetBgmMute(bool mute)
+        {
+            _bgmAudio.mute = mute;
+        }
+
+        /// <summary>
+        /// Set volume of Voices to mute or not
+        /// </summary>
+        /// <param name="mute"></param>
+        public void SetVoicesMute(bool mute)
+        {
+            _voiceAudio.mute = mute;
+        }
+
+        /// <summary>
+        /// Set volume of BGM
+        /// </summary>
+        /// <param name="volume">The volume value in float</param>
+        public void SetBgmVolume(float volume)
+        {
+            _bgmAudio.volume = volume;
+        }
+
+        /// <summary>
+        /// Set volume of Voices
+        /// </summary>
+        /// <param name="volume">The volume value in float</param>
+        public void SetVoicesVolume(float volume)
+        {
+            _voiceAudio.volume = volume;
+        }
 
         /// <summary>
         /// To active a gameobject
