@@ -77,12 +77,6 @@ namespace Assets.Script.Chapter
         public GameObject videoPlayer;
         public GameObject audioSource;
         public GameObject voiceAudioSource;
-        // Setting: Duration of text showing speed, in seconds
-        public float textShowDuration = 0.1f;
-        // Setting: Duration of line auto switch speed, in seconds
-        public float lineSwitchDuration = 3.0f;
-        // Setting: Duration of line switch speed under skip mode, in seconds
-        public float skipModeLineSwitchDuration = 0.1f;
 
         private List<GalgameAction> galgameActions;
         private GalgameAction currentGalgameAction;
@@ -138,12 +132,9 @@ namespace Assets.Script.Chapter
                 bgSpriteRenderer.sprite = currentScript.Bg;
             }
 
-            textShowDuration = GameController.textShowDuration;
-            lineSwitchDuration = GameController.lineSwitchDuration;
-            skipModeLineSwitchDuration = GameController.lineSwitchDuration;
-            textShowWaitForSeconds = new WaitForSeconds(textShowDuration);
-            lineSwitchWaitForSeconds = new WaitForSeconds(lineSwitchDuration);
-            skipModeLineSwitchWaitForSeconds = new WaitForSeconds(skipModeLineSwitchDuration);
+            textShowWaitForSeconds = new WaitForSeconds(SettingModel.textShowDuration);
+            lineSwitchWaitForSeconds = new WaitForSeconds(SettingModel.lineSwitchDuration);
+            skipModeLineSwitchWaitForSeconds = new WaitForSeconds(SettingModel.skipModeLineSwitchDuration);
 
             // opearation buttons
             autoPlayButton = operationButtons.transform.Find("AutoPlayBtn").gameObject;
@@ -237,7 +228,7 @@ namespace Assets.Script.Chapter
                 }
             }
 
-            if (SettingModel.isSkipModeOn && IsSwitchLineAllowed() && (null == preSkipTime || (DateTime.Now - preSkipTime).TotalSeconds > skipModeLineSwitchDuration))
+            if (SettingModel.isSkipModeOn && IsSwitchLineAllowed() && (null == preSkipTime || (DateTime.Now - preSkipTime).TotalSeconds > SettingModel.skipModeLineSwitchDuration))
             {
                 if (!lineContainer.activeSelf)
                 {

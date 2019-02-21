@@ -17,7 +17,7 @@ namespace Assets.Script.Model
 
         // Setting: Message Speed
         // Duration of text showing speed, in seconds
-        public static float textShowDuration = 0.1f;
+        public static float textShowDuration = 0.03f;
         // Duration of line auto switch speed, in seconds
         public static float lineSwitchDuration = 3.0f;
         // Duration of line switch speed under skip mode, in seconds
