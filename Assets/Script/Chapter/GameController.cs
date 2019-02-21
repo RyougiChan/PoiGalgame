@@ -41,6 +41,13 @@ namespace Assets.Script.Chapter
         public static int savdDataPageCount;
         public static int lastLoadedSavedDataPage;
 
+        // Setting: Duration of text showing speed, in seconds
+        public static float textShowDuration = 0.1f;
+        // Setting: Duration of line auto switch speed, in seconds
+        public static float lineSwitchDuration = 3.0f;
+        // Setting: Duration of line switch speed under skip mode, in seconds
+        public static float skipModeLineSwitchDuration = 0.1f;
+
         void Awake()
         {
             bg = background.transform.Find("Bg").gameObject.GetComponent<SpriteRenderer>();

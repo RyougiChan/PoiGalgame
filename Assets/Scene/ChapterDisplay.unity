@@ -1398,7 +1398,7 @@ MonoBehaviour:
   savedDataPanel: {fileID: 1668474166}
   settingField: {fileID: 1433664175}
   operationButtons: {fileID: 700970629}
-  autoPlayButon: {fileID: 0}
+  autoPlayButton: {fileID: 0}
   skipButton: {fileID: 0}
   saveButton: {fileID: 0}
   loadButton: {fileID: 0}
@@ -1408,8 +1408,6 @@ MonoBehaviour:
   videoPlayer: {fileID: 1190086026}
   audioSource: {fileID: 1883247059}
   voiceAudioSource: {fileID: 112241588}
-  textShowDuration: 0.03
-  lineSwitchDuration: 3
 --- !u!114 &173560124
 MonoBehaviour:
   m_ObjectHideFlags: 0

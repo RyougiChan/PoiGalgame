@@ -81,8 +81,8 @@ namespace Assets.Script.Chapter
         public float textShowDuration = 0.1f;
         // Setting: Duration of line auto switch speed, in seconds
         public float lineSwitchDuration = 3.0f;
-        // Duration of line switch speed under skip mode, in seconds
-        private float skipModeLineSwitchDuration = 0.1f;
+        // Setting: Duration of line switch speed under skip mode, in seconds
+        public float skipModeLineSwitchDuration = 0.1f;
 
         private List<GalgameAction> galgameActions;
         private GalgameAction currentGalgameAction;
@@ -93,9 +93,9 @@ namespace Assets.Script.Chapter
         // Is a line text is showing
         private bool isShowingLine;
         // Is auto-reading mode is actived
-        private bool isAutoReadingModeOn;
+        // private bool isAutoReadingModeOn;
         // Is skip mode is actived
-        private bool isSkipModeOn;
+        // private bool isSkipModeOn;
         // The previous skip time
         private DateTime preSkipTime;
         // Is menu is actived
@@ -131,12 +131,16 @@ namespace Assets.Script.Chapter
             // currentLineIndex = 0; // ?
             line = lineContainer.transform.Find("Line").GetComponent<Text>();
             actorName = lineContainer.transform.Find("ActorName").GetComponent<Text>();
-            isAutoReadingModeOn = false;
+            // SettingModel.isAutoReadingModeOn = false;
             galgameActions = currentScript.GalgameActions;
             if (null != currentScript.Bg)
             {
                 bgSpriteRenderer.sprite = currentScript.Bg;
             }
+
+            textShowDuration = GameController.textShowDuration;
+            lineSwitchDuration = GameController.lineSwitchDuration;
+            skipModeLineSwitchDuration = GameController.lineSwitchDuration;
             textShowWaitForSeconds = new WaitForSeconds(textShowDuration);
             lineSwitchWaitForSeconds = new WaitForSeconds(lineSwitchDuration);
             skipModeLineSwitchWaitForSeconds = new WaitForSeconds(skipModeLineSwitchDuration);
@@ -190,18 +194,18 @@ namespace Assets.Script.Chapter
                         // Click on UI button named 'AutoPlayBtn'
                         case "AutoPlay":
                             // Change text style
-                            Debug.Log("isAutoReadingModeOn: " + isAutoReadingModeOn);
+                            Debug.Log("SettingModel.isAutoReadingModeOn: " + SettingModel.isAutoReadingModeOn);
                             if (null == autoPlayButton) autoPlayButton = hitUIObject;
-                            if(!isSkipModeOn)
+                            if(!SettingModel.isSkipModeOn)
                             {
-                                hitUIObject.GetComponent<Text>().color = isAutoReadingModeOn ? Color.black : Color.cyan;
+                                hitUIObject.GetComponent<Text>().color = SettingModel.isAutoReadingModeOn ? Color.black : Color.cyan;
                             }
                             break;
                         case "Skip":
                             // Change text style
-                            Debug.Log("isSkipModeOn: " + isSkipModeOn);
+                            Debug.Log("SettingModel.isSkipModeOn: " + SettingModel.isSkipModeOn);
                             if (null == skipButton) skipButton = hitUIObject;
-                            hitUIObject.GetComponent<Text>().color = isSkipModeOn ? Color.black : Color.cyan;
+                            hitUIObject.GetComponent<Text>().color = SettingModel.isSkipModeOn ? Color.black : Color.cyan;
                             break;
                         case "Save":
                             if (null == saveButton) saveButton = hitUIObject;
@@ -233,7 +237,7 @@ namespace Assets.Script.Chapter
                 }
             }
 
-            if (isSkipModeOn && IsSwitchLineAllowed() && (null == preSkipTime || (DateTime.Now - preSkipTime).TotalSeconds > skipModeLineSwitchDuration))
+            if (SettingModel.isSkipModeOn && IsSwitchLineAllowed() && (null == preSkipTime || (DateTime.Now - preSkipTime).TotalSeconds > skipModeLineSwitchDuration))
             {
                 if (!lineContainer.activeSelf)
                 {
@@ -281,8 +285,8 @@ namespace Assets.Script.Chapter
         {
             if(manual)
             {
-                isAutoReadingModeOn = false;
-                isSkipModeOn = false;
+                SettingModel.isAutoReadingModeOn = false;
+                SettingModel.isSkipModeOn = false;
             }
         }
 
@@ -291,7 +295,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         public void AutoReading()
         {
-            SetAutoMode(!isAutoReadingModeOn);
+            SetAutoMode(!SettingModel.isAutoReadingModeOn);
         }
 
         /// <summary>
@@ -300,13 +304,13 @@ namespace Assets.Script.Chapter
         /// <param name="auto"></param>
         public void SetAutoMode(bool auto)
         {
-            isSkipModeOn = false;
-            skipButton.GetComponent<Text>().color = Color.black;
-            isAutoReadingModeOn = auto;
-            // If isAutoReadingModeOn == true, call SwitchLine()
-            if (isAutoReadingModeOn && IsSwitchLineAllowed() && !isSkipModeOn && !isShowingLine)
+            SettingModel.isSkipModeOn = false;
+            skipButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+            SettingModel.isAutoReadingModeOn = auto;
+            // If SettingModel.isAutoReadingModeOn == true, call SwitchLine()
+            if (SettingModel.isAutoReadingModeOn && IsSwitchLineAllowed() && !SettingModel.isSkipModeOn && !isShowingLine)
             {
-                autoPlayButton.GetComponent<Text>().color = Color.cyan;
+                autoPlayButton.transform.GetChild(0).GetComponent<Text>().color = Color.cyan;
                 currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
             }
         }
@@ -316,7 +320,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         public void ChangeSkipMode()
         {
-            SetSkipMode(!isSkipModeOn);
+            SetSkipMode(!SettingModel.isSkipModeOn);
         }
 
         /// <summary>
@@ -325,12 +329,12 @@ namespace Assets.Script.Chapter
         /// <param name="skip"></param>
         public void SetSkipMode(bool skip)
         {
-            isAutoReadingModeOn = false;
-            autoPlayButton.GetComponent<Text>().color = Color.black;
-            isSkipModeOn = skip;
-            if (isSkipModeOn && IsSwitchLineAllowed())
+            SettingModel.isAutoReadingModeOn = false;
+            autoPlayButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+            SettingModel.isSkipModeOn = skip;
+            if (SettingModel.isSkipModeOn && IsSwitchLineAllowed())
             {
-                skipButton.GetComponent<Text>().color = Color.cyan;
+                skipButton.transform.GetChild(0).GetComponent<Text>().color = Color.cyan;
                 StopAllCoroutines();
                 ShowLineImmediately();
                 SwitchLine();
@@ -425,7 +429,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         private void DisableSkipMode()
         {
-            isSkipModeOn = false;
+            SettingModel.isSkipModeOn = false;
             skipButton.GetComponent<Text>().color = Color.black;
         }
 
@@ -437,7 +441,7 @@ namespace Assets.Script.Chapter
             if (historyField.activeSelf)
             {
                 gameController.DeactiveGameObject(historyField);
-                if (isAutoReadingModeOn)
+                if (SettingModel.isAutoReadingModeOn)
                 {
                     yield return lineSwitchWaitForSeconds;
                     SwitchLine();
@@ -467,7 +471,7 @@ namespace Assets.Script.Chapter
             if (currentLineIndex == galgameActions.Count)
             {
                 // this chapter is end
-                if (isSkipModeOn)
+                if (SettingModel.isSkipModeOn)
                 {
                     DisableSkipMode();
                 }
@@ -481,7 +485,7 @@ namespace Assets.Script.Chapter
             currentLineCharIndex = -1; // read from index: -1
             currentGalgameAction = galgameActions[currentLineIndex];
             nextLine = currentGalgameAction.Line.text;
-            if (isSkipModeOn)
+            if (SettingModel.isSkipModeOn)
             {
                 ShowLineImmediately();
             }
@@ -590,7 +594,7 @@ namespace Assets.Script.Chapter
                     isShowingLine = false;
                     AddHistoryText(newLine); // Add line to history text list
                     Debug.Log("currentLineCharIndex: " + currentLineCharIndex);
-                    if (isAutoReadingModeOn)
+                    if (SettingModel.isAutoReadingModeOn)
                     {
                         yield return lineSwitchWaitForSeconds;
                         SwitchLine();
@@ -617,13 +621,13 @@ namespace Assets.Script.Chapter
             AddHistoryText(nextLine); // Add line to history text list
             ShowLineImmediately(nextLine);
             Debug.Log(DateTime.Now.ToString() + "已跳过");
-            // If isAutoReadingModeOn == true, call SwitchLine()
-            if (!isSkipModeOn && isAutoReadingModeOn && IsSwitchLineAllowed())
+            // If SettingModel.isAutoReadingModeOn == true, call SwitchLine()
+            if (!SettingModel.isSkipModeOn && SettingModel.isAutoReadingModeOn && IsSwitchLineAllowed())
             {
                 currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
             }
 
-            if (isSkipModeOn)
+            if (SettingModel.isSkipModeOn)
             {
                 // ShowLineImmediately();
                 Debug.Log("StartCoroutine(SwitchLineTimeout(skipModeLineSwitchWaitForSeconds))");
@@ -639,8 +643,8 @@ namespace Assets.Script.Chapter
         {
             line.text = newLine;
 
-            // If isAutoReadingModeOn == true, call SwitchLine()
-            if (!isSkipModeOn && isAutoReadingModeOn && IsSwitchLineAllowed())
+            // If SettingModel.isAutoReadingModeOn == true, call SwitchLine()
+            if (!SettingModel.isSkipModeOn && SettingModel.isAutoReadingModeOn && IsSwitchLineAllowed())
             {
                 Debug.Log("1: historyField.activeSelf=" + historyField.activeSelf);
                 currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
@@ -666,7 +670,7 @@ namespace Assets.Script.Chapter
         private IEnumerator SwitchLineTimeout()
         {
             yield return lineSwitchWaitForSeconds;
-            if (!isSkipModeOn && !isShowingLine && IsSwitchLineAllowed())
+            if (!SettingModel.isSkipModeOn && !isShowingLine && IsSwitchLineAllowed())
             {
                 SwitchLine();
             }
