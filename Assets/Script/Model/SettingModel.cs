@@ -17,10 +17,13 @@ namespace Assets.Script.Model
 
         // Setting: Message Speed
         // Duration of text showing speed, in seconds
+        public const float MAX_TEXT_SHOW_DURATION = 0.06f;
         public static float textShowDuration = 0.03f;
         // Duration of line auto switch speed, in seconds
+        public const float MAX_LINE_SWITCH_DURATION = 6.0f;
         public static float lineSwitchDuration = 3.0f;
         // Duration of line switch speed under skip mode, in seconds
+        public const float MAX_SKIP_MODE_LINE_SWITCH_DURATION = 0.2f;
         public static float skipModeLineSwitchDuration = 0.1f;
 
         // Setting: Volume
@@ -53,7 +56,8 @@ namespace Assets.Script.Model
         // Is this application remain active in background
         public static bool appActiveInBackground = true;
         // Language
-        public static string language = "Chinese";
+        public static List<string> languages = new List<string> { "简体中文", "繁体中文", "日本语", "English" };
+        public static string appLanguage = "Chinese";
 
         // Setting: Character voices
         // List of playing character voices or not

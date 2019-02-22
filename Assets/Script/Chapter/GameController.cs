@@ -233,13 +233,106 @@ namespace Assets.Script.Chapter
         }
         #endregion
 
+        #region Setting
+        /// <summary>
+        /// Set <see cref="SettingModel.textShowDuration"/>
+        /// </summary>
+        /// <param name="duration">the value</param>
+        public void SetTextShowDuration(float ratio)
+        {
+            SettingModel.textShowDuration = SettingModel.MAX_TEXT_SHOW_DURATION * ratio;
+        }
+
+        /// <summary>
+        /// Set <see cref="SettingModel.lineSwitchDuration"/>
+        /// </summary>
+        /// <param name="duration">the value</param>
+        public void SetLineSwitchDuration(float ratio)
+        {
+            SettingModel.lineSwitchDuration = SettingModel.MAX_LINE_SWITCH_DURATION * ratio;
+        }
+
+        /// <summary>
+        /// Set <see cref="SettingModel.skipModeLineSwitchDuration"/>
+        /// </summary>
+        /// <param name="duration">the value</param>
+        public void SetSkipModeLineSwitchDuration(float ratio)
+        {
+            SettingModel.skipModeLineSwitchDuration = SettingModel.MAX_SKIP_MODE_LINE_SWITCH_DURATION * ratio;
+        }
+
+        /// <summary>
+        /// Set <see cref="SettingModel.appActiveInBackground"/>
+        /// </summary>
+        /// <param name="active"></param>
+        public void SetAppActiveInBackground(bool active)
+        {
+            SettingModel.appActiveInBackground = active;
+        }
+
+        /// <summary>
+        /// Set <see cref="SettingModel.showCGInSkipMode"/>
+        /// </summary>
+        /// <param name="show"></param>
+        public void SetShowCGInSkipMode(bool show)
+        {
+            SettingModel.showCGInSkipMode = show;
+        }
+
+        /// <summary>
+        /// Set <see cref="SettingModel.showSpecialEffects"/>
+        /// </summary>
+        /// <param name="show"></param>
+        public void SetShowSpecialEffects(bool show)
+        {
+            SettingModel.showSpecialEffects = show;
+        }
+
+        /// <summary>
+        /// Set <see cref="SettingModel.showTextShadow"/>
+        /// </summary>
+        /// <param name="active"></param>
+        public void SetShowTextShadow(bool show)
+        {
+            SettingModel.showTextShadow = show;
+        }
+
+        /// <summary>
+        /// Set <see cref="SettingModel.showAnimation"/>
+        /// </summary>
+        /// <param name="active"></param>
+        public void SetShowAnimation(bool show)
+        {
+            SettingModel.showAnimation = show;
+        }
+
+        /// <summary>
+        /// Set <see cref="SettingModel.appLanguage"/> with value in <see cref="SettingModel.languages"/> via <paramref name="index"/>
+        /// </summary>
+        /// <param name="index"></param>
+        public void SetAppLanguage(int index)
+        {
+            SettingModel.appLanguage = SettingModel.languages[index];
+        }
+
         /// <summary>
         /// Request full screen mode
         /// </summary>
-        public void FullScreen()
+        public void SetFullScreenMode(bool fullScreen)
         {
-            Screen.fullScreen = true;
+            Screen.fullScreen = fullScreen;
+            SettingModel.isFullScreenModeOn = fullScreen;
         }
+
+        /// <summary>
+        /// Set application run with windowed mode
+        /// </summary>
+        /// <param name="windowed"></param>
+        public void SetWindowedMode(bool windowed)
+        {
+            SetFullScreenMode(!windowed);
+        }
+        #endregion
 
         /// <summary>
         /// Set volume of BGM to mute or not

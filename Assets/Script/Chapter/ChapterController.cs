@@ -56,6 +56,7 @@ namespace Assets.Script.Chapter
 
         #region Setting field
         public GameObject settingField;
+        private Dropdown resolutionDropdown;
         #endregion
 
         #region Operation buttons
@@ -148,6 +149,14 @@ namespace Assets.Script.Chapter
             _bgmAudio = audioSource.GetComponent<AudioSource>();
             _voiceAudio = voiceAudioSource.GetComponent<AudioSource>();
 
+            // resolution dropdown list
+            resolutionDropdown = settingField.transform.Find("ScreenMode").Find("Windowed").Find("Resolution").GetComponent<Dropdown>();
+            foreach(Resolution resolution in Screen.resolutions)
+            {
+                resolutionDropdown.options.Add(new Dropdown.OptionData(string.Format("{0}x{1}", resolution.width, resolution.height)));
+            }
+            resolutionDropdown.RefreshShownValue();
+
             // savedDatas = gameController.LoadSavedDatas();
             lastLoadedSavedDataPage = GameController.lastLoadedSavedDataPage;
             savdDataPageCount = GameController.savdDataPageCount;
@@ -182,31 +191,6 @@ namespace Assets.Script.Chapter
                     Debug.Log("hitUIObject.name: " + hitUIObject.name);
                     switch (hitUIObject.name)
                     {
-                        // Click on UI button named 'AutoPlayBtn'
-                        case "AutoPlay":
-                            // Change text style
-                            Debug.Log("SettingModel.isAutoReadingModeOn: " + SettingModel.isAutoReadingModeOn);
-                            if (null == autoPlayButton) autoPlayButton = hitUIObject;
-                            if(!SettingModel.isSkipModeOn)
-                            {
-                                hitUIObject.GetComponent<Text>().color = SettingModel.isAutoReadingModeOn ? Color.black : Color.cyan;
-                            }
-                            break;
-                        case "Skip":
-                            // Change text style
-                            Debug.Log("SettingModel.isSkipModeOn: " + SettingModel.isSkipModeOn);
-                            if (null == skipButton) skipButton = hitUIObject;
-                            hitUIObject.GetComponent<Text>().color = SettingModel.isSkipModeOn ? Color.black : Color.cyan;
-                            break;
-                        case "Save":
-                            if (null == saveButton) saveButton = hitUIObject;
-                            break;
-                        case "Load":
-                            if (null == loadButton) loadButton = hitUIObject;
-                            break;
-                        case "Setting":
-                            if (null == settingButton) settingButton = hitUIObject;
-                            break;
                         case "CloseSaveData":
                             isSavingGameData = false;
                             isLoadingSavedData = false;
@@ -299,6 +283,10 @@ namespace Assets.Script.Chapter
             skipButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
             SettingModel.isAutoReadingModeOn = auto;
             // If SettingModel.isAutoReadingModeOn == true, call SwitchLine()
+            if(!auto)
+            {
+                autoPlayButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+            }
             if (SettingModel.isAutoReadingModeOn && IsSwitchLineAllowed() && !SettingModel.isSkipModeOn && !isShowingLine)
             {
                 autoPlayButton.transform.GetChild(0).GetComponent<Text>().color = Color.cyan;
@@ -323,6 +311,10 @@ namespace Assets.Script.Chapter
             SettingModel.isAutoReadingModeOn = false;
             autoPlayButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
             SettingModel.isSkipModeOn = skip;
+            if(!skip)
+            {
+                skipButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+            }
             if (SettingModel.isSkipModeOn && IsSwitchLineAllowed())
             {
                 skipButton.transform.GetChild(0).GetComponent<Text>().color = Color.cyan;
@@ -416,15 +408,6 @@ namespace Assets.Script.Chapter
         }
 
         /// <summary>
-        /// Disable skip mode
-        /// </summary>
-        private void DisableSkipMode()
-        {
-            SettingModel.isSkipModeOn = false;
-            skipButton.GetComponent<Text>().color = Color.black;
-        }
-
-        /// <summary>
         /// Hide history TextView with duration
         /// </summary>
         private IEnumerator HideHistoryFieldTimeOut()
@@ -445,7 +428,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         private void SwitchLine()
         {
-            line.text = string.Empty;
+            line.text = string.Empty; // clear previous line
             if (isShowingLine)
             {
                 Debug.Log(DateTime.Now.ToString() + "准备跳过");
@@ -464,7 +447,11 @@ namespace Assets.Script.Chapter
                 // this chapter is end
                 if (SettingModel.isSkipModeOn)
                 {
-                    DisableSkipMode();
+                    SetSkipMode(false);
+                }
+                if(SettingModel.isAutoReadingModeOn)
+                {
+                    SetAutoMode(false);
                 }
                 // TODO: maybe consider loading another chapter?
                 line.text = "『つづく...』";
@@ -472,7 +459,6 @@ namespace Assets.Script.Chapter
             }
 
             Debug.Log("galgameActions'Size: " + galgameActions.Count + " currentLineIndex: " + currentLineIndex);
-            line.text = string.Empty; // clear previous line
             currentLineCharIndex = -1; // read from index: -1
             currentGalgameAction = galgameActions[currentLineIndex];
             nextLine = currentGalgameAction.Line.text;
@@ -576,6 +562,14 @@ namespace Assets.Script.Chapter
         private IEnumerator ShowLineTimeOut(string newLine, bool autoSwitchLine = false)
         {
             isShowingLine = true;
+            if(string.IsNullOrEmpty(newLine))
+            {
+                if (SettingModel.isAutoReadingModeOn)
+                {
+                    yield return lineSwitchWaitForSeconds;
+                    SwitchLine();
+                }
+            }
             foreach (char lineChar in newLine)
             {
                 currentLineCharIndex++;
