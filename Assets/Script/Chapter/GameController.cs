@@ -14,6 +14,8 @@ namespace Assets.Script.Chapter
 {
     public class GameController : MonoBehaviour
     {
+        public bool inGame;
+
         public GameObject background;
         public GameObject displayCanvas;
         public GameObject videoPlayer;
@@ -26,12 +28,20 @@ namespace Assets.Script.Chapter
         private GameObject historyField;
         private GameObject savedDataField;
         private GameObject settingField;
+        private GameObject menuField;
         private GameObject popupWindow;
         private VideoPlayer _video;
         private AudioSource _bgmAudio;
         private AudioSource _voiceAudio;
         private AudioClip bgmMusic;
 
+        private float startTime;
+        private bool isMenuShow;
+        private Vector3 defaultMenuLocalPos;
+        private Vector3 shownMenuLocalPos;
+
+        private const string DEFAULT_POPUP_NOTICE_TEXT = "本気ですか？";
+        private Text popupNoticeText;
         private Text popupCallbackText;
 
         public static string rootPath;
@@ -40,6 +50,7 @@ namespace Assets.Script.Chapter
         public static List<SavedDataModel> savedDatas;
         public static int savdDataPageCount;
         public static int lastLoadedSavedDataPage;
+        public static GameObject[] historyQuene;
 
         void Awake()
         {
@@ -49,7 +60,9 @@ namespace Assets.Script.Chapter
             historyField = displayCanvas.transform.Find("HistoryField").gameObject;
             savedDataField = displayCanvas.transform.Find("SavedDataField").gameObject;
             settingField = displayCanvas.transform.Find("SettingField").gameObject;
+            menuField = displayCanvas.transform.Find("MenuField").gameObject;
             popupWindow = displayCanvas.transform.Find("PopupWindow").gameObject;
+            popupNoticeText = popupWindow.transform.Find("Popup").Find("NoticeText").gameObject.GetComponent<Text>();
             popupCallbackText = popupWindow.transform.Find("Popup").Find("CallbackMethod").gameObject.GetComponent<Text>();
             _video = videoPlayer.GetComponent<VideoPlayer>();
             _bgmAudio = bgmAudioSource.GetComponent<AudioSource>();
@@ -62,25 +75,60 @@ namespace Assets.Script.Chapter
             savedDataFile = "savedata.dat";
             savdDataPageCount = 10;
             lastLoadedSavedDataPage = 0;
+            historyQuene = new GameObject[] { null, titleContainer };
             savedDatas = LoadSavedDatas();
+
+            defaultMenuLocalPos = menuField.transform.localPosition;
+            shownMenuLocalPos = new Vector3(defaultMenuLocalPos.x, defaultMenuLocalPos.y - menuField.GetComponent<RectTransform>().sizeDelta.y, defaultMenuLocalPos.z);
 
             _bgmAudio.clip = bgmMusic;
             _bgmAudio.loop = true;
             _bgmAudio.Play();
         }
 
+        void Start()
+        {
+            startTime = Time.time;
+        }
+
+        void FixedUpdate()
+        {
+            if(inGame)
+            {
+                if (Input.mousePosition.y > Screen.height - menuField.GetComponent<RectTransform>().sizeDelta.y)
+                {
+                    MoveMenu(defaultMenuLocalPos, shownMenuLocalPos, (Time.time - startTime) * 5.0f);
+                }
+                else
+                {
+                    MoveMenu(shownMenuLocalPos, defaultMenuLocalPos, (Time.time - startTime) * 5.0f);
+                }
+            }
+        }
 
         /// <summary>
         /// Clear all display items in screen and show CG picture
         /// </summary>
         public void ShowCG()
         {
-            DeactiveGameObject(titleContainer);
-            DeactiveGameObject(lineContainer);
-            DeactiveGameObject(historyField);
-            DeactiveGameObject(savedDataField);
-            DeactiveGameObject(settingField);
-            DeactiveGameObject(popupWindow);
+            titleContainer.SetActive(false);
+            lineContainer.SetActive(false);
+            historyField.SetActive(false);
+            savedDataField.SetActive(false);
+            settingField.SetActive(false);
+            popupWindow.SetActive(false);
+        }
+
+        public void MoveMenu(Vector3 start, Vector3 end, float speed)
+        {
+            if (menuField.transform.localPosition != end)
+            {
+                menuField.transform.localPosition = Vector3.Lerp(start, end, speed);
+            }
+            else
+            {
+                startTime = Time.time;
+            }
         }
 
         #region Title Menu Callback
@@ -89,9 +137,11 @@ namespace Assets.Script.Chapter
         /// </summary>
         public void NewGame()
         {
+            inGame = true;
             bg.sprite = null;
             _bgmAudio.Stop();
-            DeactiveGameObject(titleContainer);
+            // DeactiveGameObject(titleContainer);
+            historyQuene[1].SetActive(false);
             ReleaseMemory();
         }
 
@@ -111,12 +161,12 @@ namespace Assets.Script.Chapter
         public void BackToTitle()
         {
             bg.sprite = Resources.Load<Sprite>("Sprite/STT_BG00");
+            _bgmAudio.clip = (AudioClip)Resources.Load("Audio/BGM30", typeof(AudioClip));
+            _bgmAudio.Play();
+            inGame = false;
+
             // Deactive display objects
-            DeactiveGameObject(lineContainer);
-            DeactiveGameObject(historyField);
-            DeactiveGameObject(savedDataField);
-            DeactiveGameObject(settingField);
-            DeactiveGameObject(popupWindow);
+            ShowCG();
             // Active title menu
             ActiveGameObject(titleContainer);
             // Release menory
@@ -205,8 +255,20 @@ namespace Assets.Script.Chapter
         /// <param name="callback">The comfirm callback</param>
         public void OpenPopup(string callback)
         {
+            OpenPopup(callback, null);
+        }
+
+        /// <summary>
+        /// Open popup window with comfirm callback
+        /// </summary>
+        /// <param name="callback">The comfirm callback</param>
+        /// <param name="notice">The notice text</param>
+        public void OpenPopup(string callback, string notice)
+        {
+            if(!string.IsNullOrEmpty(notice)) popupNoticeText.text = notice;
             popupCallbackText.text = callback.Trim();
-            ActiveGameObject(popupWindow);
+            // ActiveGameObject(popupWindow);
+            popupWindow.SetActive(true);
         }
 
         /// <summary>
@@ -214,7 +276,9 @@ namespace Assets.Script.Chapter
         /// </summary>
         public void ClosePopup()
         {
-            DeactiveGameObject(popupWindow);
+            // DeactiveGameObject(popupWindow);
+            popupNoticeText.text = DEFAULT_POPUP_NOTICE_TEXT;
+            popupWindow.SetActive(false);
         }
 
         /// <summary>
@@ -226,6 +290,9 @@ namespace Assets.Script.Chapter
             {
                 case "QuitGame":
                     QuitGame();
+                    break;
+                case "BackToTitle":
+                    BackToTitle();
                     break;
                 default:
                     break;
@@ -313,6 +380,7 @@ namespace Assets.Script.Chapter
         public void SetAppLanguage(int index)
         {
             SettingModel.appLanguage = SettingModel.languages[index];
+            // TODO: Work after rebooting or work imediately?
         }
 
         /// <summary>
@@ -332,7 +400,17 @@ namespace Assets.Script.Chapter
         {
             SetFullScreenMode(!windowed);
         }
-        #endregion
+
+        /// <summary>
+        /// Set resoulution
+        /// </summary>
+        /// <param name="index">The index in <see cref="Screen.resolutions"/></param>
+        public void SetWindowedResoulution(int index)
+        {
+            Resolution selected = Screen.resolutions[index]; 
+            Screen.SetResolution(selected.width, selected.height, SettingModel.isFullScreenModeOn);
+            SettingModel.resolution = string.Format("{0}x{1}", selected.width, selected.height);
+        }
 
         /// <summary>
         /// Set volume of BGM to mute or not
@@ -341,6 +419,7 @@ namespace Assets.Script.Chapter
         public void SetBgmMute(bool mute)
         {
             _bgmAudio.mute = mute;
+            SettingModel.isBgmMute = mute;
         }
 
         /// <summary>
@@ -350,6 +429,7 @@ namespace Assets.Script.Chapter
         public void SetVoicesMute(bool mute)
         {
             _voiceAudio.mute = mute;
+            SettingModel.isVoicesMute = mute;
         }
 
         /// <summary>
@@ -359,6 +439,7 @@ namespace Assets.Script.Chapter
         public void SetBgmVolume(float volume)
         {
             _bgmAudio.volume = volume;
+            SettingModel.bgmVolume = volume;
         }
 
         /// <summary>
@@ -368,7 +449,9 @@ namespace Assets.Script.Chapter
         public void SetVoicesVolume(float volume)
         {
             _voiceAudio.volume = volume;
+            SettingModel.voicesVolume = volume;
         }
+        #endregion
 
         /// <summary>
         /// To active a gameobject
@@ -376,7 +459,12 @@ namespace Assets.Script.Chapter
         /// <param name="gameObject">The target object</param>
         public void ActiveGameObject(GameObject gameObject)
         {
+            if (null != historyQuene[1]) historyQuene[1].SetActive(false);
             gameObject.SetActive(true);
+            historyQuene[0] = historyQuene[1];
+            historyQuene[1] = gameObject;
+            Debug.Log(DateTime.Now.ToString() + ": " + (null == historyQuene[0] ? "" : historyQuene[0].name) + " - " + (null == historyQuene[1] ? "" : historyQuene[1].name));
+            // gameObject.SetActive(true);
         }
 
         /// <summary>
@@ -385,7 +473,12 @@ namespace Assets.Script.Chapter
         /// <param name="gameObject">The target object</param>
         public void DeactiveGameObject(GameObject gameObject)
         {
+            if (null != historyQuene[0]) historyQuene[0].SetActive(true);
             gameObject.SetActive(false);
+            historyQuene[1] = historyQuene[0];
+            historyQuene[0] = gameObject;
+            Debug.Log( DateTime.Now.ToString() + ": " + (null == historyQuene[0] ? "" : historyQuene[0].name) + " - " + (null == historyQuene[1] ? "" : historyQuene[1].name));
+            //gameObject.SetActive(false);
         }
 
         /// <summary>

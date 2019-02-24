@@ -151,9 +151,10 @@ namespace Assets.Script.Chapter
 
             // resolution dropdown list
             resolutionDropdown = settingField.transform.Find("ScreenMode").Find("Windowed").Find("Resolution").GetComponent<Dropdown>();
-            foreach(Resolution resolution in Screen.resolutions)
+            foreach(Resolution res in Screen.resolutions)
             {
-                resolutionDropdown.options.Add(new Dropdown.OptionData(string.Format("{0}x{1}", resolution.width, resolution.height)));
+                if(res.refreshRate == 60)
+                    resolutionDropdown.options.Add(new Dropdown.OptionData(string.Format("{0}x{1}", res.width, res.height)));
             }
             resolutionDropdown.RefreshShownValue();
 
@@ -223,7 +224,7 @@ namespace Assets.Script.Chapter
             }
 
             // mouse scroll up
-            if (Input.mouseScrollDelta.y > 0 && !historyField.activeSelf)
+            if (Input.mouseScrollDelta.y > 0 && !historyField.activeSelf && gameController.inGame)
             {
                 // TODO: Fix bug of adding double history text
                 ShowhistoryField();
@@ -236,7 +237,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         public void ShowhistoryField()
         {
-            gameController.ActiveGameObject(historyField);
+            historyField.SetActive(true);
             // If `currentTextShowCoroutine` is going
             if (isShowingLine)
             {
@@ -247,7 +248,7 @@ namespace Assets.Script.Chapter
         /// <summary>
         /// Hide history TextView
         /// </summary>
-        public void HidehistoryField()
+        public void HideHistoryField()
         {
             hidehistoryFieldCoroutine = StartCoroutine(HideHistoryFieldTimeOut());
         }
@@ -331,7 +332,7 @@ namespace Assets.Script.Chapter
         {
             isSavingGameData = true;
             SetSavedDataModelButtons(0, 12);
-            gameController.ShowCG();
+            // gameController.ShowCG();
             gameController.ActiveGameObject(savedDataField);
             Debug.Log(string.Format("Save Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
         }
@@ -351,7 +352,7 @@ namespace Assets.Script.Chapter
         {
             isLoadingSavedData = true;
             SetSavedDataModelButtons(0, 12);
-            gameController.ShowCG();
+            // gameController.ShowCG();
             gameController.ActiveGameObject(savedDataField);
             Debug.Log(string.Format("Load Saved Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
         }
@@ -382,7 +383,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         public void ChangeSetting()
         {
-            gameController.ShowCG();
+            // gameController.ShowCG();
             gameController.ActiveGameObject(settingField);
             Debug.Log(string.Format("Change Setting"));
         }
@@ -414,7 +415,7 @@ namespace Assets.Script.Chapter
         {
             if (historyField.activeSelf)
             {
-                gameController.DeactiveGameObject(historyField);
+                historyField.SetActive(false);
                 if (SettingModel.isAutoReadingModeOn)
                 {
                     yield return lineSwitchWaitForSeconds;
