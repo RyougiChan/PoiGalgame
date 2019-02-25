@@ -1498,27 +1498,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0330514f623f349419ae1a268526b289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: {fileID: 2074068819}
-  lineContainer: {fileID: 1899555252}
-  actorName: {fileID: 0}
-  line: {fileID: 0}
-  font: {fileID: 0}
   mainCanvas: {fileID: 1003654690}
   historyTextPrefab: {fileID: 114768413417771462, guid: 927b9732530a3e949aa1f04eb171f545,
     type: 2}
   saveDataModelPrefab: {fileID: 114870270313254350, guid: 8504d5671c37f1c4ca5c2e98b4b8a20b,
     type: 2}
-  historyField: {fileID: 1670913074}
   historyTexts: {fileID: 1583677074}
-  savedDataField: {fileID: 1222865356}
-  savedDataPanel: {fileID: 1668474166}
-  settingField: {fileID: 1433664175}
   operationButtons: {fileID: 700970629}
-  autoPlayButton: {fileID: 0}
-  skipButton: {fileID: 0}
-  saveButton: {fileID: 0}
-  loadButton: {fileID: 0}
-  settingButton: {fileID: 0}
   currentScript: {fileID: 11400000, guid: 14ba337e2d923af4482bfbe163d7763b, type: 2}
   bgSpriteRenderer: {fileID: 608068933}
   videoPlayer: {fileID: 1190086026}
@@ -18820,8 +18806,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 173560123}
-        m_MethodName: 
+      - m_Target: {fileID: 173560124}
+        m_MethodName: PersistSettingConfig
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

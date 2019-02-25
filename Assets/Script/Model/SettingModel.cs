@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,5 +66,19 @@ namespace Assets.Script.Model
         {
             { "Ryougi", true }
         };
+
+        public static string ToJson()
+        {
+            return string.Format(
+                "{{\"isManualModeOn\":{0},\"isAutoReadingModeOn\":{1},\"isSkipModeOn\":{2},\"textShowDuration\":{3},\"lineSwitchDuration\":{4}," +
+                "\"skipModeLineSwitchDuration\":{5},\"bgmVolume\":{6},\"isBgmMute\":{7},\"voicesVolume\":{8},\"isVoicesMute\":{9}," +
+                "\"isFullScreenModeOn\":{10},\"resolution\":\"{11}\",\"showCGInSkipMode\":{12},\"showSpecialEffects\":{13},\"showTextShadow\":{14}," +
+                "\"showAnimation\":{15},\"appActiveInBackground\":{16},\"appLanguage\":\"{17}\",\"characterVoicesSwitcher\":{18}}}",
+                isManualModeOn, isAutoReadingModeOn, isSkipModeOn, textShowDuration, lineSwitchDuration,
+                skipModeLineSwitchDuration, bgmVolume, isBgmMute, voicesVolume, isVoicesMute,
+                isFullScreenModeOn, resolution, showCGInSkipMode, showSpecialEffects, showTextShadow,
+                showAnimation, appActiveInBackground, appLanguage, JsonConvert.SerializeObject(characterVoicesSwitcher).Replace("{", "{{").Replace("}", "}}")
+                );
+        }
     }
 }

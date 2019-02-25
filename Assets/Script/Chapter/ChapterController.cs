@@ -24,11 +24,13 @@ namespace Assets.Script.Chapter
         private static string savedDataPath;
         private static string savedDataFile;
 
-        public GameObject title;
-        public GameObject lineContainer;
-        public Text actorName;
-        public Text line;   // Script line showing text
-        public Font font;
+        private GameObject titleContainer;
+        private GameObject lineContainer;
+        private GameObject popupWindow;
+        private GameObject menuField;
+        private Text actorName;
+        private Text line;   // Script line showing text
+        private Font font;
 
         #region Game objects
         public GameObject mainCanvas;
@@ -39,33 +41,33 @@ namespace Assets.Script.Chapter
         #endregion
 
         #region History gameobjects
-        public GameObject historyField;
+        private GameObject historyField;
         public GameObject historyTexts;
         private Text currentActiveHistoryText;
         #endregion
 
         #region Saved data field
-        public GameObject savedDataField;
-        public GameObject savedDataPanel;
-        public static List<List<Button>> savedDataButtons;
-        public static List<SavedDataModel> savedDatas;
-        public static int savdDataPageCount;
+        private GameObject savedDataField;
+        private GameObject savedDataPanel;
+        private static List<List<Button>> savedDataButtons;
+        private static List<SavedDataModel> savedDatas;
+        private static int savdDataPageCount;
         // Last loaded savedDataPage
-        public static int lastLoadedSavedDataPage;
+        private static int lastLoadedSavedDataPage;
         #endregion
 
         #region Setting field
-        public GameObject settingField;
+        private GameObject settingField;
         private Dropdown resolutionDropdown;
         #endregion
 
         #region Operation buttons
         public GameObject operationButtons;
-        public GameObject autoPlayButton;
-        public GameObject skipButton;
-        public GameObject saveButton;
-        public GameObject loadButton;
-        public GameObject settingButton;
+        private GameObject autoPlayButton;
+        private GameObject skipButton;
+        private GameObject saveButton;
+        private GameObject loadButton;
+        private GameObject settingButton;
         #endregion
         #endregion
 
@@ -121,6 +123,15 @@ namespace Assets.Script.Chapter
         {
             gameController = Camera.main.GetComponent<GameController>();
 
+            // Container
+            titleContainer = mainCanvas.transform.Find("TitleContainer").gameObject;
+            lineContainer = mainCanvas.transform.Find("LineContainer").gameObject;
+            historyField = mainCanvas.transform.Find("HistoryField").gameObject;
+            savedDataField = mainCanvas.transform.Find("SavedDataField").gameObject;
+            settingField = mainCanvas.transform.Find("SettingField").gameObject;
+            popupWindow = mainCanvas.transform.Find("PopupWindow").gameObject;
+            menuField = mainCanvas.transform.Find("MenuField").gameObject;
+
             // Init line
             // Init currentScript, galgameActions, currentLineIndex
             // currentLineIndex = 0; // ?
@@ -159,12 +170,13 @@ namespace Assets.Script.Chapter
             resolutionDropdown.RefreshShownValue();
 
             // savedDatas = gameController.LoadSavedDatas();
+            savedDataPanel = savedDataField.transform.Find("SavedDataPanel").gameObject;
             lastLoadedSavedDataPage = GameController.lastLoadedSavedDataPage;
             savdDataPageCount = GameController.savdDataPageCount;
             savedDatas = GameController.savedDatas;
             savedDataButtons = gameController.InitList<List<Button>>(savdDataPageCount);
 
-            InitSceneGameObject();
+            // InitSceneGameObject();
         }
 
         // Update is called once per frame
@@ -174,7 +186,7 @@ namespace Assets.Script.Chapter
             if (Input.GetButtonDown("Fire1"))
             {
 
-                if (title.activeSelf)
+                if (titleContainer.activeSelf)
                 {
                     return;
                 }
@@ -357,6 +369,10 @@ namespace Assets.Script.Chapter
             Debug.Log(string.Format("Load Saved Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
         }
 
+        /// <summary>
+        /// Switch page display to display saved data
+        /// </summary>
+        /// <param name="step"></param>
         public void SwitchSavedDataPage(int step)
         {
             // If out of range, do nothing
@@ -387,6 +403,15 @@ namespace Assets.Script.Chapter
             gameController.ActiveGameObject(settingField);
             Debug.Log(string.Format("Change Setting"));
         }
+
+        /// <summary>
+        /// Reset 
+        /// </summary>
+        public void ResetChapter()
+        {
+            currentLineIndex = 0;
+            currentLineCharIndex = 0;
+        }
         #endregion
 
         #region Private methods
@@ -405,7 +430,7 @@ namespace Assets.Script.Chapter
         /// <returns></returns>
         private bool IsSwitchLineAllowed()
         {
-            return !isMenuActive && !historyField.activeSelf && !savedDataField.activeSelf && !settingField.activeSelf;
+            return !isMenuActive && !historyField.activeSelf && !savedDataField.activeSelf && !settingField.activeSelf && !popupWindow.activeSelf;
         }
 
         /// <summary>

@@ -165,6 +165,8 @@ namespace Assets.Script.Chapter
             _bgmAudio.Play();
             inGame = false;
 
+            gameObject.GetComponent<ChapterController>().ResetChapter();
+
             // Deactive display objects
             ShowCG();
             // Active title menu
@@ -450,6 +452,23 @@ namespace Assets.Script.Chapter
         {
             _voiceAudio.volume = volume;
             SettingModel.voicesVolume = volume;
+        }
+
+        /// <summary>
+        /// Save current <see cref="SettingModel"/> to config file.
+        /// </summary>
+        public void PersistSettingConfig()
+        {
+            string settingConfigPath = rootPath + "/Resources/Config";
+            if(!Directory.Exists(settingConfigPath))
+            {
+                Directory.CreateDirectory(settingConfigPath);
+            }
+
+            using (StreamWriter writer = new StreamWriter(string.Format("{0}/{1}", settingConfigPath, "setting.config"), false))
+            {
+                writer.WriteLine(SettingModel.ToJson());
+            }
         }
         #endregion
 
