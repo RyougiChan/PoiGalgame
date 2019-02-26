@@ -51,14 +51,24 @@ namespace Assets.Script.Chapter
         public static int lastLoadedSavedDataPage;
         public static string settingConfigPath;
         public static string settingConfig;
-        public static string settingConfigFullName = string.Format("{0}/{1}", settingConfigPath, settingConfig);
+        public static string settingConfigFullName ;
 
         public static List<SavedDataModel> savedDatas;
         public static GameObject[] historyQuene;
 
         void Awake()
         {
+            rootPath = Application.dataPath;
+            savedDataPath = rootPath + "/Resources/SavedData/";
+            savedDataFile = "savedata.dat";
+            savdDataPageCount = 10;
+            lastLoadedSavedDataPage = 0;
+            settingConfigPath = rootPath + "/Resources/Config/";
+            settingConfig = "app.config";
+            settingConfigFullName = string.Format("{0}{1}", settingConfigPath, settingConfig);
+
             InitializeSettingConfig();
+            savedDatas = LoadSavedDatas();
         }
 
         void Start()
@@ -80,16 +90,7 @@ namespace Assets.Script.Chapter
 
             bgmMusic = (AudioClip)Resources.Load("Audio/BGM30", typeof(AudioClip));
 
-            rootPath = Application.dataPath;
-            savedDataPath = rootPath + "/Resources/SavedData/";
-            savedDataFile = "savedata.dat";
-            savdDataPageCount = 10;
-            lastLoadedSavedDataPage = 0;
-            settingConfigPath = rootPath + "/Resources/Config";
-            settingConfig = "app.config";
-
             historyQuene = new GameObject[] { null, titleContainer };
-            savedDatas = LoadSavedDatas();
 
             defaultMenuLocalPos = menuField.transform.localPosition;
             shownMenuLocalPos = new Vector3(defaultMenuLocalPos.x, defaultMenuLocalPos.y - menuField.GetComponent<RectTransform>().sizeDelta.y, defaultMenuLocalPos.z);

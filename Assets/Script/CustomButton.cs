@@ -39,7 +39,8 @@ namespace Assets.Script
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            SetEnterStyle();
+            if (button.name.ToLower().Equals("closebtn") || button.name.ToLower().Equals("closebutton") || button.name.ToLower().Equals("close")) SetNormalStyle();
+            else SetEnterStyle();
             Debug.Log(string.Format("Pointer click up button named {0}", button.name));
         }
 

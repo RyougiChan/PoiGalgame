@@ -259,7 +259,7 @@ namespace Assets.Script.Chapter
                         case "CloseSaveData":
                             isSavingGameData = false;
                             isLoadingSavedData = false;
-                            lastLoadedSavedDataPage = 0;
+                            SetActiveSavedDataPanel(0);
                             break;
                     }
                 }
@@ -323,7 +323,8 @@ namespace Assets.Script.Chapter
         /// <param name="manual"></param>
         public void SetManualMode(bool manual)
         {
-            if(manual)
+            SettingModel.isManualModeOn = manual;
+            if (manual)
             {
                 SettingModel.isAutoReadingModeOn = false;
                 SettingModel.isSkipModeOn = false;
@@ -344,13 +345,17 @@ namespace Assets.Script.Chapter
         /// <param name="auto"></param>
         public void SetAutoMode(bool auto)
         {
-            SettingModel.isSkipModeOn = false;
             skipButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
             SettingModel.isAutoReadingModeOn = auto;
             // If SettingModel.isAutoReadingModeOn == true, call SwitchLine()
             if(!auto)
             {
                 autoPlayButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+            }
+            else
+            {
+                SettingModel.isManualModeOn = false;
+                SettingModel.isSkipModeOn = false;
             }
             if (SettingModel.isAutoReadingModeOn && IsSwitchLineAllowed() && !SettingModel.isSkipModeOn && !isShowingLine)
             {
@@ -373,12 +378,16 @@ namespace Assets.Script.Chapter
         /// <param name="skip"></param>
         public void SetSkipMode(bool skip)
         {
-            SettingModel.isAutoReadingModeOn = false;
             autoPlayButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
             SettingModel.isSkipModeOn = skip;
             if(!skip)
             {
                 skipButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+            }
+            else
+            {
+                SettingModel.isManualModeOn = false;
+                SettingModel.isAutoReadingModeOn = false;
             }
             if (SettingModel.isSkipModeOn && IsSwitchLineAllowed())
             {
@@ -433,27 +442,38 @@ namespace Assets.Script.Chapter
             Transform target = savedDataPanel.transform.Find(string.Format("SavedDataPage_{0}", lastLoadedSavedDataPage));
             if (null != target)
             {
-                gameController.DeactiveGameObject(target.gameObject);
+                target.gameObject.SetActive(false);
+                // gameController.DeactiveGameObject(target.gameObject);
             }
 
             lastLoadedSavedDataPage += step;
             Transform nTarget = savedDataPanel.transform.Find(string.Format("SavedDataPage_{0}", lastLoadedSavedDataPage));
             if (null != nTarget)
             {
-                gameController.ActiveGameObject(nTarget.gameObject);
+                nTarget.gameObject.SetActive(true);
+                // gameController.ActiveGameObject(nTarget.gameObject);
             }
             // Set now display saved data page
             SetSavedDataModelButtons(lastLoadedSavedDataPage);
         }
 
         /// <summary>
-        /// System configuration
+        /// Open setting field
         /// </summary>
-        public void ChangeSetting()
+        public void OpenSetting()
         {
             // gameController.ShowCG();
             gameController.ActiveGameObject(settingField);
             Debug.Log(string.Format("Change Setting"));
+        }
+
+        /// <summary>
+        /// Close setting field
+        /// </summary>
+        public void CloseSetting()
+        {
+            gameController.DeactiveGameObject(settingField);
+            gameController.PersistSettingConfig();
         }
 
         /// <summary>
@@ -562,7 +582,7 @@ namespace Assets.Script.Chapter
         /// <returns></returns>
         private bool IsSwitchLineAllowed()
         {
-            return !isMenuActive && !historyField.activeSelf && !savedDataField.activeSelf && !settingField.activeSelf && !popupWindow.activeSelf;
+            return gameController.inGame && !isMenuActive && !historyField.activeSelf && !savedDataField.activeSelf && !settingField.activeSelf && !popupWindow.activeSelf;
         }
 
         /// <summary>
@@ -843,6 +863,19 @@ namespace Assets.Script.Chapter
                 savedDataButtons[lastLoadedSavedDataPage] = pageButtons;
                 return pageButtons;
             }
+        }
+
+        /// <summary>
+        /// SavedData show page controller, set page at <paramref name="activeIndex"/> to be actived
+        /// </summary>
+        /// <param name="activeIndex">active page</param>
+        private void SetActiveSavedDataPanel(int activeIndex)
+        {
+            Transform pre = savedDataPanel.transform.Find(string.Format("SavedDataPage_{0}", lastLoadedSavedDataPage));
+            pre.gameObject.SetActive(false);
+            Transform now = savedDataPanel.transform.Find(string.Format("SavedDataPage_{0}", activeIndex));
+            now.gameObject.SetActive(true);
+            lastLoadedSavedDataPage = activeIndex;
         }
 
         /// <summary>

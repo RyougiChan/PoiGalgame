@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Assets.Script.Model
 {
-    public static class SettingModel
+    public class SettingModel
     {
         // Setting: Play mode
         // Is play line in manual mode
