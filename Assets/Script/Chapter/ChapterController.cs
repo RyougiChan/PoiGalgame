@@ -474,6 +474,22 @@ namespace Assets.Script.Chapter
         {
             gameController.DeactiveGameObject(settingField);
             gameController.PersistSettingConfig();
+            GameObject lineObject = lineContainer.transform.Find("Line").gameObject;
+            if (SettingModel.showTextShadow)
+            {
+                if(!lineObject.GetComponent<Shadow>())
+                {
+                    Shadow s = lineObject.AddComponent<Shadow>();
+                    s.effectDistance = new Vector2(2, -1);
+                }
+            }
+            else
+            {
+                if (lineObject.GetComponent<Shadow>())
+                {
+                    Destroy(lineObject.GetComponent<Shadow>());
+                }
+            }
         }
 
         /// <summary>

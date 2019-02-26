@@ -1816,6 +1816,7 @@ GameObject:
   - component: {fileID: 227027561}
   - component: {fileID: 227027563}
   - component: {fileID: 227027562}
+  - component: {fileID: 227027564}
   m_Layer: 10
   m_Name: Load
   m_TagString: OperationButton
@@ -1853,7 +1854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
+  m_Color: {r: 0.14070842, g: 0.5849056, b: 0.44095284, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1881,6 +1882,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 227027560}
   m_CullTransparentMesh: 0
+--- !u!114 &227027564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 227027560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &227844821
 GameObject:
   m_ObjectHideFlags: 0
@@ -3319,6 +3334,7 @@ GameObject:
   - component: {fileID: 411331593}
   - component: {fileID: 411331595}
   - component: {fileID: 411331594}
+  - component: {fileID: 411331596}
   m_Layer: 10
   m_Name: Exit
   m_TagString: OperationButton
@@ -3356,7 +3372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.52156866, g: 0.52156866, b: 0.52156866, a: 1}
+  m_Color: {r: 0.14070842, g: 0.5849056, b: 0.44095284, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3384,6 +3400,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 411331592}
   m_CullTransparentMesh: 0
+--- !u!114 &411331596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 411331592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &412032420
 GameObject:
   m_ObjectHideFlags: 0
@@ -6747,7 +6777,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1197284313600284, guid: e94201a8bf0f3da4e8dd01b1072e4e16, type: 2}
       propertyPath: m_Name
-      value: CloseSaveData
+      value: CloseSetting
       objectReference: {fileID: 0}
     - target: {fileID: 114005994874504948, guid: e94201a8bf0f3da4e8dd01b1072e4e16,
         type: 2}
@@ -9363,6 +9393,7 @@ GameObject:
   - component: {fileID: 1133221722}
   - component: {fileID: 1133221724}
   - component: {fileID: 1133221723}
+  - component: {fileID: 1133221725}
   m_Layer: 10
   m_Name: Setting
   m_TagString: OperationButton
@@ -9400,7 +9431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.52156866, g: 0.52156866, b: 0.52156866, a: 1}
+  m_Color: {r: 0.14070842, g: 0.5849056, b: 0.44095284, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9428,6 +9459,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1133221721}
   m_CullTransparentMesh: 0
+--- !u!114 &1133221725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1133221721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1142245475
 GameObject:
   m_ObjectHideFlags: 0
@@ -10373,6 +10418,7 @@ GameObject:
   - component: {fileID: 1210834977}
   - component: {fileID: 1210834979}
   - component: {fileID: 1210834978}
+  - component: {fileID: 1210834980}
   m_Layer: 10
   m_Name: NewGame
   m_TagString: OperationButton
@@ -10410,7 +10456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
+  m_Color: {r: 0.14070842, g: 0.5849056, b: 0.44095284, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10438,6 +10484,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1210834976}
   m_CullTransparentMesh: 0
+--- !u!114 &1210834980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1210834976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1215908859
 GameObject:
   m_ObjectHideFlags: 0
@@ -19602,6 +19662,7 @@ GameObject:
   - component: {fileID: 2110470345}
   - component: {fileID: 2110470347}
   - component: {fileID: 2110470346}
+  - component: {fileID: 2110470348}
   m_Layer: 10
   m_Name: Name
   m_TagString: OperationButton
@@ -19639,7 +19700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.52156866, g: 0.52156866, b: 0.52156866, a: 1}
+  m_Color: {r: 0.14070842, g: 0.5849056, b: 0.44095284, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -19667,6 +19728,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2110470344}
   m_CullTransparentMesh: 0
+--- !u!114 &2110470348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2110470344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2116149978
 GameObject:
   m_ObjectHideFlags: 0
