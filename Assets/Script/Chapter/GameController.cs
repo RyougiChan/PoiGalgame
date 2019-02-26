@@ -47,13 +47,23 @@ namespace Assets.Script.Chapter
         public static string rootPath;
         public static string savedDataPath;
         public static string savedDataFile;
-        public static List<SavedDataModel> savedDatas;
         public static int savdDataPageCount;
         public static int lastLoadedSavedDataPage;
+        public static string settingConfigPath;
+        public static string settingConfig;
+        public static string settingConfigFullName = string.Format("{0}/{1}", settingConfigPath, settingConfig);
+
+        public static List<SavedDataModel> savedDatas;
         public static GameObject[] historyQuene;
 
         void Awake()
         {
+            InitializeSettingConfig();
+        }
+
+        void Start()
+        {
+            startTime = Time.time;
             bg = background.transform.Find("Bg").gameObject.GetComponent<SpriteRenderer>();
             titleContainer = displayCanvas.transform.Find("TitleContainer").gameObject;
             lineContainer = displayCanvas.transform.Find("LineContainer").gameObject;
@@ -75,6 +85,9 @@ namespace Assets.Script.Chapter
             savedDataFile = "savedata.dat";
             savdDataPageCount = 10;
             lastLoadedSavedDataPage = 0;
+            settingConfigPath = rootPath + "/Resources/Config";
+            settingConfig = "app.config";
+
             historyQuene = new GameObject[] { null, titleContainer };
             savedDatas = LoadSavedDatas();
 
@@ -84,11 +97,8 @@ namespace Assets.Script.Chapter
             _bgmAudio.clip = bgmMusic;
             _bgmAudio.loop = true;
             _bgmAudio.Play();
-        }
 
-        void Start()
-        {
-            startTime = Time.time;
+            GetComponent<ChapterController>().InitSettingField();
         }
 
         void FixedUpdate()
@@ -459,16 +469,49 @@ namespace Assets.Script.Chapter
         /// </summary>
         public void PersistSettingConfig()
         {
-            string settingConfigPath = rootPath + "/Resources/Config";
             if(!Directory.Exists(settingConfigPath))
             {
                 Directory.CreateDirectory(settingConfigPath);
             }
 
-            using (StreamWriter writer = new StreamWriter(string.Format("{0}/{1}", settingConfigPath, "setting.config"), false))
+            using (StreamWriter configWriter = new StreamWriter(settingConfigFullName, false))
             {
-                writer.WriteLine(SettingModel.ToJson());
+                configWriter.WriteLine(JsonConvert.SerializeObject(new SerializableSettingModel(true)));
             }
+        }
+
+        /// <summary>
+        /// Initialize <see cref="SettingModel"/> via app.config
+        /// </summary>
+        public void InitializeSettingConfig()
+        {
+            // No config file exist, return
+            if (!Directory.Exists(settingConfigPath) || !File.Exists(settingConfigFullName)) return;
+            // Read config
+            string configInJson = string.Empty;
+            using (StreamReader configReader = new StreamReader(settingConfigFullName))
+            {
+                configInJson = configReader.ReadToEnd();
+            }
+            // Init
+            SerializableSettingModel settingModel = null;
+            try
+            {
+                settingModel = JsonConvert.DeserializeObject<SerializableSettingModel>(configInJson);
+            }
+            catch
+            {
+                // Log
+            }
+            SettingModel.Update(settingModel);
+        }
+
+        /// <summary>
+        /// Reset <see cref="SettingModel"/> as default.
+        /// </summary>
+        public void ResetSettingConfig()
+        {
+            SettingModel.Update(new SerializableSettingModel());
         }
         #endregion
 

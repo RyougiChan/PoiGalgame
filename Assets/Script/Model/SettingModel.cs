@@ -29,13 +29,17 @@ namespace Assets.Script.Model
 
         // Setting: Volume
         // Volume of BGM
-        public static float bgmVolume = 1.0f;
+        public static float bgmVolume = 0.5f;
         // Is BGM mute
         public static bool isBgmMute = false;
         // Volume of character Voices 
-        public static float voicesVolume = 1.0f;
+        public static float voicesVolume = 0.5f;
         // Is Voices mute
         public static bool isVoicesMute = false;
+        // Volume of character sound FX 
+        public static float soundVolume = 0.5f;
+        // Is sound FX mute
+        public static bool isSoundMute = false;
 
         // Setting: Screen Mode
         // Is in fullscreen mode
@@ -67,18 +71,35 @@ namespace Assets.Script.Model
             { "Ryougi", true }
         };
 
-        public static string ToJson()
+        /// <summary>
+        /// Update static <see cref="SettingModel"/> using existing <see cref="SerializableSettingModel"/>
+        /// </summary>
+        /// <param name="model">The existing <see cref="SerializableSettingModel"/></param>
+        public static void Update(SerializableSettingModel model)
         {
-            return string.Format(
-                "{{\"isManualModeOn\":{0},\"isAutoReadingModeOn\":{1},\"isSkipModeOn\":{2},\"textShowDuration\":{3},\"lineSwitchDuration\":{4}," +
-                "\"skipModeLineSwitchDuration\":{5},\"bgmVolume\":{6},\"isBgmMute\":{7},\"voicesVolume\":{8},\"isVoicesMute\":{9}," +
-                "\"isFullScreenModeOn\":{10},\"resolution\":\"{11}\",\"showCGInSkipMode\":{12},\"showSpecialEffects\":{13},\"showTextShadow\":{14}," +
-                "\"showAnimation\":{15},\"appActiveInBackground\":{16},\"appLanguage\":\"{17}\",\"characterVoicesSwitcher\":{18}}}",
-                isManualModeOn, isAutoReadingModeOn, isSkipModeOn, textShowDuration, lineSwitchDuration,
-                skipModeLineSwitchDuration, bgmVolume, isBgmMute, voicesVolume, isVoicesMute,
-                isFullScreenModeOn, resolution, showCGInSkipMode, showSpecialEffects, showTextShadow,
-                showAnimation, appActiveInBackground, appLanguage, JsonConvert.SerializeObject(characterVoicesSwitcher).Replace("{", "{{").Replace("}", "}}")
-                );
+            if (null == model) return;
+
+            isManualModeOn = model.isManualModeOn;
+            isAutoReadingModeOn = model.isAutoReadingModeOn;
+            isSkipModeOn = model.isSkipModeOn;
+            textShowDuration = model.textShowDuration;
+            lineSwitchDuration = model.lineSwitchDuration;
+            skipModeLineSwitchDuration = model.skipModeLineSwitchDuration;
+            bgmVolume = model.bgmVolume;
+            isBgmMute = model.isBgmMute;
+            voicesVolume = model.voicesVolume;
+            isVoicesMute = model.isVoicesMute;
+            soundVolume = model.soundVolume;
+            isSoundMute = model.isSoundMute;
+            isFullScreenModeOn = model.isFullScreenModeOn;
+            resolution = model.resolution;
+            showCGInSkipMode = model.showCGInSkipMode;
+            showSpecialEffects = model.showSpecialEffects;
+            showTextShadow = model.showTextShadow;
+            showAnimation = model.showAnimation;
+            appActiveInBackground = model.appActiveInBackground;
+            appLanguage = model.appLanguage;
+            characterVoicesSwitcher = model.characterVoicesSwitcher;
         }
     }
 }

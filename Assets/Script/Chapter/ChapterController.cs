@@ -58,7 +58,27 @@ namespace Assets.Script.Chapter
 
         #region Setting field
         private GameObject settingField;
-        private Dropdown resolutionDropdown;
+        private Toggle PlayMode_Manual;
+        private Toggle PlayMode_Auto;
+        private Toggle PlayMode_Skip;
+        private Toggle Visual_ShowCGInSkipMode;
+        private Toggle Visual_SpecialEffects;
+        private Toggle Visual_TextShadow;
+        private Toggle Visual_Animation;
+        private Toggle ScreenMode_FullScreen;
+        private Toggle ScreenMode_Windowed;
+        private Toggle Volume_MuteBGM;
+        private Toggle Volume_MuteVoices;
+        private Toggle Volume_MuteSound;
+        private Toggle Other_AppActiveInBackground;
+        private Slider Volume_BGM;
+        private Slider Volume_Voices;
+        private Slider Volume_Sound;
+        private Slider MessageSpeed_UnreadText;
+        private Slider MessageSpeed_AutoPlayDelayInterval;
+        private Slider MessageSpeed_SkipInterval;
+        private Dropdown ResolutionDropdown;
+        private Dropdown LanguageDropdown;
         #endregion
 
         #region Operation buttons
@@ -137,7 +157,7 @@ namespace Assets.Script.Chapter
             // currentLineIndex = 0; // ?
             line = lineContainer.transform.Find("Line").GetComponent<Text>();
             actorName = lineContainer.transform.Find("ActorName").GetComponent<Text>();
-            // SettingModel.isAutoReadingModeOn = false;
+            
             galgameActions = currentScript.GalgameActions;
             if (null != currentScript.Bg)
             {
@@ -160,14 +180,44 @@ namespace Assets.Script.Chapter
             _bgmAudio = audioSource.GetComponent<AudioSource>();
             _voiceAudio = voiceAudioSource.GetComponent<AudioSource>();
 
+            // setting field
+            PlayMode_Manual = FindComponentByPath<Toggle>(settingField, "PlayMode:Manual:Toggle");
+            PlayMode_Auto = FindComponentByPath<Toggle>(settingField, "PlayMode:Auto:Toggle");
+            PlayMode_Skip = FindComponentByPath<Toggle>(settingField, "PlayMode:Skip:Toggle");
+            Visual_ShowCGInSkipMode = FindComponentByPath<Toggle>(settingField, "Visual:ShowCGInSkipMode:Toggle");
+            Visual_SpecialEffects = FindComponentByPath<Toggle>(settingField, "Visual:ShowCGInSkipMode:Toggle");
+            Visual_TextShadow = FindComponentByPath<Toggle>(settingField, "Visual:TextShadow:Toggle");
+            Visual_Animation = FindComponentByPath<Toggle>(settingField, "Visual:Animation:Toggle");
+            ScreenMode_FullScreen = FindComponentByPath<Toggle>(settingField, "ScreenMode:FullScreen:Toggle");
+            ScreenMode_Windowed = FindComponentByPath<Toggle>(settingField, "ScreenMode:Windowed:Toggle");
+            Other_AppActiveInBackground = FindComponentByPath<Toggle>(settingField, "Other:AppActiveInBackground:Toggle");
+            Volume_MuteBGM = FindComponentByPath<Toggle>(settingField, "Volume:BGM:Toggle");
+            Volume_MuteVoices = FindComponentByPath<Toggle>(settingField, "Volume:Voices:Toggle");
+            Volume_MuteSound = FindComponentByPath<Toggle>(settingField, "Volume:Sound:Toggle");
+            Volume_BGM = FindComponentByPath<Slider>(settingField, "Volume:BGM:Slider");
+            Volume_Voices = FindComponentByPath<Slider>(settingField, "Volume:Voices:Slider");
+            Volume_Sound = FindComponentByPath<Slider>(settingField, "Volume:Sound:Slider");
+            MessageSpeed_UnreadText = FindComponentByPath<Slider>(settingField, "MessageSpeed:UnreadText:Slider");
+            MessageSpeed_AutoPlayDelayInterval = FindComponentByPath<Slider>(settingField, "MessageSpeed:AutoPlayDelayInterval:Slider");
+            MessageSpeed_SkipInterval = FindComponentByPath<Slider>(settingField, "MessageSpeed:SkipInterval:Slider");
+            ResolutionDropdown = FindComponentByPath<Dropdown>(settingField, "ScreenMode:Windowed:Resolution");
+            LanguageDropdown = FindComponentByPath<Dropdown>(settingField, "Other:Language:Dropdown");
+
+            bool isResInit = false;
             // resolution dropdown list
-            resolutionDropdown = settingField.transform.Find("ScreenMode").Find("Windowed").Find("Resolution").GetComponent<Dropdown>();
-            foreach(Resolution res in Screen.resolutions)
+            foreach (Resolution res in Screen.resolutions)
             {
                 if(res.refreshRate == 60)
-                    resolutionDropdown.options.Add(new Dropdown.OptionData(string.Format("{0}x{1}", res.width, res.height)));
+                {
+                    if(!isResInit)
+                    {
+                        SettingModel.resolution = string.Format("{0}x{1}", res.width, res.height);
+                        isResInit = true;
+                    }
+                    ResolutionDropdown.options.Add(new Dropdown.OptionData(string.Format("{0}x{1}", res.width, res.height)));
+                }
             }
-            resolutionDropdown.RefreshShownValue();
+            ResolutionDropdown.RefreshShownValue();
 
             // savedDatas = gameController.LoadSavedDatas();
             savedDataPanel = savedDataField.transform.Find("SavedDataPanel").gameObject;
@@ -178,6 +228,8 @@ namespace Assets.Script.Chapter
 
             // InitSceneGameObject();
         }
+
+        
 
         // Update is called once per frame
         void Update()
@@ -412,9 +464,89 @@ namespace Assets.Script.Chapter
             currentLineIndex = 0;
             currentLineCharIndex = 0;
         }
+
+        /// <summary>
+        /// Render SettingField game objects with <see cref="SettingModel"/>
+        /// </summary>
+        public void InitSettingField()
+        {
+            PlayMode_Manual.isOn = SettingModel.isManualModeOn;
+            PlayMode_Auto.isOn = SettingModel.isAutoReadingModeOn;
+            PlayMode_Skip.isOn = SettingModel.isSkipModeOn;
+
+            Visual_ShowCGInSkipMode.isOn = SettingModel.showCGInSkipMode;
+            Visual_SpecialEffects.isOn = SettingModel.showSpecialEffects;
+            Visual_TextShadow.isOn = SettingModel.showTextShadow;
+            Visual_Animation.isOn = SettingModel.showAnimation;
+
+            Volume_MuteBGM.isOn = SettingModel.isBgmMute;
+            Volume_MuteVoices.isOn = SettingModel.isVoicesMute;
+            Volume_MuteSound.isOn = SettingModel.isSoundMute;
+            Volume_BGM.value = SettingModel.bgmVolume;
+            Volume_Voices.value = SettingModel.voicesVolume;
+            Volume_Sound.value = SettingModel.soundVolume;
+
+            ScreenMode_FullScreen.isOn = SettingModel.isFullScreenModeOn;
+            ScreenMode_Windowed.isOn = !SettingModel.isFullScreenModeOn;
+            int resIndex = 0;
+            foreach (Resolution res in Screen.resolutions)
+            {
+                if (res.refreshRate == 60)
+                {
+                    if (string.Format("{0}x{1}", res.width, res.height).Equals(SettingModel.resolution))
+                    {
+                        break;
+                    }
+                    resIndex++;
+                }
+            }
+            ResolutionDropdown.value = resIndex;
+            ResolutionDropdown.RefreshShownValue();
+
+            MessageSpeed_UnreadText.value = SettingModel.textShowDuration / SettingModel.MAX_TEXT_SHOW_DURATION;
+            MessageSpeed_AutoPlayDelayInterval.value = SettingModel.lineSwitchDuration / SettingModel.MAX_LINE_SWITCH_DURATION;
+            MessageSpeed_SkipInterval.value = SettingModel.skipModeLineSwitchDuration / SettingModel.MAX_SKIP_MODE_LINE_SWITCH_DURATION;
+
+            Other_AppActiveInBackground.isOn = SettingModel.appActiveInBackground;
+
+            int langIndex = SettingModel.languages.IndexOf(SettingModel.appLanguage);
+            LanguageDropdown.value = langIndex;
+            LanguageDropdown.RefreshShownValue();
+
+            // TODO: Add Character voices controller
+        }
+
         #endregion
 
         #region Private methods
+        /// <summary>
+        /// Find child game component of <paramref name="parent"/> via <paramref name="fullPath"/>
+        /// </summary>
+        /// <typeparam name="T">Type of the game component</typeparam>
+        /// <param name="parent">parent game object</param>
+        /// <param name="fullPath">path format in `path1:path2:path3...`</param>
+        /// <returns>The component found or null</returns>
+        private T FindComponentByPath<T>(GameObject parent, string fullPath)
+        {
+            return (null == FindChildTransform(parent, fullPath) ? default(T) : FindChildTransform(parent, fullPath).GetComponent<T>());
+        }
+
+        /// <summary>
+        /// Find child tramsform of <paramref name="parent"/> via <paramref name="fullPath"/>
+        /// </summary>
+        /// <param name="parent">parent game object</param>
+        /// <param name="fullPath">path format in `path1:path2:path3...`</param>
+        /// <returns>The transform or null</returns>
+        private Transform FindChildTransform(GameObject parent, string fullPath)
+        {
+            Transform tmp = parent.transform;
+            string[] ps = fullPath.Split(':');
+            foreach(string p in ps)
+            {
+                if ((tmp = tmp.Find(p)) == null) return null;
+            }
+            return tmp;
+        }
 
         private void InitSceneGameObject()
         {
@@ -793,11 +925,6 @@ namespace Assets.Script.Chapter
             gameObject.GetComponent<RectTransform>().localScale = Vector3.one;
             gameObject.GetComponent<RectTransform>().sizeDelta = savedDataPanel.GetComponent<RectTransform>().sizeDelta;
             return currentSaveDataList;
-        }
-
-        internal void RenewSavedDataPage(List<Button> button)
-        {
-
         }
 
         internal void RenewSavedDataField(Button b, SavedDataModel sdm)

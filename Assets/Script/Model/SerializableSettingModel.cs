@@ -5,8 +5,44 @@ using System.Text;
 
 namespace Assets.Script.Model
 {
-    public class SettingModelTest
+    [Serializable]
+    public class SerializableSettingModel
     {
+        public SerializableSettingModel() {
+
+        }
+
+        /// <summary>
+        /// Create new <see cref="SerializableSettingModel"/>
+        /// </summary>
+        /// <param name="init">Whether init using <see cref="SettingModel"/> or not</param>
+        public SerializableSettingModel(bool init)
+        {
+            if(init)
+            {
+                isManualModeOn = SettingModel.isManualModeOn;
+                isAutoReadingModeOn = SettingModel.isAutoReadingModeOn;
+                isSkipModeOn = SettingModel.isSkipModeOn;
+                textShowDuration = SettingModel.textShowDuration;
+                lineSwitchDuration = SettingModel.lineSwitchDuration;
+                skipModeLineSwitchDuration = SettingModel.skipModeLineSwitchDuration;
+                bgmVolume = SettingModel.bgmVolume;
+                isBgmMute = SettingModel.isBgmMute;
+                voicesVolume = SettingModel.voicesVolume;
+                isVoicesMute = SettingModel.isVoicesMute;
+                soundVolume = SettingModel.soundVolume;
+                isSoundMute = SettingModel.isSoundMute;
+                isFullScreenModeOn = SettingModel.isFullScreenModeOn;
+                resolution = SettingModel.resolution;
+                showCGInSkipMode = SettingModel.showCGInSkipMode;
+                showSpecialEffects = SettingModel.showSpecialEffects;
+                showTextShadow = SettingModel.showTextShadow;
+                showAnimation = SettingModel.showAnimation;
+                appActiveInBackground = SettingModel.appActiveInBackground;
+                appLanguage = SettingModel.appLanguage;
+                characterVoicesSwitcher = SettingModel.characterVoicesSwitcher;
+            }
+        }
         // Setting: Play mode
         // Is play line in manual mode
         public bool isManualModeOn = true;
@@ -17,13 +53,10 @@ namespace Assets.Script.Model
 
         // Setting: Message Speed
         // Duration of text showing speed, in seconds
-        public const float MAX_TEXT_SHOW_DURATION = 0.06f;
         public float textShowDuration = 0.03f;
         // Duration of line auto switch speed, in seconds
-        public const float MAX_LINE_SWITCH_DURATION = 6.0f;
         public float lineSwitchDuration = 3.0f;
         // Duration of line switch speed under skip mode, in seconds
-        public const float MAX_SKIP_MODE_LINE_SWITCH_DURATION = 0.2f;
         public float skipModeLineSwitchDuration = 0.1f;
 
         // Setting: Volume
@@ -35,6 +68,10 @@ namespace Assets.Script.Model
         public float voicesVolume = 1.0f;
         // Is Voices mute
         public bool isVoicesMute = false;
+        // Volume of character sound FX 
+        public float soundVolume = 0.5f;
+        // Is sound FX mute
+        public bool isSoundMute = false;
 
         // Setting: Screen Mode
         // Is in fullscreen mode
@@ -56,7 +93,6 @@ namespace Assets.Script.Model
         // Is this application remain active in background
         public bool appActiveInBackground = true;
         // Language
-        public List<string> languages = new List<string> { "简体中文", "繁体中文", "日本语", "English" };
         public string appLanguage = "Chinese";
 
         // Setting: Character voices

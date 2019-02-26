@@ -16,11 +16,13 @@ namespace Assets.Script
 
             Vector2 scale = transform.localScale;
             if (cameraSize.x >= cameraSize.y)
-            { // Landscape (or equal)
+            { 
+                // Landscape (or equal)
                 scale *= cameraSize.x / spriteSize.x;
             }
             else
-            { // Portrait
+            { 
+                // Portrait
                 scale *= cameraSize.y / spriteSize.y;
             }
 
