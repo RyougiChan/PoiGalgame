@@ -35,6 +35,8 @@ namespace Assets.Script.Chapter
         private AudioSource _voiceAudio;
         private AudioClip bgmMusic;
 
+        private ChapterController chapterController;
+
         private float startTime;
         private bool isMenuShow;
         private Vector3 defaultMenuLocalPos;
@@ -99,7 +101,8 @@ namespace Assets.Script.Chapter
             _bgmAudio.loop = true;
             _bgmAudio.Play();
 
-            GetComponent<ChapterController>().InitSettingField();
+            chapterController = GetComponent<ChapterController>();
+            chapterController.InitSettingField();
         }
 
         void FixedUpdate()
@@ -109,10 +112,13 @@ namespace Assets.Script.Chapter
                 if (Input.mousePosition.y > Screen.height - menuField.GetComponent<RectTransform>().sizeDelta.y)
                 {
                     MoveMenu(defaultMenuLocalPos, shownMenuLocalPos, (Time.time - startTime) * 5.0f);
+                    chapterController.isMenuActive = true;
+                    chapterController.SetManualMode(true);
                 }
                 else
                 {
                     MoveMenu(shownMenuLocalPos, defaultMenuLocalPos, (Time.time - startTime) * 5.0f);
+                    chapterController.isMenuActive = false;
                 }
             }
         }

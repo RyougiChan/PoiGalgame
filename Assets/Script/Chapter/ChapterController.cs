@@ -116,7 +116,7 @@ namespace Assets.Script.Chapter
         // The previous skip time
         private DateTime preSkipTime;
         // Is menu is actived
-        private bool isMenuActive;
+        public bool isMenuActive;
         // Is saving saved data now
         private bool isSavingGameData;
         // Is loading saved data now
@@ -307,6 +307,7 @@ namespace Assets.Script.Chapter
             {
                 ShowLineImmediately();
             }
+            SetManualMode(true);
         }
 
         /// <summary>
@@ -326,8 +327,11 @@ namespace Assets.Script.Chapter
             SettingModel.isManualModeOn = manual;
             if (manual)
             {
-                SettingModel.isAutoReadingModeOn = false;
-                SettingModel.isSkipModeOn = false;
+                SetAutoMode(false);
+                SetSkipMode(false);
+                StopAllCoroutines();
+                // SettingModel.isAutoReadingModeOn = false;
+                // SettingModel.isSkipModeOn = false;
             }
         }
 
@@ -407,6 +411,7 @@ namespace Assets.Script.Chapter
             SetSavedDataModelButtons(0, 12);
             // gameController.ShowCG();
             gameController.ActiveGameObject(savedDataField);
+            SetManualMode(true);
             Debug.Log(string.Format("Save Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
         }
 
@@ -427,6 +432,7 @@ namespace Assets.Script.Chapter
             SetSavedDataModelButtons(0, 12);
             // gameController.ShowCG();
             gameController.ActiveGameObject(savedDataField);
+            SetManualMode(true);
             Debug.Log(string.Format("Load Saved Game Data: CurrentScript={0}, CurrentLineIndex={1}", currentScript.ChapterName, currentLineIndex));
         }
 
@@ -464,7 +470,7 @@ namespace Assets.Script.Chapter
         {
             // gameController.ShowCG();
             gameController.ActiveGameObject(settingField);
-            Debug.Log(string.Format("Change Setting"));
+            SetManualMode(true);
         }
 
         /// <summary>
@@ -804,13 +810,6 @@ namespace Assets.Script.Chapter
             if (!SettingModel.isSkipModeOn && SettingModel.isAutoReadingModeOn && IsSwitchLineAllowed())
             {
                 currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
-            }
-
-            if (SettingModel.isSkipModeOn)
-            {
-                // ShowLineImmediately();
-                Debug.Log("StartCoroutine(SwitchLineTimeout(skipModeLineSwitchWaitForSeconds))");
-                // StartCoroutine(SwitchLineTimeout(skipModeLineSwitchWaitForSeconds));
             }
         }
 
