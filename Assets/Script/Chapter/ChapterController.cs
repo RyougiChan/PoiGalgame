@@ -349,12 +349,12 @@ namespace Assets.Script.Chapter
         /// <param name="auto"></param>
         public void SetAutoMode(bool auto)
         {
-            skipButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+            skipButton.GetComponent<Image>().color = Color.white;
             SettingModel.isAutoReadingModeOn = auto;
             // If SettingModel.isAutoReadingModeOn == true, call SwitchLine()
             if(!auto)
             {
-                autoPlayButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+                autoPlayButton.GetComponent<Image>().color = Color.white;
             }
             else
             {
@@ -363,7 +363,7 @@ namespace Assets.Script.Chapter
             }
             if (SettingModel.isAutoReadingModeOn && IsSwitchLineAllowed() && !SettingModel.isSkipModeOn && !isShowingLine)
             {
-                autoPlayButton.transform.GetChild(0).GetComponent<Text>().color = Color.cyan;
+                autoPlayButton.GetComponent<Image>().color = Color.black;
                 currentLineSwitchCoroutine = StartCoroutine(SwitchLineTimeout());
             }
         }
@@ -382,11 +382,11 @@ namespace Assets.Script.Chapter
         /// <param name="skip"></param>
         public void SetSkipMode(bool skip)
         {
-            autoPlayButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+            autoPlayButton.GetComponent<Image>().color = Color.white;
             SettingModel.isSkipModeOn = skip;
             if(!skip)
             {
-                skipButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+                skipButton.GetComponent<Image>().color = Color.white;
             }
             else
             {
@@ -395,7 +395,7 @@ namespace Assets.Script.Chapter
             }
             if (SettingModel.isSkipModeOn && IsSwitchLineAllowed())
             {
-                skipButton.transform.GetChild(0).GetComponent<Text>().color = Color.cyan;
+                skipButton.GetComponent<Image>().color = Color.black;
                 StopAllCoroutines();
                 ShowLineImmediately();
                 SwitchLine();
