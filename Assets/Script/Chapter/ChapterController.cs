@@ -661,7 +661,7 @@ namespace Assets.Script.Chapter
             Debug.Log("galgameActions'Size: " + galgameActions.Count + " currentLineIndex: " + currentLineIndex);
             currentLineCharIndex = -1; // read from index: -1
             currentGalgameAction = galgameActions[currentLineIndex];
-            nextLine = currentGalgameAction.Line.text;
+            nextLine = currentGalgameAction.Line.text.Replace("\\n", "\n");
             if (SettingModel.isSkipModeOn)
             {
                 ShowLineImmediately();
@@ -992,7 +992,7 @@ namespace Assets.Script.Chapter
             currentLineIndex = theSavedData.galgameActionIndex;
             currentGalgameAction = galgameActions[currentLineIndex];
             bgSpriteRenderer.sprite = currentGalgameAction.Background;
-            nextLine = currentGalgameAction.Line.text;
+            nextLine = currentGalgameAction.Line.text.Replace("\\n","\n");
             line.text = string.Empty;
         }
 
