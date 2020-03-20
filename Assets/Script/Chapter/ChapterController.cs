@@ -13,6 +13,8 @@ using Newtonsoft.Json;
 using System.Text;
 using UnityEngine.Video;
 using UnityEditor;
+using Assets.Script.Model.Components;
+using System.Linq;
 
 namespace Assets.Script.Chapter
 {
@@ -28,6 +30,7 @@ namespace Assets.Script.Chapter
         private GameObject lineContainer;
         private GameObject popupWindow;
         private GameObject menuField;
+        private GameObject selectorField;
         private Text actorName;
         private Text line;   // Script line showing text
         private Font font;
@@ -38,6 +41,7 @@ namespace Assets.Script.Chapter
         #region Prefabs
         public Text historyTextPrefab;
         public Button saveDataModelPrefab;
+        public Button selectorOptionPrefab;
         #endregion
 
         #region History gameobjects
@@ -88,6 +92,11 @@ namespace Assets.Script.Chapter
         private GameObject saveButton;
         private GameObject loadButton;
         private GameObject settingButton;
+        #endregion
+
+
+        #region Selector field
+        private GameObject selector;
         #endregion
         #endregion
 
@@ -151,13 +160,14 @@ namespace Assets.Script.Chapter
             settingField = mainCanvas.transform.Find("SettingField").gameObject;
             popupWindow = mainCanvas.transform.Find("PopupWindow").gameObject;
             menuField = mainCanvas.transform.Find("MenuField").gameObject;
+            selectorField = mainCanvas.transform.Find("SelectorField").gameObject;
 
             // Init line
             // Init currentScript, galgameActions, currentLineIndex
             // currentLineIndex = 0; // ?
             line = lineContainer.transform.Find("Line").GetComponent<Text>();
             actorName = lineContainer.transform.Find("ActorName").GetComponent<Text>();
-            
+
             galgameActions = currentScript.GalgameActions;
             if (null != currentScript.Bg)
             {
@@ -203,13 +213,16 @@ namespace Assets.Script.Chapter
             ResolutionDropdown = FindComponentByPath<Dropdown>(settingField, "ScreenMode:Windowed:Resolution");
             LanguageDropdown = FindComponentByPath<Dropdown>(settingField, "Other:Language:Dropdown");
 
+            // selector field
+            selector = selectorField.transform.Find("Selector").gameObject;
+
             bool isResInit = false;
             // resolution dropdown list
             foreach (Resolution res in Screen.resolutions)
             {
-                if(res.refreshRate == 60)
+                if (res.refreshRate == 60)
                 {
-                    if(!isResInit)
+                    if (!isResInit)
                     {
                         SettingModel.resolution = string.Format("{0}x{1}", res.width, res.height);
                         isResInit = true;
@@ -229,7 +242,7 @@ namespace Assets.Script.Chapter
             // InitSceneGameObject();
         }
 
-        
+
 
         // Update is called once per frame
         void Update()
@@ -352,7 +365,7 @@ namespace Assets.Script.Chapter
             skipButton.GetComponent<Image>().color = Color.white;
             SettingModel.isAutoReadingModeOn = auto;
             // If SettingModel.isAutoReadingModeOn == true, call SwitchLine()
-            if(!auto)
+            if (!auto)
             {
                 autoPlayButton.GetComponent<Image>().color = Color.white;
             }
@@ -384,7 +397,7 @@ namespace Assets.Script.Chapter
         {
             autoPlayButton.GetComponent<Image>().color = Color.white;
             SettingModel.isSkipModeOn = skip;
-            if(!skip)
+            if (!skip)
             {
                 skipButton.GetComponent<Image>().color = Color.white;
             }
@@ -483,7 +496,7 @@ namespace Assets.Script.Chapter
             GameObject lineObject = lineContainer.transform.Find("Line").gameObject;
             if (SettingModel.showTextShadow)
             {
-                if(!lineObject.GetComponent<Shadow>())
+                if (!lineObject.GetComponent<Shadow>())
                 {
                     Shadow s = lineObject.AddComponent<Shadow>();
                     s.effectDistance = new Vector2(2, -1);
@@ -583,7 +596,7 @@ namespace Assets.Script.Chapter
         {
             Transform tmp = parent.transform;
             string[] ps = fullPath.Split(':');
-            foreach(string p in ps)
+            foreach (string p in ps)
             {
                 if ((tmp = tmp.Find(p)) == null) return null;
             }
@@ -604,7 +617,7 @@ namespace Assets.Script.Chapter
         /// <returns></returns>
         private bool IsSwitchLineAllowed()
         {
-            return gameController.inGame && !isMenuActive && !historyField.activeSelf && !savedDataField.activeSelf && !settingField.activeSelf && !popupWindow.activeSelf;
+            return gameController.inGame && !isMenuActive && !historyField.activeSelf && !savedDataField.activeSelf && !settingField.activeSelf && !popupWindow.activeSelf && !selectorField.activeSelf;
         }
 
         /// <summary>
@@ -649,7 +662,7 @@ namespace Assets.Script.Chapter
                 {
                     SetSkipMode(false);
                 }
-                if(SettingModel.isAutoReadingModeOn)
+                if (SettingModel.isAutoReadingModeOn)
                 {
                     SetAutoMode(false);
                 }
@@ -736,8 +749,112 @@ namespace Assets.Script.Chapter
             {
                 line.color = ColorUtil.HexToUnityColor(uint.Parse(DefaultScriptProperty.fcolor, System.Globalization.NumberStyles.HexNumber));
             }
+            // Is there a selector
+            if (null != currentGalgameAction.Selector)
+            {
+                BuildSelector(currentGalgameAction.Selector);
+            }
             // Move index to next
             currentLineIndex++;
+        }
+
+        /// <summary>
+        /// Build current scene's Selector component
+        /// </summary>
+        private void BuildSelector(PSelector selector)
+        {
+            this.selector = new GameObject("Selector");
+            Image image = this.selector.AddComponent<Image>();
+            image.color = new Color(1.0f, 1.0f, 1.0f, 0.35f);
+            
+            if ((null == selector.Options || selector.Options.Count == 0) && (null == selector.Texts || selector.Texts.Count == 0) 
+                && (null == selector.Bgms || selector.Bgms.Count == 0) && (null == selector.Bgs || selector.Bgs.Count == 0))
+                return;
+            Grid selectorGrid = this.selector.AddComponent<Grid>();
+            GridLayoutGroup selectorGroup = this.selector.AddComponent<GridLayoutGroup>();
+            selectorGroup.cellSize = new Vector2(200.0f, 320.0f);
+            selectorGroup.spacing = Vector2.one;
+
+            // Selector.Options has higher priority than Options set on properties(Texts,Bgs,Bgms) of Selector
+            if(null == selector.Options || selector.Options.Count == 0)
+            {
+                selector.Options = BuildSelectorOptions(selector);
+                // TODO: Consider update chapter
+            }
+
+            foreach (PSelectorOption option in selector.Options)
+            {
+                Button newEmptyOption = Instantiate(selectorOptionPrefab);
+                if(null != option.Bg)
+                {
+                    newEmptyOption.GetComponent<RawImage>().texture = option.Bg.texture;
+                }
+                if(null != option.Bgm)
+                {
+                    newEmptyOption.GetComponent<AudioSource>().clip = option.Bgm;
+                }
+                Text ot = newEmptyOption.transform.Find("OptionText").GetComponent<Text>();
+                ot.text = option.Text.text;
+                ot.alignment = EnumMap.AlignToTextAnchor(option.Text.align);
+                // font-style
+                if (option.Text.fstyle == FontStyle.Normal)
+                {
+                    ot.fontStyle = DefaultScriptProperty.fstyle;
+                }
+                else
+                {
+                    ot.fontStyle = option.Text.fstyle;
+                }
+                // font-size
+                if (option.Text.fsize != 0)
+                {
+                    ot.fontSize = Mathf.RoundToInt(option.Text.fsize);
+                }
+                else if (DefaultScriptProperty.fsize != 0)
+                {
+                    ot.fontSize = Mathf.RoundToInt(DefaultScriptProperty.fsize);
+                }
+                // line-spacing
+                if (option.Text.linespacing != 0)
+                {
+                    ot.lineSpacing = option.Text.linespacing;
+                }
+                else if (DefaultScriptProperty.linespacing != 0)
+                {
+                    ot.lineSpacing = DefaultScriptProperty.linespacing;
+                }
+                // font-color
+                if (!string.IsNullOrEmpty(option.Text.fcolor))
+                {
+                    ot.color = ColorUtil.HexToUnityColor(uint.Parse(option.Text.fcolor, System.Globalization.NumberStyles.HexNumber));
+                }
+                else if (!string.IsNullOrEmpty(DefaultScriptProperty.fcolor))
+                {
+                    ot.color = ColorUtil.HexToUnityColor(uint.Parse(DefaultScriptProperty.fcolor, System.Globalization.NumberStyles.HexNumber));
+                }
+                newEmptyOption.transform.SetParent(this.selector.transform);
+            }
+            this.selector.GetComponent<RectTransform>().position = Vector3.zero;
+            this.selector.transform.SetParent(selectorField.transform);
+            selectorField.SetActive(true);
+        }
+
+        /// <summary>
+        /// Build Selector's Options
+        /// </summary>
+        private List<PSelectorOption> BuildSelectorOptions(PSelector selector)
+        {
+            List<PSelectorOption> options = new List<PSelectorOption>();
+            int optionNumber = new int[] { selector.Bgms.Count, selector.Bgs.Count, selector.Texts.Count }.Max();
+            for(int n = 0; n < optionNumber; n++)
+            {
+                PSelectorOption o = new PSelectorOption();
+                o.Text = n > selector.Texts.Count-1 ? default(PText) : selector.Texts[n];
+                o.Bg = n > selector.Bgs.Count-1 ? default(Sprite) : selector.Bgs[n];
+                o.Bgm = n > selector.Bgms.Count-1 ? default(AudioClip) : selector.Bgms[n];
+                options.Add(o);
+            }
+            return options;
         }
 
         /// <summary>

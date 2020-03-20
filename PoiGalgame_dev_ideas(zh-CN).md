@@ -55,6 +55,8 @@
         public Sprite Background;               // Background in current scene | 当前幕的背景/环境
         public Actor Actor;                     // Actor's name | 演员名称
         public Animator ActorAnimator;          // Actor's animator: blink, speck, smile and etc. | 演员动作: 眨眼，说话，笑等等
+        public List Selector;                   // Select scene | 玩家选择场景
+        public string Input;                    // Input scene | 玩家输入场景
     }
 
     /// <summary>
@@ -88,54 +90,66 @@
 ### 脚本化剧本
 
 - 标记
-    - 基本标识
-        - `[chs]`           章节开始
-        - `[che]`           章节结束
-        - `[br]`            换行
-        - `[p]`             换段
-        - `[cl]`            点击提示符
-    - 元素标签
-        - `[text]`          文本（无样式）
-        - `[line]`          台词
-        - `[bg]`            背景图片
-        - `[fg]`            前景图片
-        - `[bgm]`           背景音乐
-        - `[video]`         视频
-    - 公共属性标识
-        - ~~`[pos]`           位置~~
-        - `[style]`         样式定义
-        - `[tran]`          转换效果
-        - ~~`[effect]`        特效（下雨，下雪等）~~
+  - 基本标识
+    - `[chs]`           章节开始
+    - `[che]`           章节结束
+    - `[br]`            换行
+    - `[p]`             换段
+    - `[cl]`            点击提示符
+  - 元素标签
+    - `[text]`          文本（无样式）
+    - `[line]`          台词
+    - `[bg]`            背景图片
+    - `[fg]`            前景图片
+    - `[bgm]`           背景音乐
+    - `[video]`         视频
+    - `[select]`        选择器
+      - `[option]`      选择器子选项(仅能与`[select]`绑定使用)
+    - `[input]`         输入框
+  - 公共属性标识
+    - ~~`[pos]`           位置~~
+    - `[style]`         样式定义
+    - `[tran]`          转换效果
+    - ~~`[effect]`        特效（下雨，下雪等）~~
 - 属性
-    - 公共元素属性
-        - `tag`             元素类标识
-        - `name`            元素标识
-        - `value`           元素值
-        - `width`           元素宽度
-        - `height`          元素高度
-        - `top`             元素距离顶部距离
-        - `left`            元素距离左部距离
-        - `visible`         是否在视图中显示
-        - `layer`           元素所在层 `f3 | f2 | f1 | g | b1 | b2 | b3`
-        - `method`          元素调用方法名
-        - `canskip`         是否可跳过该元素
-        - `time`            持续时间
-    - 文本类标签公共属性
-        - `linespacing`     文本行距
-        - `align`           对齐方式 `lt | lm | lb | mt | mm | mb | rt | rm | rb`
-        - `fcolor`          文本颜色 `0x000000-0xffffff`
-        - `fsize`           文本字体大小
-        - `fstyle`          文本风格 `normal | bold | italic`
-        - `ffamily`         字体类型 `Arial` 等
-    - 图片类标签公共属性
-        - `src`             图片路径
-    - 音频/视频类标签公共属性
-        - `src`             音频/视频路径
-        - `volume`          音量
-        - `loop`            循环
-        - `action`          操作 `pause | resume | stop | play`
-    - 台词专用属性
-        - `actor`           演员名称
-        - `voice`           台词语音
-        - `line`            台词文本
-        - `anim`            演员动作
+  - 公共元素属性
+    - `tag`             元素类标识
+    - `name`            元素标识
+    - `value`           元素值
+    - `width`           元素宽度
+    - `height`          元素高度
+    - `top`             元素距离顶部距离
+    - `left`            元素距离左部距离
+    - `visible`         是否在视图中显示
+    - `layer`           元素所在层 `f3 | f2 | f1 | g | b1 | b2 | b3`
+    - `method`          元素调用方法名
+    - `canskip`         是否可跳过该元素
+    - `time`            持续时间
+  - 文本类标签公共属性
+    - `linespacing`     文本行距
+    - `align`           对齐方式 `lt | lm | lb | mt | mm | mb | rt | rm | rb`
+    - `fcolor`          文本颜色 `0x000000-0xffffff`
+    - `fsize`           文本字体大小
+    - `fstyle`          文本风格 `normal | bold | italic`
+    - `ffamily`         字体类型 `Arial` 等
+  - 图片类标签公共属性
+    - `src`             图片路径
+  - 音频/视频类标签公共属性
+    - `src`             音频/视频路径
+    - `volume`          音量
+    - `loop`            循环
+    - `action`          操作 `pause | resume | stop | play`
+  - 台词专用属性
+    - `actor`           演员名称
+    - `voice`           台词语音
+    - `line`            台词文本
+    - `anim`            演员动作
+  - 选择器 `[select]` 属性
+    - `type`            选择器类型 `horizontal | vertical`
+    - `text`            子选择项文本 `[A,B,C,...]`(可选)
+    - `bg`              子选择项背景图片 `[A,B,C,...]`(可选)
+    - `bgm`             子选择项音频 `[A,B,C,...]`(可选)
+  - 选择器子选项 `[option]` 属性
+    - `text`            子选择项文本
+    - `bg`              子选择项背景图片
+    - `bgm`             子选择项音频

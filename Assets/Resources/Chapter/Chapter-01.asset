@@ -32,6 +32,65 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts:
+      - text: "\u9009\u98791"
+        ffamily: 
+        fcolor: 
+        fsize: 0
+        linespacing: 0
+        align: 0
+        fstyle: 0
+      - text: "\u9009\u98792"
+        ffamily: 
+        fcolor: 
+        fsize: 0
+        linespacing: 0
+        align: 0
+        fstyle: 0
+      - text: "\u9009\u98793"
+        ffamily: 
+        fcolor: 0xffff00
+        fsize: 0
+        linespacing: 0
+        align: 4
+        fstyle: 0
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options:
+      - Text:
+          text: "\u9009\u98791"
+          ffamily: 
+          fcolor: 
+          fsize: 0
+          linespacing: 0
+          align: 0
+          fstyle: 0
+        Bg: {fileID: 21300000, guid: 84ff0a16181adde4899c245830ce6871, type: 3}
+        Bgm: {fileID: 0}
+      - Text:
+          text: "\u9009\u98792"
+          ffamily: 
+          fcolor: 
+          fsize: 0
+          linespacing: 0
+          align: 0
+          fstyle: 0
+        Bg: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
+        Bgm: {fileID: 0}
+      - Text:
+          text: "\u9009\u98793"
+          ffamily: 
+          fcolor: 
+          fsize: 0
+          linespacing: 0
+          align: 4
+          fstyle: 0
+        Bg: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
+        Bgm: {fileID: 0}
+    Input: 
   - Line:
       text: '........'
       ffamily: 
@@ -46,6 +105,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u96EA..."
       ffamily: 
@@ -60,6 +127,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u305D\u3046\u3001\u96EA\u3060\u3002"
       ffamily: 
@@ -74,6 +149,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u4ECA\u306A\u304A\u3001\u305D\u308C\u308F\u964D\u308A\u7D9A\u3051\u3001\u50D5\u306E\u4F53\u3092\u767D\u304F\u8986\u3063\u3066\u3044\u304F\u3002"
       ffamily: 
@@ -88,6 +171,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3042\u3042..."
       ffamily: 
@@ -102,6 +193,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u50D5\u306F\u3053\u3093\u306A\u3068\u3053\u308D\u3067\u4F55\u3092\u3057\u3066\u3044\u308B\u306E\u3060\u308D\u3046..."
       ffamily: 
@@ -116,6 +215,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3044\u3064\u304B\u3089\u3053\u3093\u306A\u3068\u3053\u308D\u306B\u3001\u3072\u3068\u308A\u307C\u3063\u3061\u3067\u5C45\u308B\u306E\u3060\u308D\u3046...\u3002"
       ffamily: 
@@ -130,6 +237,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "........\u3002"
       ffamily: 
@@ -144,6 +259,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u96EA\u306B\u57CB\u3082\u308C\u305F...\u50D5\u306E\u624B\u3002"
       ffamily: 
@@ -158,6 +281,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u305D\u308C\u304C\u3001\u4F55\u304B\u3092\u63B4\u3093\u3067\u3044\u3060\u3002"
       ffamily: 
@@ -172,6 +303,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5F15\u304D\u4E0A\u3052\u308B\u3002"
       ffamily: 
@@ -186,6 +325,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u771F\u3063\u767D\u306A\u624B\u3002"
       ffamily: 
@@ -200,6 +347,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u306E\u624B\u3060\u3063\u305F\u3002"
       ffamily: 
@@ -214,6 +369,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3042\u3042\u3001\u305D\u3046\u3060\u3063\u305F...\u3002"
       ffamily: 
@@ -228,6 +391,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u50D5\u306F\u4E00\u4EBA\u304D\u308A\u3058\u3083\u306A\u304B\u3063\u305F\u3002"
       ffamily: 
@@ -242,6 +413,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5F7C\u5973\u306E\u9854\u3092\u8986\u3046\u96EA\u3092\u6255\u3046\u3002"
       ffamily: 
@@ -256,6 +435,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u7A4F\u3084\u304B\u7720\u308B\u6A2A\u9854\u304C\u2019\u3001\u73FE\u308C\u305F\u3002"
       ffamily: 
@@ -270,6 +457,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u305D\u3046..."
       ffamily: 
@@ -284,6 +479,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3053\u306E\u5B50\u3068\u4E8C\u4EBA\u3067...\u3067\u3063\u3068\u5C45\u305F\u306E\u3060\u3002"
       ffamily: 
@@ -298,6 +501,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3053\u306E\u4E16\u754C\u3067\u3002"
       ffamily: 
@@ -312,6 +523,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3053\u306E\u3001\u8AB0\u3082\u3044\u306A\u3044\u3001\u3082\u306E\u60B2\u3057\u3044\u4E16\u754C\u3067\u3002"
       ffamily: 
@@ -326,6 +545,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c2ed6b0a2f5603f4c803db0337f1d73a, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: 
       ffamily: 
@@ -340,6 +567,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 50c005680b2ff5048a19374cada9bc78, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3053\u306E\u753A\u306F\u5ACC\u3044\u3060\u3002"
       ffamily: 
@@ -354,6 +589,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 50c005680b2ff5048a19374cada9bc78, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5FD8\u308C\u305F\u3044\u601D\u3044\u51FA\u304C\u67D3\u307F\u3064\u3044\u305F\u5834\u6240\u3060\u304B\u3089\u3002"
       ffamily: 
@@ -368,6 +611,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 5fea0db6f5beaf842a7c3657827a2f91, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u6BCE\u65E5\u5B66\u6821\u306B\u901A\u3044\u3001\u4FEE\u696D\u3092\u53D7\u3051\u3001\u53CB\u9054\u3068\u3060\u3079\u308A\u3001\u305D\u3057\u3066\u5E30\u308A\u3060\u304F\u3082\u306A\u3044\u5BB6\u306B\u5E30\u308B\u3002"
       ffamily: 
@@ -382,6 +633,14 @@ MonoBehaviour:
     Background: {fileID: 0}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u4F55\u3082\u65B0\u3057\u3044\u3053\u3068\u306A\u3069\u59CB\u307E\u3089\u306A\u3044\u3002"
       ffamily: 
@@ -396,6 +655,14 @@ MonoBehaviour:
     Background: {fileID: 0}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u670B\u4E5F\uFF08\u3053\u3046\u3057\u3066\u3044\u3066\u3001\u4F55\u304B\u304C\u5909\u308F\u308B\u3093\u3060\u308D\u3046\u304B...\uFF09"
       ffamily: 
@@ -410,6 +677,14 @@ MonoBehaviour:
     Background: {fileID: 0}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u670B\u4E5F\uFF08\u4FFA\u306E\u751F\u6D3B\u306F\u3001\u3044\u3064\u304B\u5909\u308F\u308B\u3093\u3060\u308D\u3046\u304B...\uFF09"
       ffamily: 
@@ -424,6 +699,14 @@ MonoBehaviour:
     Background: {fileID: 0}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3084\u305F\u3089\u3068\u81EA\u7136\u304C\u591A\u3044\u753A\u3002"
       ffamily: 
@@ -438,6 +721,14 @@ MonoBehaviour:
     Background: {fileID: 0}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5C71\u3092\u8FC2\u56DE\u3057\u3066\u306E\u767B\u6821\u3002"
       ffamily: 
@@ -452,6 +743,14 @@ MonoBehaviour:
     Background: {fileID: 0}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3059\u3079\u3066\u306E\u5C71\u3092\u5207\u308A\u958B\u3051\u3070\u3001\u3069\u308C\u3060\u3051\u697D\u306B\u767B\u6821\u3067\u304D\u308B\u3060\u308D\u3046\u304B\u3002"
       ffamily: 
@@ -466,6 +765,14 @@ MonoBehaviour:
     Background: {fileID: 0}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u76F4\u7DDA\u8DDD\u96E2\u3092\u53D6\u308C\u3070\u300120\u5206\u3050\u3089\u3044\u306F\u77ED\u7E2E\u3067\u304D\u305D\u3046\u3060\u3063\u305F\u3002"
       ffamily: 
@@ -480,6 +787,14 @@ MonoBehaviour:
     Background: {fileID: 0}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u670B\u4E5F\uFF08\u4E00\u65E5\u300120\u5206...\uFF09"
       ffamily: 
@@ -494,6 +809,14 @@ MonoBehaviour:
     Background: {fileID: 0}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u670B\u4E5F\uFF08\u3059\u308B\u3068\u3001\u4E00\u5E74\u3067\u3069\u308C\u304F\u3089\u3044\u3001\u4FFA\u306F\u6642\u9593\u3092\u5F97\u3059\u308B\u3053\u3068\u306B\u306A\u308B\u3093\u3060...\uFF09"
       ffamily: 
@@ -508,6 +831,14 @@ MonoBehaviour:
     Background: {fileID: 0}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u8A08\u7B97\u3057\u306A\u304C\u3089\u3001\u6B69\u304F\u3002"
       ffamily: 
@@ -522,6 +853,14 @@ MonoBehaviour:
     Background: {fileID: 0}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u670B\u4E5F\uFF08\u3042\u3042\u3001\u3088\u304F\u308F\u304B\u3093\u306D\u3047...\uFF09"
       ffamily: 
@@ -536,6 +875,14 @@ MonoBehaviour:
     Background: {fileID: 0}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u8FBA\u308A\u306B\u540C\u6821\u306E\u751F\u5F92\u306E\u59FF\u306F\u306A\u3044\u3002"
       ffamily: 
@@ -550,6 +897,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 1eff93aa7aa474f42b6dc6f9a518daf6, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5B66\u6821\u306B\u7D9A\u304F\u5927\u901A\u308A\u3060\u304B\u3089\u3001\u672C\u6765\u3001\u751F\u5F92\u3067\u8CD1\u308F\u3063\u3066\u3044\u308B\u306F\u305A\u3060\u3063\u305F\u3002"
       ffamily: 
@@ -564,6 +919,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 1eff93aa7aa474f42b6dc6f9a518daf6, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u4ECA\u65E5\u304C\u3001\u4F11\u65E5\u3068\u3044\u3046\u308F\u3051\u3067\u3082\u306A\u3044\u3002"
       ffamily: 
@@ -578,6 +941,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 1eff93aa7aa474f42b6dc6f9a518daf6, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3064\u307E\u308A\u306F...\u751F\u5F92\u304C\u767B\u6821\u3059\u3079\u304D\u6642\u9593\u3067\u306F\u306A\u3044\u3001\u3068\u3044\u3046\u3053\u3068\u3002"
       ffamily: 
@@ -592,6 +963,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 1eff93aa7aa474f42b6dc6f9a518daf6, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3051\u3069\u3001\u305D\u3093\u306A\u9591\u6563\u3068\u3057\u305F\u5149\u666F\u3092\u76EE\u306E\u5F53\u305F\u308A\u306B\u3057\u3066\u3082\u4FFA\u306F\u7126\u308B\u3053\u3068\u306A\u304F\u3001\u60A0\u9577\u306B\u6B69\u304D\u7D9A\u3051\u305F\u3002"
       ffamily: 
@@ -606,6 +985,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 1eff93aa7aa474f42b6dc6f9a518daf6, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: ".........\u3002"
       ffamily: 
@@ -620,6 +1007,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 1eff93aa7aa474f42b6dc6f9a518daf6, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u6821\u9580\u307E\u3067\u6B8B\u308A200\u30E1\u30FC\u30C8\u30EB\u3002"
       ffamily: 
@@ -634,6 +1029,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 50c005680b2ff5048a19374cada9bc78, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u4E00\u5EA6\u7ACB\u3061\u5C3D\u304F\u3059\u3002"
       ffamily: 
@@ -648,6 +1051,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 50c005680b2ff5048a19374cada9bc78, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u670B\u4E5F\u300C\u306F\u3041\u300D"
       ffamily: 
@@ -662,6 +1073,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 50c005680b2ff5048a19374cada9bc78, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u305F\u3081\u606F\u3068\u5171\u306B\u7A7A\u3092\u4EF0\u3050\u3002"
       ffamily: 
@@ -676,6 +1095,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 50c005680b2ff5048a19374cada9bc78, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: 
       ffamily: 
@@ -690,6 +1117,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u305D\u306E\u5148\u306B\u6821\u9580\u306F\u3042\u3063\u305F\u3002"
       ffamily: 
@@ -704,6 +1139,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u8AB0\u304C\u597D\u3093\u3067\u3001\u3042\u3093\u306A\u5834\u6240\u306B\u6821\u9580\u3092\u636E\u3048\u305F\u306E\u304B\u3002"
       ffamily: 
@@ -718,6 +1161,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u9577\u3044\u5742\u9053\u304C\u3001\u60AA\u5922\u306E\u3088\u3046\u306B\u5EF6\u3073\u3066\u3044\u305F\u3002"
       ffamily: 
@@ -732,6 +1183,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u58F0\u300C\u306F\u3041\u300D"
       ffamily: 
@@ -746,6 +1205,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5225\u306E\u305F\u3081\u606F\u3002\u4FFA\u306E\u3088\u308A\u304B\u306F\u5C0F\u3055\u304F\u3001\u77ED\u304B\u3063\u305F\u3002"
       ffamily: 
@@ -760,6 +1227,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u96A3\u3092\u898B\u3066\u307F\u308B\u3002"
       ffamily: 
@@ -774,6 +1249,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u305D\u3053\u306B\u540C\u3058\u3088\u3046\u306B\u7ACB\u3061\u5C3D\u304F\u3059\u5973\u751F\u5F92\u304B\u3044\u305F\u3002"
       ffamily: 
@@ -788,6 +1271,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 5f553f849b1baaa4c88a3dbbe4db9c4d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u6821\u7AE0\u306E\u8272\u304B\u3089\u3001\u540C\u3058\u4E09\u5E74\u751F\u3060\u3068\u308F\u304B\u308B\u3002"
       ffamily: 
@@ -802,6 +1293,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 5f553f849b1baaa4c88a3dbbe4db9c4d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3051\u3069\u3001\u898B\u6163\u308C\u306A\u3044\u9854\u3060\u3063\u305F\u3002"
       ffamily: 
@@ -816,6 +1315,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 5f553f849b1baaa4c88a3dbbe4db9c4d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u77ED\u3044\u9AEA\u304C\u3001\u80A9\u306E\u3059\u3050\u4E0A\u3067\u98A8\u306B\u305D\u3088\u3044\u3067\u3044\u308B\u3002"
       ffamily: 
@@ -830,6 +1337,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 5f553f849b1baaa4c88a3dbbe4db9c4d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u300C.........\u300D"
       ffamily: 
@@ -844,6 +1359,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 5f553f849b1baaa4c88a3dbbe4db9c4d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u4ECA\u306B\u3082\u6CE3\u304D\u3060\u3057\u305D\u3046\u306A\u9854\u3060\u3063\u305F\u3002"
       ffamily: 
@@ -858,6 +1381,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 5f553f849b1baaa4c88a3dbbe4db9c4d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u4FFA\u306A\u3093\u304B\u306F\u5E38\u7FD2\u72AF\u3060\u3063\u305F\u304B\u3089\u306A\u3093\u3068\u3082\u601D\u308F\u306A\u3044\u304C\u3001\u771F\u9762\u76EE\u306A\u5974\u306A\u306E\u3060\u308D\u3046\u3002"
       ffamily: 
@@ -872,6 +1403,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 5f553f849b1baaa4c88a3dbbe4db9c4d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3053\u306E\u6642\u9593\u306B\u3072\u3068\u308A\u6559\u5BA4\u306B\u5165\u3063\u3066\u3044\u304F\u3053\u3068\u306B\u62B5\u6297\u304C\u3042\u308B\u306E\u3060\u3002"
       ffamily: 
@@ -886,6 +1425,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 5f553f849b1baaa4c88a3dbbe4db9c4d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u300C\u3046\u3093\u3046\u3093\u300D"
       ffamily: 
@@ -900,6 +1447,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c06615d3b402cb04cb4646056080a27d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u4F55\u304B\u3092\u81EA\u5206\u306B\u8A00\u3044\u805E\u304B\u305B\u308B\u3088\u3046\u306B\u3001\u76EE\u3092\u7791\u3063\u3066\u3001\u3053\u304F\u3053\u304F\u3068\u9837\u3044\u3066\u3044\u308B\u3002"
       ffamily: 
@@ -914,6 +1469,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c06615d3b402cb04cb4646056080a27d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u300C.........\u300D"
       ffamily: 
@@ -928,6 +1491,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c06615d3b402cb04cb4646056080a27d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u305D\u3057\u3066\u5C11\u5973\u306F\u76EE\u3092\u898B\u958B\u304F\u3002"
       ffamily: 
@@ -942,6 +1513,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c06615d3b402cb04cb4646056080a27d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3058\u3063\u3068\u3001\u9AD8\u898B\u306B\u3042\u308B\u6821\u9580\u3092\u898B\u3064\u3081\u305F\u3002"
       ffamily: 
@@ -956,6 +1535,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: c06615d3b402cb04cb4646056080a27d, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u300C\u3053\u306E\u5B66\u6821\u306F\u3001\u597D\u304D\u3067\u3059\u304B\u300D"
       ffamily: 
@@ -970,6 +1557,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u670B\u4E5F\u300C\u3048...\uFF1F\u300D"
       ffamily: 
@@ -984,6 +1579,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u3044\u3084\u3001\u4FFA\u4E8C\u8A0A\u3044\u3066\u3044\u308B\u306E\u3067\u306F\u306A\u304B\u3063\u305F\u3002"
       ffamily: 
@@ -998,6 +1601,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5984\u60F3\u306E\u4E2D\u306E\u8AB0\u304B\u306B\u554F\u3044\u304B\u3051\u3066\u3044\u308B\u306E\u3060\u3002"
       ffamily: 
@@ -1012,6 +1623,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u305D\u306E\u5F7C\uFF08\u3042\u308B\u3044\u306F\u5F7C\u5973\uFF09\u306F\u3001\u3069\u3046\u7B54\u3048\u305F\u306E\u3060\u308D\u3046\u304B"
       ffamily: 
@@ -1026,6 +1645,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u300C\u79C1\u306F\u3068\u3063\u3066\u3082\u3068\u3063\u3066\u3082\u597D\u304D\u3067\u3059\u300D"
       ffamily: 
@@ -1040,6 +1667,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u300C\u3067\u3082\u3001\u306A\u306B\u3082\u304B\u3082...\u5909\u308F\u3089\u305A\u306B\u306F\u3044\u3089\u308C\u306A\u3044\u3067\u3059\u300D"
       ffamily: 
@@ -1054,6 +1689,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u300C\u697D\u3057\u3044\u3053\u3068\u3068\u304B\u3001\u3046\u308C\u3057\u3044\u3053\u3068\u3068\u304B\u3001\u5168\u90E8\u300D"
       ffamily: 
@@ -1068,6 +1711,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u300C\u5168\u90E8\u3001\u5909\u308F\u3089\u306A\u305A\u306B\u306F\u3044\u3089\u308C\u306A\u3044\u3067\u3059\u300D"
       ffamily: 
@@ -1082,6 +1733,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u305F\u3069\u305F\u3069\u3057\u304F\u8A71\u3057\u7D9A\u3051\u308B\u3002"
       ffamily: 
@@ -1096,6 +1755,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u300C\u305D\u308C\u3067\u3082\u3001\u3053\u306E\u5834\u6240\u304C\u3059\u304D\u3067\u3044\u3089\u308C\u307E\u3059\u304B\u300D"
       ffamily: 
@@ -1110,6 +1777,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "........\u3002"
       ffamily: 
@@ -1124,6 +1799,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u300C\u79C1\u306F...\u300D"
       ffamily: 
@@ -1138,6 +1821,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u670B\u4E5F\u300C\u898B\u3064\u3051\u308C\u3070\u3044\u3044\u3060\u3051\u3060\u308D\u300D"
       ffamily: 
@@ -1152,6 +1843,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u300C\u3048\u3063...\uFF1F\u300D"
       ffamily: 
@@ -1166,6 +1865,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 1be1ec1040fde854e9630aa51d330024, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5C11\u5973\u304C\u9A5A\u3044\u3066\u3001\u4FFA\u306E\u9854\u3092\u898B\u308B\u3002"
       ffamily: 
@@ -1180,6 +1887,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 1be1ec1040fde854e9630aa51d330024, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u307E\u308B\u3067\u3001\u4ECA\u307E\u3067\u8AB0\u3082\u3044\u306A\u3044\u3068\u4FE1\u3058\u3066\u3044\u305F\u304B\u306E\u3088\u3046\u306B\u3060\u3002"
       ffamily: 
@@ -1194,6 +1909,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 1be1ec1040fde854e9630aa51d330024, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u670B\u4E5F\u300C\u6B21\u306E\u697D\u3057\u3044\u3053\u3068\u3068\u304B\u3001\u3046\u308C\u3057\u3044\u3053\u3068\u3092\u898B\u3064\u3051\u308C\u3070\u3044\u3044\u3060\u3051\u3060\u308D\u300D"
       ffamily: 
@@ -1208,6 +1931,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 1be1ec1040fde854e9630aa51d330024, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u670B\u4E5F\u300C\u3042\u3093\u305F\u306E\u697D\u3057\u3044\u3053\u3068\u3084\u3001\u3046\u308C\u3057\u3044\u3053\u3068\u306F\u3072\u3068\u3064\u3060\u3051\u306A\u306E\u304B\uFF1F\u3000\u9055\u3046\u3060\u308D\u300D"
       ffamily: 
@@ -1222,6 +1953,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 1be1ec1040fde854e9630aa51d330024, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u5973\u306E\u5B50\u300C........\u300D"
       ffamily: 
@@ -1236,6 +1975,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 1be1ec1040fde854e9630aa51d330024, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u305D\u3046\u3002"
       ffamily: 
@@ -1250,6 +1997,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 596a761777a1e5c48851bd3eb04b2864, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u4F55\u3082\u77E5\u3089\u306A\u304B\u3063\u305F\u7121\u57A2\u306A\u9803\u3002"
       ffamily: 
@@ -1264,6 +2019,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 596a761777a1e5c48851bd3eb04b2864, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u8AB0\u306B\u3067\u3082\u3042\u308B\u3002"
       ffamily: 
@@ -1278,6 +2041,14 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 596a761777a1e5c48851bd3eb04b2864, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
   - Line:
       text: "\u670B\u4E5F\u300C\u307B\u3089\u3001\u3044\u3053\u3046\u305C\u300D"
       ffamily: 
@@ -1292,3 +2063,11 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 84ff0a16181adde4899c245830ce6871, type: 3}
     Actor: 0
     ActorAnimation: 
+    Selector:
+      Type: 0
+      Texts: []
+      Bgs: []
+      Bgms: []
+      IsSelected: 0
+      Options: []
+    Input: 
