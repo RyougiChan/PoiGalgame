@@ -33,7 +33,7 @@ MonoBehaviour:
     Actor: 0
     ActorAnimation: 
     Selector:
-      Type: 0
+      Type: 1
       Texts:
       - text: "\u9009\u98791"
         ffamily: 
@@ -58,7 +58,8 @@ MonoBehaviour:
         fstyle: 0
       Bgs: []
       Bgms: []
-      IsSelected: 0
+      IsSelected: 1
+      SelectedItem: 0
       Options:
       - Text:
           text: "\u9009\u98791"
@@ -70,6 +71,53 @@ MonoBehaviour:
           fstyle: 0
         Bg: {fileID: 21300000, guid: 84ff0a16181adde4899c245830ce6871, type: 3}
         Bgm: {fileID: 0}
+        Actions:
+        - Line:
+            text: "\u5B50\u9009\u9879\u6587\u672C1"
+            ffamily: 
+            fcolor: 
+            fsize: 0
+            linespacing: 0
+            align: 0
+            fstyle: 0
+          Video: {fileID: 0}
+          Bgm: {fileID: 0}
+          Voice: {fileID: 0}
+          Background: {fileID: 0}
+          Actor: 0
+          ActorAnimation: 
+          Selector:
+            Type: 0
+            Texts: []
+            Bgs: []
+            Bgms: []
+            IsSelected: 0
+            SelectedItem: 0
+            Options: []
+          Input: 
+        - Line:
+            text: "\u5B50\u9009\u9879\u6587\u672C2"
+            ffamily: 
+            fcolor: 
+            fsize: 0
+            linespacing: 0
+            align: 0
+            fstyle: 0
+          Video: {fileID: 0}
+          Bgm: {fileID: 0}
+          Voice: {fileID: 0}
+          Background: {fileID: 0}
+          Actor: 0
+          ActorAnimation: 
+          Selector:
+            Type: 0
+            Texts: []
+            Bgs: []
+            Bgms: []
+            IsSelected: 0
+            SelectedItem: 0
+            Options: []
+          Input: 
       - Text:
           text: "\u9009\u98792"
           ffamily: 
@@ -80,6 +128,7 @@ MonoBehaviour:
           fstyle: 0
         Bg: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
         Bgm: {fileID: 0}
+        Actions: []
       - Text:
           text: "\u9009\u98793"
           ffamily: 
@@ -90,6 +139,7 @@ MonoBehaviour:
           fstyle: 0
         Bg: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
         Bgm: {fileID: 0}
+        Actions: []
     Input: 
   - Line:
       text: '........'
@@ -111,6 +161,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -133,6 +184,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -155,6 +207,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -177,6 +230,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -199,6 +253,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -221,6 +276,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -243,6 +299,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -265,6 +322,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -287,6 +345,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -309,6 +368,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -331,6 +391,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -353,6 +414,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -375,6 +437,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -397,6 +460,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -419,6 +483,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -441,6 +506,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -463,6 +529,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -485,6 +552,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -507,6 +575,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -529,6 +598,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -551,6 +621,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -573,6 +644,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -595,6 +667,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -617,6 +690,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -639,6 +713,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -661,6 +736,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -683,6 +759,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -705,6 +782,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -727,6 +805,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -749,6 +828,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -771,6 +851,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -793,6 +874,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -815,6 +897,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -837,6 +920,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -859,6 +943,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -881,6 +966,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -903,6 +989,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -925,6 +1012,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -947,6 +1035,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -969,6 +1058,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -991,6 +1081,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1013,6 +1104,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1035,6 +1127,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1057,6 +1150,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1079,6 +1173,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1101,6 +1196,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1123,6 +1219,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1145,6 +1242,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1167,6 +1265,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1189,6 +1288,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1211,6 +1311,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1233,6 +1334,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1255,6 +1357,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1277,6 +1380,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1299,6 +1403,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1321,6 +1426,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1343,6 +1449,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1365,6 +1472,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1387,6 +1495,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1409,6 +1518,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1431,6 +1541,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1453,6 +1564,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1475,6 +1587,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1497,6 +1610,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1519,6 +1633,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1541,6 +1656,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1563,6 +1679,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1585,6 +1702,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1607,6 +1725,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1629,6 +1748,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1651,6 +1771,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1673,6 +1794,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1695,6 +1817,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1717,6 +1840,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1739,6 +1863,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1761,6 +1886,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1783,6 +1909,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1805,6 +1932,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1827,6 +1955,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1849,6 +1978,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1871,6 +2001,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1893,6 +2024,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1915,6 +2047,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1937,6 +2070,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1959,6 +2093,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -1981,6 +2116,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -2003,6 +2139,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -2025,6 +2162,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -2047,6 +2185,7 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 
   - Line:
@@ -2069,5 +2208,6 @@ MonoBehaviour:
       Bgs: []
       Bgms: []
       IsSelected: 0
+      SelectedItem: 0
       Options: []
     Input: 

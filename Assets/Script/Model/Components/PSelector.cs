@@ -14,6 +14,7 @@ namespace Assets.Script.Model.Components
         public List<Sprite> Bgs;
         public List<AudioClip> Bgms;
         public bool IsSelected;
+        public int SelectedItem;
         public List<PSelectorOption> Options;
     }
 }

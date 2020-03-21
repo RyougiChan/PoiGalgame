@@ -94,7 +94,6 @@ namespace Assets.Script.Chapter
         private GameObject settingButton;
         #endregion
 
-
         #region Selector field
         private GameObject selector;
         #endregion
@@ -112,12 +111,16 @@ namespace Assets.Script.Chapter
 
         private List<GalgameAction> galgameActions;
         private GalgameAction currentGalgameAction;
+        private PSelectorOption ActiveSelectorOption;
+        private int currentSelectorOptionActionIndex;
         // Current showing line's index in `currentScript`
         private int currentLineIndex;
         // Current showing line text's index of char
         private int currentLineCharIndex;
         // Is a line text is showing
         private bool isShowingLine;
+        // Is now a option line text display time
+        private bool isShowingSelectorOptionActionTime;
         // Is auto-reading mode is actived
         // private bool isAutoReadingModeOn;
         // Is skip mode is actived
@@ -637,6 +640,22 @@ namespace Assets.Script.Chapter
         }
 
         /// <summary>
+        /// Hide history TextView with duration
+        /// </summary>
+        private IEnumerator HideSelectorFieldTimeOut()
+        {
+            if (selectorField.activeSelf)
+            {
+                selectorField.SetActive(false);
+                if (SettingModel.isAutoReadingModeOn)
+                {
+                    yield return lineSwitchWaitForSeconds;
+                    SwitchLine();
+                }
+            }
+        }
+
+        /// <summary>
         /// Show new line controller
         /// </summary>
         private void SwitchLine()
@@ -655,26 +674,55 @@ namespace Assets.Script.Chapter
                     return;
                 }
             }
-            if (currentLineIndex == galgameActions.Count)
+
+            currentLineCharIndex = -1; // read from index: -1
+
+            if (isShowingSelectorOptionActionTime)
             {
-                // this chapter is end
-                if (SettingModel.isSkipModeOn)
+                GalgameAction action = ActiveSelectorOption.Actions[currentSelectorOptionActionIndex];
+
+                BuildAAction(action);
+                if (++currentSelectorOptionActionIndex >= ActiveSelectorOption.Actions.Count)
                 {
-                    SetSkipMode(false);
-                }
-                if (SettingModel.isAutoReadingModeOn)
+                    isShowingSelectorOptionActionTime = false;
+                };
+            }
+            else
+            {
+                if (currentLineIndex == galgameActions.Count)
                 {
-                    SetAutoMode(false);
+                    // this chapter is end
+                    if (SettingModel.isSkipModeOn)
+                    {
+                        SetSkipMode(false);
+                    }
+                    if (SettingModel.isAutoReadingModeOn)
+                    {
+                        SetAutoMode(false);
+                    }
+                    // TODO: maybe consider loading another chapter?
+                    line.text = "『つづく...』";
+                    return;
                 }
-                // TODO: maybe consider loading another chapter?
-                line.text = "『つづく...』";
-                return;
+
+                Debug.Log("galgameActions'Size: " + galgameActions.Count + " currentLineIndex: " + currentLineIndex);
+                currentGalgameAction = galgameActions[currentLineIndex];
+
+                BuildAAction(currentGalgameAction);
+
+                // Move index to next
+                currentLineIndex++;
             }
 
-            Debug.Log("galgameActions'Size: " + galgameActions.Count + " currentLineIndex: " + currentLineIndex);
-            currentLineCharIndex = -1; // read from index: -1
-            currentGalgameAction = galgameActions[currentLineIndex];
-            nextLine = currentGalgameAction.Line.text.Replace("\\n", "\n");
+        }
+
+        /// <summary>
+        /// To build a action
+        /// </summary>
+        /// <param name="action"></param>
+        private void BuildAAction(GalgameAction action)
+        {
+            nextLine = action.Line.text.Replace("\\n", "\n");
             if (SettingModel.isSkipModeOn)
             {
                 ShowLineImmediately();
@@ -683,30 +731,30 @@ namespace Assets.Script.Chapter
             {
                 currentTextShowCoroutine = StartCoroutine(ShowLineTimeOut(nextLine));
             }
-            if (null != currentGalgameAction.Bgm)
+            if (null != action.Bgm)
             {
                 // bgm
-                _bgmAudio.clip = currentGalgameAction.Bgm;
+                _bgmAudio.clip = action.Bgm;
                 _bgmAudio.Play();
             }
-            if (null != currentGalgameAction.Voice)
+            if (null != action.Voice)
             {
                 // voice
-                _voiceAudio.clip = currentGalgameAction.Voice;
+                _voiceAudio.clip = action.Voice;
                 _voiceAudio.Play();
             }
-            if (currentGalgameAction.Actor != Actor.NULL)
+            if (action.Actor != Actor.NULL)
             {
                 // actor's name
-                actorName.text = currentGalgameAction.Actor.ToString();
+                actorName.text = action.Actor.ToString();
             }
-            if (null != currentGalgameAction.Background)
+            if (null != action.Background)
             {
                 // current background
-                bgSpriteRenderer.sprite = currentGalgameAction.Background;
+                bgSpriteRenderer.sprite = action.Background;
             }
             // text-align
-            line.alignment = EnumMap.AlignToTextAnchor(currentGalgameAction.Line.align);
+            line.alignment = EnumMap.AlignToTextAnchor(action.Line.align);
 
             // font
             if (null != font)
@@ -714,48 +762,46 @@ namespace Assets.Script.Chapter
                 line.font = font;
             }
             // font-style
-            if (currentGalgameAction.Line.fstyle == FontStyle.Normal)
+            if (action.Line.fstyle == FontStyle.Normal)
             {
                 line.fontStyle = DefaultScriptProperty.fstyle;
             }
             else
             {
-                line.fontStyle = currentGalgameAction.Line.fstyle;
+                line.fontStyle = action.Line.fstyle;
             }
             // font-size
-            if (currentGalgameAction.Line.fsize != 0)
+            if (action.Line.fsize != 0)
             {
-                line.fontSize = Mathf.RoundToInt(currentGalgameAction.Line.fsize);
+                line.fontSize = Mathf.RoundToInt(action.Line.fsize);
             }
             else if (DefaultScriptProperty.fsize != 0)
             {
                 line.fontSize = Mathf.RoundToInt(DefaultScriptProperty.fsize);
             }
             // line-spacing
-            if (currentGalgameAction.Line.linespacing != 0)
+            if (action.Line.linespacing != 0)
             {
-                line.lineSpacing = currentGalgameAction.Line.linespacing;
+                line.lineSpacing = action.Line.linespacing;
             }
             else if (DefaultScriptProperty.linespacing != 0)
             {
                 line.lineSpacing = DefaultScriptProperty.linespacing;
             }
             // font-color
-            if (!string.IsNullOrEmpty(currentGalgameAction.Line.fcolor))
+            if (!string.IsNullOrEmpty(action.Line.fcolor))
             {
-                line.color = ColorUtil.HexToUnityColor(uint.Parse(currentGalgameAction.Line.fcolor, System.Globalization.NumberStyles.HexNumber));
+                line.color = ColorUtil.HexToUnityColor(uint.Parse(action.Line.fcolor, System.Globalization.NumberStyles.HexNumber));
             }
             else if (!string.IsNullOrEmpty(DefaultScriptProperty.fcolor))
             {
                 line.color = ColorUtil.HexToUnityColor(uint.Parse(DefaultScriptProperty.fcolor, System.Globalization.NumberStyles.HexNumber));
             }
             // Is there a selector
-            if (null != currentGalgameAction.Selector)
+            if (null != action.Selector)
             {
-                BuildSelector(currentGalgameAction.Selector);
+                BuildSelector(action.Selector);
             }
-            // Move index to next
-            currentLineIndex++;
         }
 
         /// <summary>
@@ -763,29 +809,70 @@ namespace Assets.Script.Chapter
         /// </summary>
         private void BuildSelector(PSelector selector)
         {
-            this.selector = new GameObject("Selector");
-            Image image = this.selector.AddComponent<Image>();
-            image.color = new Color(1.0f, 1.0f, 1.0f, 0.35f);
-            
             if ((null == selector.Options || selector.Options.Count == 0) && (null == selector.Texts || selector.Texts.Count == 0) 
                 && (null == selector.Bgms || selector.Bgms.Count == 0) && (null == selector.Bgs || selector.Bgs.Count == 0))
                 return;
-            Grid selectorGrid = this.selector.AddComponent<Grid>();
-            GridLayoutGroup selectorGroup = this.selector.AddComponent<GridLayoutGroup>();
-            selectorGroup.cellSize = new Vector2(200.0f, 320.0f);
-            selectorGroup.spacing = Vector2.one;
 
             // Selector.Options has higher priority than Options set on properties(Texts,Bgs,Bgms) of Selector
-            if(null == selector.Options || selector.Options.Count == 0)
+            if (null == selector.Options || selector.Options.Count == 0)
             {
                 selector.Options = BuildSelectorOptions(selector);
                 // TODO: Consider update chapter
             }
 
+            // Re-build Selector Container
+            if (null != this.selector)
+            {
+                Destroy(this.selector);
+            }
+            this.selector = new GameObject("Selector");
+            Image image = this.selector.AddComponent<Image>();
+            image.color = new Color(1.0f, 1.0f, 1.0f, 0f);
+
+            Vector2 opSize = Vector2.zero;
+            Vector2 opSpacing = new Vector2(10.0f, 10.0f);
+            int opNumber = selector.Options.Count;
+
+            Grid selectorGrid = this.selector.AddComponent<Grid>();
+            GridLayoutGroup selectorGroup = this.selector.AddComponent<GridLayoutGroup>();
+            selectorGroup.spacing = opSpacing;
+
+            // Set size of selector panel
+            switch (selector.Type)
+            {
+                case Model.Enum.SelectorType.Horizontal:
+                    opSize = new Vector2(200.0f, 300.0f);
+                    selectorGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+                    selectorGroup.cellSize = opSize;
+                    this.selector.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(opNumber * opSize.x + (opNumber - 1) * opSize.x, opSize.y);
+                    break;
+                case Model.Enum.SelectorType.Vertical:
+                    opSize = new Vector2(400.0f, 80.0f);
+                    selectorGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
+                    selectorGroup.cellSize = opSize;
+                    this.selector.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(opSize.x, opNumber * opSize.y + (opNumber - 1) * opSpacing.y);
+                    break;
+            }
+            selectorGroup.constraintCount = opNumber;
+
             foreach (PSelectorOption option in selector.Options)
             {
                 Button newEmptyOption = Instantiate(selectorOptionPrefab);
-                if(null != option.Bg)
+                Button.ButtonClickedEvent optionClickEvent = new Button.ButtonClickedEvent();
+                optionClickEvent.AddListener(() =>
+                {
+                    selector.IsSelected = true;
+                    selector.SelectedItem = selector.Options.IndexOf(option);
+                    if(null != option.Actions && option.Actions.Count > 0)
+                    {
+                        this.ActiveSelectorOption = option;
+                        this.isShowingSelectorOptionActionTime = true;
+                    }
+                    StartCoroutine(HideSelectorFieldTimeOut());
+                    SwitchLine();
+                });
+                newEmptyOption.onClick = optionClickEvent;
+                if (null != option.Bg)
                 {
                     newEmptyOption.GetComponent<RawImage>().texture = option.Bg.texture;
                 }
@@ -834,8 +921,9 @@ namespace Assets.Script.Chapter
                 }
                 newEmptyOption.transform.SetParent(this.selector.transform);
             }
-            this.selector.GetComponent<RectTransform>().position = Vector3.zero;
+            // this.selector.GetComponent<RectTransform>().position = Vector3.zero;
             this.selector.transform.SetParent(selectorField.transform);
+            this.selector.transform.localScale = Vector3.one;
             selectorField.SetActive(true);
         }
 
@@ -894,6 +982,7 @@ namespace Assets.Script.Chapter
                 if (currentLineCharIndex == newLine.Length - 1)
                 {
                     isShowingLine = false;
+                    Debug.Log(DateTime.Now.ToString() + "清除ShowingLine状态");
                     AddHistoryText(newLine); // Add line to history text list
                     Debug.Log("currentLineCharIndex: " + currentLineCharIndex);
                     if (SettingModel.isAutoReadingModeOn)
@@ -1054,7 +1143,7 @@ namespace Assets.Script.Chapter
                             savedDatas[savedDataIndex].savedTime = DateTime.Now;
                             savedDatas[savedDataIndex].galgameActionIndex = currentLineIndex;
                         }
-                        // TODO: Considering doing this then application exit to avoid unnecessary IO operations?
+                        // TODO: Considering doing this when application exit to avoid unnecessary IO operations?
                         // Persist saved data
                         gameController.PersistSavedDatas();
                         // Renew saved data display field

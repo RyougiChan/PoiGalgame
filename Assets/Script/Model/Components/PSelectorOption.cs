@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Script.Model.Components
@@ -9,5 +10,6 @@ namespace Assets.Script.Model.Components
         public PText Text;
         public Sprite Bg;
         public AudioClip Bgm;
+        public List<GalgameAction> Actions;
     }
 }
