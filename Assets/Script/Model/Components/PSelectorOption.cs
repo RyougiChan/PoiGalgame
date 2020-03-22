@@ -10,6 +10,9 @@ namespace Assets.Script.Model.Components
         public PText Text;
         public Sprite Bg;
         public AudioClip Bgm;
-        public List<GalgameAction> Actions;
+        // There should be properties about Game-Value
+        // public List<string> Target;
+        // public int Value;
+        public List<GalgamePlainAction> Actions;
     }
 }

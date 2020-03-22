@@ -679,7 +679,7 @@ namespace Assets.Script.Chapter
 
             if (isShowingSelectorOptionActionTime)
             {
-                GalgameAction action = ActiveSelectorOption.Actions[currentSelectorOptionActionIndex];
+                GalgamePlainAction action = ActiveSelectorOption.Actions[currentSelectorOptionActionIndex];
 
                 BuildAAction(action);
                 if (++currentSelectorOptionActionIndex >= ActiveSelectorOption.Actions.Count)
@@ -720,7 +720,7 @@ namespace Assets.Script.Chapter
         /// To build a action
         /// </summary>
         /// <param name="action"></param>
-        private void BuildAAction(GalgameAction action)
+        private void BuildAAction(GalgamePlainAction action)
         {
             nextLine = action.Line.text.Replace("\\n", "\n");
             if (SettingModel.isSkipModeOn)
@@ -797,10 +797,15 @@ namespace Assets.Script.Chapter
             {
                 line.color = ColorUtil.HexToUnityColor(uint.Parse(DefaultScriptProperty.fcolor, System.Globalization.NumberStyles.HexNumber));
             }
-            // Is there a selector
-            if (null != action.Selector)
+
+            if(action.GetType().Equals(typeof(GalgameAction)))
             {
-                BuildSelector(action.Selector);
+                
+                // Is there a selector
+                if (null != ((GalgameAction)action).Selector)
+                {
+                    BuildSelector(((GalgameAction)action).Selector);
+                }
             }
         }
 
