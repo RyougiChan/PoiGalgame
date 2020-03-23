@@ -6,8 +6,8 @@ using System.Text;
 namespace Assets.Script.Model.Datas
 {
     [Serializable]
-    public class GameData
+    public class GlobalGameData
     {
-
+        public static GameValues GameValues;
     }
 }

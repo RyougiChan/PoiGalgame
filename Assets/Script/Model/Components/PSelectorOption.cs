@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Script.Model.Datas;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +12,7 @@ namespace Assets.Script.Model.Components
         public Sprite Bg;
         public AudioClip Bgm;
         // There should be properties about Game-Value
-        // public List<string> Target;
-        // public int Value;
+        public GameValues DeltaGameValues;
         public List<GalgamePlainAction> Actions;
     }
 }

@@ -33,7 +33,7 @@ There are some famous galgame development engine such as `KIRIKIRI`, `NScriptor`
 
 ## Releases
 
-**WARNING:** This project is still under development! So there is no release so far! But you can build one for yourself(Choose Scene `ChapterDisplay`).
+**WARNING:** This project is still under development! So there is no release so far! But you can build one for yourself(Using Scene `ChapterDisplay`).
 
 ## Documentation
 

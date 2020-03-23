@@ -15,6 +15,7 @@ using UnityEngine.Video;
 using UnityEditor;
 using Assets.Script.Model.Components;
 using System.Linq;
+using Assets.Script.Model.Datas;
 
 namespace Assets.Script.Chapter
 {
@@ -873,8 +874,10 @@ namespace Assets.Script.Chapter
                         this.ActiveSelectorOption = option;
                         this.isShowingSelectorOptionActionTime = true;
                     }
-                    StartCoroutine(HideSelectorFieldTimeOut());
+                    gameController.UpdateGlobalGameValues(option.DeltaGameValues);                  // Update global values
+                    StartCoroutine(HideSelectorFieldTimeOut());                                     // Hide selector panel
                     SwitchLine();
+                    Debug.Log("Global Values: \n"+GlobalGameData.GameValues.ToJSONString());
                 });
                 newEmptyOption.onClick = optionClickEvent;
                 if (null != option.Bg)
@@ -1139,7 +1142,8 @@ namespace Assets.Script.Chapter
                             {
                                 savedDataIndex = savedDataIndex,
                                 savedTime = DateTime.Now,
-                                galgameActionIndex = currentLineIndex
+                                galgameActionIndex = currentLineIndex,
+                                gameValues = GlobalGameData.GameValues
                             };
                         }
                         else
@@ -1147,6 +1151,7 @@ namespace Assets.Script.Chapter
                             savedDatas[savedDataIndex].savedDataIndex = savedDataIndex;
                             savedDatas[savedDataIndex].savedTime = DateTime.Now;
                             savedDatas[savedDataIndex].galgameActionIndex = currentLineIndex;
+                            savedDatas[savedDataIndex].gameValues = GlobalGameData.GameValues;
                         }
                         // TODO: Considering doing this when application exit to avoid unnecessary IO operations?
                         // Persist saved data
@@ -1189,7 +1194,7 @@ namespace Assets.Script.Chapter
         internal void RenewSavedDataField(Button b, SavedDataModel sdm)
         {
             Text t = b.gameObject.transform.GetChild(0).GetComponent<Text>();
-            // TODO: Make decision of what show be renew. Background, display text for example.
+            // TODO: Make decision of what should be renew. Background, display text for example.
             t.text = string.Format("Saved Date: {0}\nSaved Time: {1}", sdm.savedTime.ToString("yyyy/MM/dd"), sdm.savedTime.ToString("hh:mm:ss"));
         }
 
@@ -1204,6 +1209,7 @@ namespace Assets.Script.Chapter
             currentGalgameAction = galgameActions[currentLineIndex];
             bgSpriteRenderer.sprite = currentGalgameAction.Background;
             nextLine = currentGalgameAction.Line.text.Replace("\\n","\n");
+            GlobalGameData.GameValues = theSavedData.gameValues;
             line.text = string.Empty;
         }
 

@@ -1,4 +1,5 @@
 ﻿using Assets.Script.Model;
+using Assets.Script.Model.Datas;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -93,6 +94,7 @@ namespace Assets.Script.Chapter
             bgmMusic = (AudioClip)Resources.Load("Audio/BGM30", typeof(AudioClip));
 
             historyQuene = new GameObject[] { null, titleContainer };
+            GlobalGameData.GameValues = new GameValues();
 
             defaultMenuLocalPos = menuField.transform.localPosition;
             shownMenuLocalPos = new Vector3(defaultMenuLocalPos.x, defaultMenuLocalPos.y - menuField.GetComponent<RectTransform>().sizeDelta.y, defaultMenuLocalPos.z);
@@ -576,6 +578,15 @@ namespace Assets.Script.Chapter
                 }
             }
             return newList;
+        }
+
+        public void UpdateGlobalGameValues(GameValues gameValues)
+        {
+            GlobalGameData.GameValues.HealthPoint += gameValues.HealthPoint;
+            GlobalGameData.GameValues.ManaPoint += gameValues.ManaPoint;
+            GlobalGameData.GameValues.SkillPoint += gameValues.SkillPoint;
+            GlobalGameData.GameValues.ExperiencePoint += gameValues.ExperiencePoint;
+            GlobalGameData.GameValues.ExampleOtherValue += gameValues.ExampleOtherValue;
         }
     }
 }
