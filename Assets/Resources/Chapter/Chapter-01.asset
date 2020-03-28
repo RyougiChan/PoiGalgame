@@ -109,6 +109,66 @@ MonoBehaviour:
           Actor: 0
           ActorAnimation: 
           Input: 
+        - Line:
+            text: 3
+            ffamily: 
+            fcolor: 
+            fsize: 0
+            linespacing: 0
+            align: 0
+            fstyle: 0
+          Video: {fileID: 0}
+          Bgm: {fileID: 0}
+          Voice: {fileID: 0}
+          Background: {fileID: 0}
+          Actor: 0
+          ActorAnimation: 
+          Input: 
+        - Line:
+            text: "\u5B50\u9009\u9879\u6587\u672C4"
+            ffamily: 
+            fcolor: 
+            fsize: 0
+            linespacing: 0
+            align: 0
+            fstyle: 0
+          Video: {fileID: 0}
+          Bgm: {fileID: 0}
+          Voice: {fileID: 0}
+          Background: {fileID: 0}
+          Actor: 0
+          ActorAnimation: 
+          Input: 
+        - Line:
+            text: "\u5B50\u9009\u9879\u6587\u672C5"
+            ffamily: 
+            fcolor: 
+            fsize: 0
+            linespacing: 0
+            align: 0
+            fstyle: 0
+          Video: {fileID: 0}
+          Bgm: {fileID: 0}
+          Voice: {fileID: 0}
+          Background: {fileID: 0}
+          Actor: 0
+          ActorAnimation: 
+          Input: 
+        - Line:
+            text: "\u5B50\u9009\u9879\u6587\u672C6"
+            ffamily: 
+            fcolor: 
+            fsize: 0
+            linespacing: 0
+            align: 0
+            fstyle: 0
+          Video: {fileID: 0}
+          Bgm: {fileID: 0}
+          Voice: {fileID: 0}
+          Background: {fileID: 0}
+          Actor: 0
+          ActorAnimation: 
+          Input: 
       - Text:
           text: "\u9009\u98792"
           ffamily: 
