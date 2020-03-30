@@ -11,7 +11,7 @@ namespace Assets.Script.Model.Enum
     [Serializable]
     public enum SelectorType
     {
-        Horizontal,
-        Vertical
+        HORIZONTAL,
+        VERTICLE
     }
 }

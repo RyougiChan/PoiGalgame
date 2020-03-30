@@ -9,9 +9,13 @@ namespace Assets.Script.Model.Components
     public class PSelector
     {
         public SelectorType Type;
-        public LinkedList<PText> XTexts; 
+        [Obsolete]
+        public LinkedList<PText> XTexts;
+        [Obsolete]
         public List<PText> Texts;
+        [Obsolete]
         public List<Sprite> Bgs;
+        [Obsolete]
         public List<AudioClip> Bgms;
         public bool IsSelected;
         public int SelectedItem;

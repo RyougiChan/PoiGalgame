@@ -27,6 +27,8 @@ namespace Assets.Script.Model
         bg = 203,
         fg = 204,
         bgm = 205,
-        video = 206
+        video = 206,
+        select = 207,
+        option = 208
     }
 }

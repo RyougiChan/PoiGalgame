@@ -846,13 +846,13 @@ namespace Assets.Script.Chapter
             // Set size of selector panel
             switch (selector.Type)
             {
-                case Model.Enum.SelectorType.Horizontal:
+                case Model.Enum.SelectorType.HORIZONTAL:
                     opSize = new Vector2(200.0f, 300.0f);
                     selectorGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
                     selectorGroup.cellSize = opSize;
                     this.selector.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(opNumber * opSize.x + (opNumber - 1) * opSize.x, opSize.y);
                     break;
-                case Model.Enum.SelectorType.Vertical:
+                case Model.Enum.SelectorType.VERTICLE:
                     opSize = new Vector2(400.0f, 80.0f);
                     selectorGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
                     selectorGroup.cellSize = opSize;

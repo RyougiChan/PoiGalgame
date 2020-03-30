@@ -14,6 +14,7 @@ namespace Assets.Script.Model
         NULL,
         朋也,
         渚,
-        鈴原
+        鈴原,
+        Elica
     }
 }

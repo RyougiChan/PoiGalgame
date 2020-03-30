@@ -1,5 +1,7 @@
 ﻿#if UNITY_EDITOR
 using Assets.Script.Model;
+using Assets.Script.Model.Components;
+using Assets.Script.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -47,6 +49,7 @@ namespace Assets.Script.Utility
             EditorUtility.FocusProjectWindow();
             Selection.activeObject = ggs;
         }
+
         public static GalgameScript KsScriptToGalgameScript(List<KsScriptLine> ksScript)
         {
             if (null == ksScript || ksScript.Count == 0) return null;
@@ -54,6 +57,11 @@ namespace Assets.Script.Utility
             GalgameScript galgameScript = new GalgameScript();
             List<GalgameAction> galgameActions = new List<GalgameAction>();
             GalgameAction galgameAction = null;
+
+            // Is now in a [select] element
+            PSelector nowSelector = null;
+            PSelectorOption nowSelectorOption = null;
+
             foreach (KsScriptLine ksScriptLine in ksScript)
             {
                 /**
@@ -64,6 +72,7 @@ namespace Assets.Script.Utility
                 // if no such tag, just skip
                 if (!Enum.IsDefined(typeof(GalgameKsScriptTag), tag)) continue;
                 // value of tag
+                string tagName = Enum.GetName(typeof(GalgameKsScriptTag), tag);
                 int tagValue = (int)tag;
                 int tagType = Mathf.FloorToInt(tagValue / 100);
 
@@ -71,195 +80,283 @@ namespace Assets.Script.Utility
                 List<KsScriptLineProperty> props = ksScriptLine.props;
                 GalgameKsScriptTagProperty ksTagProperty = new GalgameKsScriptTagProperty();
 
-                // Global property tags
-                if (tagType == 0)
+                // if is a empty tag
+                if (props.Count == 0)
                 {
-                    switch(tag)
-                    {
-                        case GalgameKsScriptTag.style:
-
-                            foreach (KsScriptLineProperty prop in props)
-                            {
-                                string propName = prop.name.ToLower();
-                                string propValue = prop.value.Trim();
-                                // Set properties
-                                switch (propName)
-                                {
-                                    case "width":
-                                        DefaultScriptProperty.width = Convert.ToSingle(propValue);
-                                        break;
-                                    case "height":
-                                        DefaultScriptProperty.height = Convert.ToSingle(propValue);
-                                        break;
-                                    case "top":
-                                        DefaultScriptProperty.top = Convert.ToSingle(propValue);
-                                        break;
-                                    case "left":
-                                        DefaultScriptProperty.left = Convert.ToSingle(propValue);
-                                        break;
-                                    case "visible":
-                                        DefaultScriptProperty.visible = Convert.ToBoolean(propValue);
-                                        break;
-                                    case "layer":
-                                        DefaultScriptProperty.layer = (Layer)Enum.Parse(typeof(Layer), propValue);
-                                        break;
-                                    case "method":
-                                        DefaultScriptProperty.method = propValue;
-                                        break;
-                                    case "canskip":
-                                        DefaultScriptProperty.canskip = Convert.ToBoolean(propValue);
-                                        break;
-                                    case "time":
-                                        DefaultScriptProperty.time = Convert.ToInt32(propValue);
-                                        break;
-                                    case "linespacing":
-                                        DefaultScriptProperty.linespacing = Convert.ToSingle(propValue);
-                                        break;
-                                    case "align":
-                                        DefaultScriptProperty.align = (Align)Enum.Parse(typeof(Align), propValue);
-                                        break;
-                                    case "fcolor":
-                                        DefaultScriptProperty.fcolor = propValue;
-                                        break;
-                                    case "fsize":
-                                        DefaultScriptProperty.fsize = Convert.ToSingle(propValue);
-                                        break;
-                                    case "fstyle":
-                                        DefaultScriptProperty.fstyle = (FontStyle)Enum.Parse(typeof(FontStyle), propValue);
-                                        break;
-                                    case "ffamily":
-                                        DefaultScriptProperty.ffamily = propValue;
-                                        break;
-                                }
-                            }
-                            break;
-                        case GalgameKsScriptTag.tran:
-                            break;
-                        case GalgameKsScriptTag.pos:
-                            break;
-                        case GalgameKsScriptTag.effect:
-                            break;
-                        default:
-                            break;
+                    if (tagName.Equals("select")) nowSelector = null;
+                    if (tagName.Equals("option")) {
+                        nowSelector.Options.Add(nowSelectorOption);
+                        nowSelectorOption = null;
                     }
-                }
-                else
+                    continue;
+                };
+
+                // Global property tags
+                switch (tagType)
                 {
-                    foreach (KsScriptLineProperty prop in props)
-                    {
-                        string propName = prop.name.ToLower();
-                        string propValue = prop.value.Trim();
-                        // Set properties
-                        switch (propName)
+                    case 0:
+                        switch (tag)
                         {
-                            case "tag":
-                                ksTagProperty.tag = propValue;
+                            case GalgameKsScriptTag.style:
+
+                                foreach (KsScriptLineProperty prop in props)
+                                {
+                                    string propName = prop.name.ToLower();
+                                    string propValue = prop.value.Trim();
+                                    // Set properties
+                                    switch (propName)
+                                    {
+                                        case "width":
+                                            DefaultScriptProperty.width = Convert.ToSingle(propValue);
+                                            break;
+                                        case "height":
+                                            DefaultScriptProperty.height = Convert.ToSingle(propValue);
+                                            break;
+                                        case "top":
+                                            DefaultScriptProperty.top = Convert.ToSingle(propValue);
+                                            break;
+                                        case "left":
+                                            DefaultScriptProperty.left = Convert.ToSingle(propValue);
+                                            break;
+                                        case "visible":
+                                            DefaultScriptProperty.visible = Convert.ToBoolean(propValue);
+                                            break;
+                                        case "layer":
+                                            DefaultScriptProperty.layer = (Layer)Enum.Parse(typeof(Layer), propValue);
+                                            break;
+                                        case "method":
+                                            DefaultScriptProperty.method = propValue;
+                                            break;
+                                        case "canskip":
+                                            DefaultScriptProperty.canskip = Convert.ToBoolean(propValue);
+                                            break;
+                                        case "time":
+                                            DefaultScriptProperty.time = Convert.ToInt32(propValue);
+                                            break;
+                                        case "linespacing":
+                                            DefaultScriptProperty.linespacing = Convert.ToSingle(propValue);
+                                            break;
+                                        case "align":
+                                            DefaultScriptProperty.align = (Align)Enum.Parse(typeof(Align), propValue);
+                                            break;
+                                        case "fcolor":
+                                            DefaultScriptProperty.fcolor = propValue;
+                                            break;
+                                        case "fsize":
+                                            DefaultScriptProperty.fsize = Convert.ToSingle(propValue);
+                                            break;
+                                        case "fstyle":
+                                            DefaultScriptProperty.fstyle = (FontStyle)Enum.Parse(typeof(FontStyle), propValue);
+                                            break;
+                                        case "ffamily":
+                                            DefaultScriptProperty.ffamily = propValue;
+                                            break;
+                                    }
+                                }
                                 break;
-                            case "name":
-                                ksTagProperty.name = propValue;
+                            case GalgameKsScriptTag.tran:
                                 break;
-                            case "value":
-                                ksTagProperty.value = propValue;
+                            case GalgameKsScriptTag.pos:
                                 break;
-                            case "width":
-                                ksTagProperty.width = Convert.ToSingle(propValue);
+                            case GalgameKsScriptTag.effect:
                                 break;
-                            case "height":
-                                ksTagProperty.height = Convert.ToSingle(propValue);
-                                break;
-                            case "top":
-                                ksTagProperty.top = Convert.ToSingle(propValue);
-                                break;
-                            case "left":
-                                ksTagProperty.left = Convert.ToSingle(propValue);
-                                break;
-                            case "visible":
-                                ksTagProperty.visible = Convert.ToBoolean(propValue);
-                                break;
-                            case "layer":
-                                ksTagProperty.layer = (Layer)Enum.Parse(typeof(Layer), propValue);
-                                break;
-                            case "method":
-                                ksTagProperty.method = propValue;
-                                break;
-                            case "canskip":
-                                ksTagProperty.canskip = Convert.ToBoolean(propValue);
-                                break;
-                            case "time":
-                                ksTagProperty.time = Convert.ToInt32(propValue);
-                                break;
-                            case "linespacing":
-                                ksTagProperty.linespacing = Convert.ToSingle(propValue);
-                                break;
-                            case "align":
-                                ksTagProperty.align = (Align)Enum.Parse(typeof(Align), propValue);
-                                break;
-                            case "fcolor":
-                                ksTagProperty.fcolor = propValue;
-                                break;
-                            case "fsize":
-                                ksTagProperty.fsize = Convert.ToSingle(propValue);
-                                break;
-                            case "fstyle":
-                                ksTagProperty.fstyle = (FontStyle)Enum.Parse(typeof(FontStyle), propValue);
-                                break;
-                            case "ffamily":
-                                ksTagProperty.ffamily = propValue;
-                                break;
-                            case "src":
-                                string tagName = Enum.GetName(typeof(GalgameKsScriptTag), tag);
-                                if (tagName.Equals("bg")) ksTagProperty.bgsrc = propValue;
-                                if (tagName.Equals("fg")) ksTagProperty.fgsrc = propValue;
-                                else if (tagName.Contains("bgm")) ksTagProperty.bgmsrc = propValue;
-                                else if (tagName.Contains("video")) ksTagProperty.videosrc = propValue;
-                                tagName = null;
-                                break;
-                            case "volume":
-                                ksTagProperty.volume = Convert.ToSingle(propValue);
-                                break;
-                            case "loop":
-                                ksTagProperty.loop = Convert.ToBoolean(propValue);
-                                break;
-                            case "action":
-                                ksTagProperty.action = propValue;
-                                break;
-                            case "actor":
-                                ksTagProperty.actor = propValue;
-                                break;
-                            case "voice":
-                                ksTagProperty.voice = propValue;
-                                break;
-                            case "line":
-                                ksTagProperty.line = propValue;
-                                break;
-                            case "anim":
-                                ksTagProperty.anim = propValue;
+                            default:
                                 break;
                         }
-                    }
-                    galgameAction = new GalgameAction();
-
-                    if (null != ksTagProperty.line)
-                    {
-                        galgameAction.Line = new GalgameScriptLine()
+                        break;
+                    default:
+                        foreach (KsScriptLineProperty prop in props)
                         {
-                            text = ksTagProperty.line,
-                            ffamily = ksTagProperty.ffamily,
-                            fcolor = ksTagProperty.fcolor,
-                            fsize = ksTagProperty.fsize,
-                            linespacing = ksTagProperty.linespacing,
-                            align = ksTagProperty.align,
-                            fstyle = ksTagProperty.fstyle
-                        };
-                    }
-                    if (null != ksTagProperty.videosrc) galgameAction.Video = (VideoClip)Resources.Load("Video/" + ksTagProperty.videosrc, typeof(VideoClip));
-                    if (null != ksTagProperty.bgmsrc) galgameAction.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.bgmsrc, typeof(AudioClip));
-                    if (null != ksTagProperty.voice) galgameAction.Voice = (AudioClip)Resources.Load("Audio/" + ksTagProperty.voice, typeof(AudioClip));
-                    if (null != ksTagProperty.bgsrc) galgameAction.Background = (Sprite)Resources.Load("Sprite/" + ksTagProperty.bgsrc, typeof(Sprite));
-                    if (null != ksTagProperty.actor) galgameAction.Actor = (Actor)Enum.Parse(typeof(Actor), ksTagProperty.actor);
-                    if (null != ksTagProperty.anim) galgameAction.ActorAnimation = ksTagProperty.anim;
+                            string propName = prop.name.ToLower();
+                            string propValue = prop.value.Trim();
+                            // Set properties
+                            switch (propName)
+                            {
+                                case "tag":
+                                    ksTagProperty.tag = propValue;
+                                    break;
+                                case "name":
+                                    ksTagProperty.name = propValue;
+                                    break;
+                                case "value":
+                                    ksTagProperty.value = propValue;
+                                    break;
+                                case "width":
+                                    ksTagProperty.width = Convert.ToSingle(propValue);
+                                    break;
+                                case "height":
+                                    ksTagProperty.height = Convert.ToSingle(propValue);
+                                    break;
+                                case "top":
+                                    ksTagProperty.top = Convert.ToSingle(propValue);
+                                    break;
+                                case "left":
+                                    ksTagProperty.left = Convert.ToSingle(propValue);
+                                    break;
+                                case "visible":
+                                    ksTagProperty.visible = Convert.ToBoolean(propValue);
+                                    break;
+                                case "layer":
+                                    ksTagProperty.layer = (Layer)Enum.Parse(typeof(Layer), propValue);
+                                    break;
+                                case "method":
+                                    ksTagProperty.method = propValue;
+                                    break;
+                                case "canskip":
+                                    ksTagProperty.canskip = Convert.ToBoolean(propValue);
+                                    break;
+                                case "time":
+                                    ksTagProperty.time = Convert.ToInt32(propValue);
+                                    break;
+                                case "linespacing":
+                                    ksTagProperty.linespacing = Convert.ToSingle(propValue);
+                                    break;
+                                case "align":
+                                    ksTagProperty.align = (Align)Enum.Parse(typeof(Align), propValue);
+                                    break;
+                                case "fcolor":
+                                    ksTagProperty.fcolor = propValue;
+                                    break;
+                                case "fsize":
+                                    ksTagProperty.fsize = Convert.ToSingle(propValue);
+                                    break;
+                                case "fstyle":
+                                    ksTagProperty.fstyle = (FontStyle)Enum.Parse(typeof(FontStyle), propValue);
+                                    break;
+                                case "ffamily":
+                                    ksTagProperty.ffamily = propValue;
+                                    break;
+                                case "src":
+                                    if (tagName.Equals("bg")) ksTagProperty.bgsrc = propValue;
+                                    if (tagName.Equals("fg")) ksTagProperty.fgsrc = propValue;
+                                    else if (tagName.Contains("bgm")) ksTagProperty.bgmsrc = propValue;
+                                    else if (tagName.Contains("video")) ksTagProperty.videosrc = propValue;
+                                    tagName = null;
+                                    break;
+                                case "volume":
+                                    ksTagProperty.volume = Convert.ToSingle(propValue);
+                                    break;
+                                case "loop":
+                                    ksTagProperty.loop = Convert.ToBoolean(propValue);
+                                    break;
+                                case "action":
+                                    ksTagProperty.action = propValue;
+                                    break;
+                                case "actor":
+                                    ksTagProperty.actor = propValue;
+                                    break;
+                                case "voice":
+                                    ksTagProperty.voice = propValue;
+                                    break;
+                                case "line":
+                                    ksTagProperty.line = propValue;
+                                    break;
+                                case "anim":
+                                    ksTagProperty.anim = propValue;
+                                    break;
+                                case "type":
+                                    if (tagName.Equals("select")) ksTagProperty.selector_type = propValue;
+                                    break;
+                                case "text":
+                                    if (tagName.Equals("select")) ksTagProperty.selector_text = propValue;
+                                    if (tagName.Equals("option")) ksTagProperty.option_text = propValue;
+                                    break;
+                                case "bg":
+                                    if (tagName.Equals("select")) ksTagProperty.selector_bg = propValue;
+                                    if (tagName.Equals("option")) ksTagProperty.option_bg = propValue;
+                                    break;
+                                case "bgm":
+                                    if (tagName.Equals("select")) ksTagProperty.selector_bgm = propValue;
+                                    if (tagName.Equals("option")) ksTagProperty.option_bgm = propValue;
+                                    break;
+                            }
+                        }
 
-                    galgameActions.Add(galgameAction);
+                        if (tagType == 1)
+                        {
+                            if (tagName.Equals("chs"))
+                            {
+                                if (null != ksTagProperty.bgmsrc) galgameScript.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.bgmsrc, typeof(AudioClip));
+                                if (null != ksTagProperty.bgsrc) galgameScript.Bg = (Sprite)Resources.Load("Sprite/" + ksTagProperty.bgsrc, typeof(Sprite));
+                                if (null != ksTagProperty.name) galgameScript.ChapterName = ksTagProperty.name;
+                                if (null != ksTagProperty.value) galgameScript.ChapterAbstract = ksTagProperty.value;
+                            }
+
+                            break;
+                        }
+
+                        galgameAction = new GalgameAction();
+                        if (null != ksTagProperty.line)
+                        {
+                            galgameAction.Line = new GalgameScriptLine()
+                            {
+                                text = ksTagProperty.line,
+                                ffamily = ksTagProperty.ffamily,
+                                fcolor = ksTagProperty.fcolor,
+                                fsize = ksTagProperty.fsize,
+                                linespacing = ksTagProperty.linespacing,
+                                align = ksTagProperty.align,
+                                fstyle = ksTagProperty.fstyle
+                            };
+                        }
+                        if (tagName.Equals("select"))
+                        {
+                            nowSelector = new PSelector()
+                            {
+                                Type = (SelectorType)Enum.Parse(typeof(SelectorType), ksTagProperty.selector_type.ToUpper())
+                            };
+
+                            nowSelector.IsSelected = false;
+                            nowSelector.SelectedItem = -1;
+                            nowSelector.Options = new List<PSelectorOption>();
+
+                            galgameAction.Selector = nowSelector;
+                        }
+                        if (null != nowSelector && tagName.Equals("option"))
+                        {
+                            nowSelectorOption = new PSelectorOption();
+                            nowSelectorOption.Actions = new List<GalgamePlainAction>();
+                            nowSelectorOption.Bg = (Sprite)Resources.Load("Sprite/" + ksTagProperty.option_bg, typeof(Sprite));
+                            nowSelectorOption.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.option_bgm, typeof(AudioClip));
+                            nowSelectorOption.Text = new PText()
+                            {
+                                text = ksTagProperty.option_text.Trim(),
+                                ffamily = ksTagProperty.ffamily,
+                                fcolor = ksTagProperty.fcolor,
+                                fsize = ksTagProperty.fsize,
+                                linespacing = ksTagProperty.linespacing,
+                                align = ksTagProperty.align,
+                                fstyle = ksTagProperty.fstyle
+                            };
+                        }
+                        if (null != ksTagProperty.videosrc) galgameAction.Video = (VideoClip)Resources.Load("Video/" + ksTagProperty.videosrc, typeof(VideoClip));
+                        if (null != ksTagProperty.bgmsrc) galgameAction.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.bgmsrc, typeof(AudioClip));
+                        if (null != ksTagProperty.voice) galgameAction.Voice = (AudioClip)Resources.Load("Audio/" + ksTagProperty.voice, typeof(AudioClip));
+                        if (null != ksTagProperty.bgsrc) galgameAction.Background = (Sprite)Resources.Load("Sprite/" + ksTagProperty.bgsrc, typeof(Sprite));
+                        if (null != ksTagProperty.actor) galgameAction.Actor = (Actor)Enum.Parse(typeof(Actor), ksTagProperty.actor);
+                        if (null != ksTagProperty.anim) galgameAction.ActorAnimation = ksTagProperty.anim;
+                        if (null != nowSelector && null != nowSelectorOption)
+                        {
+                            if(galgameAction.Actor != Actor.NULL)
+                            {
+                                nowSelectorOption.Actions.Add(new GalgamePlainAction()
+                                {
+                                    Actor = galgameAction.Actor,
+                                    ActorAnimation = galgameAction.ActorAnimation,
+                                    Background = galgameAction.Background,
+                                    Bgm = galgameAction.Bgm,
+                                    Line = galgameAction.Line,
+                                    Video = galgameAction.Video,
+                                    Voice = galgameAction.Voice,
+                                    Input = galgameAction.Input
+                                });
+                            }
+                        }
+                        else
+                        {
+                            galgameActions.Add(galgameAction);
+                        }
+                        break;
                 }
             }
             if(null != galgameActions)

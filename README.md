@@ -22,6 +22,7 @@ There are some famous galgame development engine such as `KIRIKIRI`, `NScriptor`
 - [x] Basic Galgame elements
 - [x] Visual editing script framework
 - [x] Create a more readable script(like kirikiri)
+- [ ] Provide a custom script editor tool
 - [ ] Script update behavior monitoring (to be evaluated)
 - [ ] Real-time parsing, previewing and presentation
 - [ ] Tranform, animation, effect, etc.
