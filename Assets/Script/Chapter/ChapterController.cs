@@ -1167,7 +1167,8 @@ namespace Assets.Script.Chapter
 
                         // TODO: Test it
                         // Refresh scene via the saved data.
-                        gameController.DeactiveGameObject(savedDataField);
+                        gameController.inGame = true;
+                        gameController.ShowCG();
                         isLoadingSavedData = false;
                         SetCurrentGalgameAction(theSavedData);
                     }

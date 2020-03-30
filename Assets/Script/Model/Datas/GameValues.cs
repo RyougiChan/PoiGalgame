@@ -9,10 +9,8 @@ namespace Assets.Script.Model.Datas
     public class GameValues
     {
         // Commond RPG game values
-        public int HealthPoint;
-        public int ManaPoint;
-        public int ExperiencePoint;
-        public int SkillPoint;
+        public RoleStatus RoleStatus;
+        public RoleAbility RoleAbility;
 
         // ...
         public int ExampleOtherValue;
@@ -21,10 +19,13 @@ namespace Assets.Script.Model.Datas
         {
             return new StringBuilder()
                 .Append("{")
-                    .Append("\"HealthPoint\":").Append(this.HealthPoint).Append(",")
-                    .Append("\"ManaPoint\":").Append(this.ManaPoint).Append(",")
-                    .Append("\"ExperiencePoint\":").Append(this.ExperiencePoint).Append(",")
-                    .Append("\"SkillPoint\":").Append(this.SkillPoint).Append(",")
+                    .Append("\"HealthPoint\":").Append(this.RoleStatus.HealthPoint).Append(",")
+                    .Append("\"ManaPoint\":").Append(this.RoleStatus.ManaPoint).Append(",")
+                    .Append("\"ExperiencePoint\":").Append(this.RoleStatus.ExperiencePoint).Append(",")
+                    .Append("\"SkillPoint\":").Append(this.RoleStatus.SkillPoint).Append(",")
+                    .Append("\"Attack\":").Append(this.RoleAbility.Attack).Append(",")
+                    .Append("\"Defence\":").Append(this.RoleAbility.Defence).Append(",")
+                    .Append("\"Evasion\":").Append(this.RoleAbility.Evasion).Append(",")
                     .Append("\"ExampleOtherValue\":").Append(this.ExampleOtherValue)
                 .Append("}")
                 .ToString();

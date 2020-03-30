@@ -94,7 +94,7 @@ namespace Assets.Script.Chapter
             bgmMusic = (AudioClip)Resources.Load("Audio/BGM30", typeof(AudioClip));
 
             historyQuene = new GameObject[] { null, titleContainer };
-            GlobalGameData.GameValues = new GameValues();
+            if(null == GlobalGameData.GameValues) GlobalGameData.GameValues = new GameValues();
 
             defaultMenuLocalPos = menuField.transform.localPosition;
             shownMenuLocalPos = new Vector3(defaultMenuLocalPos.x, defaultMenuLocalPos.y - menuField.GetComponent<RectTransform>().sizeDelta.y, defaultMenuLocalPos.z);
@@ -582,10 +582,21 @@ namespace Assets.Script.Chapter
 
         public void UpdateGlobalGameValues(GameValues gameValues)
         {
-            GlobalGameData.GameValues.HealthPoint += gameValues.HealthPoint;
-            GlobalGameData.GameValues.ManaPoint += gameValues.ManaPoint;
-            GlobalGameData.GameValues.SkillPoint += gameValues.SkillPoint;
-            GlobalGameData.GameValues.ExperiencePoint += gameValues.ExperiencePoint;
+            if(null != gameValues.RoleAbility)
+            {
+                RoleAbility ability = GlobalGameData.GameValues.RoleAbility;
+                ability.Attack += gameValues.RoleAbility.Attack;
+                ability.Defence += gameValues.RoleAbility.Defence;
+                ability.Evasion += gameValues.RoleAbility.Evasion;
+            }
+            if (null != gameValues.RoleStatus)
+            {
+                RoleStatus status = GlobalGameData.GameValues.RoleStatus;
+                status.HealthPoint += gameValues.RoleStatus.HealthPoint;
+                status.ManaPoint += gameValues.RoleStatus.ManaPoint;
+                status.SkillPoint += gameValues.RoleStatus.SkillPoint;
+                status.ExperiencePoint += gameValues.RoleStatus.ExperiencePoint;
+            }
             GlobalGameData.GameValues.ExampleOtherValue += gameValues.ExampleOtherValue;
         }
     }

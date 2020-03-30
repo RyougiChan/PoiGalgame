@@ -73,10 +73,15 @@ MonoBehaviour:
         Bg: {fileID: 21300000, guid: 84ff0a16181adde4899c245830ce6871, type: 3}
         Bgm: {fileID: 0}
         DeltaGameValues:
-          HealthPoint: 100
-          ManaPoint: 100
-          ExperiencePoint: 1
-          SkillPoint: 1
+          RoleStatus:
+            HealthPoint: 10
+            ManaPoint: 0
+            ExperiencePoint: 10
+            SkillPoint: 0
+          RoleAbility:
+            Attack: 10
+            Defence: 5
+            Evasion: 15
           ExampleOtherValue: 3
         Actions:
         - Line:
@@ -180,10 +185,15 @@ MonoBehaviour:
         Bg: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
         Bgm: {fileID: 0}
         DeltaGameValues:
-          HealthPoint: 0
-          ManaPoint: 0
-          ExperiencePoint: 0
-          SkillPoint: 0
+          RoleStatus:
+            HealthPoint: 0
+            ManaPoint: 0
+            ExperiencePoint: 0
+            SkillPoint: 0
+          RoleAbility:
+            Attack: 0
+            Defence: 0
+            Evasion: 0
           ExampleOtherValue: 0
         Actions: []
       - Text:
@@ -197,10 +207,15 @@ MonoBehaviour:
         Bg: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
         Bgm: {fileID: 0}
         DeltaGameValues:
-          HealthPoint: 0
-          ManaPoint: 0
-          ExperiencePoint: 0
-          SkillPoint: 0
+          RoleStatus:
+            HealthPoint: 0
+            ManaPoint: 0
+            ExperiencePoint: 0
+            SkillPoint: 0
+          RoleAbility:
+            Attack: 0
+            Defence: 0
+            Evasion: 0
           ExampleOtherValue: 0
         Actions: []
   - Line:
