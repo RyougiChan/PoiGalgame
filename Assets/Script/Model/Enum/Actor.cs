@@ -12,6 +12,7 @@ namespace Assets.Script.Model
     public enum Actor
     {
         NULL,
+        女の子,
         朋也,
         渚,
         鈴原,

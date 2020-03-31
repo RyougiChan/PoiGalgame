@@ -71,6 +71,7 @@ namespace Assets.Script.Utility
                 GalgameKsScriptTag tag = ksScriptLine.tag;
                 // if no such tag, just skip
                 if (!Enum.IsDefined(typeof(GalgameKsScriptTag), tag)) continue;
+                string tagNameT = Enum.GetName(typeof(GalgameKsScriptTag), GalgameKsScriptTag.BG);
                 // value of tag
                 string tagName = Enum.GetName(typeof(GalgameKsScriptTag), tag);
                 int tagValue = (int)tag;
@@ -83,8 +84,8 @@ namespace Assets.Script.Utility
                 // if is a empty tag
                 if (props.Count == 0)
                 {
-                    if (tagName.Equals("select")) nowSelector = null;
-                    if (tagName.Equals("option")) {
+                    if ("SELECT".Equals(tagName)) nowSelector = null;
+                    if ("OPTION".Equals(tagName)) {
                         nowSelector.Options.Add(nowSelectorOption);
                         nowSelectorOption = null;
                     }
@@ -97,7 +98,7 @@ namespace Assets.Script.Utility
                     case 0:
                         switch (tag)
                         {
-                            case GalgameKsScriptTag.style:
+                            case GalgameKsScriptTag.STYLE:
 
                                 foreach (KsScriptLineProperty prop in props)
                                 {
@@ -122,7 +123,7 @@ namespace Assets.Script.Utility
                                             DefaultScriptProperty.visible = Convert.ToBoolean(propValue);
                                             break;
                                         case "layer":
-                                            DefaultScriptProperty.layer = (Layer)Enum.Parse(typeof(Layer), propValue);
+                                            DefaultScriptProperty.layer = (Layer)Enum.Parse(typeof(Layer), propValue.ToUpper());
                                             break;
                                         case "method":
                                             DefaultScriptProperty.method = propValue;
@@ -137,7 +138,7 @@ namespace Assets.Script.Utility
                                             DefaultScriptProperty.linespacing = Convert.ToSingle(propValue);
                                             break;
                                         case "align":
-                                            DefaultScriptProperty.align = (Align)Enum.Parse(typeof(Align), propValue);
+                                            DefaultScriptProperty.align = (Align)Enum.Parse(typeof(Align), propValue.ToUpper());
                                             break;
                                         case "fcolor":
                                             DefaultScriptProperty.fcolor = propValue;
@@ -154,11 +155,11 @@ namespace Assets.Script.Utility
                                     }
                                 }
                                 break;
-                            case GalgameKsScriptTag.tran:
+                            case GalgameKsScriptTag.TRAN:
                                 break;
-                            case GalgameKsScriptTag.pos:
+                            case GalgameKsScriptTag.POS:
                                 break;
-                            case GalgameKsScriptTag.effect:
+                            case GalgameKsScriptTag.EFFECT:
                                 break;
                             default:
                                 break;
@@ -197,7 +198,7 @@ namespace Assets.Script.Utility
                                     ksTagProperty.visible = Convert.ToBoolean(propValue);
                                     break;
                                 case "layer":
-                                    ksTagProperty.layer = (Layer)Enum.Parse(typeof(Layer), propValue);
+                                    ksTagProperty.layer = (Layer)Enum.Parse(typeof(Layer), propValue.ToUpper());
                                     break;
                                 case "method":
                                     ksTagProperty.method = propValue;
@@ -212,7 +213,7 @@ namespace Assets.Script.Utility
                                     ksTagProperty.linespacing = Convert.ToSingle(propValue);
                                     break;
                                 case "align":
-                                    ksTagProperty.align = (Align)Enum.Parse(typeof(Align), propValue);
+                                    ksTagProperty.align = (Align)Enum.Parse(typeof(Align), propValue.ToUpper());
                                     break;
                                 case "fcolor":
                                     ksTagProperty.fcolor = propValue;
@@ -227,11 +228,11 @@ namespace Assets.Script.Utility
                                     ksTagProperty.ffamily = propValue;
                                     break;
                                 case "src":
-                                    if (tagName.Equals("bg")) ksTagProperty.bgsrc = propValue;
-                                    if (tagName.Equals("fg")) ksTagProperty.fgsrc = propValue;
-                                    else if (tagName.Contains("bgm")) ksTagProperty.bgmsrc = propValue;
-                                    else if (tagName.Contains("video")) ksTagProperty.videosrc = propValue;
-                                    tagName = null;
+                                    if ("BG".Equals(tagName)) ksTagProperty.bgsrc = propValue;
+                                    if ("FG".Equals(tagName)) ksTagProperty.fgsrc = propValue;
+                                    else if (tagName.Contains("BGM")) ksTagProperty.bgmsrc = propValue;
+                                    else if (tagName.Contains("VIDEO")) ksTagProperty.videosrc = propValue;
+                                    // tagName = null;
                                     break;
                                 case "volume":
                                     ksTagProperty.volume = Convert.ToSingle(propValue);
@@ -255,34 +256,35 @@ namespace Assets.Script.Utility
                                     ksTagProperty.anim = propValue;
                                     break;
                                 case "type":
-                                    if (tagName.Equals("select")) ksTagProperty.selector_type = propValue;
+                                    if ("SELECT".Equals(tagName)) ksTagProperty.selector_type = propValue;
                                     break;
                                 case "text":
-                                    if (tagName.Equals("select")) ksTagProperty.selector_text = propValue;
-                                    if (tagName.Equals("option")) ksTagProperty.option_text = propValue;
+                                    if ("SELECT".Equals(tagName)) ksTagProperty.selector_text = propValue;
+                                    if ("OPTION".Equals(tagName)) ksTagProperty.option_text = propValue;
                                     break;
                                 case "bg":
-                                    if (tagName.Equals("select")) ksTagProperty.selector_bg = propValue;
-                                    if (tagName.Equals("option")) ksTagProperty.option_bg = propValue;
+                                    if ("SELECT".Equals(tagName)) ksTagProperty.selector_bg = propValue;
+                                    if ("OPTION".Equals(tagName)) ksTagProperty.option_bg = propValue;
+                                    if ("LINE".Equals(tagName)) ksTagProperty.line_bg = propValue;
                                     break;
                                 case "bgm":
-                                    if (tagName.Equals("select")) ksTagProperty.selector_bgm = propValue;
-                                    if (tagName.Equals("option")) ksTagProperty.option_bgm = propValue;
+                                    if ("SELECT".Equals(tagName)) ksTagProperty.selector_bgm = propValue;
+                                    if ("OPTION".Equals(tagName)) ksTagProperty.option_bgm = propValue;
+                                    if ("LINE".Equals(tagName)) ksTagProperty.line_bgm = propValue;
                                     break;
                             }
                         }
 
                         if (tagType == 1)
                         {
-                            if (tagName.Equals("chs"))
+                            if ("CHS".Equals(tagName))
                             {
                                 if (null != ksTagProperty.bgmsrc) galgameScript.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.bgmsrc, typeof(AudioClip));
                                 if (null != ksTagProperty.bgsrc) galgameScript.Bg = (Sprite)Resources.Load("Sprite/" + ksTagProperty.bgsrc, typeof(Sprite));
                                 if (null != ksTagProperty.name) galgameScript.ChapterName = ksTagProperty.name;
                                 if (null != ksTagProperty.value) galgameScript.ChapterAbstract = ksTagProperty.value;
                             }
-
-                            break;
+                            continue;
                         }
 
                         galgameAction = new GalgameAction();
@@ -299,7 +301,7 @@ namespace Assets.Script.Utility
                                 fstyle = ksTagProperty.fstyle
                             };
                         }
-                        if (tagName.Equals("select"))
+                        if ("SELECT".Equals(tagName))
                         {
                             nowSelector = new PSelector()
                             {
@@ -312,7 +314,7 @@ namespace Assets.Script.Utility
 
                             galgameAction.Selector = nowSelector;
                         }
-                        if (null != nowSelector && tagName.Equals("option"))
+                        if (null != nowSelector && "OPTION".Equals(tagName))
                         {
                             nowSelectorOption = new PSelectorOption();
                             nowSelectorOption.Actions = new List<GalgamePlainAction>();
@@ -333,6 +335,9 @@ namespace Assets.Script.Utility
                         if (null != ksTagProperty.bgmsrc) galgameAction.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.bgmsrc, typeof(AudioClip));
                         if (null != ksTagProperty.voice) galgameAction.Voice = (AudioClip)Resources.Load("Audio/" + ksTagProperty.voice, typeof(AudioClip));
                         if (null != ksTagProperty.bgsrc) galgameAction.Background = (Sprite)Resources.Load("Sprite/" + ksTagProperty.bgsrc, typeof(Sprite));
+                        // A BG and BGM set int line property have a higher priority than set in tag [bg] and [bgm]
+                        if (null != ksTagProperty.line_bg) galgameAction.Background = (Sprite)Resources.Load("Sprite/" + ksTagProperty.line_bg, typeof(Sprite));
+                        if (null != ksTagProperty.line_bgm) galgameAction.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.line_bgm, typeof(AudioClip));
                         if (null != ksTagProperty.actor) galgameAction.Actor = (Actor)Enum.Parse(typeof(Actor), ksTagProperty.actor);
                         if (null != ksTagProperty.anim) galgameAction.ActorAnimation = ksTagProperty.anim;
                         if (null != nowSelector && null != nowSelectorOption)

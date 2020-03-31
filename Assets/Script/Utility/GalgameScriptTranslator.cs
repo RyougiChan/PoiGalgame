@@ -51,7 +51,7 @@ namespace Assets.Script.Utility
                             // Tag | 标签类型
                             if (tagRegex.IsMatch(currentLine))
                             {
-                                tagType = tagRegex.Match(currentLine).Groups[1].Value;
+                                tagType = tagRegex.Match(currentLine).Groups[1].Value.ToUpper();
                             }
                             // Properties | 属性
                             if(propRegex.IsMatch(currentLine))

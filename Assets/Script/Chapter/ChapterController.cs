@@ -246,8 +246,6 @@ namespace Assets.Script.Chapter
             // InitSceneGameObject();
         }
 
-
-
         // Update is called once per frame
         void Update()
         {
@@ -702,6 +700,10 @@ namespace Assets.Script.Chapter
                         SetAutoMode(false);
                     }
                     // TODO: maybe consider loading another chapter?
+                    currentScript = Resources.Load<GalgameScript>("Chapter/Chapter-01");
+                    actorName.text = string.Empty;
+                    currentLineIndex = 0;
+                    currentLineCharIndex = -1;
                     line.text = "『つづく...』";
                     return;
                 }
@@ -713,6 +715,13 @@ namespace Assets.Script.Chapter
 
                 // Move index to next
                 currentLineIndex++;
+
+                // If is a empty line with only bgm/bg
+                if (string.Empty.Equals(currentGalgameAction.Line.text.Trim()) && (null != currentGalgameAction.Bgm || null != currentGalgameAction.Background))
+                {
+                    // Continue immediately
+                    SwitchLine();
+                }
             }
 
         }
@@ -748,6 +757,10 @@ namespace Assets.Script.Chapter
             {
                 // actor's name
                 actorName.text = action.Actor.ToString();
+            }
+            else
+            {
+                actorName.text = string.Empty;
             }
             if (null != action.Background)
             {

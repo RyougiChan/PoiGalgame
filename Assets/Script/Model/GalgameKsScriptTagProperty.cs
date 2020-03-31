@@ -42,10 +42,15 @@ namespace Assets.Script.Model
         public string voice;
         public string line;
         public string anim;
+        public string line_bg;
+        public string line_bgm;
         // Selector tag properties
         public string selector_type;      // horizontal | vertical
+        [Obsolete]
         public string selector_text;      // Option: [A,B,C,...], optional
+        [Obsolete]
         public string selector_bg;        // Option: [A,B,C,...], optional
+        [Obsolete]
         public string selector_bgm;       // Option: [A,B,C,...], optional
         // Selector Option properties
         public string option_text;

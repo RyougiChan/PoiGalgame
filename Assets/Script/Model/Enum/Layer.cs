@@ -7,6 +7,6 @@ namespace Assets.Script.Model
 {
     public enum Layer
     {
-        f3, f2, f1, g, b1, b2, b3
+        F3, F2, F1, G, B1, B2, B3
     }
 }

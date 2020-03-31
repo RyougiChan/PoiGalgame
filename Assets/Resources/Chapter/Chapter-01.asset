@@ -828,7 +828,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
     Background: {fileID: 0}
-    Actor: 0
+    Actor: 2
     ActorAnimation: 
     Input: 
     Selector:
@@ -851,7 +851,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
     Background: {fileID: 0}
-    Actor: 0
+    Actor: 2
     ActorAnimation: 
     Input: 
     Selector:
@@ -966,7 +966,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
     Background: {fileID: 0}
-    Actor: 0
+    Actor: 2
     ActorAnimation: 
     Input: 
     Selector:
@@ -989,7 +989,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
     Background: {fileID: 0}
-    Actor: 0
+    Actor: 2
     ActorAnimation: 
     Input: 
     Selector:
@@ -1035,7 +1035,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
     Background: {fileID: 0}
-    Actor: 0
+    Actor: 2
     ActorAnimation: 
     Input: 
     Selector:
@@ -1242,7 +1242,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
     Background: {fileID: 21300000, guid: 50c005680b2ff5048a19374cada9bc78, type: 3}
-    Actor: 0
+    Actor: 2
     ActorAnimation: 
     Input: 
     Selector:
@@ -1380,7 +1380,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: f34589cb1c3bdb34a95a25de2f4b05c6, type: 3}
     Background: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
-    Actor: 0
+    Actor: 1
     ActorAnimation: 
     Input: 
     Selector:
@@ -1541,7 +1541,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 2291d41ec61513948b75ea4aa9f22d1b, type: 3}
     Background: {fileID: 21300000, guid: 5f553f849b1baaa4c88a3dbbe4db9c4d, type: 3}
-    Actor: 0
+    Actor: 1
     ActorAnimation: 
     Input: 
     Selector:
@@ -1633,7 +1633,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 98baacbdfa47d474ea7a7956627fddfd, type: 3}
     Background: {fileID: 21300000, guid: c06615d3b402cb04cb4646056080a27d, type: 3}
-    Actor: 0
+    Actor: 1
     ActorAnimation: 
     Input: 
     Selector:
@@ -1679,7 +1679,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 5ff14aeec434d944989c3db67767fcbc, type: 3}
     Background: {fileID: 21300000, guid: c06615d3b402cb04cb4646056080a27d, type: 3}
-    Actor: 0
+    Actor: 1
     ActorAnimation: 
     Input: 
     Selector:
@@ -1863,7 +1863,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 272cb884c1f98744c8575470364182c2, type: 3}
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
-    Actor: 0
+    Actor: 1
     ActorAnimation: 
     Input: 
     Selector:
@@ -1886,7 +1886,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 4787d7a33307ee343a8614e59144d8d9, type: 3}
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
-    Actor: 0
+    Actor: 1
     ActorAnimation: 
     Input: 
     Selector:
@@ -1909,7 +1909,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 49e8f6e50c8c88f4496bc3f0b990784a, type: 3}
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
-    Actor: 0
+    Actor: 1
     ActorAnimation: 
     Input: 
     Selector:
@@ -1932,7 +1932,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: dc71678b951131545ba2b49fae3810f7, type: 3}
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
-    Actor: 0
+    Actor: 1
     ActorAnimation: 
     Input: 
     Selector:
@@ -1978,7 +1978,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 2e7aea80a26a07a4facced49c2dfeed5, type: 3}
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
-    Actor: 0
+    Actor: 1
     ActorAnimation: 
     Input: 
     Selector:
@@ -2024,7 +2024,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: dffde0824d1fdbd43a619013cb963031, type: 3}
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
-    Actor: 0
+    Actor: 1
     ActorAnimation: 
     Input: 
     Selector:
@@ -2047,7 +2047,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
     Background: {fileID: 21300000, guid: 169ab095f95eedf449dbbe38a95fd0ff, type: 3}
-    Actor: 0
+    Actor: 2
     ActorAnimation: 
     Input: 
     Selector:
@@ -2070,7 +2070,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 9e36f89a606eb9343a8b6210cfe5a1cb, type: 3}
     Background: {fileID: 21300000, guid: 1be1ec1040fde854e9630aa51d330024, type: 3}
-    Actor: 0
+    Actor: 1
     ActorAnimation: 
     Input: 
     Selector:
@@ -2139,7 +2139,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
     Background: {fileID: 21300000, guid: 1be1ec1040fde854e9630aa51d330024, type: 3}
-    Actor: 0
+    Actor: 2
     ActorAnimation: 
     Input: 
     Selector:
@@ -2185,7 +2185,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 86a525bd660077c4bb223c06628884b4, type: 3}
     Background: {fileID: 21300000, guid: 1be1ec1040fde854e9630aa51d330024, type: 3}
-    Actor: 0
+    Actor: 1
     ActorAnimation: 
     Input: 
     Selector:
@@ -2277,7 +2277,7 @@ MonoBehaviour:
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
     Background: {fileID: 21300000, guid: 84ff0a16181adde4899c245830ce6871, type: 3}
-    Actor: 0
+    Actor: 2
     ActorAnimation: 
     Input: 
     Selector:

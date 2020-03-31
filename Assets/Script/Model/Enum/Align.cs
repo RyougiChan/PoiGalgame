@@ -7,6 +7,6 @@ namespace Assets.Script.Model
 {
     public enum Align
     {
-        lt, lm, lb, mt, mm, mb, rt, rm, rb
+        LT, LM, LB, MT, MM, MB, RT, RM, RB
     }
 }

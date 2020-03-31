@@ -11,15 +11,15 @@ namespace Assets.Script.Utility
     {
         static IDictionary<Align, TextAnchor> alignTextAnchorMap = new Dictionary<Align, TextAnchor>()
         {
-            { Align.lt, TextAnchor.UpperLeft },
-            { Align.lm, TextAnchor.MiddleLeft },
-            { Align.lb, TextAnchor.LowerLeft },
-            { Align.mt, TextAnchor.UpperCenter },
-            { Align.mm, TextAnchor.MiddleCenter },
-            { Align.mb, TextAnchor.LowerCenter },
-            { Align.rt, TextAnchor.UpperRight },
-            { Align.rm, TextAnchor.MiddleRight },
-            { Align.rb, TextAnchor.LowerRight }
+            { Align.LT, TextAnchor.UpperLeft },
+            { Align.LM, TextAnchor.MiddleLeft },
+            { Align.LB, TextAnchor.LowerLeft },
+            { Align.MT, TextAnchor.UpperCenter },
+            { Align.MM, TextAnchor.MiddleCenter },
+            { Align.MB, TextAnchor.LowerCenter },
+            { Align.RT, TextAnchor.UpperRight },
+            { Align.RM, TextAnchor.MiddleRight },
+            { Align.RB, TextAnchor.LowerRight }
         };
 
         public static TextAnchor AlignToTextAnchor(Align align)
