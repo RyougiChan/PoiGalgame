@@ -58,7 +58,6 @@ namespace Assets.Script.Utility
             List<GalgameAction> galgameActions = new List<GalgameAction>();
             GalgameAction galgameAction = null;
 
-            // Is now in a [select] element
             PSelector nowSelector = null;
             PSelectorOption nowSelectorOption = null;
 
@@ -84,10 +83,24 @@ namespace Assets.Script.Utility
                 // if is a empty tag
                 if (props.Count == 0)
                 {
-                    if ("SELECT".Equals(tagName)) nowSelector = null;
-                    if ("OPTION".Equals(tagName)) {
-                        nowSelector.Options.Add(nowSelectorOption);
-                        nowSelectorOption = null;
+                    switch(tagName)
+                    {
+                        case "SELECT":
+                            nowSelector = null;
+                            break;
+                        case "OPTION":
+                            nowSelector.Options.Add(nowSelectorOption);
+                            nowSelectorOption = null;
+                            break;
+                        case "ACTION":
+                            galgameAction = null;
+                            break;
+                        case "ADJUSTER":
+                            break;
+                        case "JUDGE":
+                            break;
+                        case "BATTLE":
+                            break;
                     }
                     continue;
                 };
@@ -287,7 +300,7 @@ namespace Assets.Script.Utility
                             continue;
                         }
 
-                        galgameAction = new GalgameAction();
+                        if (null == galgameAction) galgameAction = new GalgameAction();
                         if (null != ksTagProperty.line)
                         {
                             galgameAction.Line = new GalgameScriptLine()
@@ -301,18 +314,26 @@ namespace Assets.Script.Utility
                                 fstyle = ksTagProperty.fstyle
                             };
                         }
-                        if ("SELECT".Equals(tagName))
+                        switch(tagName)
                         {
-                            nowSelector = new PSelector()
-                            {
-                                Type = (SelectorType)Enum.Parse(typeof(SelectorType), ksTagProperty.selector_type.ToUpper())
-                            };
+                            case "SELECT":
+                                nowSelector = new PSelector()
+                                {
+                                    Type = (SelectorType)Enum.Parse(typeof(SelectorType), ksTagProperty.selector_type.ToUpper())
+                                };
 
-                            nowSelector.IsSelected = false;
-                            nowSelector.SelectedItem = -1;
-                            nowSelector.Options = new List<PSelectorOption>();
+                                nowSelector.IsSelected = false;
+                                nowSelector.SelectedItem = -1;
+                                nowSelector.Options = new List<PSelectorOption>();
 
-                            galgameAction.Selector = nowSelector;
+                                galgameAction.Selector = nowSelector;
+                                break;
+                            case "ADJUSTER":
+                                break;
+                            case "JUDGE":
+                                break;
+                            case "BATTLE":
+                                break;
                         }
                         if (null != nowSelector && "OPTION".Equals(tagName))
                         {

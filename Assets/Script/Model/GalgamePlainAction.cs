@@ -5,11 +5,14 @@ using UnityEngine.Video;
 namespace Assets.Script.Model
 {
     /// <summary>
-    /// A scene in a script(No selector) | 剧本中的某一幕(不包含选择器)
+    /// A basic scene in a script(No other components) | 剧本中的基本的某一幕(无其他组件)
     /// </summary>
     [Serializable]
     public class GalgamePlainAction
     {
+        public int Id;                          // 当前场景ID
+        public int PreviousActionId;            // 前一个场景ID
+        public int NextActionId;                // 下一个场景ID
         public GalgameScriptLine Line;          // Actor's lines | 台词
         public VideoClip Video;                 // Video in this scene | 剧中视频
         public AudioClip Bgm;                   // Background music in current scene | 当前幕的背景音乐

@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Script.Model
+namespace Assets.Script.Model.Components
 {
     [Serializable]
-    public class PText
+    public class PText : PComponent
     {
         public string text;
         public string ffamily;

@@ -11,6 +11,9 @@ namespace Assets.Script.Model
     [Serializable]
     public class GalgameAction : GalgamePlainAction
     {
-        public PSelector Selector;              // Select scene | 玩家选择场景
+        public PSelector Selector; 
+        public PGameValuesAdjuster GameValuesAdjuster;
+        public PJudge Judge;
+        public PBattle Battle;
     }
 }

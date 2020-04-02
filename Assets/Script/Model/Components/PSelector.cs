@@ -5,8 +5,11 @@ using UnityEngine;
 
 namespace Assets.Script.Model.Components
 {
+    /// <summary>
+    /// A user selector component | 提供玩家可选择选项的选择器
+    /// </summary>
     [Serializable]
-    public class PSelector
+    public class PSelector : PComponent
     {
         public SelectorType Type;
         [Obsolete]

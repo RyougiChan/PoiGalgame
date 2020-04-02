@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Assets.Script.Model.Components
 {
     [Serializable]
-    public class PSelectorOption
+    public class PSelectorOption : PComponent
     {
         public PText Text;
         public Sprite Bg;

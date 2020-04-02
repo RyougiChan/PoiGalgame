@@ -30,6 +30,9 @@ namespace Assets.Script.Model
         BGM = 205,
         VIDEO = 206,
         SELECT = 207,
-        OPTION = 208
+        OPTION = 208,
+        ADJUSTER = 209,
+        JUDGE = 210,
+        BATTLE = 211
     }
 }
