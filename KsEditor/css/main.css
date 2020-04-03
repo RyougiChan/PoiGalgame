@@ -1,0 +1,38 @@
+body {
+    height: 100% !important;
+}
+
+#main-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    display: -webkit-flex;
+}
+
+#main-container > .y-level1-container {
+    height: 100%;
+}
+
+#main-container > .y-level2-container {
+    padding: 28px;
+}
+
+#main-container > .y-level1-container img {
+    max-width: 100%;
+}
+
+#main-container > #y-area-menu {
+    width: 15%;
+    background-color: brown;
+}
+
+#main-container > #y-area-operation {
+    width: 60%;
+    background-color: salmon;
+}
+
+#main-container > #y-area-code {
+    width: 25%;
+    background-color: skyblue;
+}
