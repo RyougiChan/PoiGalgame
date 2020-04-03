@@ -20,6 +20,6 @@ namespace Assets.Script.Model.Components
         /// <summary>
         /// 下一个Action的ID
         /// </summary>
-        public int NextActionId;
+        public string NextActionId;
     }
 }

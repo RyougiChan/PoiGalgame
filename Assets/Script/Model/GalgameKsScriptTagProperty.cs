@@ -9,6 +9,7 @@ namespace Assets.Script.Model
     public class GalgameKsScriptTagProperty
     {
         // Global tag propertys
+        public string id;
         public string tag;
         public string name;
         public string value;
@@ -56,5 +57,7 @@ namespace Assets.Script.Model
         public string option_text;
         public string option_bg;
         public string option_bgm;
+        
+        public string next_action_id;
     }
 }

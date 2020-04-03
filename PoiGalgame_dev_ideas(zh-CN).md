@@ -107,9 +107,10 @@
       - `[option]`      选择器子选项(仅能与`[select]`绑定使用)
     - `[input]`         输入框
     - `[adjuster]`      数值调整器
-    - `[jduge]`         裁决器(数值判断)
+    - `[judge]`         裁决器(数值判断)
     - `[battle]`        战斗登记器
-    - `[input]`         输入框
+    - `[group]`         父容器
+    - `[pair]`          键值对，主要用于调整游戏数值
   - 公共属性标识
     - ~~`[pos]`           位置~~
     - `[style]`         样式定义
@@ -117,6 +118,7 @@
     - ~~`[effect]`        特效（下雨，下雪等）~~
 - 属性
   - 公共元素属性
+    - `id`              元素唯一标识
     - `tag`             元素类标识
     - `name`            元素标识
     - `value`           元素值
@@ -132,7 +134,7 @@
   - 文本类标签公共属性
     - `linespacing`     文本行距
     - `align`           对齐方式 `lt | lm | lb | mt | mm | mb | rt | rm | rb`
-    - `fcolor`          文本颜色 `0x000000-0xffffff`
+    - `fcolor`          文本颜色 `0x00000000-0x00ffffff`
     - `fsize`           文本字体大小
     - `fstyle`          文本风格 `normal | bold | italic`
     - `ffamily`         字体类型 `Arial` 等
@@ -150,9 +152,9 @@
     - `anim`            演员动作
   - 选择器 `[select]` 属性
     - `type`            选择器类型 `horizontal | vertical`
-    - `text`            子选择项文本 `[A,B,C,...]`(可选)
-    - `bg`              子选择项背景图片 `[A,B,C,...]`(可选)
-    - `bgm`             子选择项音频 `[A,B,C,...]`(可选)
+    - ~~`text`            子选择项文本 `[A,B,C,...]`(可选)~~
+    - ~~`bg`              子选择项背景图片 `[A,B,C,...]`(可选)~~
+    - ~~`bgm`             子选择项音频 `[A,B,C,...]`(可选)~~
   - 选择器子选项 `[option]` 属性
     - `text`            子选择项文本
     - `bg`              子选择项背景图片

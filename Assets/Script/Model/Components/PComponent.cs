@@ -8,7 +8,7 @@ namespace Assets.Script.Model.Components
     [Serializable]
     public class PComponent
     {
-        public int Id;
+        public string Id;
         public string Name;
     }
 }

@@ -12400,7 +12400,7 @@ Prefab:
     - target: {fileID: 114199595221907914, guid: fd8a49de478e39a46bf11abea6f48adc,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: D:\Workspaces\Github\PoiGalgame\Assets\Resources\Chapter.ks\Chapter-01.ks
+      value: D:\Workspaces\Github\PoiGalgame\Assets\Resources\Chapter.ks\Pair-Adjuster-Judge.ks
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd8a49de478e39a46bf11abea6f48adc, type: 2}

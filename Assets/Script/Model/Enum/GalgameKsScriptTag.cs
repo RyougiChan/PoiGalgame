@@ -33,6 +33,9 @@ namespace Assets.Script.Model
         OPTION = 208,
         ADJUSTER = 209,
         JUDGE = 210,
-        BATTLE = 211
+        BATTLE = 211,
+        GROUP = 212,
+        PAIR = 213,
+        ACTION = 214
     }
 }
