@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,26 +12,78 @@
     <link rel="stylesheet" href="./external/jquery-ui.theme.css">
     <link rel="stylesheet" href="./css/main.css">
 </head>
+
 <body>
-    
+
     <div id="main-container">
         <!-- Left Menu -->
         <div id="y-area-menu" class="y-level1-container">
-            <div id="y-area-description" class="y-level2-container">
+            <div id="y-area-logo" class="y-level2-container">
                 <img src="./images/logo.png" alt="RyougiChan">
             </div>
+            <div id="y-area-info" class="y-level2-container">
+                <ul id="y-info-list">
+                    <li>Author: <a href="https://github.com/RyougiChan">RyougiChan</a></li>
+                    <li>Repository: <a href="https://github.com/RyougiChan/PoiGalgame">PoiGalgame</a></li>
+                    <li>DOCS: <a href="https://github.com/RyougiChan/PoiGalgame/wiki">Ks Language Document </a></li>
+                </ul>
+            </div>
             <div id="y-area-components" class="y-level2-container">
-
+                <ul id="y-components-list">
+                    <li data-widget="ks-action">
+                        <div class="y-widget y-widget-action"></div><span>Action</span>
+                    </li>
+                    <li data-widget="ks-line">
+                        <div class="y-widget y-widget-line"></div><span>Line</span>
+                    </li>
+                    <li data-widget="ks-bg">
+                        <div class="y-widget y-widget-bg"></div><span>Bacground</span>
+                    </li>
+                    <li data-widget="ks-fg">
+                        <div class="y-widget y-widget-fg"></div><span>Foreground</span>
+                    </li>
+                    <li data-widget="ks-bgm">
+                        <div class="y-widget y-widget-bgm"></div><span>BGM</span>
+                    </li>
+                    <li data-widget="ks-video">
+                        <div class="y-widget y-widget-video"></div><span>Video</span>
+                    </li>
+                    <li data-widget="ks-selector">
+                        <div class="y-widget y-widget-selector"></div><span>Selector</span>
+                    </li>
+                    <li data-widget="ks-judge">
+                        <div class="y-widget y-widget-judge"></div><span>Judge</span>
+                    </li>
+                    <li data-widget="ks-adjuster">
+                        <div class="y-widget y-widget-adjuster"></div><span>Adjuster</span>
+                    </li>
+                </ul>
             </div>
         </div>
         <div id="y-area-operation" class="y-level1-container">
-
+            <div id="y-area-draggable">
+                <div id="y-area-zoom">
+                    <div class="y-area-zoombtn" id="y-area-zoom-n">-</div>
+                    <div class="y-area-zoombtn" id="y-area-zoom-v" contenteditable>100%</div>
+                    <div class="y-area-zoombtn" id="y-area-zoom-p">+</div>
+                </div>
+                <div id="y-area-scaleable">
+                    <div class="ks-widget ks-action">
+                        <div class="ks-widget-info">
+                            ID: 1
+                        </div>
+                        <div class="ks-line">
+                            <input type="text" class="ks-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="y-area-code" class="y-level1-container">
             <div id="y-area-codetext" class="y-level2-container">
 
             </div>
-            <div class="y-level2-container">
+            <div id="y-area-codeop" class="y-level2-container">
                 <button id="y-button-import">IMPORT</button>
                 <button id="y-button-export">EXPORT</button>
             </div>
@@ -39,5 +92,8 @@
 
     <script src="./external/jquery.js"></script>
     <script src="./external/jquery-ui.js"></script>
+    <script src="./js/y-widget.js"></script>
+    <script src="./js/main.js"></script>
 </body>
+
 </html>

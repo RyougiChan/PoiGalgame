@@ -1,5 +1,6 @@
 body {
     height: 100% !important;
+    background: #fafff6;
 }
 
 #main-container {
@@ -14,8 +15,8 @@ body {
     height: 100%;
 }
 
-#main-container > .y-level2-container {
-    padding: 28px;
+#main-container > .y-level1-container > .y-level2-container {
+    margin: 28px 24px 0 24px;
 }
 
 #main-container > .y-level1-container img {
@@ -24,15 +25,202 @@ body {
 
 #main-container > #y-area-menu {
     width: 15%;
-    background-color: brown;
+    border-right: dashed 2px #212121;
 }
 
 #main-container > #y-area-operation {
     width: 60%;
-    background-color: salmon;
+    border-right: dashed 2px #212121;
+    font-size: 16px;
+}
+
+#main-container > #y-area-operation > #y-area-draggable {
+    width: 95%;
+    height: 95%;
+    margin: 2.5%;
+    border: 2px dashed black;
+    overflow: hidden;
 }
 
 #main-container > #y-area-code {
     width: 25%;
-    background-color: skyblue;
+}
+
+#y-area-components {
+    border-top: dashed 2px #212121;
+}
+
+#y-area-components > #y-components-list {
+    margin: 24px 0;
+    font-size: 1.8rem;
+}
+
+#y-area-components > #y-components-list > li {
+    cursor: pointer;
+    display: flex;
+    display: -webkit-flex;
+    line-height: 42px;
+    padding: 16px 0;
+    user-select: none;
+    -webkit-user-select: none;
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+#y-area-components > #y-components-list > li:hover {
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);
+}
+
+.y-widget.y-widget-action {
+    background: url(../images/widget-action.png) center center no-repeat;
+}
+.y-widget.y-widget-line {
+    background: url(../images/widget-line.png) center center no-repeat;
+}
+.y-widget.y-widget-bg {
+    background: url(../images/widget-bg.png) center center no-repeat;
+}
+.y-widget.y-widget-fg {
+    background: url(../images/widget-fg.png) center center no-repeat;
+}
+.y-widget.y-widget-bgm {
+    background: url(../images/widget-bgm.png) center center no-repeat;
+}
+.y-widget.y-widget-video {
+    background: url(../images/widget-video.png) center center no-repeat;
+}
+.y-widget.y-widget-selector {
+    background: url(../images/widget-selector.png) center center no-repeat;
+}
+.y-widget.y-widget-judge {
+    background: url(../images/widget-judge.png) center center no-repeat;
+}
+.y-widget.y-widget-adjuster {
+    background: url(../images/widget-adjuster.png) center center no-repeat;
+}
+
+#y-area-components > #y-components-list > li > .y-widget {
+    width: 42px;
+    height: 42px;
+    margin-right: 1rem;
+    background-size: contain;
+}
+
+#y-area-menu li {
+    line-height: 1.5rem;
+}
+
+#y-area-codetext {
+    height: 88%;
+}
+
+#y-area-code {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+}
+
+#y-area-code > #y-area-codeop{
+    height: 80px;
+    display: flex;
+    display: -webkit-flex;
+    margin-bottom: 24px;
+}
+
+#y-area-code > #y-area-codeop > button {
+    width: 50%;
+    height: 80px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+#y-area-code > #y-area-codeop > button#y-button-import {
+    color: black;
+    background: white;
+}
+
+#y-area-code > #y-area-codeop > button#y-button-import:hover {
+    box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.2);
+    background-color: rgba(255,255,255, 0.9);
+}
+
+#y-area-code > #y-area-codeop > button#y-button-export {
+    color: white;
+    background: #212121;
+}
+
+#y-area-code > #y-area-codeop > button#y-button-export:hover {
+    box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+#y-area-draggable > #y-area-zoom {
+    display: flex;
+    display: -webkit-flex;
+    text-align: center;
+    float: right;
+    border-left: 2px dashed black;
+    border-bottom: 2px dashed black;
+}
+#y-area-draggable > #y-area-zoom > .y-area-zoombtn {
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    line-height: 42px;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+
+#y-area-draggable > #y-area-zoom > .y-area-zoombtn:hover {
+    background: rgba(0,0,0, .05);
+}
+
+#y-area-draggable > #y-area-zoom > .y-area-zoombtn:active {
+    background: rgba(0,0,0, .1);
+}
+
+#y-area-draggable > #y-area-zoom > #y-area-zoom-v {
+    width: fit-content;
+    cursor: text;
+    padding: 0 5px;
+    border-left: 2px dashed black;
+    border-right: 2px dashed black;
+}
+
+/* KS Widget */
+.ks-widget {
+    cursor: pointer;
+}
+
+.ks-widget:active {
+    cursor: move;
+}
+
+.ks-action {
+    width: 480px;
+    min-height: 120px;
+    box-shadow: 0 0 10px 10px #f1f1f1;
+    margin: 8px;
+}
+
+.ks-input {
+    width: 70%;
+    height: 36px;
+    padding: 0 1rem;
+    margin: 1rem;
+    background: none;
+    border: none;
+    border-bottom: 1.5px solid black;
+    font-size: 16px;
+}
+
+.ks-widget-info {
+    margin: 1rem;
+    height: 36px;
+    line-height: 36px;
+    border-bottom: 1px solid black;
+    font-size: 1.6rem;
 }
