@@ -8,9 +8,10 @@
     <title>KsScript Language Editor</title>
     <link rel="stylesheet" href="./css/yuko-reset.css">
     <link rel="stylesheet" href="./css/yuko-global.css">
-    <link rel="stylesheet" href="./external/jquery-ui.css">
-    <link rel="stylesheet" href="./external/jquery-ui.theme.css">
+    <link rel="stylesheet" href="./external/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="./external/jquery-ui/jquery-ui.theme.css">
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./external/farbtastic/farbtastic.css">
 </head>
 
 <body>
@@ -64,16 +65,29 @@
             <div id="y-area-draggable">
                 <div id="y-area-zoom">
                     <div class="y-area-zoombtn" id="y-area-zoom-n">-</div>
-                    <div class="y-area-zoombtn" id="y-area-zoom-v" contenteditable>100%</div>
+                    <div class="y-area-zoombtn" id="y-area-zoom-v"><input class="no-border-input" type="text" value="100"> %</div>
                     <div class="y-area-zoombtn" id="y-area-zoom-p">+</div>
                 </div>
                 <div id="y-area-scaleable">
                     <div class="ks-widget ks-action">
-                        <div class="ks-widget-info">
-                            ID: 1
+                        <div class="ks-action-cont ks-action-info">
+                            <span>ID: 1</span>
+                        </div>
+                        <div class="ks-action-cont ks-action-grid">
+                            <div class="ks-action-grid-item">
+                                <div class="ks-button ks-color-picker">
+                                    <div class="color-picker"></div>
+                                </div>
+                                <div>
+                                    <input class="no-border-input color-hex" type="text" value="#xxxxxx">
+                                </div>
+                            </div>
+                            <div class="ks-action-grid">
+                                <div class="ks-button add-ks-line">+</div>
+                            </div>
                         </div>
                         <div class="ks-line">
-                            <input type="text" class="ks-input">
+                            <input type="text" class="ks-input" placeholder="Line Text"><span class="remove">×</span>
                         </div>
                     </div>
                 </div>
@@ -90,8 +104,9 @@
         </div>
     </div>
 
-    <script src="./external/jquery.js"></script>
-    <script src="./external/jquery-ui.js"></script>
+    <script src="./external/jquery-ui/jquery.js"></script>
+    <script src="./external/jquery-ui/jquery-ui.js"></script>
+    <script src="./external/farbtastic/farbtastic.js"></script>
     <script src="./js/y-widget.js"></script>
     <script src="./js/main.js"></script>
 </body>

@@ -190,6 +190,16 @@ body {
     border-right: 2px dashed black;
 }
 
+.no-border-input {
+    border: none;
+    background: none;
+    height: 100%;
+    line-height: 100%;
+    width: 2rem;
+    font-size: 16px;
+    text-align: center;
+}
+
 /* KS Widget */
 .ks-widget {
     cursor: pointer;
@@ -206,8 +216,15 @@ body {
     margin: 8px;
 }
 
+.ks-line {
+    display: flex;
+    display: -webkit-flex;
+    height: 70px;
+    line-height: 70px;
+}
+
 .ks-input {
-    width: 70%;
+    width: calc(100% - 6.5rem);
     height: 36px;
     padding: 0 1rem;
     margin: 1rem;
@@ -217,10 +234,72 @@ body {
     font-size: 16px;
 }
 
-.ks-widget-info {
+.ks-action-cont {
+    display: flex;
     margin: 1rem;
+    height: 48px;
+    line-height: 48px;
+}
+
+.ks-action-grid ,
+.ks-action-grid > .ks-action-grid-item {
+    display: flex;
+    border: 2px dotted #212121;
+}
+
+.ks-action-grid > .ks-action-grid-item input {
+    width: 4rem;
+}
+
+.ks-action-info {
+    border-bottom: 1.5px dotted black;
+    font-size: 1.6rem;
+}
+
+.ks-button {
+    width: 36px;
     height: 36px;
     line-height: 36px;
-    border-bottom: 1px solid black;
-    font-size: 1.6rem;
+    text-align: center;
+    background: #212121;
+    color: #fafff6;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0.3rem;
+}
+
+.ks-button:hover {
+    background: #444444;
+}
+
+.ks-button:active {
+    background: #212121;
+}
+
+.ks-color-picker {
+    position: relative;
+    background: red;
+}
+
+.ks-color-picker .color-picker {
+    position: absolute;
+    top: 56px;
+    background: rgba(255,255,255, 0.9);
+    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.ks-color-picker:hover {
+    background: #ff4646;
+}
+
+.ks-color-picker:active {
+    background: red;
+}
+
+.remove {
+    display: inline-block;
+    font-size: 32px;
+    height: 36px;
 }
