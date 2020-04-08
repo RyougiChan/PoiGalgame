@@ -195,7 +195,7 @@ body {
     background: none;
     height: 100%;
     line-height: 100%;
-    width: 2rem;
+    min-width: 2rem;
     font-size: 16px;
     text-align: center;
 }
@@ -239,6 +239,8 @@ body {
     margin: 1rem;
     height: 48px;
     line-height: 48px;
+    max-width: calc(100% - 2rem);
+    overflow: hidden;
 }
 
 .ks-action-grid ,
@@ -247,7 +249,11 @@ body {
     border: 2px dotted #212121;
 }
 
-.ks-action-grid > .ks-action-grid-item input {
+.ks-action-grid > .ks-action-grid-item {
+    padding: 0.3rem;
+}
+
+.ks-action-grid > .ks-action-grid-item .no-border-input {
     width: 4rem;
 }
 
@@ -266,7 +272,25 @@ body {
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    margin: 0.3rem;
+    margin-right: 0.4rem;
+}
+
+.ks-button.ks-square {
+    width: fit-content;
+    border-radius: 0.1rem;
+    padding: 0 0.2rem;
+}
+
+.ks-button.ks-blue {
+    background: #33beff;
+}
+
+.ks-button.ks-blue:hover {
+    background: #69d0ff;
+}
+
+.ks-button.ks-blue:active {
+    background: #33beff;
 }
 
 .ks-button:hover {
@@ -298,8 +322,27 @@ body {
     background: red;
 }
 
-.remove {
+.ks-remove {
     display: inline-block;
     font-size: 32px;
     height: 36px;
+}
+
+.ks-select {
+    border: none;
+    background: #ffa228;
+    color: white;
+    cursor: pointer;
+    margin-right: 0.4rem;
+}
+
+.ks-action-cont .ui-selectmenu-button.ui-button {
+    width: fit-content;
+    border: none;
+    background: #ffa228;
+    color: white;
+}
+
+.ks-input-label {
+    line-height: 200%;
 }

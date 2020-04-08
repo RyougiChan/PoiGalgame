@@ -3,7 +3,7 @@
 
     const KS_LINE_TEMPLATE = `
     <div class="ks-line">
-        <input type="text" class="ks-input" placeholder="Line Text"><span class="remove">×</span>
+        <input type="text" class="ks-input" placeholder="Line Text"><span class="ks-remove">×</span>
     </div>
     `;
 

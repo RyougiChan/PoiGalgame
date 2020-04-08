@@ -65,13 +65,14 @@
             <div id="y-area-draggable">
                 <div id="y-area-zoom">
                     <div class="y-area-zoombtn" id="y-area-zoom-n">-</div>
-                    <div class="y-area-zoombtn" id="y-area-zoom-v"><input class="no-border-input" type="text" value="100"> %</div>
+                    <div class="y-area-zoombtn" id="y-area-zoom-v"><input class="no-border-input" type="text"
+                            value="100"> %</div>
                     <div class="y-area-zoombtn" id="y-area-zoom-p">+</div>
                 </div>
                 <div id="y-area-scaleable">
                     <div class="ks-widget ks-action">
                         <div class="ks-action-cont ks-action-info">
-                            <span>ID: 1</span>
+                            <span>ID: 1</span>/<span>场景1</span>
                         </div>
                         <div class="ks-action-cont ks-action-grid">
                             <div class="ks-action-grid-item">
@@ -79,15 +80,121 @@
                                     <div class="color-picker"></div>
                                 </div>
                                 <div>
-                                    <input class="no-border-input color-hex" type="text" value="#xxxxxx">
+                                    <input id="ks-select_action-1_color" class="no-border-input color-hex" type="text"
+                                        value="#xxxxxx">
                                 </div>
                             </div>
-                            <div class="ks-action-grid">
+                            <div class="ks-action-grid-item">
                                 <div class="ks-button add-ks-line">+</div>
+                            </div>
+
+                        </div>
+                        <div class="ks-action-cont ks-action-grid">
+                            <div class="ks-action-grid-item">
+                                <div class="ks-button ks-square ks-blue">BGM</div>
+                                <select id="ks-select_action-1_bgmaction" class="ks-select">
+                                    <option selected="selected">play</option>
+                                    <option>pause</option>
+                                    <option>resume</option>
+                                    <option>stop</option>
+                                </select>
+                                <input id="ks-action-1_bgmvolume" class="no-border-input" type="text" value=""
+                                    placeholder="Volume">
+                                <label class="ks-input-label" for="ks-action-1_bgmloop">loop</label>
+                                <input id="ks-action-1_bgmloop" type="checkbox">
+                            </div>
+                        </div>
+                        <div class="ks-action-cont ks-action-grid">
+                            <div class="ks-action-grid-item">
+                                <div class="ks-button ks-square ks-blue">VOICE</div>
+                                <select id="ks-select_action-1_voiceaction" class="ks-select">
+                                    <option selected="selected">play</option>
+                                    <option>pause</option>
+                                    <option>resume</option>
+                                    <option>stop</option>
+                                </select>
+                                <input id="ks-action-1_voicevolume" class="no-border-input" type="text" value=""
+                                    placeholder="Volume">
+                                <label class="ks-input-label" for="ks-action-1_voiceloop">loop</label>
+                                <input id="ks-action-1_voiceloop" type="checkbox">
+                            </div>
+                        </div>
+                        <div class="ks-action-cont ks-action-grid">
+                            <div class="ks-action-grid-item">
+                                <select id="ks-select_action-1_actor" class="ks-select">
+                                    <option selected="selected">ACTOR</option>
+                                    <option>女の子</option>
+                                    <option>渚</option>
+                                    <option>朋也</option>
+                                </select>
+                            </div>
+                            <div class="ks-action-grid-item">
+                                <select id="ks-select_action-1_align" class="ks-select">
+                                    <option selected="selected">ALIGN</option>
+                                    <option>LT</option>
+                                    <option>LM</option>
+                                    <option>LB</option>
+                                    <option>MT</option>
+                                    <option>MM</option>
+                                    <option>MB</option>
+                                    <option>RT</option>
+                                    <option>RM</option>
+                                    <option>RB</option>
+                                </select>
+                            </div>
+                            <div class="ks-action-grid-item">
+                                <select id="ks-select_action-1_style" class="ks-select">
+                                    <option selected="selected">STYLE</option>
+                                    <option>normal</option>
+                                    <option>bold</option>
+                                    <option>italic</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="ks-action-cont ks-action-grid">
+                            <div class="ks-action-grid-item">
+                                <div>
+                                    <input id="ks-select_action-1_fontsize" class="no-border-input" type="text" value=""
+                                        placeholder="Size(px)">
+                                </div>
+                            </div>
+                            <div class="ks-action-grid-item">
+                                <div>
+                                    <input id="ks-select_action-1_linespacing" class="no-border-input" type="text"
+                                        value="" placeholder="Space(px)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ks-action-cont ks-action-grid">
+                            <div class="ks-action-grid-item">
+                                <div class="ks-button ks-blue">BG</div>
+                                <select id="ks-select_action-1_bglayer" class="ks-select">
+                                    <option selected="selected">LAYER</option>
+                                    <option>Foreground3</option>
+                                    <option>Foreground2</option>
+                                    <option>Foreground1</option>
+                                    <option>Ground</option>
+                                    <option>Background1</option>
+                                    <option>Background2</option>
+                                    <option>Background3</option>
+                                </select>
+                            </div>
+                            <div class="ks-action-grid-item">
+                                <div class="ks-button ks-blue">FG</div>
+                                <select id="ks-select_action-1_fglayer" class="ks-select">
+                                    <option selected="selected">LAYER</option>
+                                    <option>Foreground3</option>
+                                    <option>Foreground2</option>
+                                    <option>Foreground1</option>
+                                    <option>Ground</option>
+                                    <option>Background1</option>
+                                    <option>Background2</option>
+                                    <option>Background3</option>
+                                </select>
                             </div>
                         </div>
                         <div class="ks-line">
-                            <input type="text" class="ks-input" placeholder="Line Text"><span class="remove">×</span>
+                            <input type="text" class="ks-input" placeholder="Line Text"><span class="ks-remove">×</span>
                         </div>
                     </div>
                 </div>

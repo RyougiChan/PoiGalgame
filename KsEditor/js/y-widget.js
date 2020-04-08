@@ -21,7 +21,9 @@
         }
     });
 
-    $('.ks-action').delegate('.remove', 'click', function(evt) {
+    $('.ks-action').delegate('.ks-remove', 'click', function(evt) {
         $(this).parent().remove();
     });
+
+    $( ".ks-select" ).selectmenu();
 })();
