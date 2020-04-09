@@ -214,6 +214,7 @@ body {
     min-height: 120px;
     box-shadow: 0 0 10px 10px #f1f1f1;
     margin: 8px;
+    padding: 8px;
 }
 
 .ks-line {
@@ -325,7 +326,12 @@ body {
 .ks-remove {
     display: inline-block;
     font-size: 32px;
-    height: 36px;
+    /* height: 36px; */
+}
+
+.ks-accordion-op {
+    float: right;
+    margin-right: 1rem;
 }
 
 .ks-select {
@@ -345,4 +351,17 @@ body {
 
 .ks-input-label {
     line-height: 200%;
+}
+
+.ks-accordion {
+    margin: 1rem;
+}
+
+.ks-accordion .ui-widget-content {
+    background: rgba(255,255,255, 0.5);
+    height: fit-content !important;
+}
+
+.ks-accordion > .ks-accordion-item > .ks-accordion-item_text {
+    width: calc(100% - 4rem);
 }
