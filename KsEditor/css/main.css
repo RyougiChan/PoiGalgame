@@ -212,7 +212,8 @@ body {
 .ks-action {
     width: 480px;
     min-height: 120px;
-    box-shadow: 0 0 10px 10px #f1f1f1;
+    /* background: #ffffff; */
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
     margin: 8px;
     padding: 8px;
 }
@@ -244,14 +245,17 @@ body {
     overflow: hidden;
 }
 
-.ks-action-grid ,
-.ks-action-grid > .ks-action-grid-item {
+.ks-action-grid {
     display: flex;
     border: 2px dotted #212121;
 }
-
 .ks-action-grid > .ks-action-grid-item {
+    display: flex;
     padding: 0.3rem;
+}
+
+.ks-action-grid > .ks-action-grid-item:not(:last-of-type) {
+    border-right: 2px dotted #212121;
 }
 
 .ks-action-grid > .ks-action-grid-item .no-border-input {
@@ -283,15 +287,15 @@ body {
 }
 
 .ks-button.ks-blue {
-    background: #33beff;
+    background: #007fff;
 }
 
 .ks-button.ks-blue:hover {
-    background: #69d0ff;
+    background: #2592ff;
 }
 
 .ks-button.ks-blue:active {
-    background: #33beff;
+    background: #007fff;
 }
 
 .ks-button:hover {
@@ -300,6 +304,12 @@ body {
 
 .ks-button:active {
     background: #212121;
+}
+
+.ks-button input[type=file] {
+    width: 0;
+    height: 0;
+    opacity: 0;
 }
 
 .ks-color-picker {
@@ -324,9 +334,22 @@ body {
 }
 
 .ks-remove {
-    display: inline-block;
-    font-size: 32px;
-    /* height: 36px; */
+    float: right;
+    display: block;
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.ks-remove:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.ks-remove:active {
+    background: none;
 }
 
 .ks-accordion-op {
@@ -344,6 +367,8 @@ body {
 
 .ks-action-cont .ui-selectmenu-button.ui-button {
     width: fit-content;
+    height: 24px;
+    line-height: 24px;
     border: none;
     background: #ffa228;
     color: white;
@@ -364,4 +389,8 @@ body {
 
 .ks-accordion > .ks-accordion-item > .ks-accordion-item_text {
     width: calc(100% - 4rem);
+}
+
+.ks-action .ks-button {
+    max-width: 72px;
 }

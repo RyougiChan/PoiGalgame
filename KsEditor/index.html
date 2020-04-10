@@ -71,6 +71,7 @@
                 </div>
                 <div id="y-area-scaleable">
                     <div id="ks-action-1" class="ks-widget ks-action">
+                        <span class="ks-remove">×</span>
                         <div class="ks-action-cont ks-action-info">
                             <span>ID: 1</span>/<span>场景1</span>
                         </div>
@@ -91,7 +92,7 @@
                         </div>
                         <div class="ks-action-cont ks-action-grid">
                             <div class="ks-action-grid-item">
-                                <div class="ks-button ks-square ks-blue">BGM</div>
+                                <div class="ks-button ks-square ks-blue"><span>BGM</span><input type="file" name="ks-action-1_bgm" accept="audio/*" /></div>
                                 <select id="ks-select_action-1_bgmaction" class="ks-select">
                                     <option selected="selected">play</option>
                                     <option>pause</option>
@@ -106,7 +107,7 @@
                         </div>
                         <div class="ks-action-cont ks-action-grid">
                             <div class="ks-action-grid-item">
-                                <div class="ks-button ks-square ks-blue">VOICE</div>
+                                <div class="ks-button ks-square ks-blue"><span>VOICE</span><input type="file" name="ks-action-1_voice" accept="audio/*" /></div>
                                 <select id="ks-select_action-1_voiceaction" class="ks-select">
                                     <option selected="selected">play</option>
                                     <option>pause</option>
@@ -167,7 +168,7 @@
                         </div>
                         <div class="ks-action-cont ks-action-grid">
                             <div class="ks-action-grid-item">
-                                <div class="ks-button ks-blue">BG</div>
+                                <div class="ks-button ks-blue"><span>BG</span><input type="file" name="ks-action-1_bg" accept="image/*" /></div>
                                 <select id="ks-select_action-1_bglayer" class="ks-select">
                                     <option selected="selected">LAYER</option>
                                     <option>Foreground3</option>
@@ -180,7 +181,7 @@
                                 </select>
                             </div>
                             <div class="ks-action-grid-item">
-                                <div class="ks-button ks-blue">FG</div>
+                                <div class="ks-button ks-blue"><span>FG</span><input type="file" name="ks-action-1_fg" accept="image/*" /></div>
                                 <select id="ks-select_action-1_fglayer" class="ks-select">
                                     <option selected="selected">LAYER</option>
                                     <option>Foreground3</option>
@@ -198,29 +199,27 @@
                         </div>
                     </div>
                     <div id="ks-action-2" class="ks-widget ks-action">
+                        <span class="ks-remove">×</span>
                         <div class="ks-action-cont ks-action-info">
                             <span>ID: 2</span>/<span>场景2</span>
                         </div>
-                        <div class="ks-action-cont ks-action-grid">
-                            <div class="ks-action-grid-item">
-                                <div class="ks-button add-ks-selector-item">+</div>
-                            </div>
-                        </div>
                         <div class="ks-selector">
+                            <div class="ks-action-cont ks-action-grid">
+                                <div class="ks-action-grid-item">
+                                    <div class="ks-button add-ks-selector-item">+</div>
+                                </div>
+                            </div>
                             <div class="ks-accordion">
-                                <h3>First<span class="ks-accordion-op ks-accordion-remove">×</span><span class="ks-accordion-op ks-accordion-addline">+</span><span class="ks-accordion-op ks-accordion-addbgm">bgm</span><span class="ks-accordion-op ks-accordion-addvoice">voice</span></h3>
+                                <h3>1
+                                    <span class="ks-accordion-op ks-accordion-remove">×</span>
+                                    <span class="ks-accordion-op ks-accordion-addline">+</span>
+                                    <span class="ks-accordion-op ks-accordion-addbgm">bgm</span>
+                                    <span class="ks-accordion-op ks-accordion-addvoice">voice</span>
+                                    <span class="ks-accordion-op ks-accordion-addbg">bg</span>
+                                </h3>
                                 <div class="ks-accordion-item">
                                     <input type="text" class="ks-input ks-accordion-item_text" placeholder="Item Text">
-
-                                    <div class="ks-line">
-                                        <input type="text" class="ks-input" placeholder="Line Text"><span
-                                            class="ks-remove">×</span>
-                                    </div>
                                 </div>
-                                <h3>Second</h3>
-                                <div>Phasellus mattis tincidunt nibh.</div>
-                                <h3>Third</h3>
-                                <div>Nam dui erat, auctor a, dignissim quis.</div>
                             </div>
                         </div>
                     </div>
@@ -232,8 +231,11 @@
 
             </div>
             <div id="y-area-codeop" class="y-level2-container">
-                <button id="y-button-import">IMPORT</button>
-                <button id="y-button-export">EXPORT</button>
+                <button id="y-button-import" class="ks-button ks-square">
+                    <span>IMPORT</span>
+                    <input type="file" name="ks-import" accept=".ks" />
+                </button>
+                <button id="y-button-export" class="ks-button ks-square">EXPORT</button>
             </div>
         </div>
     </div>

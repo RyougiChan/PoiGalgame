@@ -33,6 +33,27 @@
             }
         }
     });
+    $('#y-button-export').on('click', function(evt) {
+        /**
+         * @todo Obtain KS content here
+         */
+        let ks_content = 'TEST KS Content';
+        if(ks_content) {
+            let file_name = 'Chapter-'+(new Date().getTime())+'.ks',
+                f = new File([ks_content], file_name, { type: 'text/plain;charset=utf-8' }),
+                object_url = URL.createObjectURL(f),
+                click = function (node) {
+                    let event = new MouseEvent('click');
+                    node.dispatchEvent(event);
+                },
+                save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+            setTimeout(function () {
+                save_link.href = object_url;
+                save_link.download = f.name;
+                click(save_link);
+            });
+        }
+    });
 
     $('.ks-widget').draggable({ 
         // containment: "#y-area-draggable", 
