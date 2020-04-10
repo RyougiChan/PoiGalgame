@@ -365,7 +365,7 @@ body {
     margin-right: 0.4rem;
 }
 
-.ks-action-cont .ui-selectmenu-button.ui-button {
+.ks-widget  .ui-selectmenu-button.ui-button {
     width: fit-content;
     height: 24px;
     line-height: 24px;
@@ -393,4 +393,9 @@ body {
 
 .ks-action .ks-button {
     max-width: 72px;
+}
+
+.ks-judge .ks-accordion .ks-accordion-item .ks-input {
+    width: 20%;
+    text-align: center;
 }

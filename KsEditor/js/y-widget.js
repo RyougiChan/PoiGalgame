@@ -110,7 +110,7 @@
             $($cont[0]).append(`
             <div class="ks-action-cont ks-action-grid">
                 <div class="ks-action-grid-item ks-bg-control">
-                    <div class="ks-button ks-blue"><span>BG</span><input type="file" name="ks-action-1_bg" accept="image/*" /></div>
+                    <div class="ks-button ks-square ks-blue"><span>BG</span><input type="file" name="ks-action-1_bg" accept="image/*" /></div>
                     <select id="ks-select_action-1_bglayer" class="ks-select">
                         <option selected="selected">LAYER</option>
                         <option>Foreground3</option>
@@ -122,6 +122,54 @@
                         <option>Background3</option>
                     </select>
                 </div>
+                <span class="ks-remove">×</span>
+            </div>
+            `);
+            $($cont[0]).find('.ks-select').selectmenu();
+        }
+    });
+    
+    $('.ks-action').delegate('.add-ks-orjudge-item', 'click', function (evt) {
+        let $cont = $(this).parents('.ks-judge');
+        let item_id = $cont.find('h3').length ? parseInt($cont.find('h3').last().text()) + 1 : 1;
+        if ($cont && $cont.find('.ks-accordion')) {
+            $cont.find('.ks-accordion').append(`
+            <h3>${item_id}
+                <span class="ks-accordion-op ks-accordion-remove">×</span>
+                <span class="ks-accordion-op ks-accordion-add-andjudge">+</span>
+            </h3>
+            <div class="ks-accordion-item ks-accordion-andjudge-list">
+                <div class="ks-accordion-andjudge-item" id="ks-accordion-add-andjudge-${item_id}-item-1">
+                    <select class="ks-select">
+                        <option selected="selected">Health Point</option>
+                        <option>Mana Point</option>
+                    </select>
+                    =
+                    <input type="number" class="ks-input" placeholder="VALUE">
+                    <span class="ks-remove">×</span>
+                </div>
+            </div>
+            `);
+            $cont.find('.ks-accordion').accordion('refresh');
+            $cont.find('.ks-select').selectmenu();
+        }
+    });
+
+    $('.ks-action').delegate('.ks-accordion-add-andjudge', 'click', function (evt) {
+        let $cont = $(this).parent().next('div');
+        let $judge_cont = $(this).parents('.ks-judge');
+        let judge_id = $judge_cont.find('h3').length ? parseInt($judge_cont.find('h3').last().text()) : 1;
+        if ($cont) {
+            let $judge_item_id = $($cont[0]).find('.ks-accordion-andjudge-item').last().attr('id'),
+            judge_item_id_num = $judge_item_id ? parseInt($judge_item_id.slice($judge_item_id.lastIndexOf('-') + 1)) + 1 : 1;
+            $($cont[0]).append(`
+            <div class="ks-accordion-andjudge-item" id="ks-accordion-add-andjudge-${judge_id}-item-${judge_item_id_num}">
+                <select class="ks-select">
+                    <option selected="selected">Health Point</option>
+                    <option>Mana Point</option>
+                </select>
+                =
+                <input type="number" class="ks-input" placeholder="VALUE">
                 <span class="ks-remove">×</span>
             </div>
             `);

@@ -17,7 +17,7 @@
 <body>
 
     <div id="main-container">
-        <!-- Left Menu -->
+        <!-- Left Menu Area -->
         <div id="y-area-menu" class="y-level1-container">
             <div id="y-area-logo" class="y-level2-container">
                 <img src="./images/logo.png" alt="RyougiChan">
@@ -61,6 +61,7 @@
                 </ul>
             </div>
         </div>
+        <!-- Middle Draggable Area -->
         <div id="y-area-operation" class="y-level1-container">
             <div id="y-area-draggable">
                 <div id="y-area-zoom">
@@ -70,6 +71,7 @@
                     <div class="y-area-zoombtn" id="y-area-zoom-p">+</div>
                 </div>
                 <div id="y-area-scaleable">
+                    <!-- Commond Action Example -->
                     <div id="ks-action-1" class="ks-widget ks-action">
                         <span class="ks-remove">×</span>
                         <div class="ks-action-cont ks-action-info">
@@ -92,7 +94,8 @@
                         </div>
                         <div class="ks-action-cont ks-action-grid">
                             <div class="ks-action-grid-item">
-                                <div class="ks-button ks-square ks-blue"><span>BGM</span><input type="file" name="ks-action-1_bgm" accept="audio/*" /></div>
+                                <div class="ks-button ks-square ks-blue"><span>BGM</span><input type="file"
+                                        name="ks-action-1_bgm" accept="audio/*" /></div>
                                 <select id="ks-select_action-1_bgmaction" class="ks-select">
                                     <option selected="selected">play</option>
                                     <option>pause</option>
@@ -107,7 +110,8 @@
                         </div>
                         <div class="ks-action-cont ks-action-grid">
                             <div class="ks-action-grid-item">
-                                <div class="ks-button ks-square ks-blue"><span>VOICE</span><input type="file" name="ks-action-1_voice" accept="audio/*" /></div>
+                                <div class="ks-button ks-square ks-blue"><span>VOICE</span><input type="file"
+                                        name="ks-action-1_voice" accept="audio/*" /></div>
                                 <select id="ks-select_action-1_voiceaction" class="ks-select">
                                     <option selected="selected">play</option>
                                     <option>pause</option>
@@ -168,7 +172,8 @@
                         </div>
                         <div class="ks-action-cont ks-action-grid">
                             <div class="ks-action-grid-item">
-                                <div class="ks-button ks-blue"><span>BG</span><input type="file" name="ks-action-1_bg" accept="image/*" /></div>
+                                <div class="ks-button ks-square ks-blue"><span>BG</span><input type="file"
+                                        name="ks-action-1_bg" accept="image/*" /></div>
                                 <select id="ks-select_action-1_bglayer" class="ks-select">
                                     <option selected="selected">LAYER</option>
                                     <option>Foreground3</option>
@@ -181,7 +186,8 @@
                                 </select>
                             </div>
                             <div class="ks-action-grid-item">
-                                <div class="ks-button ks-blue"><span>FG</span><input type="file" name="ks-action-1_fg" accept="image/*" /></div>
+                                <div class="ks-button ks-square ks-blue"><span>FG</span><input type="file"
+                                        name="ks-action-1_fg" accept="image/*" /></div>
                                 <select id="ks-select_action-1_fglayer" class="ks-select">
                                     <option selected="selected">LAYER</option>
                                     <option>Foreground3</option>
@@ -198,7 +204,8 @@
                             <input type="text" class="ks-input" placeholder="Line Text"><span class="ks-remove">×</span>
                         </div>
                     </div>
-                    <div id="ks-action-2" class="ks-widget ks-action">
+                    <!-- Selector Example -->
+                    <div style="display: none;" id="ks-action-2" class="ks-widget ks-action">
                         <span class="ks-remove">×</span>
                         <div class="ks-action-cont ks-action-info">
                             <span>ID: 2</span>/<span>场景2</span>
@@ -223,9 +230,41 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Judge Example -->
+                    <div id="ks-action-3" class="ks-widget ks-action">
+                        <span class="ks-remove">×</span>
+                        <div class="ks-action-cont ks-action-info">
+                            <span>ID: 3</span>/<span>场景3</span>
+                        </div>
+                        <div class="ks-judge">
+                            <div class="ks-action-cont ks-action-grid">
+                                <div class="ks-action-grid-item">
+                                    <div class="ks-button add-ks-orjudge-item">+</div>
+                                </div>
+                            </div>
+                            <div class="ks-accordion">
+                                <h3>1
+                                    <span class="ks-accordion-op ks-accordion-remove">×</span>
+                                    <span class="ks-accordion-op ks-accordion-add-andjudge">+</span>
+                                </h3>
+                                <div class="ks-accordion-item ks-accordion-andjudge-list">
+                                    <div class="ks-accordion-andjudge-item" id="ks-accordion-add-andjudge-1-item-1">
+                                        <select class="ks-select">
+                                            <option selected="selected">Health Point</option>
+                                            <option>Mana Point</option>
+                                        </select>
+                                        =
+                                        <input type="number" class="ks-input" placeholder="VALUE">
+                                        <span class="ks-remove">×</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- Right Code Area -->
         <div id="y-area-code" class="y-level1-container">
             <div id="y-area-codetext" class="y-level2-container">
 
