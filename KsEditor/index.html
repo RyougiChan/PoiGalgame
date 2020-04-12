@@ -75,7 +75,7 @@
                     <div id="ks-action-1" class="ks-widget ks-action">
                         <span class="ks-remove">×</span>
                         <div class="ks-action-cont ks-action-info">
-                            <span>ID: 1</span>/<span>场景1</span>
+                            <span>ID: 1</span>/<span>Commond Action</span>
                         </div>
                         <div class="ks-action-cont ks-action-grid">
                             <div class="ks-action-grid-item">
@@ -90,7 +90,14 @@
                             <div class="ks-action-grid-item">
                                 <div class="ks-button add-ks-line">+</div>
                             </div>
-
+                            <div class="ks-action-grid-item">
+                                <div class="ks-button ks-blue ks-square open-ks-aujuster-config">config</div>
+                                <div class="ks-adjuster-editor-values">
+                                    <input type="hidden" name="ks-adjuster-item_sorrow" value="50">
+                                    <input type="hidden" name="ks-adjuster-item_angry" value="60">
+                                    <input type="hidden" name="ks-adjuster-item_hate" value="20">
+                                </div>
+                            </div>
                         </div>
                         <div class="ks-action-cont ks-action-grid">
                             <div class="ks-action-grid-item">
@@ -205,10 +212,10 @@
                         </div>
                     </div>
                     <!-- Selector Example -->
-                    <div style="display: none;" id="ks-action-2" class="ks-widget ks-action">
+                    <div id="ks-action-2" class="ks-widget ks-action">
                         <span class="ks-remove">×</span>
                         <div class="ks-action-cont ks-action-info">
-                            <span>ID: 2</span>/<span>场景2</span>
+                            <span>ID: 2</span>/<span>Selector Action</span>
                         </div>
                         <div class="ks-selector">
                             <div class="ks-action-cont ks-action-grid">
@@ -234,13 +241,23 @@
                     <div id="ks-action-3" class="ks-widget ks-action">
                         <span class="ks-remove">×</span>
                         <div class="ks-action-cont ks-action-info">
-                            <span>ID: 3</span>/<span>场景3</span>
+                            <span>ID: 3</span>/<span>Judge Action</span>
                         </div>
                         <div class="ks-judge">
                             <div class="ks-action-cont ks-action-grid">
                                 <div class="ks-action-grid-item">
                                     <div class="ks-button add-ks-orjudge-item">+</div>
+                                    <div class="ks-button ks-blue ks-square add-ks-judge-event">+event</div>
                                 </div>
+                            </div>
+                            <div class="ks-action-cont ks-action-grid ks-action-event">
+                                <div class="ks-action-grid-item ks-action-event-item" id="ks-action-3-event-1">
+                                    <select class="ks-select">
+                                        <option selected="selected">Character xxx death</option>
+                                        <option>Trigger event-0001: The enemy withdrew </option>
+                                    </select>
+                                </div>
+                                <span class="ks-remove">×</span>
                             </div>
                             <div class="ks-accordion">
                                 <h3>1
@@ -261,6 +278,26 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Judge Example -->
+                    <div id="ks-action-4" class="ks-widget ks-action">
+                        <span class="ks-remove">×</span>
+                        <div class="ks-action-cont ks-action-info">
+                            <span>ID: 4</span>/<span>Adjuster Action</span>
+                        </div>
+                        <div class="ks-adjuster">
+                            <div class="ks-action-cont ks-action-grid">
+                                <div class="ks-action-grid-item">
+                                    <div class="ks-button ks-blue ks-square open-ks-aujuster-config">config</div>
+                                </div>
+                            </div>
+                            <div class="ks-adjuster-editor-values">
+                                <input type="hidden" name="ks-adjuster-item_sorrow" value="50">
+                                <input type="hidden" name="ks-adjuster-item_angry" value="60">
+                                <input type="hidden" name="ks-adjuster-item_hate" value="20">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -277,11 +314,38 @@
                 <button id="y-button-export" class="ks-button ks-square">EXPORT</button>
             </div>
         </div>
+
+        <div id="ks-adjuster-editor-container" data-from-action="">
+            <div class="ks-adjuster-editor">
+                <h3></h3>
+                <div class="ks-adjuster-item-group">
+                    <div class="ks-adjuster-item" id="ks-adjuster-item_sorrow">
+                        <label for="ks-adjuster-item_sorrow">Sorrow:</label>
+                        <input name="ks-adjuster-item_sorrow" class="ks-input" type="number" min="0" max="100"
+                            value="0" />
+                        <div class="ks-adjuster-slider"></div>
+                    </div>
+                    <div class="ks-adjuster-item" id="ks-adjuster-item_angry">
+                        <label for="ks-adjuster-item_angry">Angry:</label>
+                        <input name="ks-adjuster-item_angry" class="ks-input" type="number" min="0" max="100" value="0" />
+                        <div class="ks-adjuster-slider"></div>
+                    </div>
+                    <div class="ks-adjuster-item" id="ks-adjuster-item_hate">
+                        <label for="ks-adjuster-item_hate">Hate:</label>
+                        <input name="ks-adjuster-item_hate" class="ks-input" type="number" min="0" max="100" value="0" />
+                        <div class="ks-adjuster-slider"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="./external/jquery-ui/jquery.js"></script>
     <script src="./external/jquery-ui/jquery-ui.js"></script>
     <script src="./external/farbtastic/farbtastic.js"></script>
+    <script src="./js/config/actor.js"></script>
+    <script src="./js/config/adjuster-list.js"></script>
+    <script src="./js/constant.js"></script>
     <script src="./js/y-widget.js"></script>
     <script src="./js/main.js"></script>
 </body>

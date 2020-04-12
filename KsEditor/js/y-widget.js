@@ -28,11 +28,11 @@
     $('#main-container').delegate('.ks-button', 'click', function (evt) {
         // select a file from system
         let $select_file = $(this).find('input[type=file]');
-        if($select_file.length) {
+        if ($select_file.length) {
             $select_file[0].click();
-            $select_file.on('change', function(file_evt) {
+            $select_file.on('change', function (file_evt) {
                 let files = file_evt.target.files;
-                if(files.length) {
+                if (files.length) {
                     $(this).siblings('span').text(files[0].name);
                 }
             });
@@ -46,36 +46,25 @@
 
     $('.ks-action').delegate('.ks-accordion-addline', 'click', function (evt) {
         let $cont = $(this).parent().next('div');
-        if($cont && $cont[0]) {
-            $($cont[0]).append(`
-            <div class="ks-line">
-                <input type="text" class="ks-input" placeholder="Line Text">
-                <span class="ks-remove">×</span>
-            </div>
-            `);
+        let action_id = $(this).parents('.ks-action').attr('id');
+        let action_id_num = action_id.slice(action_id.lastIndexOf('-')+1);
+        let item_id = parseInt($(this).parent().text());
+        let $line_items = $cont.find('.ks-line');
+        let line_id = $line_items.length ? parseInt($line_items.last().attr('id').slice($line_items.last().attr('id').lastIndexOf('-') + 1)) + 1 : 1;
+        if ($cont && $cont[0]) {
+            $($cont[0]).append(KsConstant.LINE_ACCORDION_NODE
+                .replace('[[action_id]]', action_id_num)
+                .replace('[[item_id]]', item_id)
+                .replace('[[line_id]]', line_id));
         }
     });
 
     $('.ks-action').delegate('.ks-accordion-addbgm', 'click', function (evt) {
         let $cont = $(this).parent().next('div');
+        let action_id = $(this).parents('.ks-action').attr('id');
+        let action_id_num = action_id.slice(action_id.lastIndexOf('-')+1);
         if ($cont && !$($cont[0]).find('.ks-bgm-control').length) {
-            $($cont[0]).append(`
-            <div class="ks-action-cont ks-action-grid">
-                <div class="ks-action-grid-item ks-bgm-control">
-                    <div class="ks-button ks-square ks-blue"><span>BGM</span><input type="file" name="ks-action-1_bgm" accept="audio/*" /></div>
-                    <select id="ks-select_action-1_bgmaction" class="ks-select">
-                        <option selected="selected">play</option>
-                        <option>pause</option>
-                        <option>resume</option>
-                        <option>stop</option>
-                    </select>
-                    <input id="ks-action-1_bgmvolume" class="no-border-input" type="text" value="" placeholder="Volume">
-                    <label class="ks-input-label" for="ks-action-1_bgmloop">loop</label>
-                    <input id="ks-action-1_bgmloop" type="checkbox">
-                </div>
-                <span class="ks-remove">×</span>
-            </div>
-            `);
+            $($cont[0]).append(KsConstant.BGM_ACCORDION_NODE.replace('[[action_id]]', action_id_num));
             $($cont[0]).find('.ks-select').selectmenu();
         }
     });
@@ -83,23 +72,7 @@
     $('.ks-action').delegate('.ks-accordion-addvoice', 'click', function (evt) {
         let $cont = $(this).parent().next('div');
         if ($cont && !$($cont[0]).find('.ks-voice-control').length) {
-            $($cont[0]).append(`
-            <div class="ks-action-cont ks-action-grid">
-                <div class="ks-action-grid-item ks-voice-control">
-                    <div class="ks-button ks-square ks-blue"><span>VOICE</span><input type="file" name="ks-action-1_voice" accept="audio/*" /></div>
-                    <select id="ks-select_action-1_voiceaction" class="ks-select">
-                        <option selected="selected">play</option>
-                        <option>pause</option>
-                        <option>resume</option>
-                        <option>stop</option>
-                    </select>
-                    <input id="ks-action-1_voicevolume" class="no-border-input" type="text" value="" placeholder="Volume">
-                    <label class="ks-input-label" for="ks-action-1_voiceloop">loop</label>
-                    <input id="ks-action-1_voiceloop" type="checkbox">
-                </div>
-                <span class="ks-remove">×</span>
-            </div>
-            `);
+            $($cont[0]).append(KsConstant.VOICE_ACCORDION_NODE.replace('[[action_id]]', action_id_num));
             $($cont[0]).find('.ks-select').selectmenu();
         }
     });
@@ -107,52 +80,31 @@
     $('.ks-action').delegate('.ks-accordion-addbg', 'click', function (evt) {
         let $cont = $(this).parent().next('div');
         if ($cont && !$($cont[0]).find('.ks-bg-control').length) {
-            $($cont[0]).append(`
-            <div class="ks-action-cont ks-action-grid">
-                <div class="ks-action-grid-item ks-bg-control">
-                    <div class="ks-button ks-square ks-blue"><span>BG</span><input type="file" name="ks-action-1_bg" accept="image/*" /></div>
-                    <select id="ks-select_action-1_bglayer" class="ks-select">
-                        <option selected="selected">LAYER</option>
-                        <option>Foreground3</option>
-                        <option>Foreground2</option>
-                        <option>Foreground1</option>
-                        <option>Ground</option>
-                        <option>Background1</option>
-                        <option>Background2</option>
-                        <option>Background3</option>
-                    </select>
-                </div>
-                <span class="ks-remove">×</span>
-            </div>
-            `);
+            $($cont[0]).append(KsConstant.BG_ACCORDION_NODE.replace('[[action_id]]', action_id_num));
             $($cont[0]).find('.ks-select').selectmenu();
         }
     });
-    
+
     $('.ks-action').delegate('.add-ks-orjudge-item', 'click', function (evt) {
         let $cont = $(this).parents('.ks-judge');
         let item_id = $cont.find('h3').length ? parseInt($cont.find('h3').last().text()) + 1 : 1;
         if ($cont && $cont.find('.ks-accordion')) {
-            $cont.find('.ks-accordion').append(`
-            <h3>${item_id}
-                <span class="ks-accordion-op ks-accordion-remove">×</span>
-                <span class="ks-accordion-op ks-accordion-add-andjudge">+</span>
-            </h3>
-            <div class="ks-accordion-item ks-accordion-andjudge-list">
-                <div class="ks-accordion-andjudge-item" id="ks-accordion-add-andjudge-${item_id}-item-1">
-                    <select class="ks-select">
-                        <option selected="selected">Health Point</option>
-                        <option>Mana Point</option>
-                    </select>
-                    =
-                    <input type="number" class="ks-input" placeholder="VALUE">
-                    <span class="ks-remove">×</span>
-                </div>
-            </div>
-            `);
+            $cont.find('.ks-accordion').append(KsConstant.OR_JUDGE_ITEM_NODE.replace('[[item_id]]', item_id));
             $cont.find('.ks-accordion').accordion('refresh');
             $cont.find('.ks-select').selectmenu();
         }
+    });
+
+    $('.ks-action').delegate('.add-ks-judge-event', 'click', function (evt) {
+        let $cont = $(this).parents('.ks-judge');
+        let $event_items = $cont.find('.ks-action-event-item');
+        let action_id = $(this).parents('.ks-action').attr('id');
+        let action_id_num = action_id.slice(action_id.lastIndexOf('-')+1);
+        // console.log($(this).parents('.ks-action').attr('id'))
+        let event_item_id = $event_items.length ? parseInt($event_items.last().attr('id').slice($event_items.last().attr('id').lastIndexOf('-') + 1)) + 1 : 1;
+        $(KsConstant.JUDGE_EVENT_ITEM_NODE.replace('[[item_id]]', event_item_id).replace('[[action_id]]', action_id_num))
+            .insertBefore($cont.find('.ks-accordion'));
+        $cont.find('.ks-select').selectmenu();
     });
 
     $('.ks-action').delegate('.ks-accordion-add-andjudge', 'click', function (evt) {
@@ -161,18 +113,8 @@
         let judge_id = $judge_cont.find('h3').length ? parseInt($judge_cont.find('h3').last().text()) : 1;
         if ($cont) {
             let $judge_item_id = $($cont[0]).find('.ks-accordion-andjudge-item').last().attr('id'),
-            judge_item_id_num = $judge_item_id ? parseInt($judge_item_id.slice($judge_item_id.lastIndexOf('-') + 1)) + 1 : 1;
-            $($cont[0]).append(`
-            <div class="ks-accordion-andjudge-item" id="ks-accordion-add-andjudge-${judge_id}-item-${judge_item_id_num}">
-                <select class="ks-select">
-                    <option selected="selected">Health Point</option>
-                    <option>Mana Point</option>
-                </select>
-                =
-                <input type="number" class="ks-input" placeholder="VALUE">
-                <span class="ks-remove">×</span>
-            </div>
-            `);
+                judge_item_id_num = $judge_item_id ? parseInt($judge_item_id.slice($judge_item_id.lastIndexOf('-') + 1)) + 1 : 1;
+            $($cont[0]).append(KsConstant.AND_JUDGE_ITEM_NODE.replace('[[judge_id]]', judge_id).replace('[[judge_item_id_num]]', judge_item_id_num));
             $($cont[0]).find('.ks-select').selectmenu();
         }
     });
@@ -181,23 +123,53 @@
         let $cont = $(this).parents('.ks-selector');
         let item_id = $cont.find('h3').length ? parseInt($cont.find('h3').last().text()) + 1 : 1;
         if ($cont && $cont.find('.ks-accordion')) {
-            $cont.find('.ks-accordion').append(`
-            <h3>${item_id}
-                <span class="ks-accordion-op ks-accordion-remove">×</span>
-                <span class="ks-accordion-op ks-accordion-addline">+</span>
-                <span class="ks-accordion-op ks-accordion-addbgm">bgm</span>
-                <span class="ks-accordion-op ks-accordion-addvoice">voice</span>
-                <span class="ks-accordion-op ks-accordion-addbg">bg</span>
-            </h3>
-            <div class="ks-accordion-item">
-                <input type="text" class="ks-input ks-accordion-item_text" placeholder="Item Text">
-            </div>
-            `);
+            $cont.find('.ks-accordion').append(KsConstant.SELECTOR_ITEM_NODE.replace('[[item_id]]', item_id));
             $cont.find('.ks-accordion').accordion('refresh');
         }
+    });
+
+    $('.ks-action').delegate('.open-ks-aujuster-config', 'click', function (evt) {
+        let $action = $(this).parents('.ks-action');
+        $('#ks-adjuster-editor-container').attr('data-from-action', $action.attr('id'));
+        $('#ks-adjuster-editor-container').find('h3').text(`Adjuster Config: ${$action.attr('id')}`);
+        let $existing_values = $action.find('.ks-adjuster-editor-values > input[type=hidden]');
+        
+        for(let i = 0; i < $existing_values.length; i++) {
+            let name = $existing_values[i].name;
+            let value = $existing_values[i].value;
+            $('#ks-adjuster-editor-container').find(`#${name}>.ks-input`).val(value);
+            $('#ks-adjuster-editor-container').find(`#${name}>.ks-adjuster-slider`).slider('value', value);
+        }
+        
+        $('#ks-adjuster-editor-container').fadeIn(300);
+    });
+
+    $('#ks-adjuster-editor-container').on('click', function(evt) {
+        if(this == evt.target) $(this).fadeOut(300);
+    });
+
+    $('.ks-adjuster-item > .ks-input').on('change', function(evt) {
+        $(this).parent().find('.ks-adjuster-slider').slider('value', $(this).val());
+        $('#'+$('#ks-adjuster-editor-container').attr('data-from-action')).
+            find(`input[name=${$(this).attr('name')}]`).val($(this).val());
     });
 
     $(".ks-select").selectmenu();
 
     $(".ks-accordion").accordion();
+
+    $( ".ks-adjuster-slider" ).slider({
+        orientation: "horizontal",
+        range: "min",
+        min: 0,
+        max: 100,
+        value: 0,
+        animate: true,
+        slide: function( event, ui ) {
+            let $input = $(this).parent().find('.ks-input');
+            $input.val( ui.value );
+            $('#'+$('#ks-adjuster-editor-container').attr('data-from-action')).
+            find(`input[name=${$input.attr('name')}]`).val(ui.value);
+        }
+      });
 })();

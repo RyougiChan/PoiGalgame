@@ -1,11 +1,20 @@
 (() => {
     'use strict';
 
-    const KS_LINE_TEMPLATE = `
-    <div class="ks-line">
-        <input type="text" class="ks-input" placeholder="Line Text"><span class="ks-remove">×</span>
-    </div>
-    `;
+    // prohibite window reflesh with F5
+    $(window).keydown(function (event) {
+        switch (event.keyCode) {
+            case 116:
+                event.keyCode = 0;
+                event.cancelBubble = true;
+                return false;
+        }
+    });
+
+    // prohibite window reflesh with contextmenu
+    $(document).contextmenu(function(evt) {
+        return false;
+    });
 
     let y_area_scale = 1;
     $('#y-area-operation').on('wheel', (evt) => {
@@ -17,7 +26,7 @@
 
     $('#y-area-zoom-v > input').on('change', (evt) => {
         let v = parseInt($(evt.target).val());
-        if(!isNaN(v)) {
+        if (!isNaN(v)) {
             y_area_scale = v / 100;
             $('#y-area-scaleable').css('transform', `scale(${y_area_scale})`);
         }
@@ -33,13 +42,13 @@
             }
         }
     });
-    $('#y-button-export').on('click', function(evt) {
+    $('#y-button-export').on('click', function (evt) {
         /**
          * @todo Obtain KS content here
          */
         let ks_content = 'TEST KS Content';
-        if(ks_content) {
-            let file_name = 'Chapter-'+(new Date().getTime())+'.ks',
+        if (ks_content) {
+            let file_name = 'Chapter-' + (new Date().getTime()) + '.ks',
                 f = new File([ks_content], file_name, { type: 'text/plain;charset=utf-8' }),
                 object_url = URL.createObjectURL(f),
                 click = function (node) {
@@ -55,55 +64,55 @@
         }
     });
 
-    $('.ks-widget').draggable({ 
+    $('.ks-widget').draggable({
         // containment: "#y-area-draggable", 
         scroll: false,
-        start: function(event, ui) {
+        start: function (event, ui) {
             // ui.position.left = 0;
             // ui.position.top = 0;
         },
-        drag: function(event, ui) {
-    
-            let changeLeft = ui.position.left - ui.originalPosition.left;
-            let newLeft = ui.originalPosition.left + changeLeft / (( y_area_scale));
-    
-            let changeTop = ui.position.top - ui.originalPosition.top;
-            let newTop = ui.originalPosition.top + changeTop / y_area_scale;
-    
-            ui.position.left = newLeft;
-            ui.position.top = newTop;
-    
+        drag: function (event, ui) {
+
+            let change_left = ui.position.left - ui.originalPosition.left;
+            let new_left = ui.originalPosition.left + change_left / ((y_area_scale));
+
+            let change_top = ui.position.top - ui.originalPosition.top;
+            let new_top = ui.originalPosition.top + change_top / y_area_scale;
+
+            ui.position.left = new_left;
+            ui.position.top = new_top;
+
         }
     });
-    $('.add-ks-line').on('click', function(evt) {
+    $('.add-ks-line').on('click', function (evt) {
         let $ks_action = $(evt.target).parent().parent().parent();
-        $ks_action.append(KS_LINE_TEMPLATE);
+        $ks_action.append(KsConstant.KS_LINE_TEMPLATE);
     });
 
     let KsCode = (() => {
         return {
             add: {
                 action() {
-                
+
                 },
                 line() {
-    
+
                 },
             },
             update: {
                 action() {
-                
+
                 },
                 line() {
-    
+
                 },
             },
             remove: {
                 action() {
-                
+
                 },
                 line() {
-    
+
                 },
             }
         }
