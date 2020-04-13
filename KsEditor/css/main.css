@@ -52,15 +52,15 @@ body {
 
 #y-area-components > #y-components-list {
     margin: 24px 0;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }
 
 #y-area-components > #y-components-list > li {
     cursor: pointer;
     display: flex;
     display: -webkit-flex;
-    line-height: 42px;
-    padding: 16px 0;
+    line-height: 36px;
+    padding: 14px 0;
     user-select: none;
     -webkit-user-select: none;
     box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.2);
@@ -99,8 +99,8 @@ body {
 }
 
 #y-area-components > #y-components-list > li > .y-widget {
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
     margin-right: 1rem;
     background-size: contain;
 }
@@ -190,6 +190,10 @@ body {
     border-right: 2px dashed black;
 }
 
+#y-area-scaleable {
+    position: relative;
+}
+
 .no-border-input {
     border: none;
     background: none;
@@ -212,24 +216,31 @@ body {
 .ks-action {
     width: 480px;
     min-height: 120px;
-    /* background: #ffffff; */
+    background: #ffffff;
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
     margin: 8px;
     padding: 8px;
 }
 
 .ks-line {
+    /* display: flex;
+    display: -webkit-flex;
+    height: 40px;
+    line-height: 40px; */
+    margin: 1rem;
+}
+
+.ks-line .ks-line-addon {
     display: flex;
     display: -webkit-flex;
-    height: 70px;
-    line-height: 70px;
+    height: 40px;
+    line-height: 40px;
 }
 
 .ks-input {
     width: calc(100% - 6.5rem);
     height: 36px;
     padding: 0 1rem;
-    margin: 1rem;
     background: none;
     border: none;
     border-bottom: 1.5px solid black;
@@ -280,22 +291,34 @@ body {
     margin-right: 0.4rem;
 }
 
-.ks-button.ks-square {
+.ks-square {
     width: fit-content;
     border-radius: 0.1rem;
     padding: 0 0.2rem;
 }
 
-.ks-button.ks-blue {
+.ks-blue {
     background: #007fff;
 }
 
-.ks-button.ks-blue:hover {
+.ks-blue:hover {
     background: #2592ff;
 }
 
-.ks-button.ks-blue:active {
+.ks-blue:active {
     background: #007fff;
+}
+
+.ks-green {
+    background: #52ffae;
+}
+
+.ks-green:hover {
+    background: #87ffc7;
+}
+
+.ks-green:active {
+    background: #52ffae;
 }
 
 .ks-button:hover {
@@ -318,8 +341,9 @@ body {
 }
 
 .ks-color-picker .color-picker {
-    position: absolute;
-    top: 56px;
+    position: fixed;
+    z-index: 1000;
+    margin-top: 56px;
     background: rgba(255,255,255, 0.9);
     box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.2);
     display: none;
@@ -387,6 +411,14 @@ body {
     height: fit-content !important;
 }
 
+.ui-front {
+    z-index: 1000;
+}
+
+.ks-accordion > .ks-accordion-item > div {
+    margin-bottom: 0.5rem;
+}
+
 .ks-accordion > .ks-accordion-item > .ks-accordion-item_text {
     width: calc(100% - 4rem);
 }
@@ -402,6 +434,7 @@ body {
 
 #ks-adjuster-editor-container {
     position: fixed;
+    z-index: 9999;
     top: 0;
     left: 0;
     width: 100%;
@@ -460,7 +493,7 @@ body {
 .ks-adjuster-slider .ui-slider-range { background: royalblue; }
 .ks-adjuster-slider .ui-slider-handle { border:none; background-color: royalblue;border-radius: 50%; top: -.2em;}
 
-#ks-action-1
+/* #ks-action-1
 {
     display: none;
-}
+} */
