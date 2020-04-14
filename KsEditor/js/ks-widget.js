@@ -3,13 +3,14 @@
 
     $(".y-widget").parent().draggable({ opacity: 0.7, helper: "clone" });
 
-    $('.color-picker').farbtastic(function (c) {
-        console.log(c);
-        let $target_con = $(this.wheel).parent().parent().parent().parent();
-        let $hex_color = $($($target_con.children().get(1)).children().get(0));
-        $hex_color.val(c);
-        $hex_color.css('color', c);
-    });
+    if($('.color-picker').length) {
+        $('.color-picker').farbtastic(function (c) {
+            let $target_con = $(this.wheel).parent().parent().parent().parent();
+            let $hex_color = $($($target_con.children().get(1)).children().get(0));
+            $hex_color.val(c);
+            $hex_color.css('color', c);
+        });
+    }
 
     $('#main-container').delegate('.ks-color-picker', 'click', function (evt) {
         let color_picker = $(evt.target).children().get(0);
@@ -46,11 +47,8 @@
 
     $('#main-container').delegate('.ks-accordion-addline', 'click', function (evt) {
         let $cont = $(this).parent().next('div');
-        let line_id = KsRecorder.get('max_line_id') + 1;
-        KsRecorder.set('max_line_id', line_id);
         if ($cont && $cont[0]) {
-            $($cont[0]).append(KsConstant.KS_LINE_TEMPLATE
-                .replace(/\[\[line_id\]\]/g, line_id));
+            $($cont[0]).append(KsConstant.builder.get_KS_LINE_TEMPLATE());
         }
         $cont.find('.ks-select').selectmenu();
     });
@@ -90,9 +88,15 @@
 
     $('#main-container').delegate('.add-ks-orjudge-item', 'click', function (evt) {
         let $cont = $(this).parents('.ks-judge');
+        let action_id = $(this).parents('.ks-action').attr('id');
+        let action_id_num = action_id.slice(action_id.lastIndexOf('-')+1);
         let item_id = $cont.find('h3').length ? parseInt($cont.find('h3').last().text()) + 1 : 1;
         if ($cont && $cont.find('.ks-accordion')) {
-            $cont.find('.ks-accordion').append(KsConstant.OR_JUDGE_ITEM_NODE.replace(/\[\[item_id\]\]/g, item_id));
+            $cont.find('.ks-accordion').append(
+                KsConstant.OR_JUDGE_ITEM_NODE
+                .replace(/\[\[action_id\]\]/g, action_id_num)
+                .replace(/\[\[item_id\]\]/g, item_id)
+                );
             $cont.find('.ks-accordion').accordion('refresh');
             $cont.find('.ks-select').selectmenu();
         }
@@ -111,12 +115,15 @@
 
     $('#main-container').delegate('.ks-accordion-add-andjudge', 'click', function (evt) {
         let $cont = $(this).parent().next('div');
+        let action_id = $(this).parents('.ks-action').attr('id');
+        let action_id_num = action_id.slice(action_id.lastIndexOf('-')+1);
         let $judge_cont = $(this).parents('.ks-judge');
         let judge_id = $judge_cont.find('h3').length ? parseInt($judge_cont.find('h3').last().text()) : 1;
         if ($cont) {
             let $judge_item_id = $($cont[0]).find('.ks-accordion-andjudge-item').last().attr('id'),
                 judge_item_id_num = $judge_item_id ? parseInt($judge_item_id.slice($judge_item_id.lastIndexOf('-') + 1)) + 1 : 1;
             $($cont[0]).append(KsConstant.AND_JUDGE_ITEM_NODE
+                .replace(/\[\[action_id\]\]/g, action_id_num)
                 .replace(/\[\[judge_id\]\]/g, judge_id)
                 .replace(/\[\[judge_item_id_num\]\]/g, judge_item_id_num));
             $($cont[0]).find('.ks-select').selectmenu();
@@ -125,9 +132,13 @@
 
     $('#main-container').delegate('.add-ks-selector-item', 'click', function (evt) {
         let $cont = $(this).parents('.ks-selector');
+        let action_id = $(this).parents('.ks-action').attr('id');
+        let action_id_num = action_id.slice(action_id.lastIndexOf('-')+1);
         let item_id = $cont.find('h3').length ? parseInt($cont.find('h3').last().text()) + 1 : 1;
         if ($cont && $cont.find('.ks-accordion')) {
-            $cont.find('.ks-accordion').append(KsConstant.SELECTOR_ITEM_NODE.replace(/\[\[item_id\]\]/g, item_id));
+            $cont.find('.ks-accordion').append(KsConstant.SELECTOR_ITEM_NODE
+                .replace(/\[\[action_id\]\]/g, action_id_num)
+                .replace(/\[\[item_id\]\]/g, item_id));
             $cont.find('.ks-accordion').accordion('refresh');
         }
     });

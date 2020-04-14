@@ -45,25 +45,25 @@
             KsRecorder.set('max_line_id', KsRecorder.get('max_line_id') + 1);
             let line_id = KsRecorder.get('max_line_id');
             return `
-            <div class="ks-line" id="ks-line-${line_id}">
-                <div class="ks-line-addon">
-                    <select id="ks-select-line-${line_id}_actor" class="ks-select" title="Select Actor">
+            <div class="ks-line">
+                <div class="ks-line-addon ks-voice-control">
+                    <select id="ks-line-${line_id}_actor" class="ks-line-actor ks-select" title="Select Actor">
                         ${built_actor_list}
                     </select>
-                    <div class="ks-button ks-square ks-blue" title="Select A Voice file"><span>VOICE</span><input type="file"
-                            name="ks-line-${line_id}_voice" accept="audio/*" /></div>
-                    <select id="ks-line-${line_id}_voiceaction" class="ks-select"  title="Select Action for Voice">
+                    <div class="ks-button ks-square ks-blue" title="Select A Voice file"><span>VOICE</span>
+                    <input type="file" name="ks-line-${line_id}_voice" class="ks-line-voice_file" accept="audio/*" /></div>
+                    <select id="ks-line-${line_id}_voiceaction" class="ks-select ks-line-voice_action" title="Select Action for Voice">
                         <option selected="selected">play</option>
                         <option>pause</option>
                         <option>resume</option>
                         <option>stop</option>
                     </select>
-                    <input id="ks-line-${line_id}_voicevolume" class="no-border-input" type="text" value=""
+                    <input id="ks-line-${line_id}_voicevolume" class="no-border-input ks-line-voice_volume" type="number" value=""
                         placeholder="Volume" title="Set Volume of Voice">
                     <label class="ks-input-label" for="ks-line-${line_id}_voiceloop"  title="Check If Voice Should Loop">loop</label>
-                    <input id="ks-line-${line_id}_voiceloop" type="checkbox">
+                    <input id="ks-line-${line_id}_voiceloop" class="ks-line-voice_loop" type="checkbox">
                 </div>
-                <input type="text" class="ks-input" placeholder="Line Text" title="Input Actor Line"><span class="ks-remove" title="Remove">×</span>
+                <input id="ks-line-${line_id}" type="text" class="ks-input ks-line-text" placeholder="Line Text" title="Input Actor Line"><span class="ks-remove" title="Remove">×</span>
             </div>
             `;
         },
@@ -92,8 +92,8 @@
             let common_event_id = KsRecorder.get('max_common_event_id');
             return `
             <div class="ks-action-cont ks-action-grid ks-action-event">
-                <div class="ks-action-grid-item ks-action-event-item" id="ks-common-event-${common_event_id}">
-                    <select class="ks-select">
+                <div class="ks-action-grid-item ks-action-event-item">
+                    <select class="ks-select"  id="ks-common-event-${common_event_id}">
                         ${built_options_common_event}
                     </select>
                 </div>
@@ -112,7 +112,7 @@
                         <option>resume</option>
                         <option>stop</option>
                     </select>
-                    <input id="ks-action-[[action_id]]_bgmvolume" class="no-border-input" type="text" value="" placeholder="Volume">
+                    <input id="ks-action-[[action_id]]_bgmvolume" class="no-border-input" min="0" max="100" type="number" value="" placeholder="Volume">
                     <label class="ks-input-label" for="ks-action-[[action_id]]_bgmloop">loop</label>
                     <input id="ks-action-[[action_id]]_bgmloop" type="checkbox">
                 </div>
@@ -131,7 +131,7 @@
                         <option>resume</option>
                         <option>stop</option>
                     </select>
-                    <input id="ks-action-[[action_id]]_voicevolume" class="no-border-input" type="text" value="" placeholder="Volume">
+                    <input id="ks-action-[[action_id]]_voicevolume" class="no-border-input" min="0" max="100" type="number" value="" placeholder="Volume">
                     <label class="ks-input-label" for="ks-action-[[action_id]]_voiceloop">loop</label>
                     <input id="ks-action-[[action_id]]_voiceloop" type="checkbox">
                 </div>
@@ -141,7 +141,7 @@
         },
         get_AND_JUDGE_ITEM_NODE() {
             return `
-            <div class="ks-accordion-andjudge-item" id="ks-accordion-add-andjudge-[[judge_id]]-item-[[judge_item_id_num]]">
+            <div class="ks-accordion-andjudge-item" id="ks-accordion-action-[[action_id]]-add-andjudge-[[judge_id]]-item-[[judge_item_id_num]]">
                 <select class="ks-select" title="Select Condition">
                     ${built_options_player_status}
                 </select>
@@ -158,7 +158,7 @@
                 <span class="ks-accordion-op ks-accordion-add-andjudge" title="Add a logical 'AND' judgment">+</span>
             </h3>
             <div class="ks-accordion-item ks-accordion-andjudge-list">
-                <div class="ks-accordion-andjudge-item" id="ks-accordion-add-andjudge-[[item_id]]-item-1">
+                <div class="ks-accordion-andjudge-item" id="ks-accordion-action-[[action_id]]-add-andjudge-[[item_id]]-item-1">
                     <select class="ks-select" title="Select Condition">
                         ${built_options_player_status}
                     </select>
@@ -193,7 +193,7 @@
             <span class="ks-accordion-op ks-accordion-addbg" title="Add A Background Image">bg</span>
             </h3>
             <div class="ks-accordion-item">
-                <input type="text" class="ks-input ks-accordion-item_text" placeholder="Item Text" title="Input Display Text">
+                <input type="text" id="ks-action-[[action_id]]-selector-item-[[item_id]]_text" class="ks-input ks-accordion-item_text" placeholder="Item Text" title="Input Display Text">
             </div>
             `;
         },
@@ -221,7 +221,7 @@
             KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
             let action_id = KsRecorder.get('max_action_id');
             return `
-            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; z-index: 999; left: 300px; top: 255px;">
+            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
                 <div class="ks-action-cont ks-action-info">
                     <span>ID: ${action_id}</span>/<span>Commond Action</span>
@@ -247,9 +247,9 @@
                     </div>
                 </div>
                 <div class="ks-action-cont ks-action-grid">
-                    <div class="ks-action-grid-item">
-                        <div class="ks-button ks-square ks-blue" title="Select A BGM file"><span>BGM</span><input type="file"
-                                name="ks-action-${action_id}_bgm" accept="audio/*" /></div>
+                    <div class="ks-action-grid-item ks-bgm-control">
+                        <div class="ks-button ks-square ks-blue" title="Select A BGM file"><span>BGM</span>
+                        <input type="file" name="ks-action-${action_id}_bgm" accept="audio/*" /></div>
                         <select id="ks-select_action-${action_id}_bgmaction" class="ks-select" title="Select Action for BGM">
                             <option selected="selected">play</option>
                             <option>pause</option>
@@ -263,13 +263,13 @@
                     </div>
                 </div>
                 <div class="ks-action-cont ks-action-grid">
-                    <div class="ks-action-grid-item ks-action-actor">
-                        <select id="ks-select_action-${action_id}_actor" class="ks-select ks-green" title="Select Actor" style="display: none;">
+                    <div class="ks-action-grid-item">
+                        <select id="ks-select_action-${action_id}_actor" class="ks-action-actor ks-select ks-green" title="Select Actor" style="display: none;">
                         ${built_actor_list}
                         </select>
                     </div>
                     <div class="ks-action-grid-item">
-                        <select id="ks-select_action-${action_id}_align" class="ks-select" title="Select Text Align Style">
+                        <select id="ks-select_action-${action_id}_align" class="ks-select ks-action-textalign" title="Select Text Align Style">
                             <option selected="selected">LT</option>
                             <option>LM</option>
                             <option>LB</option>
@@ -282,7 +282,7 @@
                         </select>
                     </div>
                     <div class="ks-action-grid-item">
-                        <select id="ks-select_action-${action_id}_style" class="ks-select" title="Select Text Weight Style">
+                        <select id="ks-select_action-${action_id}_style" class="ks-select ks-action-textstyle" title="Select Text Weight Style">
                             <option selected="selected">normal</option>
                             <option>bold</option>
                             <option>italic</option>
@@ -290,7 +290,7 @@
                     </div>
                 </div>
                 <div class="ks-action-cont ks-action-grid">
-                    <div class="ks-action-grid-item">
+                    <div class="ks-action-grid-item ks-action-bg">
                         <div class="ks-button ks-square ks-blue" title="Select A Background Image"><span>BG</span><input type="file"
                                 name="ks-action-${action_id}_bg" accept="image/*" /></div>
                         <select id="ks-select_action-${action_id}_bglayer" class="ks-select" title="Select Layer of Background Image">
@@ -303,9 +303,9 @@
                             <option>Background3</option>
                         </select>
                     </div>
-                    <div class="ks-action-grid-item">
-                        <div class="ks-button ks-square ks-blue" title="Select A Foreground Image"><span>FG</span><input type="file"
-                                name="ks-action-${action_id}_fg" accept="image/*" /></div>
+                    <div class="ks-action-grid-item ks-action-fg">
+                        <div class="ks-button ks-square ks-blue" title="Select A Foreground Image"><span>FG</span>
+                        <input type="file" name="ks-action-${action_id}_fg" accept="image/*" /></div>
                         <select id="ks-select_action-${action_id}_fglayer" class="ks-select" title="Select Layer of Foreground Image">
                             <option>Foreground3</option>
                             <option>Foreground2</option>
@@ -320,13 +320,13 @@
                 <div class="ks-action-cont ks-action-grid">
                     <div class="ks-action-grid-item">
                         <div>
-                            <input id="ks-select_action-${action_id}_fontsize" class="no-border-input" type="text" value=""
+                            <input id="ks-select_action-${action_id}_fontsize" class="no-border-input ks-action-textsize" type="number" value=""
                                 placeholder="Size(px)" title="Set Text Size">
                         </div>
                     </div>
                     <div class="ks-action-grid-item">
                         <div>
-                            <input id="ks-select_action-${action_id}_linespacing" class="no-border-input" type="text"
+                            <input id="ks-select_action-${action_id}_linespacing" class="no-border-input ks-action-textlinespacing" type="number"
                                 value="" placeholder="Space(px)" title="Set Line Spacing">
                         </div>
                     </div>
@@ -338,7 +338,7 @@
             KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
             let action_id = KsRecorder.get('max_action_id');
             return `
-            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; z-index: 999; left: 300px; top: 255px;">
+            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
                 <div class="ks-action-cont ks-action-info">
                     <span>ID: ${action_id}</span>/<span>Selector Action</span>
@@ -358,7 +358,7 @@
                             <span class="ks-accordion-op ks-accordion-addbg" title="Add A Background Image">bg</span>
                         </h3>
                         <div class="ks-accordion-item">
-                            <input type="text" class="ks-input ks-accordion-item_text" placeholder="Item Text" title="Input Display Text">
+                        <input type="text" id="ks-action-${action_id}-selector-item-1_text" class="ks-input ks-accordion-item_text" placeholder="Item Text" title="Input Display Text">
                         </div>
                     </div>
                 </div>
@@ -371,7 +371,7 @@
             let common_event_id = KsRecorder.get('max_common_event_id');
             let action_id = KsRecorder.get('max_action_id');
             return `
-            <div id="ks-action-${action_id}" class="ks-widget ks-action"  style="position: absolute; z-index: 999; left: 300px; top: 255px;">
+            <div id="ks-action-${action_id}" class="ks-widget ks-action"  style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
                 <div class="ks-action-cont ks-action-info">
                     <span>ID: ${action_id}</span>/<span>Judge Action</span>
@@ -415,7 +415,7 @@
             KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
             let action_id = KsRecorder.get('max_action_id');
             return `
-            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; z-index: 999; left: 300px; top: 255px;">
+            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
                 <div class="ks-action-cont ks-action-info">
                     <span>ID: ${action_id}</span>/<span>Adjuster Action</span>
@@ -437,15 +437,15 @@
             KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
             let action_id = KsRecorder.get('max_action_id');
             return `
-            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; z-index: 999; left: 300px; top: 255px;">
+            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
                 <div class="ks-action-cont ks-action-info">
                     <span>ID: ${action_id}</span>/<span>BGM Action</span>
                 </div>
                 <div class="ks-action-cont ks-action-grid">
                     <div class="ks-action-grid-item">
-                        <div class="ks-button ks-square ks-blue" title="Select A BGM file"><span>BGM</span><input type="file"
-                                name="ks-action-${action_id}_bgm" accept="audio/*" /></div>
+                        <div class="ks-button ks-square ks-blue" title="Select A BGM file"><span>BGM</span>
+                        <input type="file" name="ks-action-${action_id}_bgm" accept="audio/*" /></div>
                         <select id="ks-select_action-${action_id}_bgmaction" class="ks-select" title="Select Action for BGM">
                             <option selected="selected">play</option>
                             <option>pause</option>
@@ -465,7 +465,7 @@
             KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
             let action_id = KsRecorder.get('max_action_id');
             return `
-            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; z-index: 999; left: 300px; top: 255px;">
+            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
                 <div class="ks-action-cont ks-action-info">
                     <span>ID: ${action_id}</span>/<span>BG&FG Action</span>
@@ -505,7 +505,7 @@
             KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
             let action_id = KsRecorder.get('max_action_id');
             return `
-            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; z-index: 999; left: 300px; top: 255px;">
+            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
                 <div class="ks-action-cont ks-action-info">
                     <span>ID: ${action_id}</span>/<span>Commond Action</span>
@@ -526,8 +526,8 @@
                 </div>
                 <div class="ks-action-cont ks-action-grid">
                     <div class="ks-action-grid-item">
-                        <div class="ks-button ks-square ks-blue" title="Select A Voice file"><span>VOICE</span><input type="file"
-                                name="ks-action-${action_id}_voice" accept="audio/*" /></div>
+                        <div class="ks-button ks-square ks-blue" title="Select A Voice file"><span>VOICE</span>
+                        <input type="file" name="ks-action-${action_id}_voice" accept="audio/*" /></div>
                         <select id="ks-select_action-${action_id}_voiceaction" class="ks-select"  title="Select Action for Voice">
                             <option selected="selected">play</option>
                             <option>pause</option>
@@ -563,10 +563,10 @@
         builder: {
             value: builder
         },
-        KS_LINE_TEMPLATE: {
-            value: builder.get_KS_LINE_TEMPLATE(),
-            writable: false
-        },
+        // KS_LINE_TEMPLATE: {
+        //     value: builder.get_KS_LINE_TEMPLATE(),
+        //     writable: false
+        // },
         BG_ACCORDION_NODE: {
             value: builder.get_BG_ACCORDION_NODE(),
             writable: false
@@ -591,10 +591,10 @@
             value: builder.get_SELECTOR_ITEM_NODE(),
             writable: false
         },
-        JUDGE_EVENT_ITEM_NODE: {
-            value: builder.get_JUDGE_EVENT_ITEM_NODE(),
-            writable: false
-        },
+        // JUDGE_EVENT_ITEM_NODE: {
+        //     value: builder.get_JUDGE_EVENT_ITEM_NODE(),
+        //     writable: false
+        // },
         ADJUSTER_GROUP_LIST_NODE: {
             value: builder.get_ADJUSTER_GROUP_LIST_NODE(),
             writable: false
@@ -603,10 +603,10 @@
             value: builder.get_ADJUSTER_VALUES_LIST_NODE(),
             writable: false
         },
-        COMMON_EVENT_LIST_NODE: {
-            value: builder.get_COMMON_EVENT_LIST_NODE(),
-            writable: false
-        },
+        // COMMON_EVENT_LIST_NODE: {
+        //     value: builder.get_COMMON_EVENT_LIST_NODE(),
+        //     writable: false
+        // },
         ACTION_ACTOR_LIST_NODE: {
             value: builder.get_ACTION_ACTOR_LIST_NODE(),
             writable: false

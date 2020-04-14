@@ -35,6 +35,8 @@ body {
 }
 
 #main-container > #y-area-operation > #y-area-draggable {
+    position: relative;
+    z-index: 1;
     width: 95%;
     height: 95%;
     margin: 2.5%;
@@ -192,6 +194,8 @@ body {
 
 #y-area-scaleable {
     position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .no-border-input {
