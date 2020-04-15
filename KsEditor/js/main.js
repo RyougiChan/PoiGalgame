@@ -77,7 +77,11 @@ $('#y-area-draggable').droppable({
 
         if (widget_mapper.has(widget_name)) {
             $('#y-area-scaleable').append(widget_mapper.get(widget_name));
+            // Append code
+            KsCode.updateAction($('.ks-action').last());
+            // Active event listener
             refreshWidget($('.ks-action').last());
+            // GV.Observer.observe ($('.ks-action').last()[0], GV.obsConfig);
         }
 
     }
@@ -127,7 +131,7 @@ $('.ks-widget').draggable({
     stack: '#y-area-scaleable .ks-widget'
 });
 
-$('#main-container').delegate('.add-ks-line', 'click', function (evt) {
+$('#main-container').on('click','.add-ks-line', function (evt) {
     let $ks_action = $(evt.target).parent().parent().parent();
     $ks_action.append(KsConstant.builder.get_KS_LINE_TEMPLATE());
     $ks_action.find('.ks-select').selectmenu();

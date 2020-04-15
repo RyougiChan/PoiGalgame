@@ -21,7 +21,8 @@
         built_actor_list += `<option>${v}</option>`;
     });
 
-    KsAdjusterList.forEach(function (group) {
+    built_adjuster_values_list = '<input type="hidden" name="is-adjuster-actived" value="false">';
+    KsAdjusterList.groups.forEach(function (group) {
         let group_name = group.group_name;
         let group_items = group.group_items;
 
@@ -53,13 +54,13 @@
                     <div class="ks-button ks-square ks-blue" title="Select A Voice file"><span>VOICE</span>
                     <input type="file" name="ks-line-${line_id}_voice" class="ks-line-voice_file" accept="audio/*" /></div>
                     <select id="ks-line-${line_id}_voiceaction" class="ks-select ks-line-voice_action" title="Select Action for Voice">
-                        <option selected="selected">play</option>
+                        <option >play</option>
                         <option>pause</option>
                         <option>resume</option>
                         <option>stop</option>
                     </select>
                     <input id="ks-line-${line_id}_voicevolume" class="no-border-input ks-line-voice_volume" type="number" value=""
-                        placeholder="Volume" title="Set Volume of Voice">
+                        placeholder="Volume" title="Set Volume of Voice[0~100]">
                     <label class="ks-input-label" for="ks-line-${line_id}_voiceloop"  title="Check If Voice Should Loop">loop</label>
                     <input id="ks-line-${line_id}_voiceloop" class="ks-line-voice_loop" type="checkbox">
                 </div>
@@ -73,7 +74,7 @@
                 <div class="ks-action-grid-item ks-bg-control">
                     <div class="ks-button ks-square ks-blue"><span>BG</span><input type="file" name="ks-action-[[action_id]]_bg" accept="image/*" /></div>
                     <select id="ks-action-[[action_id]]-select_bglayer" class="ks-select">
-                        <option selected="selected">LAYER</option>
+                        <option >LAYER</option>
                         <option>Foreground3</option>
                         <option>Foreground2</option>
                         <option>Foreground1</option>
@@ -93,7 +94,7 @@
             return `
             <div class="ks-action-cont ks-action-grid ks-action-event">
                 <div class="ks-action-grid-item ks-action-event-item">
-                    <select class="ks-select"  id="ks-common-event-${common_event_id}">
+                    <select class="ks-select ks-judge-event" id="ks-action-[[action_id]]-common-event-${common_event_id}">
                         ${built_options_common_event}
                     </select>
                 </div>
@@ -107,7 +108,7 @@
                 <div class="ks-action-grid-item ks-bgm-control">
                     <div class="ks-button ks-square ks-blue"><span>BGM</span><input type="file" name="ks-action-[[action_id]]_bgm" accept="audio/*" /></div>
                     <select id="ks-action-[[action_id]]-select_bgmaction" class="ks-select">
-                        <option selected="selected">play</option>
+                        <option >play</option>
                         <option>pause</option>
                         <option>resume</option>
                         <option>stop</option>
@@ -126,7 +127,7 @@
                 <div class="ks-action-grid-item ks-voice-control">
                     <div class="ks-button ks-square ks-blue"><span>VOICE</span><input type="file" name="ks-action-[[action_id]]_voice" accept="audio/*" /></div>
                     <select id="ks-action-[[action_id]]-select_voiceaction" class="ks-select">
-                        <option selected="selected">play</option>
+                        <option >play</option>
                         <option>pause</option>
                         <option>resume</option>
                         <option>stop</option>
@@ -200,7 +201,7 @@
         get_ADJUSTER_GROUP_LIST_NODE() {
             return `
             <div class="ks-adjuster-editor">
-                <h3></h3>
+                <h3></h3> <label for="ks-adjuster-isactived">ACTIVED</label> <input id="ks-adjuster-isactived" type="checkbox" />
                 ${built_adjuster_group_list}
             </div>
             `;
@@ -212,7 +213,7 @@
             KsRecorder.set('max_common_event_id', KsRecorder.get('max_common_event_id') + 1);
             let common_event_id = KsRecorder.get('max_common_event_id');
             return `
-            <select class="ks-select" title="Select Common Event" id="ks-common-event-${common_event_id}">
+            <select class="ks-select ks-judge-event" title="Select Common Event" id="ks-action-[[action_id]]-common-event-${common_event_id}">
                 ${built_options_common_event}
             </select>
             `;
@@ -251,13 +252,13 @@
                         <div class="ks-button ks-square ks-blue" title="Select A BGM file"><span>BGM</span>
                         <input type="file" name="ks-action-${action_id}_bgm" accept="audio/*" /></div>
                         <select id="ks-select_action-${action_id}_bgmaction" class="ks-select" title="Select Action for BGM">
-                            <option selected="selected">play</option>
+                            <option >play</option>
                             <option>pause</option>
                             <option>resume</option>
                             <option>stop</option>
                         </select>
-                        <input id="ks-action-${action_id}_bgmvolume" class="no-border-input" type="text" value=""
-                            placeholder="Volume" title="Set Volume of BGM">
+                        <input id="ks-action-${action_id}_bgmvolume" class="no-border-input" type="number" value=""
+                            placeholder="Volume" title="Set Volume of BGM[0~100]">
                         <label class="ks-input-label" for="ks-action-${action_id}_bgmloop" title="Check If BGM Should Loop">loop</label>
                         <input id="ks-action-${action_id}_bgmloop" type="checkbox">
                     </div>
@@ -270,7 +271,7 @@
                     </div>
                     <div class="ks-action-grid-item">
                         <select id="ks-select_action-${action_id}_align" class="ks-select ks-action-textalign" title="Select Text Align Style">
-                            <option selected="selected">LT</option>
+                            <option >LT</option>
                             <option>LM</option>
                             <option>LB</option>
                             <option>MT</option>
@@ -283,7 +284,7 @@
                     </div>
                     <div class="ks-action-grid-item">
                         <select id="ks-select_action-${action_id}_style" class="ks-select ks-action-textstyle" title="Select Text Weight Style">
-                            <option selected="selected">normal</option>
+                            <option >normal</option>
                             <option>bold</option>
                             <option>italic</option>
                         </select>
@@ -298,7 +299,7 @@
                             <option>Foreground2</option>
                             <option>Foreground1</option>
                             <option>Ground</option>
-                            <option selected="selected">Background1</option>
+                            <option >Background1</option>
                             <option>Background2</option>
                             <option>Background3</option>
                         </select>
@@ -309,7 +310,7 @@
                         <select id="ks-select_action-${action_id}_fglayer" class="ks-select" title="Select Layer of Foreground Image">
                             <option>Foreground3</option>
                             <option>Foreground2</option>
-                            <option selected="selected">Foreground1</option>
+                            <option >Foreground1</option>
                             <option>Ground</option>
                             <option>Background1</option>
                             <option>Background2</option>
@@ -385,7 +386,7 @@
                     </div>
                     <div class="ks-action-cont ks-action-grid ks-action-event">
                         <div class="ks-action-grid-item ks-action-event-item">
-                            <select class="ks-select" title="Select Common Event" id="ks-common-event-${common_event_id}">
+                            <select class="ks-select ks-judge-event" title="Select Common Event" id="ks-action-${action_id}-common-event-${common_event_id}">
                                 ${built_options_common_event}
                             </select>
                         </div>
@@ -397,8 +398,8 @@
                             <span class="ks-accordion-op ks-accordion-add-andjudge" title="Add a logical 'AND' judgment">+</span>
                         </h3>
                         <div class="ks-accordion-item ks-accordion-andjudge-list">
-                            <div class="ks-accordion-andjudge-item" id="ks-accordion-action-${action_id}-add-andjudge-1-item-1">
-                                <select class="ks-select" title="Select Condition">
+                            <div class="ks-accordion-andjudge-item">
+                                <select class="ks-select" title="Select Condition" id="ks-accordion-action-${action_id}-add-andjudge-1-item-1">
                                     ${built_options_player_status}
                                 </select>
                                 =
@@ -443,19 +444,47 @@
                     <span>ID: ${action_id}</span>/<span>BGM Action</span>
                 </div>
                 <div class="ks-action-cont ks-action-grid">
-                    <div class="ks-action-grid-item">
+                    <div class="ks-action-grid-item ks-bgm-control">
                         <div class="ks-button ks-square ks-blue" title="Select A BGM file"><span>BGM</span>
                         <input type="file" name="ks-action-${action_id}_bgm" accept="audio/*" /></div>
                         <select id="ks-select_action-${action_id}_bgmaction" class="ks-select" title="Select Action for BGM">
-                            <option selected="selected">play</option>
+                            <option >play</option>
                             <option>pause</option>
                             <option>resume</option>
                             <option>stop</option>
                         </select>
-                        <input id="ks-action-${action_id}_bgmvolume" class="no-border-input" type="text" value=""
-                            placeholder="Volume" title="Set Volume of BGM">
+                        <input id="ks-action-${action_id}_bgmvolume" class="no-border-input" type="number" value=""
+                            placeholder="Volume" title="Set Volume of BGM[0~100]">
                         <label class="ks-input-label" for="ks-action-${action_id}_bgmloop" title="Check If BGM Should Loop">loop</label>
                         <input id="ks-action-${action_id}_bgmloop" type="checkbox">
+                    </div>
+                </div>
+            </div>
+            `;
+        },
+        get_VIDEO_ACTION_NODE() {
+            KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
+            let action_id = KsRecorder.get('max_action_id');
+            return `
+            <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; left: 300px; top: 255px;">
+                <span class="ks-remove" title="Remove">×</span>
+                <div class="ks-action-cont ks-action-info">
+                    <span>ID: ${action_id}</span>/<span>Video Action</span>
+                </div>
+                <div class="ks-action-cont ks-action-grid">
+                    <div class="ks-action-grid-item ks-video-control">
+                        <div class="ks-button ks-square ks-blue" title="Select A Video file"><span>Video</span>
+                        <input type="file" name="ks-action-${action_id}_video" accept="video/*" /></div>
+                        <select id="ks-select_action-${action_id}_videoaction" class="ks-select" title="Select Action for Video">
+                            <option >play</option>
+                            <option>pause</option>
+                            <option>resume</option>
+                            <option>stop</option>
+                        </select>
+                        <input id="ks-action-${action_id}_videovolume" class="no-border-input" type="number" value=""
+                            placeholder="Volume" title="Set Volume of Video[0~100]">
+                        <label class="ks-input-label" for="ks-action-${action_id}_videoloop" title="Check If Video Should Loop">loop</label>
+                        <input id="ks-action-${action_id}_videoloop" type="checkbox">
                     </div>
                 </div>
             </div>
@@ -471,7 +500,7 @@
                     <span>ID: ${action_id}</span>/<span>BG&FG Action</span>
                 </div>
                 <div class="ks-action-cont ks-action-grid">
-                    <div class="ks-action-grid-item">
+                    <div class="ks-action-grid-item ks-bg-control">
                         <div class="ks-button ks-square ks-blue" title="Select A Background Image"><span>BG</span><input type="file"
                                 name="ks-action-${action_id}_bg" accept="image/*" /></div>
                         <select id="ks-select_action-${action_id}_bglayer" class="ks-select" title="Select Layer of Background Image">
@@ -479,18 +508,18 @@
                             <option>Foreground2</option>
                             <option>Foreground1</option>
                             <option>Ground</option>
-                            <option selected="selected">Background1</option>
+                            <option >Background1</option>
                             <option>Background2</option>
                             <option>Background3</option>
                         </select>
                     </div>
-                    <div class="ks-action-grid-item">
+                    <div class="ks-action-grid-item ks-fg-control">
                         <div class="ks-button ks-square ks-blue" title="Select A Foreground Image"><span>FG</span><input type="file"
                                 name="ks-action-${action_id}_fg" accept="image/*" /></div>
                         <select id="ks-select_action-${action_id}_fglayer" class="ks-select" title="Select Layer of Foreground Image">
                             <option>Foreground3</option>
                             <option>Foreground2</option>
-                            <option selected="selected">Foreground1</option>
+                            <option >Foreground1</option>
                             <option>Ground</option>
                             <option>Background1</option>
                             <option>Background2</option>
@@ -529,13 +558,13 @@
                         <div class="ks-button ks-square ks-blue" title="Select A Voice file"><span>VOICE</span>
                         <input type="file" name="ks-action-${action_id}_voice" accept="audio/*" /></div>
                         <select id="ks-select_action-${action_id}_voiceaction" class="ks-select"  title="Select Action for Voice">
-                            <option selected="selected">play</option>
+                            <option >play</option>
                             <option>pause</option>
                             <option>resume</option>
                             <option>stop</option>
                         </select>
-                        <input id="ks-action-${action_id}_voicevolume" class="no-border-input" type="text" value=""
-                            placeholder="Volume" title="Set Volume of Voice">
+                        <input id="ks-action-${action_id}_voicevolume" class="no-border-input" type="number" value=""
+                            placeholder="Volume" title="Set Volume of Voice[0~100]">
                         <label class="ks-input-label" for="ks-action-${action_id}_voiceloop"  title="Check If Voice Should Loop">loop</label>
                         <input id="ks-action-${action_id}_voiceloop" type="checkbox">
                     </div>
@@ -543,13 +572,13 @@
                 <div class="ks-action-cont ks-action-grid">
                     <div class="ks-action-grid-item">
                         <div>
-                            <input id="ks-select_action-${action_id}_fontsize" class="no-border-input" type="text" value=""
+                            <input id="ks-select_action-${action_id}_fontsize" class="no-border-input" type="number" value=""
                                 placeholder="Size(px)" title="Set Text Size">
                         </div>
                     </div>
                     <div class="ks-action-grid-item">
                         <div>
-                            <input id="ks-select_action-${action_id}_linespacing" class="no-border-input" type="text"
+                            <input id="ks-select_action-${action_id}_linespacing" class="no-border-input" type="number"
                                 value="" placeholder="Space(px)" title="Set Line Spacing">
                         </div>
                     </div>

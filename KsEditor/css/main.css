@@ -46,6 +46,23 @@ body {
 
 #main-container > #y-area-code {
     width: 25%;
+    color: #005dbb;
+}
+
+#y-area-code > #y-area-codetext > .ks-code-action {
+    line-height: 1.4rem;
+}
+
+.ks-code-indent-1 {
+    text-indent: 1rem;
+}
+
+.ks-code-indent-2 {
+    text-indent: 2rem;
+}
+
+.ks-code-indent-3 {
+    text-indent: 3rem;
 }
 
 #y-area-components {

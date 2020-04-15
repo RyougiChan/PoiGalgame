@@ -29,5 +29,12 @@ $(function () {
         }
     });
 
+    $('#ks-adjuster-isactived').on('change', function() {
+        $('#' + $('#ks-adjuster-editor-container').attr('data-from-action')).
+            find('input[name=is-adjuster-actived]').val(
+                $('#ks-adjuster-isactived').prop('checked')
+            );
+    });
+
     $('.ks-select').selectmenu();
 });
