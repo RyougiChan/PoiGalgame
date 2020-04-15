@@ -142,8 +142,8 @@
         },
         get_AND_JUDGE_ITEM_NODE() {
             return `
-            <div class="ks-accordion-andjudge-item" id="ks-accordion-action-[[action_id]]-add-andjudge-[[judge_id]]-item-[[judge_item_id_num]]">
-                <select class="ks-select" title="Select Condition">
+            <div class="ks-accordion-andjudge-item">
+                <select class="ks-select" title="Select Condition" id="ks-accordion-action-[[action_id]]-add-andjudge-[[judge_id]]-item-[[judge_item_id_num]]">
                     ${built_options_player_status}
                 </select>
                 =
@@ -159,8 +159,8 @@
                 <span class="ks-accordion-op ks-accordion-add-andjudge" title="Add a logical 'AND' judgment">+</span>
             </h3>
             <div class="ks-accordion-item ks-accordion-andjudge-list">
-                <div class="ks-accordion-andjudge-item" id="ks-accordion-action-[[action_id]]-add-andjudge-[[item_id]]-item-1">
-                    <select class="ks-select" title="Select Condition">
+                <div class="ks-accordion-andjudge-item">
+                    <select class="ks-select" title="Select Condition" id="ks-accordion-action-[[action_id]]-add-andjudge-[[item_id]]-item-1">
                         ${built_options_player_status}
                     </select>
                     =

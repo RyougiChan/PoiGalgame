@@ -174,6 +174,9 @@
                         let $g_items = $g.find('.ks-accordion-andjudge-item');
                         let group_item_map = new Map();
 
+                        console.log('$judge_groups: ', $judge_groups.length)
+                        console.log('$g_items: ', $g_items.length)
+
                         for(let i = 0; i < $g_items.length; i++) {
                             let $g_item  = $($g_items[i]);
                             let name = $g_item.find('.ks-select').val();
@@ -230,9 +233,17 @@
                         ks_code_adjuster_tag += '<li class="ks-code-indent-1">[adjuster]</li>';
                     }
                 }
+                console.log(judge)
                 if(judge) {
-                    ks_code_judge_tag = `<li class="ks-code-indent-1">[judge id="" events=""]</li>`;
-
+                    ks_code_judge_tag = `<li class="ks-code-indent-1">[judge id="" events="${judge.events.join(',')}"]</li>`;
+                    judge.groups.forEach(function(g) {
+                        ks_code_judge_tag += `<li class="ks-code-indent-2">[group id=""]</li>`;
+                        g.forEach(function(v, k) {
+                            ks_code_judge_tag += `<li class="ks-code-indent-3">[pair name="${k}" value="${v}"]</li>`;
+                        });
+                        ks_code_judge_tag += `<li class="ks-code-indent-2">[group]</li>`;
+                    });
+                    ks_code_judge_tag += `<li class="ks-code-indent-1">[judge]</li>`;
                 }
 
                 let ks_code_action_id = 'ks-code-' + $action.attr('id');
@@ -253,6 +264,7 @@
                         ${ks_code_video_tag}
                         </li>
                         ${ks_code_adjuster_tag}
+                        ${ks_code_judge_tag}
                         ${ks_code_line_tags}
                         </ul>
                     [action]
@@ -275,21 +287,21 @@
                         ${ks_code_video_tag}
                         </li>
                         ${ks_code_adjuster_tag}
+                        ${ks_code_judge_tag}
                         ${ks_code_line_tags}
                         </ul>
                         [action]
                     </div>
                     `);
                 }
-                console.log($('#y-area-codetext').text().replace(/\s{2,}/g, ' ').replace(/\s+\[/g, '[').replace(/\]/g, ']\n'))
+                // console.log($('#y-area-codetext').text().replace(/\s{2,}/g, ' ').replace(/\s+\[/g, '[').replace(/\]/g, ']\n'))
             }
         },
         removeAction: {
-            value: function (action_id) {
-                if ($(action_id).length) {
-                    $(`#ks-code-${$(action_id).attr('id')}`).remove()
+            value: function (action_node) {
+                if ($(code_action_id).length) {
+                    $(code_action_id).remove();
                 }
-                console.log($('#y-area-codetext').text().replace(/\s{2,}/g, ' ').replace(/\s+\[/g, '[').replace(/\]/g, ']\n'))
             }
         }
     });

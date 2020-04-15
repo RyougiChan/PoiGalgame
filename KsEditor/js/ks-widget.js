@@ -56,8 +56,8 @@
     });
 
     $('#main-container').on('click', '.ks-remove', function (evt) {
-        KsCode.removeAction($(this).parent());
         $(this).parent().remove();
+        KsCode.removeAction($(this).parent());
     });
 
     $('#main-container').on('click', '.ks-button', function (evt) {
@@ -77,9 +77,17 @@
         }
     });
 
+    $('#main-container').on('click', '.ks-accordion-op', function(evt) {
+        if($(this).parents('.ks-action').length) {
+            KsCode.updateAction($(this).parents('.ks-action'));
+        }
+    });
+
     $('#main-container').on('click', '.ks-accordion-remove', function (evt) {
         $($(this).parent().next('div')[0]).remove();
+        let p_id = $(this).parent().attr('id');
         $(this).parent().remove();
+        KsCode.removeAction(p_id);
     });
 
     $('#main-container').on('click', '.ks-accordion-addline', function (evt) {
