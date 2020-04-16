@@ -190,7 +190,7 @@
             <span class="ks-accordion-op ks-accordion-remove" title="Remove">×</span>
             <span class="ks-accordion-op ks-accordion-addline" title="Add A Sub-Line">+</span>
             <span class="ks-accordion-op ks-accordion-addbgm" title="Add BGM">bgm</span>
-            <span class="ks-accordion-op ks-accordion-addvoice" title="Add Voice">voice</span>
+            <!--<span class="ks-accordion-op ks-accordion-addvoice" title="Add Voice">voice</span>-->
             <span class="ks-accordion-op ks-accordion-addbg" title="Add A Background Image">bg</span>
             </h3>
             <div class="ks-accordion-item">
@@ -355,7 +355,7 @@
                             <span class="ks-accordion-op ks-accordion-remove" title="Remove">×</span>
                             <span class="ks-accordion-op ks-accordion-addline" title="Add A Sub-Line">+</span>
                             <span class="ks-accordion-op ks-accordion-addbgm" title="Add BGM">bgm</span>
-                            <span class="ks-accordion-op ks-accordion-addvoice" title="Add Voice">voice</span>
+                            <!--<span class="ks-accordion-op ks-accordion-addvoice" title="Add Voice">voice</span>-->
                             <span class="ks-accordion-op ks-accordion-addbg" title="Add A Background Image">bg</span>
                         </h3>
                         <div class="ks-accordion-item">

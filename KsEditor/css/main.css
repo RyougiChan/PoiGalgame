@@ -129,7 +129,12 @@ body {
 }
 
 #y-area-codetext {
+    overflow-y: scroll;
     height: 88%;
+}
+
+#y-area-codetext::-webkit-scrollbar {
+    background: none;
 }
 
 #y-area-code {
@@ -241,6 +246,13 @@ body {
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
     margin: 8px;
     padding: 8px;
+}
+
+.ks-action span,
+.ks-action div,
+.ks-action p {
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .ks-line {
@@ -518,3 +530,6 @@ body {
 {
     display: none;
 } */
+.jtk-endpoint,svg {
+    z-index: 9999;
+}

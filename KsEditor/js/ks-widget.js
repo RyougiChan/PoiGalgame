@@ -37,12 +37,12 @@
         let line_re = /^.*(line-\d+).*$/.exec(labelby);
         let action_id;
         if (action_re) {
-            action_id = `#ks-${action_re[1]}`;
+            action_id = `ks-${action_re[1]}`;
         } else if (line_re) {
-            action_id = '#' + $(`#ks-${line_re[1]}`).parents('.ks-action').attr('id');
+            action_id = $(`#ks-${line_re[1]}`).parents('.ks-action').attr('id');
         }
 
-        KsCode.updateAction(action_id);
+        KsCode.updateAction(`#${action_id}`);
     });
 
     $('#main-container').on('click', '.ks-color-picker', function (evt) {
@@ -56,8 +56,16 @@
     });
 
     $('#main-container').on('click', '.ks-remove', function (evt) {
+        let action_id = $(this).parents('.ks-action').attr('id');
+        console.log($(this).parent() , $(this).parents('.ks-action'))
+        if($(this).parent()[0] === $(this).parents('.ks-action')[0]) {
+            KsCode.removeAction(`#${action_id}`);
+        }
         $(this).parent().remove();
-        KsCode.removeAction($(this).parent());
+        if(action_id) {
+            KsCode.updateAction(`#${action_id}`);
+        }
+        jsPlumb.repaintEverything();
     });
 
     $('#main-container').on('click', '.ks-button', function (evt) {
@@ -72,22 +80,18 @@
                 }
             });
         }
-        if($(this).parents('.ks-action').length) {
-            KsCode.updateAction($(this).parents('.ks-action'));
-        }
-    });
-
-    $('#main-container').on('click', '.ks-accordion-op', function(evt) {
-        if($(this).parents('.ks-action').length) {
-            KsCode.updateAction($(this).parents('.ks-action'));
+        if ($(this).parents('.ks-action').length) {
+            setTimeout(function () {
+                KsCode.updateAction(`#${$(this).parents('.ks-action').attr('id')}`);
+            }, 100);
         }
     });
 
     $('#main-container').on('click', '.ks-accordion-remove', function (evt) {
         $($(this).parent().next('div')[0]).remove();
-        let p_id = $(this).parent().attr('id');
+        let action_id = $(this).parents('.ks-action').attr('id');
         $(this).parent().remove();
-        KsCode.removeAction(p_id);
+        KsCode.updateAction(`#${action_id}`);
     });
 
     $('#main-container').on('click', '.ks-accordion-addline', function (evt) {
@@ -113,7 +117,8 @@
         let $cont = $(this).parent().next('div');
         let action_id = $(this).parents('.ks-action').attr('id');
         let action_id_num = action_id.slice(action_id.lastIndexOf('-') + 1);
-        if ($cont && !$($cont[0]).find('.ks-voice-control').length) {
+
+        if ($cont && !$($cont[0]).children('.ks-action-cont').children('.ks-voice-control').length) {
             $($cont[0]).append(KsConstant.VOICE_ACCORDION_NODE
                 .replace(/\[\[action_id\]\]/g, action_id_num));
             $($cont[0]).find('.ks-select').selectmenu();
@@ -212,6 +217,12 @@
         if (this == evt.target) {
             $(this).fadeOut(300);
             KsCode.updateAction(`#${$('#ks-adjuster-editor-container').attr('data-from-action')}`);
+        }
+    });
+
+    $('#main-container').on('click', '.ks-accordion-op', function (evt) {
+        if ($(this).parents('.ks-action').length) {
+            KsCode.updateAction(`#${$(this).parents('.ks-action').attr('id')}`);
         }
     });
 
