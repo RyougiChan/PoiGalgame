@@ -59,6 +59,7 @@
         let action_id = $(this).parents('.ks-action').attr('id');
         console.log($(this).parent() , $(this).parents('.ks-action'))
         if($(this).parent()[0] === $(this).parents('.ks-action')[0]) {
+            jsPlumb.removeAllEndpoints(action_id);
             KsCode.removeAction(`#${action_id}`);
         }
         $(this).parent().remove();

@@ -16,7 +16,7 @@
             isSource: true,
             isTarget: true,
             endpointStyle: { outlineStroke: '#007fff', outlineWidth: 5, radius: 5 },
-            overlays: [['Arrow', { width: 12, length: 12, location: 0.5 }]] 
+            overlays: [['Arrow', { width: 12, length: 12, location: 0.5 }]]
         };
         let addEndpoints = function (id) {
             jsPlumb.addEndpoint(id, {
@@ -43,11 +43,31 @@
             Overlays: [['Arrow', { width: 12, length: 12, location: 0.5 }]]
         });
 
+        jsPlumb.bind("connection", function (connInfo, originalEvent) {
+            if (connInfo.connection.sourceId == connInfo.connection.targetId) {
+                jsPlumb.deleteConnection(connInfo.connection);
+                alert("cannot connect self");
+            }
+            console.log('connInfo', connInfo)
+
+            let source_id = `#${connInfo.sourceId}`,
+                target_id = `#${connInfo.targetId}`;
+
+            $(source_id).attr('data-next-action-id', $(target_id).attr('id').slice($(target_id).attr('id').lastIndexOf('-') + 1));
+            KsCode.updateAction(source_id);
+        });
+        jsPlumb.bind("connectionDetached", function (conn, originalEvent) {
+            console.log('conn', conn)
+
+            $(`#${conn.source_id}`).removeAttr('data-next-action-id');
+            KsCode.updateAction(`#${conn.source_id}`);
+        });
+
         $('#y-area-draggable').droppable({
             drop: function (evt, ui) {
                 let $dragged = $(ui.draggable[0]),
                     widget_name = $dragged.data('widget');
-    
+
                 if (widget_mapper.has(widget_name)) {
                     $('#y-area-scaleable').append(widget_mapper.get(widget_name));
                     // Append code
@@ -100,7 +120,7 @@
     // $('#y-area-scaleable').draggable({
     //     grid: [ 50, 50 ]
     // });
-    
+
     $('.ks-widget').draggable({
         // containment: "#y-area-draggable", 
         scroll: false,
