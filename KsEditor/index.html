@@ -62,10 +62,10 @@
         <!-- Middle Draggable Area -->
         <div id="y-area-operation" class="y-level1-container">
             <div id="y-area-draggable">
+                <input type="hidden" name="jsplumb-connect-uuids">
                 <div id="y-area-zoom">
                     <div class="y-area-zoombtn" id="y-area-zoom-n">-</div>
-                    <div class="y-area-zoombtn" id="y-area-zoom-v"><input class="no-border-input" type="text"
-                            value="100"> %</div>
+                    <div class="y-area-zoombtn" id="y-area-zoom-v"><input class="no-border-input" name="scale-value" type="number" placeholder="100" value="100"> %</div>
                     <div class="y-area-zoombtn" id="y-area-zoom-p">+</div>
                 </div>
                 <div id="y-area-scaleable"></div>
@@ -79,7 +79,7 @@
             <div id="y-area-codeop" class="y-level2-container">
                 <button id="y-button-import" class="ks-button ks-square">
                     <span>IMPORT</span>
-                    <input type="file" name="ks-import" accept=".ks" />
+                    <input type="file" name="ks-import" accept=".visual.ks" />
                 </button>
                 <button id="y-button-export" class="ks-button ks-square">EXPORT</button>
             </div>

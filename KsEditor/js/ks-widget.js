@@ -76,7 +76,7 @@
             $select_file[0].click();
             $select_file.on('change', function (file_evt) {
                 let files = file_evt.target.files;
-                if (files.length) {
+                if (files.length && $(this).parent().attr('id') !== 'y-button-import') {
                     $(this).siblings('span').text(files[0].name);
                 }
             });
@@ -93,6 +93,7 @@
         let action_id = $(this).parents('.ks-action').attr('id');
         $(this).parent().remove();
         KsCode.updateAction(`#${action_id}`);
+        jsPlumb.repaintEverything();
     });
 
     $('#main-container').on('click', '.ks-accordion-addline', function (evt) {
@@ -101,6 +102,7 @@
             $($cont[0]).append(KsConstant.builder.get_KS_LINE_TEMPLATE());
         }
         $cont.find('.ks-select').selectmenu();
+        jsPlumb.repaintEverything();
     });
 
     $('#main-container').on('click', '.ks-accordion-addbgm', function (evt) {
@@ -111,6 +113,7 @@
             $($cont[0]).append(KsConstant.BGM_ACCORDION_NODE
                 .replace(/\[\[action_id\]\]/g, action_id_num));
             $($cont[0]).find('.ks-select').selectmenu();
+            jsPlumb.repaintEverything();
         }
     });
 
@@ -123,6 +126,7 @@
             $($cont[0]).append(KsConstant.VOICE_ACCORDION_NODE
                 .replace(/\[\[action_id\]\]/g, action_id_num));
             $($cont[0]).find('.ks-select').selectmenu();
+            jsPlumb.repaintEverything();
         }
     });
 
@@ -134,6 +138,7 @@
             $($cont[0]).append(KsConstant.BG_ACCORDION_NODE
                 .replace(/\[\[action_id\]\]/g, action_id_num));
             $($cont[0]).find('.ks-select').selectmenu();
+            jsPlumb.repaintEverything();
         }
     });
 
@@ -150,6 +155,7 @@
             );
             $cont.find('.ks-accordion').accordion('refresh');
             $cont.find('.ks-select').selectmenu();
+            jsPlumb.repaintEverything();
         }
     });
 
@@ -162,6 +168,7 @@
             .replace(/\[\[action_id\]\]/g, action_id_num))
             .insertBefore($cont.find('.ks-accordion'));
         $cont.find('.ks-select').selectmenu();
+        jsPlumb.repaintEverything();
     });
 
     $('#main-container').on('click', '.ks-accordion-add-andjudge', function (evt) {
@@ -178,6 +185,7 @@
                 .replace(/\[\[judge_id\]\]/g, judge_id)
                 .replace(/\[\[judge_item_id_num\]\]/g, judge_item_id_num));
             $($cont[0]).find('.ks-select').selectmenu();
+            jsPlumb.repaintEverything();
         }
     });
 
@@ -191,6 +199,7 @@
                 .replace(/\[\[action_id\]\]/g, action_id_num)
                 .replace(/\[\[item_id\]\]/g, item_id));
             $cont.find('.ks-accordion').accordion('refresh');
+            jsPlumb.repaintEverything();
         }
     });
 

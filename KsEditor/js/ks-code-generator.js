@@ -392,8 +392,7 @@
                 let ks_code_action_id = 'ks-code-' + $action.attr('id');
                 let id_num = $action.attr('id').slice($action.attr('id').lastIndexOf('-') + 1);
                 let next_action_id = $action.attr('data-next-action-id');
-console.log($action[0])
-console.log(next_action_id)
+
                 if ($(`#${ks_code_action_id}`).length) {
                     $(`#${ks_code_action_id}`).html(`
                     [action id="${id_num}"${next_action_id ? ' nextActionId="' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"' : ''}]

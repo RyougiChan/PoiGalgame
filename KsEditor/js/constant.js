@@ -500,7 +500,7 @@
                     <span>ID: ${action_id}</span>/<span>BG&FG Action</span>
                 </div>
                 <div class="ks-action-cont ks-action-grid">
-                    <div class="ks-action-grid-item ks-bg-control">
+                    <div class="ks-action-grid-item ks-action-bg ks-bg-control">
                         <div class="ks-button ks-square ks-blue" title="Select A Background Image"><span>BG</span><input type="file"
                                 name="ks-action-${action_id}_bg" accept="image/*" /></div>
                         <select id="ks-select_action-${action_id}_bglayer" class="ks-select" title="Select Layer of Background Image">
@@ -513,7 +513,7 @@
                             <option>Background3</option>
                         </select>
                     </div>
-                    <div class="ks-action-grid-item ks-fg-control">
+                    <div class="ks-action-grid-item ks-action-fg ks-fg-control">
                         <div class="ks-button ks-square ks-blue" title="Select A Foreground Image"><span>FG</span><input type="file"
                                 name="ks-action-${action_id}_fg" accept="image/*" /></div>
                         <select id="ks-select_action-${action_id}_fglayer" class="ks-select" title="Select Layer of Foreground Image">
@@ -537,7 +537,7 @@
             <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
                 <div class="ks-action-cont ks-action-info">
-                    <span>ID: ${action_id}</span>/<span>Commond Action</span>
+                    <span>ID: ${action_id}</span>/<span>Line Action</span>
                 </div>
                 <div class="ks-action-cont ks-action-grid">
                     <div class="ks-action-grid-item">

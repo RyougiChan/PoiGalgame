@@ -129,6 +129,7 @@ body {
 }
 
 #y-area-codetext {
+    overflow-x: hidden;
     overflow-y: scroll;
     height: 88%;
 }
@@ -530,6 +531,9 @@ body {
 {
     display: none;
 } */
+.jtk-endpoint {
+    cursor: crosshair;
+}
 .jtk-endpoint,svg {
     z-index: 9999;
 }

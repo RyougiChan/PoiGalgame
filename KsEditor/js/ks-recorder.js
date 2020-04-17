@@ -6,5 +6,6 @@
     KsRecorder.set('max_line_id', 0);
     KsRecorder.set('max_action_id', 0);
     KsRecorder.set('max_common_event_id', 0);
+    KsRecorder.set('max_jsplumb_uuid', 1000);
 
 })();
