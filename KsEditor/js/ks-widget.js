@@ -30,6 +30,16 @@
         KsCode.updateAction(evt.currentTarget);
     });
 
+    $('#main-container').on('change', 'input', function(evt) {
+        if($(this).attr('type') !== 'file') {
+            $(this).attr('value', $(this).val());
+        }
+    });
+
+    $('#main-container').on('change', 'select', function(evt) {
+        console.log($(this));
+    });
+
     $(document).on('click', '.ui-selectmenu-menu', function (evt) {
         let $t = $(evt.currentTarget);
         let labelby = $t.find('ul').attr('id');
@@ -42,6 +52,9 @@
             action_id = $(`#ks-${line_re[1]}`).parents('.ks-action').attr('id');
         }
 
+        let selected_content = $(evt.target).text();
+        $(`#${labelby.replace('-menu', '')} option`).removeAttr('selected');
+        $(`#${labelby.replace('-menu', '')} option:contains('${selected_content}')`).attr('selected', 'selected');
         KsCode.updateAction(`#${action_id}`);
     });
 

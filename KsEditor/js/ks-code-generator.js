@@ -74,9 +74,9 @@
                     bgm.loop = $bgm_loop.is(":checked");
                 }
 
-                if ($bgm_files.length && $bgm_files[0].files.length) {
-                    bgm.name = $bgm_files[0].files[0].name;
-                    bgm.name = bgm.name.substring(0, bgm.name.lastIndexOf('.'));
+                if ($bgm_files.length && $bgm_files[0].value) {
+                    bgm.name = $bgm_files[0].value;
+                    bgm.name = KsUtil.getFileName(bgm.name);
                 }
 
                 if ($bgm_volume.val() !== undefined) {
@@ -93,9 +93,9 @@
                     video.loop = $video_loop.is(":checked");
                 }
 
-                if ($video_files.length && $video_files[0].files.length) {
-                    video.name = $video_files[0].files[0].name;
-                    video.name = video.name.substring(0, video.name.lastIndexOf('.'));
+                if ($video_files.length && $video_files[0].value) {
+                    video.name = $video_files[0].value;
+                    video.name = KsUtil.getFileName(video.name);
                 }
 
                 if ($video_volume.val() !== undefined) {
@@ -108,16 +108,16 @@
                 }
 
                 ///// BG
-                if ($bg_files.length && $bg_files[0].files.length) {
+                if ($bg_files.length && $bg_files[0].value) {
                     bg = {};
-                    bg.name = $bg_files[0].files[0].name;
+                    bg.name = $bg_files[0].value;
                     bg.layer = $bg_layer.val();
                 }
 
                 ///// FG
-                if ($fg_files.length && $fg_files[0].files.length) {
+                if ($fg_files.length && $fg_files[0].value) {
                     fg = {};
-                    fg.name = $fg_files[0].files[0].name;
+                    fg.name = $fg_files[0].value;
                     fg.layer = $fg_layer.val();
                 }
 
@@ -142,8 +142,8 @@
                             if ($t_text.val()) {
                                 item.text = $t_text.val();
                             }
-                            if ($t_voice_file[0] && $t_voice_file[0].files.length) {
-                                item.voice_file = $t_voice_file[0].files[0].name;
+                            if ($t_voice_file[0] && $t_voice_file[0].value) {
+                                item.voice_file = $t_voice_file[0].value;
                                 item.voice_file = item.voice_file.substring(0, item.voice_file.lastIndexOf('.'));
                                 item.voice_volume = $t_voice_volume.val();
                                 item.voice_action = $t_voice_action.val();
@@ -230,9 +230,9 @@
                             item.bgm.loop = $g_item_bgm_loop.is(":checked");
                         }
         
-                        if (item.bgm && $g_item_bgm_files.length && $g_item_bgm_files[0].files.length) {
-                            item.bgm.name = $g_item_bgm_files[0].files[0].name;
-                            item.bgm.name = item.bgm.name.substring(0, item.bgm.name.lastIndexOf('.'));
+                        if (item.bgm && $g_item_bgm_files.length && $g_item_bgm_files[0].value) {
+                            item.bgm.name = $g_item_bgm_files[0].value;
+                            item.bgm.name = KsUtil.getFileName(item.bgm.name);
                         }
         
                         if (item.bgm && $g_item_bgm_volume.val() !== undefined) {
@@ -248,18 +248,18 @@
                             item.voice.loop = $g_item_voice_loop.is(":checked");
                         }
         
-                        if (item.voice && $g_item_voice_files.length && $g_item_voice_files[0].files.length) {
-                            item.voice.name = $g_item_voice_files[0].files[0].name;
-                            item.voice.name = item.voice.name.substring(0, item.voice.name.lastIndexOf('.'));
+                        if (item.voice && $g_item_voice_files.length && $g_item_voice_files[0].value) {
+                            item.voice.name = $g_item_voice_files[0].value;
+                            item.voice.name = KsUtil.getFileName(item.voice.name);
                         }
         
                         if (item.voice && $g_item_voice_volume.val() !== undefined) {
                             item.voice.volume = $g_item_voice_volume.val();
                         }
 
-                        if ($g_item_bg_files.length && $g_item_bg_files[0].files.length) {
+                        if ($g_item_bg_files.length && $g_item_bg_files[0].value) {
                             item.bg = {};
-                            item.bg.name = $g_item_bg_files[0].files[0].name;
+                            item.bg.name = $g_item_bg_files[0].value;
                             item.bg.layer = $g_item_bg_layer.val();
                         }
 
@@ -282,8 +282,8 @@
                                     if ($t_text.val()) {
                                         line_item.text = $t_text.val();
                                     }
-                                    if ($t_voice_file[0] && $t_voice_file[0].files.length) {
-                                        line_item.voice_file = $t_voice_file[0].files[0].name;
+                                    if ($t_voice_file[0] && $t_voice_file[0].value) {
+                                        line_item.voice_file = $t_voice_file[0].value;
                                         line_item.voice_file = line_item.voice_file.substring(0, line_item.voice_file.lastIndexOf('.'));
                                         line_item.voice_volume = $t_voice_volume.val();
                                         line_item.voice_action = $t_voice_action.val();

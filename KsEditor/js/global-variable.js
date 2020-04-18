@@ -11,6 +11,23 @@
             value: {
                 childList: true, characterData: true, attributes: true, subtree: true
             }
+        },
+        jsplumb_connect_uuids: {
+            value: new Map(),
+            writable: true
+        },
+        jsPlumbConfig: {
+            value: {
+                isSource: true,
+                isTarget: true,
+                endpointStyle: { outlineStroke: '#007fff', outlineWidth: 5, radius: 5 },
+                overlays: [['Arrow', { width: 12, length: 12, location: 0.5 }]]
+            },
+            writable: true
+        },
+        y_area_scale : {
+            value: 1,
+            writable: true
         }
     });
 
