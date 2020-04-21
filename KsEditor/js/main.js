@@ -108,7 +108,7 @@
                             let action_id = $all_actions[i].id;
                             action_id_list.push(action_id.slice(action_id.lastIndexOf('-') + 1));
                         }
-                        console.log(Math.max.apply(null, action_id_list));
+                        // console.log(Math.max.apply(null, action_id_list));
                         KsRecorder.set('max_action_id', Math.max.apply(null, action_id_list));
                     }
                     // Get max event id
@@ -134,38 +134,25 @@
                         KsRecorder.set('max_line_id', Math.max.apply(null, line_id_list));
                     }
                     // Get connection info
-                        console.log(GV.jsplumb_connect_uuids);
+                    // console.log(GV.jsplumb_connect_uuids);
                     let save_uuids = $('#y-area-draggable > input[name=jsplumb-connect-uuids]').val();
                     if(save_uuids) {
                         let save_uuids_list = JSON.parse(save_uuids);
-                        console.log(GV.jsplumb_connect_uuids);
-
+                        //console.log(GV.jsplumb_connect_uuids);
 
                         GV.jsplumb_connect_uuids = new Map(save_uuids_list);
-                        console.log(Math.max.apply(null, [...GV.jsplumb_connect_uuids.values()].flat()));
+                        // console.log(Math.max.apply(null, [...GV.jsplumb_connect_uuids.values()].flat()));
                         KsRecorder.set('max_jsplumb_uuid', Math.max.apply(null, [...GV.jsplumb_connect_uuids.values()].flat()));
                     }
 
-                    console.log(KsRecorder);
+                    // console.log(KsRecorder);
 
+                    $('#y-area-codetext').html('');
                     KsUtil.refreshAction($('#y-area-draggable')[0]);
                 };
                 reader.readAsText(file);
             }
         });
-
-        /**
-         * reflesh all widget on container
-         * 
-         * @param {*} container 
-         */
-        
-
-        /**
-         * rebuild action connection via given uuids map
-         * 
-         * @param {*} GV.jsplumb_connect_uuids 
-         */
         
     });
 
@@ -250,9 +237,19 @@
     });
 
     $('#y-button-export').on('click', function (evt) {
-        /**
-         * @todo Obtain KS content here
-         */
+        let all_selects = $('#y-area-draggable').find('.ks-select');
+        if(all_selects.length) {
+            for(let i = 0; i < all_selects.length; i++) {
+                let $select = $(all_selects[i]),
+                    $selected_option = $select.find(`option[value='${$select.val()}']`) || $select.find(`option:contains('${$select.val()}')`);
+
+                console.log($selected_option[0]);
+
+                $select.find('option').removeAttr('selected');
+                $selected_option.attr('selected', 'selected');
+            }
+        }
+
         let ks_content = $('#y-area-codetext').text().replace(/\s{2,}/g, ' ').replace(/\s+\[/g, '[').replace(/\]/g, ']\n');
         if (ks_content) {
             let file_name = 'Chapter-' + (new Date().getTime()) + '.ks';

@@ -38,21 +38,21 @@
 
                 ///// Text-color,size,linespacing,align,style
                 if ($text_align.length) {
-                    lines.align = $text_align.val();
+                    lines.align = $text_align.attr('value');
                 }
                 if ($text_style.length) {
-                    lines.style = $text_style.val();
+                    lines.style = $text_style.attr('value');
                 }
-                if ($text_color.length && $text_color.val() !== '#xxxxxx') {
-                    lines.color = $text_color.val().replace('#', '0x') + 'ff';
-                }
-
-                if ($text_size.val()) {
-                    lines.size = $text_size.val();
+                if ($text_color.length && $text_color.attr('value') !== '#xxxxxx') {
+                    lines.color = $text_color.attr('value').replace('#', '0x') + 'ff';
                 }
 
-                if ($text_linespacing.val()) {
-                    lines.linespacing = $text_linespacing.val();
+                if ($text_size.attr('value')) {
+                    lines.size = $text_size.attr('value');
+                }
+
+                if ($text_linespacing.attr('value')) {
+                    lines.linespacing = $text_linespacing.attr('value');
                 }
 
                 ///// Adjuster
@@ -60,65 +60,65 @@
                     adjuster = new Map();
                     for (let ai = 0; ai < $adjuster_values.length; ai++) {
                         let $input = $($adjuster_values[ai]);
-                        adjuster.set($input.attr('name'), $input.val());
+                        adjuster.set($input.attr('name'), $input.attr('value'));
                     }
                 }
 
                 ///// BGM
                 if ($bgm_action.length) {
                     bgm = {};
-                    bgm.action = $bgm_action.val();
+                    bgm.action = $bgm_action.attr('value') || $bgm_action.val();
                 }
 
                 if ($bgm_loop.length) {
                     bgm.loop = $bgm_loop.is(":checked");
                 }
 
-                if ($bgm_files.length && $bgm_files[0].value) {
-                    bgm.name = $bgm_files[0].value;
-                    bgm.name = KsUtil.getFileName(bgm.name);
+                if ($bgm_files.length && $($bgm_files[0]).attr('value')) {
+                    // bgm.name = $bgm_files[0].value;
+                    bgm.name = KsUtil.getFileName($($bgm_files[0]).attr('value'));
                 }
 
-                if ($bgm_volume.val() !== undefined) {
-                    bgm.volume = $bgm_volume.val();
+                if ($bgm_volume.attr('value') !== undefined) {
+                    bgm.volume = $bgm_volume.attr('value');
                 }
 
                 ///// Video
                 if ($video_action.length) {
                     video = {};
-                    video.action = $video_action.val();
+                    video.action = $video_action.attr('value') || $video_action.val();
                 }
 
                 if ($video_loop.length) {
                     video.loop = $video_loop.is(":checked");
                 }
 
-                if ($video_files.length && $video_files[0].value) {
-                    video.name = $video_files[0].value;
-                    video.name = KsUtil.getFileName(video.name);
+                if ($video_files.length && $($video_files[0]).attr('value')) {
+                    // video.name = $video_files[0].value;
+                    video.name = KsUtil.getFileName($($video_files[0]).attr('value'));
                 }
 
-                if ($video_volume.val() !== undefined) {
-                    video.volume = $video_volume.val();
+                if ($video_volume.attr('value') !== undefined) {
+                    video.volume = $video_volume.attr('value');
                 }
 
                 ///// Actor-action
                 if ($global_actor.length) {
-                    actor = $global_actor.val();
+                    actor = $global_actor.attr('value');
                 }
 
                 ///// BG
-                if ($bg_files.length && $bg_files[0].value) {
+                if ($bg_files.length && $($bg_files[0]).attr('value')) {
                     bg = {};
-                    bg.name = $bg_files[0].value;
-                    bg.layer = $bg_layer.val();
+                    bg.name = KsUtil.getFileName($($bg_files[0]).attr('value'));
+                    bg.layer = $bg_layer.attr('value');
                 }
 
                 ///// FG
-                if ($fg_files.length && $fg_files[0].value) {
+                if ($fg_files.length && $($fg_files[0]).attr('value')) {
                     fg = {};
-                    fg.name = $fg_files[0].value;
-                    fg.layer = $fg_layer.val();
+                    fg.name = KsUtil.getFileName($($fg_files[0]).attr('value'));
+                    fg.layer = $fg_layer.attr('value');
                 }
 
                 ///// Lines
@@ -134,19 +134,19 @@
                             $t_text = $t_line.find('.ks-line-text')
                             ;
 
-                        if ($t_text.val()) {
+                        if ($t_text.attr('value')) {
 
                             let item = {};
                             item.id = `ks-code-${$t_line.attr('id')}`;
-                            item.actor = $t_actor.val();
-                            if ($t_text.val()) {
-                                item.text = $t_text.val();
+                            item.actor = $t_actor.attr('value');
+                            if ($t_text.attr('value')) {
+                                item.text = $t_text.attr('value');
                             }
-                            if ($t_voice_file[0] && $t_voice_file[0].value) {
-                                item.voice_file = $t_voice_file[0].value;
-                                item.voice_file = item.voice_file.substring(0, item.voice_file.lastIndexOf('.'));
-                                item.voice_volume = $t_voice_volume.val();
-                                item.voice_action = $t_voice_action.val();
+                            if ($t_voice_file[0] && $($t_voice_file[0]).attr('value')) {
+                                // item.voice_file = $t_voice_file[0].value;
+                                item.voice_file = KsUtil.getFileName($($t_voice_file[0]).attr('value'));
+                                item.voice_volume = $t_voice_volume.attr('value');
+                                item.voice_action = $t_voice_action.attr('value');
                                 item.voice_loop = $t_voice_loop.is(":checked");
                             }
 
@@ -166,8 +166,9 @@
                     
                     for(let ji = 0; ji < $judge_events.length; ji++) {
                         let $evt = $($judge_events[ji]);
-                        if(!judge.events.includes($evt.val())) {
-                            judge.events.push($evt.val());
+                        let v = $evt.attr('value') || $evt.val();
+                        if(!judge.events.includes(v)) {
+                            judge.events.push(v);
                         }
                     }
 
@@ -181,8 +182,8 @@
 
                         for(let i = 0; i < $g_items.length; i++) {
                             let $g_item  = $($g_items[i]);
-                            let name = $g_item.find('.ks-select').val();
-                            let value = $g_item.find('input[type=number]').val();
+                            let name = $g_item.find('.ks-select').attr('value');
+                            let value = $g_item.find('input[type=number]').attr('value');
                             
                             if(name && value) {
                                 group_item_map.set(name, value);
@@ -217,50 +218,50 @@
                             ;
                         let item = {};
 
-                        if($g_item_text.length && $g_item_text.val()) {
-                            item.text = $g_item_text.val();
+                        if($g_item_text.length && $g_item_text.attr('value')) {
+                            item.text = $g_item_text.attr('value');
                         }
 
                         if ($g_item_bgm_action.length) {
                             item.bgm = {};
-                            item.bgm.action = $g_item_bgm_action.val();
+                            item.bgm.action = $g_item_bgm_action.attr('value');
                         }
         
                         if (item.bgm && $g_item_bgm_loop.length) {
                             item.bgm.loop = $g_item_bgm_loop.is(":checked");
                         }
         
-                        if (item.bgm && $g_item_bgm_files.length && $g_item_bgm_files[0].value) {
-                            item.bgm.name = $g_item_bgm_files[0].value;
-                            item.bgm.name = KsUtil.getFileName(item.bgm.name);
+                        if (item.bgm && $g_item_bgm_files.length && $($g_item_bgm_files[0]).attr('value')) {
+                            // item.bgm.name = $g_item_bgm_files[0].value;
+                            item.bgm.name = KsUtil.getFileName($($g_item_bgm_files[0]).attr('value'));
                         }
         
-                        if (item.bgm && $g_item_bgm_volume.val() !== undefined) {
-                            item.bgm.volume = $g_item_bgm_volume.val();
+                        if (item.bgm && $g_item_bgm_volume.attr('value') !== undefined) {
+                            item.bgm.volume = $g_item_bgm_volume.attr('value');
                         }
 
                         if ($g_item_voice_action.length) {
                             item.voice = {};
-                            item.voice.action = $g_item_voice_action.val();
+                            item.voice.action = $g_item_voice_action.attr('value');
                         }
         
                         if (item.voice && $g_item_voice_loop.length) {
                             item.voice.loop = $g_item_voice_loop.is(":checked");
                         }
         
-                        if (item.voice && $g_item_voice_files.length && $g_item_voice_files[0].value) {
-                            item.voice.name = $g_item_voice_files[0].value;
-                            item.voice.name = KsUtil.getFileName(item.voice.name);
+                        if (item.voice && $g_item_voice_files.length && $($g_item_voice_files[0]).attr('value')) {
+                            // item.voice.name = $g_item_voice_files[0].value;
+                            item.voice.name = KsUtil.getFileName($($g_item_voice_files[0]).attr('value'));
                         }
         
-                        if (item.voice && $g_item_voice_volume.val() !== undefined) {
-                            item.voice.volume = $g_item_voice_volume.val();
+                        if (item.voice && $g_item_voice_volume.attr('value') !== undefined) {
+                            item.voice.volume = $g_item_voice_volume.attr('value');
                         }
 
-                        if ($g_item_bg_files.length && $g_item_bg_files[0].value) {
+                        if ($g_item_bg_files.length && $($g_item_bg_files[0]).attr('value')) {
                             item.bg = {};
-                            item.bg.name = $g_item_bg_files[0].value;
-                            item.bg.layer = $g_item_bg_layer.val();
+                            item.bg.name = KsUtil.getFileName($($g_item_bg_files[0]).attr('value'));
+                            item.bg.layer = $g_item_bg_layer.attr('value');
                         }
 
                         if ($g_item_lines.length) {
@@ -275,18 +276,18 @@
                                     $t_text = $t_line.find('.ks-line-text')
                                     ;
         
-                                if ($t_text.val()) {
+                                if ($t_text.attr('value')) {
                                     let line_item = {};
                                     line_item.id = `ks-code-${$t_text.attr('id')}`;
-                                    line_item.actor = $t_actor.val();
-                                    if ($t_text.val()) {
-                                        line_item.text = $t_text.val();
+                                    line_item.actor = $t_actor.attr('value');
+                                    if ($t_text.attr('value')) {
+                                        line_item.text = $t_text.attr('value');
                                     }
-                                    if ($t_voice_file[0] && $t_voice_file[0].value) {
-                                        line_item.voice_file = $t_voice_file[0].value;
-                                        line_item.voice_file = line_item.voice_file.substring(0, line_item.voice_file.lastIndexOf('.'));
-                                        line_item.voice_volume = $t_voice_volume.val();
-                                        line_item.voice_action = $t_voice_action.val();
+                                    if ($t_voice_file[0] && $($t_voice_file[0]).attr('value')) {
+                                        // line_item.voice_file = $t_voice_file[0].value;
+                                        line_item.voice_file = KsUtil.getFileName($($t_voice_file[0]).attr('value'));
+                                        line_item.voice_volume = $t_voice_volume.attr('value');
+                                        line_item.voice_action = $t_voice_action.attr('value');
                                         line_item.voice_loop = $t_voice_loop.is(":checked");
                                     }
         

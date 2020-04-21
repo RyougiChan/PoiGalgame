@@ -31,8 +31,13 @@
     });
 
     $('#main-container').on('change', 'input', function(evt) {
-        if($(this).attr('type') !== 'file') {
-            $(this).attr('value', $(this).val());
+        $(this).attr('value', $(this).val());
+        if($(this).attr('type') === 'checkbox') {
+            if($(this).attr('checked')) {
+                $(this).removeAttr('checked');
+            } else {
+                $(this).attr('checked','checked');
+            }
         }
     });
 
@@ -53,8 +58,8 @@
         }
 
         let selected_content = $(evt.target).text();
-        $(`#${labelby.replace('-menu', '')} option`).removeAttr('selected');
-        $(`#${labelby.replace('-menu', '')} option:contains('${selected_content}')`).attr('selected', 'selected');
+        let $selected_option = $(`#${labelby.replace('-menu', '')} option:contains('${selected_content}')`);
+        $(`#${labelby.replace('-menu', '')}`).attr('value', $selected_option.val() || selected_content);
         KsCode.updateAction(`#${action_id}`);
     });
 

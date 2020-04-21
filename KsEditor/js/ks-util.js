@@ -17,6 +17,7 @@
                     let t_index = parseInt($($all_actions[i]).css('z-index'));
                     max_index = t_index > max_index ? t_index : max_index;
                 }
+                this.addEndpoints($(container)[0].id);
 
                 $(container).css('z-index', max_index + 1);
 
@@ -50,15 +51,16 @@
                         let $target_con = $(this.wheel).parent().parent().parent().parent();
                         let $hex_color = $($($target_con.children().get(1)).children().get(0));
                         $hex_color.val(c);
+                        $hex_color.attr('value', c);
                         $hex_color.css('color', c);
                     });
                 }
+
+                KsCode.updateAction(container);
             } else {
                 let $ks_actions = $(container).find('.ks-action');
-
                 for (let i = 0; i < $ks_actions.length; i++) {
                     this.refreshAction($ks_actions[i]);
-                    this.addEndpoints($ks_actions[i].id);
                 }
             }
 
@@ -122,6 +124,7 @@
                     anchor: 'Bottom',
                     uuid: uuids[1]
                 }, GV.jsPlumbConfig);
+                KsRecorder.set('max_jsplumb_uuid', uuids[1]);
             } else {
                 let action_ep_uuids = [];
                 KsRecorder.set('max_jsplumb_uuid', KsRecorder.get('max_jsplumb_uuid') + 1);
