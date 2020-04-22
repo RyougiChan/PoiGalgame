@@ -74,7 +74,6 @@
                 <div class="ks-action-grid-item ks-bg-control">
                     <div class="ks-button ks-square ks-blue"><span>BG</span><input type="file" name="ks-action-[[action_id]]_bg" accept="image/*" /></div>
                     <select id="ks-action-[[action_id]]-select_bglayer" class="ks-select">
-                        <option >LAYER</option>
                         <option>Foreground3</option>
                         <option>Foreground2</option>
                         <option>Foreground1</option>
@@ -143,7 +142,7 @@
         get_AND_JUDGE_ITEM_NODE() {
             return `
             <div class="ks-accordion-andjudge-item">
-                <select class="ks-select" title="Select Condition" id="ks-accordion-action-[[action_id]]-add-andjudge-[[judge_id]]-item-[[judge_item_id_num]]">
+                <select class="ks-select" title="Select Condition" id="ks-accordion-action-[[action_id]]-add-andjudge-[[judge_id]]-item-[[judge_item_id_num]]" value="${KsPlayerStatus.keys().next().value}">
                     ${built_options_player_status}
                 </select>
                 =
@@ -160,7 +159,7 @@
             </h3>
             <div class="ks-accordion-item ks-accordion-andjudge-list">
                 <div class="ks-accordion-andjudge-item">
-                    <select class="ks-select" title="Select Condition" id="ks-accordion-action-[[action_id]]-add-andjudge-[[item_id]]-item-1">
+                    <select class="ks-select" title="Select Condition" id="ks-accordion-action-[[action_id]]-add-andjudge-[[item_id]]-item-1" value="${KsPlayerStatus.keys().next().value}">
                         ${built_options_player_status}
                     </select>
                     =
@@ -399,7 +398,7 @@
                         </h3>
                         <div class="ks-accordion-item ks-accordion-andjudge-list">
                             <div class="ks-accordion-andjudge-item">
-                                <select class="ks-select" title="Select Condition" id="ks-accordion-action-${action_id}-add-andjudge-1-item-1">
+                                <select class="ks-select" title="Select Condition" id="ks-accordion-action-${action_id}-add-andjudge-1-item-1" value="${KsPlayerStatus.keys().next().value}">
                                     ${built_options_player_status}
                                 </select>
                                 =

@@ -195,10 +195,14 @@
         let action_id_num = action_id.slice(action_id.lastIndexOf('-') + 1);
         let $judge_cont = $(this).parents('.ks-judge');
         let judge_id = $judge_cont.find('h3').length ? parseInt($judge_cont.find('h3').last().text()) : 1;
+
         if ($cont) {
-            let $judge_item_id = $($cont[0]).find('.ks-accordion-andjudge-item').last().attr('id'),
-                judge_item_id_num = $judge_item_id ? parseInt($judge_item_id.slice($judge_item_id.lastIndexOf('-') + 1)) + 1 : 1;
-            $($cont[0]).append(KsConstant.AND_JUDGE_ITEM_NODE
+            let judge_item_id = $($cont[0]).find('.ks-accordion-andjudge-item').last().children('select').attr('id'),
+                judge_item_id_num = judge_item_id ? parseInt(judge_item_id.slice(judge_item_id.lastIndexOf('-') + 1)) + 1 : 1;
+        
+                console.log('--------------',judge_id, judge_item_id, judge_item_id_num);
+        console.log($judge_cont.find('h3').last()[0])
+        $($cont[0]).append(KsConstant.AND_JUDGE_ITEM_NODE
                 .replace(/\[\[action_id\]\]/g, action_id_num)
                 .replace(/\[\[judge_id\]\]/g, judge_id)
                 .replace(/\[\[judge_item_id_num\]\]/g, judge_item_id_num));

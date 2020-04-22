@@ -17,7 +17,7 @@
                     $text_style = $action.children('.ks-action-cont').find('.ks-action-textstyle'),
                     $text_size = $action.children('.ks-action-cont').find('.ks-action-textsize'),
                     $text_linespacing = $action.children('.ks-action-cont').find('.ks-action-textlinespacing'),
-                    $adjuster_values = $action.children('.ks-action-cont').find('.ks-adjuster-editor-values input[type=hidden]'),
+                    $adjuster_values = $action.find('.ks-adjuster-editor-values input[type=hidden]'),
                     $bgm_files = $action.children('.ks-action-cont').find('.ks-bgm-control input[type=file]'),
                     $bgm_volume = $action.children('.ks-action-cont').find('.ks-bgm-control input[type=number]'),
                     $bgm_action = $action.children('.ks-action-cont').find('.ks-bgm-control select'),
@@ -195,6 +195,7 @@
 
                     // console.log(judge);
                 }
+                console.log('judge: ', judge);
 
                 ///// Selector
                 if($selector_comp.length) {
@@ -334,6 +335,7 @@
                         `;
                     }
                 }
+                console.log(adjuster)
                 if (adjuster) {
                     if (adjuster.get('is-adjuster-actived') === 'true') {
                         adjuster.delete('is-adjuster-actived');
