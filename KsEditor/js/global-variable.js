@@ -28,6 +28,18 @@
         y_area_scale : {
             value: 1,
             writable: true
+        },
+        adjuster_id : {
+            value: 0,
+            writable: true
+        },
+        judge_id : {
+            value: 0,
+            writable: true
+        },
+        group_id : {
+            value: 0,
+            writable: true
         }
     });
 

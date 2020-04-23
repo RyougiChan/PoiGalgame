@@ -15,7 +15,7 @@
     // GV.Observer = new MutationObserver(function (mutationRecords) {
     //     mutationRecords.forEach (function (mutation) {
     //         console.log (mutation.target);
-    //         KsCode.updateAction($(mutation.target).parents('.ks-action'));
+    //         KsUtil.refreshAction($(mutation.target).parents('.ks-action'));
     //     } );
     // });
 
@@ -27,7 +27,7 @@
     $('#main-container').on('change', '.ks-action', function (evt) {
         console.log($(evt.currentTarget).attr('id') + ' changed');
         // Update action code
-        KsCode.updateAction(evt.currentTarget);
+        KsUtil.refreshAction(evt.currentTarget);
     });
 
     $('#main-container').on('change', 'input', function(evt) {
@@ -60,7 +60,7 @@
         let selected_content = $(evt.target).text();
         let $selected_option = $(`#${labelby.replace('-menu', '')} option:contains('${selected_content}')`);
         $(`#${labelby.replace('-menu', '')}`).attr('value', $selected_option.val() || selected_content);
-        KsCode.updateAction(`#${action_id}`);
+        KsUtil.refreshAction(`#${action_id}`);
     });
 
     $('#main-container').on('click', '.ks-color-picker', function (evt) {
@@ -82,7 +82,7 @@
         }
         $(this).parent().remove();
         if(action_id) {
-            KsCode.updateAction(`#${action_id}`);
+            KsUtil.refreshAction(`#${action_id}`);
         }
         jsPlumb.repaintEverything();
     });
@@ -101,7 +101,7 @@
         }
         if ($(this).parents('.ks-action').length) {
             setTimeout(function () {
-                KsCode.updateAction(`#${$(this).parents('.ks-action').attr('id')}`);
+                KsUtil.refreshAction(`#${$(this).parents('.ks-action').attr('id')}`);
             }, 100);
         }
     });
@@ -110,7 +110,7 @@
         $($(this).parent().next('div')[0]).remove();
         let action_id = $(this).parents('.ks-action').attr('id');
         $(this).parent().remove();
-        KsCode.updateAction(`#${action_id}`);
+        KsUtil.refreshAction(`#${action_id}`);
         jsPlumb.repaintEverything();
     });
 
@@ -248,13 +248,13 @@
     $('#main-container').on('click', '#ks-adjuster-editor-container', function (evt) {
         if (this == evt.target) {
             $(this).fadeOut(300);
-            KsCode.updateAction(`#${$('#ks-adjuster-editor-container').attr('data-from-action')}`);
+            KsUtil.refreshAction(`#${$('#ks-adjuster-editor-container').attr('data-from-action')}`);
         }
     });
 
     $('#main-container').on('click', '.ks-accordion-op', function (evt) {
         if ($(this).parents('.ks-action').length) {
-            KsCode.updateAction(`#${$(this).parents('.ks-action').attr('id')}`);
+            KsUtil.refreshAction(`#${$(this).parents('.ks-action').attr('id')}`);
         }
     });
 

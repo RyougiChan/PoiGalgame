@@ -104,21 +104,21 @@
 
                 ///// Actor-action
                 if ($global_actor.length) {
-                    actor = $global_actor.attr('value');
+                    actor = $global_actor.attr('value') || $global_actor.val();
                 }
 
                 ///// BG
                 if ($bg_files.length && $($bg_files[0]).attr('value')) {
                     bg = {};
                     bg.name = KsUtil.getFileName($($bg_files[0]).attr('value'));
-                    bg.layer = $bg_layer.attr('value');
+                    bg.layer = $bg_layer.attr('value') || $bg_layer.val();
                 }
 
                 ///// FG
                 if ($fg_files.length && $($fg_files[0]).attr('value')) {
                     fg = {};
                     fg.name = KsUtil.getFileName($($fg_files[0]).attr('value'));
-                    fg.layer = $fg_layer.attr('value');
+                    fg.layer = $fg_layer.attr('value') || $fg_layer.val();
                 }
 
                 ///// Lines
@@ -138,7 +138,7 @@
 
                             let item = {};
                             item.id = `ks-code-${$t_line.attr('id')}`;
-                            item.actor = $t_actor.attr('value');
+                            item.actor = $t_actor.attr('value') || $t_actor.val();
                             if ($t_text.attr('value')) {
                                 item.text = $t_text.attr('value');
                             }
@@ -146,7 +146,7 @@
                                 // item.voice_file = $t_voice_file[0].value;
                                 item.voice_file = KsUtil.getFileName($($t_voice_file[0]).attr('value'));
                                 item.voice_volume = $t_voice_volume.attr('value');
-                                item.voice_action = $t_voice_action.attr('value');
+                                item.voice_action = $t_voice_action.attr('value') || $t_voice_action.val();
                                 item.voice_loop = $t_voice_loop.is(":checked");
                             }
 
@@ -182,7 +182,7 @@
 
                         for(let i = 0; i < $g_items.length; i++) {
                             let $g_item  = $($g_items[i]);
-                            let name = $g_item.find('.ks-select').attr('value');
+                            let name = $g_item.find('.ks-select').attr('value') || $g_item.find('.ks-select').val();
                             let value = $g_item.find('input[type=number]').attr('value');
                             
                             if(name && value) {
@@ -225,7 +225,7 @@
 
                         if ($g_item_bgm_action.length) {
                             item.bgm = {};
-                            item.bgm.action = $g_item_bgm_action.attr('value');
+                            item.bgm.action = $g_item_bgm_action.attr('value') || $g_item_bgm_action.val();
                         }
         
                         if (item.bgm && $g_item_bgm_loop.length) {
@@ -243,7 +243,7 @@
 
                         if ($g_item_voice_action.length) {
                             item.voice = {};
-                            item.voice.action = $g_item_voice_action.attr('value');
+                            item.voice.action = $g_item_voice_action.attr('value') || $g_item_voice_action.val();
                         }
         
                         if (item.voice && $g_item_voice_loop.length) {
@@ -262,7 +262,7 @@
                         if ($g_item_bg_files.length && $($g_item_bg_files[0]).attr('value')) {
                             item.bg = {};
                             item.bg.name = KsUtil.getFileName($($g_item_bg_files[0]).attr('value'));
-                            item.bg.layer = $g_item_bg_layer.attr('value');
+                            item.bg.layer = $g_item_bg_layer.attr('value') || $g_item_bg_layer.val();
                         }
 
                         if ($g_item_lines.length) {
@@ -280,7 +280,7 @@
                                 if ($t_text.attr('value')) {
                                     let line_item = {};
                                     line_item.id = `ks-code-${$t_text.attr('id')}`;
-                                    line_item.actor = $t_actor.attr('value');
+                                    line_item.actor = $t_actor.attr('value') || $t_actor.val();
                                     if ($t_text.attr('value')) {
                                         line_item.text = $t_text.attr('value');
                                     }
@@ -288,7 +288,7 @@
                                         // line_item.voice_file = $t_voice_file[0].value;
                                         line_item.voice_file = KsUtil.getFileName($($t_voice_file[0]).attr('value'));
                                         line_item.voice_volume = $t_voice_volume.attr('value');
-                                        line_item.voice_action = $t_voice_action.attr('value');
+                                        line_item.voice_action = $t_voice_action.attr('value') || $t_voice_action.val();
                                         line_item.voice_loop = $t_voice_loop.is(":checked");
                                     }
         
@@ -313,16 +313,16 @@
                     ks_code_judge_tag = '',
                     ks_code_line_tags = '';
                 if (bgm) {
-                    ks_code_bgm_tag = `<li class="ks-code-indent-1">[bgm ${bgm.name ? 'src="' + bgm.name + '"' : ''} ${bgm.volume ? 'volume="' + bgm.volume + '"' : ''} ${bgm.loop ? 'loop' : ''} action="${bgm.action}"]</li>`;
+                    ks_code_bgm_tag = `<li class="ks-code-indent-1">[<font class="color-teal">bgm</font> ${bgm.name ? 'src=<font class="color-orange">"' + bgm.name + '"</font>' : ''} ${bgm.volume ? 'volume=<font class="color-orange">"' + bgm.volume + '"</font>' : ''} ${bgm.loop ? 'loop' : ''} action=<font class="color-orange">"${bgm.action}"</font>]</li>`;
                 }
                 if (video) {
-                    ks_code_video_tag = `<li class="ks-code-indent-1">[video ${video.name ? 'src="' + video.name + '"' : ''} ${video.volume ? 'volume="' + video.volume + '"' : ''} ${video.loop ? 'loop' : ''} action="${video.action}"]</li>`;
+                    ks_code_video_tag = `<li class="ks-code-indent-1">[<font class="color-teal">video</font> ${video.name ? 'src=<font class="color-orange">"' + video.name + '"</font>' : ''} ${video.volume ? 'volume=<font class="color-orange">"' + video.volume + '"</font>' : ''} ${video.loop ? 'loop' : ''} action=<font class="color-orange">"${video.action}"</font>]</li>`;
                 }
                 if (bg) {
-                    ks_code_bg_tag = `<li class="ks-code-indent-1">[bg src="${bg.name}" layer="${bg.layer}"]</li>`;
+                    ks_code_bg_tag = `<li class="ks-code-indent-1">[<font class="color-teal">bg</font> src=<font class="color-orange">"${bg.name}"</font> layer=<font class="color-orange">"${bg.layer}"</font>]</li>`;
                 }
                 if (fg) {
-                    ks_code_fg_tag = `<li class="ks-code-indent-1">[fg src="${fg.name}" layer="${fg.layer}"]</li>`;
+                    ks_code_fg_tag = `<li class="ks-code-indent-1">[<font class="color-teal">fg</font> src=<font class="color-orange">"${fg.name}"</font> layer=<font class="color-orange">"${fg.layer}"</font>]</li>`;
                 }
                 if (lines && lines.list && lines.list.length) {
                     // console.log(lines.list)
@@ -330,51 +330,53 @@
                         let line = lines.list[i];
                         ks_code_line_tags += `
                         <li id="${line.id}" class="ks-code-indent-1">
-                        [line actor="${line.actor}" line="${line.text}" ${line.voice_file ? 'voice="' + line.voice_file + '"' : ''}] 
+                        [<font class="color-teal">line</font> actor=<font class="color-orange">"${line.actor}"</font> line=<font class="color-orange">"${line.text}"</font>${line.voice_file ? ' voice=<font class="color-orange">"' + line.voice_file + '"</font>' : ''}${lines.size ? ' fsize=<font class="color-orange">"' + lines.size + '"</font>' : ''}${lines.linespacing ? ' linespacing=<font class="color-orange">"' + lines.linespacing + '"</font>' : ''}${lines.color ? ' fcolor=<font class="color-orange">"' + lines.color + '"</font>' : ''}${lines.style ? ' fstyle=<font class="color-orange">"' + lines.style + '"</font>' : ''}] 
                         </li>
                         `;
                     }
                 }
-                console.log(adjuster)
+
                 if (adjuster) {
                     if (adjuster.get('is-adjuster-actived') === 'true') {
                         adjuster.delete('is-adjuster-actived');
-                        ks_code_adjuster_tag = '<li class="ks-code-indent-1">[adjuster id=""]</li>';
+                        ks_code_adjuster_tag = `<li class="ks-code-indent-1">[<font class="color-teal">adjuster</font> id=<font class="color-orange">"adjuster-${++GV.adjuster_id}"</font>]</li>`;
                         adjuster.forEach(function (v, k) {
-                            ks_code_adjuster_tag += `<li class="ks-code-indent-2"> [pair name="${k.split('_')[1]}" value="${v}"]</li>`;
+                            ks_code_adjuster_tag += `<li class="ks-code-indent-2"> [<font class="color-teal">pair</font> name=<font class="color-orange">"${k.split('_')[1]}"</font> value=<font class="color-orange">"${v}"</font>]</li>`;
                         });
-                        ks_code_adjuster_tag += '<li class="ks-code-indent-1">[adjuster]</li>';
+                        ks_code_adjuster_tag += '<li class="ks-code-indent-1">[<font class="color-teal">adjuster</font>]</li>';
                     }
                 }
 
                 if(judge) {
-                    ks_code_judge_tag = `<li class="ks-code-indent-1">[judge id="" events="${judge.events.join(',')}"]</li>`;
+                    console.log('111111');
+                    ks_code_judge_tag = `<li class="ks-code-indent-1">[<font class="color-teal">judge</font> id=<font class="color-orange">"judge-${++GV.judge_id}"</font> events=<font class="color-orange">"${judge.events.join(',')}"</font>]</li>`;
                     judge.groups.forEach(function(g) {
                         if(g.size) {
-                            ks_code_judge_tag += `<li class="ks-code-indent-2">[group id=""]</li>`;
+                            ks_code_judge_tag += `<li class="ks-code-indent-2">[<font class="color-teal">group</font> id=<font class="color-orange">"group-${++GV.group_id}"</font>]</li>`;
                             g.forEach(function(v, k) {
-                                ks_code_judge_tag += `<li class="ks-code-indent-3">[pair name="${k}" value="${v}"]</li>`;
+                                ks_code_judge_tag += `<li class="ks-code-indent-3">[<font class="color-teal">pair</font> name=<font class="color-orange">"${k}"</font> value=<font class="color-orange">"${v}"</font>]</li>`;
                             });
-                            ks_code_judge_tag += `<li class="ks-code-indent-2">[group]</li>`;
+                            ks_code_judge_tag += `<li class="ks-code-indent-2">[<font class="color-teal">group</font>]</li>`;
                         }
                     });
-                    ks_code_judge_tag += `<li class="ks-code-indent-1">[judge]</li>`;
+                    ks_code_judge_tag += `<li class="ks-code-indent-1">[<font class="color-teal">judge</font>]</li>`;
                 }
 
+                // console.log(adjuster)
                 // console.log(selector)
 
                 if(selector && selector.length) {
-                    ks_code_selector_tag = '<li class="ks-code-indent-1">[select type="horizontal"]</li>';
+                    ks_code_selector_tag = '<li class="ks-code-indent-1">[<font class="color-teal">select</font> type=<font class="color-orange">"horizontal"</font>]</li>';
                     selector.forEach(function(si) {
-                        ks_code_selector_tag += `<li class="ks-code-indent-2">[option{{text-anchor}}{{bg-anchor}}{{bgm-anchor}}]</li>`;
-                        ks_code_selector_tag= ks_code_selector_tag.replace('{{text-anchor}}', si.text ? ` text="${si.text}"` : '');
-                        ks_code_selector_tag=ks_code_selector_tag.replace('{{bg-anchor}}', si.bg ? ` bg="${si.bg.name}"` : '');
-                        ks_code_selector_tag=ks_code_selector_tag.replace('{{bgm-anchor}}', si.bgm ? ` bgm="${si.bgm.name}"` : '');
+                        ks_code_selector_tag += `<li class="ks-code-indent-2">[<font class="color-teal">option</font>{{text-anchor}}{{bg-anchor}}{{bgm-anchor}}]</li>`;
+                        ks_code_selector_tag= ks_code_selector_tag.replace('{{text-anchor}}', si.text ? ` text=<font class="color-orange">"${si.text}"</font>` : '');
+                        ks_code_selector_tag=ks_code_selector_tag.replace('{{bg-anchor}}', si.bg ? ` bg=<font class="color-orange">"${si.bg.name}"</font>` : '');
+                        ks_code_selector_tag=ks_code_selector_tag.replace('{{bgm-anchor}}', si.bgm ? ` bgm=<font class="color-orange">"${si.bgm.name}"</font>` : '');
                         // if(si.bgm) {
-                        //     ks_code_selector_tag += `<li class="ks-code-indent-3">[bgm src="${si.bgm.name}" action="${si.bgm.action}"${si.bgm.volume?' volume="'+si.bgm.volume+'"':''}${si.bgm.loop ? ' loop': ''}]</li>`;
+                        //     ks_code_selector_tag += `<li class="ks-code-indent-3">[bgm src="${si.bgm.name}" action=<font class="color-orange">"${si.bgm.action}"</font>${si.bgm.volume?' volume=<font class="color-orange">"'+si.bgm.volume+'"</font>':''}${si.bgm.loop ? ' loop': ''}]</li>`;
                         // }
                         // if(si.voice) {
-                        //     ks_code_selector_tag += `<li class="ks-code-indent-3">[voice src="${si.voice.name}" action="${si.voice.action}"${si.voice.volume?' volume="'+si.voice.volume+'"':''}${si.voice.loop ? ' loop': ''}]</li>`;
+                        //     ks_code_selector_tag += `<li class="ks-code-indent-3">[voice src="${si.voice.name}" action=<font class="color-orange">"${si.voice.action}"</font>${si.voice.volume?' volume=<font class="color-orange">"'+si.voice.volume+'"</font>':''}${si.voice.loop ? ' loop': ''}]</li>`;
                         // }
                         if (si.lines && si.lines.length) {
                             // console.log(lines.list)
@@ -382,14 +384,14 @@
                                 let line = si.lines[i];
                                 ks_code_selector_tag += `
                                 <li id="${line.id}" class="ks-code-indent-3">
-                                [line actor="${line.actor}" line="${line.text}" ${line.voice_file ? 'voice="' + line.voice_file + '"' : ''}] 
+                                [<font class="color-teal">line</font> actor=<font class="color-orange">"${line.actor}"</font> line=<font class="color-orange">"${line.text}"</font> ${line.voice_file ? 'voice=<font class="color-orange">"' + line.voice_file + '"</font>' : ''}] 
                                 </li>
                                 `;
                             }
                         }
-                        ks_code_selector_tag += `<li class="ks-code-indent-2">[option]</li>`;
+                        ks_code_selector_tag += `<li class="ks-code-indent-2">[<font class="color-teal">option</font>]</li>`;
                     });
-                    ks_code_selector_tag += '<li class="ks-code-indent-1">[select]</li>';
+                    ks_code_selector_tag += '<li class="ks-code-indent-1">[<font class="color-teal">select</font>]</li>';
                 }
 
                 let ks_code_action_id = 'ks-code-' + $action.attr('id');
@@ -398,7 +400,7 @@
 
                 if ($(`#${ks_code_action_id}`).length) {
                     $(`#${ks_code_action_id}`).html(`
-                    [action id="${id_num}"${next_action_id ? ' nextActionId="' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"' : ''}]
+                    [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_id ? ' nextActionId=<font class="color-orange">"' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"</font>' : ''}]
                         <ul>
                         ${ks_code_bg_tag}
                         ${ks_code_fg_tag}
@@ -409,12 +411,12 @@
                         ${ks_code_selector_tag}
                         ${ks_code_line_tags}
                         </ul>
-                    [action]
+                    [<font class="color-teal">action</font>]
                     `);
                 } else {
                     $('#y-area-codetext').append(`
                     <div class="ks-code-action" id="${ks_code_action_id}">
-                        [action id="${id_num}"${next_action_id ? ' nextActionId="' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"' : ''}]
+                        [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_id ? ' nextActionId=<font class="color-orange">"' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"</font>' : ''}]
                         <ul>
                         ${ks_code_bg_tag}
                         ${ks_code_fg_tag}
@@ -424,7 +426,7 @@
                         ${ks_code_judge_tag}
                         ${ks_code_line_tags}
                         </ul>
-                        [action]
+                        [<font class="color-teal">action</font>]
                     </div>
                     `);
                 }

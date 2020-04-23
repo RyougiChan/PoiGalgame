@@ -58,6 +58,9 @@
 
                 KsCode.updateAction(container);
             } else {
+                GV.adjuster_id = 0;
+                GV.judge_id = 0;
+                GV.group_id = 0;
                 let $ks_actions = $(container).find('.ks-action');
                 for (let i = 0; i < $ks_actions.length; i++) {
                     this.refreshAction($ks_actions[i]);

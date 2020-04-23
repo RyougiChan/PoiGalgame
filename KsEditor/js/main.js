@@ -47,7 +47,8 @@
             $('#y-area-draggable > input[name=jsplumb-connect-uuids]').val(
                 JSON.stringify([...GV.jsplumb_connect_uuids])
             );
-            KsCode.updateAction(source_id);
+            // KsCode.updateAction(source_id);
+            KsUtil.refreshAction(source_id);
         });
 
         jsPlumb.bind("connectionDetached", function (conn, originalEvent) {
@@ -59,7 +60,8 @@
             $('#y-area-draggable > input[name=jsplumb-connect-uuids]').val(
                 JSON.stringify([...GV.jsplumb_connect_uuids])
             );
-            KsCode.updateAction(`#${conn.source_id}`);
+            // KsCode.updateAction(`#${conn.source_id}`);
+            KsUtil.refreshAction(`#${conn.source_id}`);
         });
 
         $('#y-area-operation').on('wheel', (evt) => {
@@ -79,7 +81,7 @@
                 if (widget_mapper.has(widget_name)) {
                     $('#y-area-scaleable').append(widget_mapper.get(widget_name));
                     // Append code
-                    KsCode.updateAction($('.ks-action').last());
+                    // KsCode.updateAction($('.ks-action').last());
                     // Active event listener
                     KsUtil.refreshAction($('.ks-action').last());
                     // GV.Observer.observe ($('.ks-action').last()[0], GV.obsConfig);

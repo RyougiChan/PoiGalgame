@@ -56,3 +56,19 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 .nav-hover_in {
     width: 240px !important;
 }
+
+.color-teal {
+    color: var(--teal);
+}
+
+.color-blue {
+    color: var(--blue);
+}
+
+.color-orange {
+    color: var(--orange);
+}
+
+.color-red {
+    color: var(--red);
+}
