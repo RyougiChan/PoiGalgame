@@ -100,3 +100,7 @@ pre {
     -ms-overflow-style:none;
     overflow:-moz-scrollbars-none;
 }
+
+font {
+    word-break: break-all;
+}

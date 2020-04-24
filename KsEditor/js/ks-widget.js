@@ -14,18 +14,15 @@
 
     // GV.Observer = new MutationObserver(function (mutationRecords) {
     //     mutationRecords.forEach (function (mutation) {
-    //         console.log (mutation.target);
     //         KsUtil.refreshAction($(mutation.target).parents('.ks-action'));
     //     } );
     // });
 
     // $('#main-container .ks-action').each (function () {
-    //     console.log(this)
     //     GV.Observer.observe (this, GV.obsConfig);
     // } );
 
     $('#main-container').on('change', '.ks-action', function (evt) {
-        console.log($(evt.currentTarget).attr('id') + ' changed');
         // Update action code
         KsUtil.refreshAction(evt.currentTarget);
     });
@@ -42,7 +39,6 @@
     });
 
     $('#main-container').on('change', 'select', function(evt) {
-        console.log($(this));
     });
 
     $(document).on('click', '.ui-selectmenu-menu', function (evt) {
@@ -75,7 +71,6 @@
 
     $('#main-container').on('click', '.ks-remove', function (evt) {
         let action_id = $(this).parents('.ks-action').attr('id');
-        console.log($(this).parent() , $(this).parents('.ks-action'))
         if($(this).parent()[0] === $(this).parents('.ks-action')[0]) {
             jsPlumb.removeAllEndpoints(action_id);
             KsCode.removeAction(`#${action_id}`);
@@ -165,10 +160,12 @@
         let action_id = $(this).parents('.ks-action').attr('id');
         let action_id_num = action_id.slice(action_id.lastIndexOf('-') + 1);
         let item_id = $cont.find('h3').length ? parseInt($cont.find('h3').last().text()) + 1 : 1;
+        KsRecorder.set('max_group_id', KsRecorder.get('max_group_id') + 1);
         if ($cont && $cont.find('.ks-accordion')) {
             $cont.find('.ks-accordion').append(
                 KsConstant.OR_JUDGE_ITEM_NODE
                     .replace(/\[\[action_id\]\]/g, action_id_num)
+                    .replace(/\[\[group_id\]\]/g, KsRecorder.get('max_group_id'))
                     .replace(/\[\[item_id\]\]/g, item_id)
             );
             $cont.find('.ks-accordion').accordion('refresh');
@@ -181,7 +178,6 @@
         let $cont = $(this).parents('.ks-judge');
         let action_id = $(this).parents('.ks-action').attr('id');
         let action_id_num = action_id.slice(action_id.lastIndexOf('-') + 1);
-        // console.log($(this).parents('.ks-action').attr('id'))
         $(KsConstant.builder.get_JUDGE_EVENT_ITEM_NODE()
             .replace(/\[\[action_id\]\]/g, action_id_num))
             .insertBefore($cont.find('.ks-accordion'));
@@ -200,8 +196,6 @@
             let judge_item_id = $($cont[0]).find('.ks-accordion-andjudge-item').last().children('select').attr('id'),
                 judge_item_id_num = judge_item_id ? parseInt(judge_item_id.slice(judge_item_id.lastIndexOf('-') + 1)) + 1 : 1;
         
-                console.log('--------------',judge_id, judge_item_id, judge_item_id_num);
-        console.log($judge_cont.find('h3').last()[0])
         $($cont[0]).append(KsConstant.AND_JUDGE_ITEM_NODE
                 .replace(/\[\[action_id\]\]/g, action_id_num)
                 .replace(/\[\[judge_id\]\]/g, judge_id)

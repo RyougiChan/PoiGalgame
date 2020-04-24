@@ -20,6 +20,7 @@
             value: {
                 isSource: true,
                 isTarget: true,
+                maxConnections: 1,
                 endpointStyle: { outlineStroke: '#007fff', outlineWidth: 5, radius: 5 },
                 overlays: [['Arrow', { width: 12, length: 12, location: 0.5 }]]
             },

@@ -157,7 +157,7 @@
                 <span class="ks-accordion-op ks-accordion-remove" title="Remove">×</span>
                 <span class="ks-accordion-op ks-accordion-add-andjudge" title="Add a logical 'AND' judgment">+</span>
             </h3>
-            <div class="ks-accordion-item ks-accordion-andjudge-list">
+            <div class="ks-accordion-item ks-accordion-andjudge-list" id="ks-group-[[group_id]]">
                 <div class="ks-accordion-andjudge-item">
                     <select class="ks-select" title="Select Condition" id="ks-accordion-action-[[action_id]]-add-andjudge-[[item_id]]-item-1" value="${KsPlayerStatus.keys().next().value}">
                         ${built_options_player_status}
@@ -220,6 +220,8 @@
         get_COMMON_ACTION_NODE() {
             KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
             let action_id = KsRecorder.get('max_action_id');
+            KsRecorder.set('max_adjuster_id', KsRecorder.get('max_adjuster_id') + 1);
+            let adjuster_id = KsRecorder.get('max_adjuster_id');
             return `
             <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
@@ -239,7 +241,7 @@
                     <div class="ks-action-grid-item">
                         <div class="ks-button add-ks-line" title="Add A Line">+</div>
                     </div>
-                    <div class="ks-action-grid-item">
+                    <div class="ks-action-grid-item ks-adjuster" id="ks-adjuster-${adjuster_id}">
                         <div class="ks-button ks-blue ks-square open-ks-aujuster-config" title="Change Adjuster Config">config</div>
                         <div class="ks-adjuster-editor-values">
                             ${built_adjuster_values_list}
@@ -337,13 +339,15 @@
         get_SELECTOR_ACTION_NODE() {
             KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
             let action_id = KsRecorder.get('max_action_id');
+            KsRecorder.set('max_selector_id', KsRecorder.get('max_selector_id') + 1);
+            let selector_id = KsRecorder.get('max_selector_id');
             return `
             <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
                 <div class="ks-action-cont ks-action-info">
                     <span>ID: ${action_id}</span>/<span>Selector Action</span>
                 </div>
-                <div class="ks-selector">
+                <div class="ks-selector" id="ks-selector-${selector_id}">
                     <div class="ks-action-cont ks-action-grid">
                         <div class="ks-action-grid-item">
                             <div class="ks-button add-ks-selector-item" title="Add A Selector Item">+</div>
@@ -370,13 +374,17 @@
             KsRecorder.set('max_common_event_id', KsRecorder.get('max_common_event_id') + 1);
             let common_event_id = KsRecorder.get('max_common_event_id');
             let action_id = KsRecorder.get('max_action_id');
+            KsRecorder.set('max_judge_id', KsRecorder.get('max_judge_id') + 1);
+            let judge_id = KsRecorder.get('max_judge_id');
+            KsRecorder.set('max_group_id', KsRecorder.get('max_group_id') + 1);
+            let group_id = KsRecorder.get('max_group_id');
             return `
             <div id="ks-action-${action_id}" class="ks-widget ks-action"  style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
                 <div class="ks-action-cont ks-action-info">
                     <span>ID: ${action_id}</span>/<span>Judge Action</span>
                 </div>
-                <div class="ks-judge">
+                <div class="ks-judge" id="ks-judge-${judge_id}">
                     <div class="ks-action-cont ks-action-grid">
                         <div class="ks-action-grid-item">
                             <div class="ks-button add-ks-orjudge-item" title="Add a logical 'OR' judgment">+</div>
@@ -396,7 +404,7 @@
                             <span class="ks-accordion-op ks-accordion-remove" title="Remove">×</span>
                             <span class="ks-accordion-op ks-accordion-add-andjudge" title="Add a logical 'AND' judgment">+</span>
                         </h3>
-                        <div class="ks-accordion-item ks-accordion-andjudge-list">
+                        <div class="ks-accordion-item ks-accordion-andjudge-list" id="ks-group-${group_id}">
                             <div class="ks-accordion-andjudge-item">
                                 <select class="ks-select" title="Select Condition" id="ks-accordion-action-${action_id}-add-andjudge-1-item-1" value="${KsPlayerStatus.keys().next().value}">
                                     ${built_options_player_status}
@@ -414,13 +422,15 @@
         get_ADJUSTER_ACTION_NODE() {
             KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
             let action_id = KsRecorder.get('max_action_id');
+            KsRecorder.set('max_adjuster_id', KsRecorder.get('max_adjuster_id') + 1);
+            let adjuster_id = KsRecorder.get('max_adjuster_id');
             return `
             <div id="ks-action-${action_id}" class="ks-widget ks-action" style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
                 <div class="ks-action-cont ks-action-info">
                     <span>ID: ${action_id}</span>/<span>Adjuster Action</span>
                 </div>
-                <div class="ks-adjuster">
+                <div class="ks-adjuster" id="ks-adjuster-${adjuster_id}">
                     <div class="ks-action-cont ks-action-grid">
                         <div class="ks-action-grid-item">
                             <div class="ks-button ks-blue ks-square open-ks-aujuster-config" title="Change Adjuster Config">config</div>

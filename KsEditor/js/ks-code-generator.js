@@ -6,7 +6,6 @@
     Object.defineProperties(KsCode, {
         updateAction: {
             value: function (action_id) {
-                // console.log(action_id)
                 let $action = $(action_id);
                 if (!$action.length) return;
 
@@ -17,6 +16,7 @@
                     $text_style = $action.children('.ks-action-cont').find('.ks-action-textstyle'),
                     $text_size = $action.children('.ks-action-cont').find('.ks-action-textsize'),
                     $text_linespacing = $action.children('.ks-action-cont').find('.ks-action-textlinespacing'),
+                    $adjuster = $action.find('.ks-adjuster'),
                     $adjuster_values = $action.find('.ks-adjuster-editor-values input[type=hidden]'),
                     $bgm_files = $action.children('.ks-action-cont').find('.ks-bgm-control input[type=file]'),
                     $bgm_volume = $action.children('.ks-action-cont').find('.ks-bgm-control input[type=number]'),
@@ -57,10 +57,12 @@
 
                 ///// Adjuster
                 if ($adjuster_values.length) {
-                    adjuster = new Map();
+                    adjuster = {};
+                    adjuster.id = $adjuster.attr('id').slice($adjuster.attr('id').lastIndexOf('-') + 1);
+                    adjuster.values = new Map();
                     for (let ai = 0; ai < $adjuster_values.length; ai++) {
                         let $input = $($adjuster_values[ai]);
-                        adjuster.set($input.attr('name'), $input.attr('value'));
+                        adjuster.values.set($input.attr('name'), $input.attr('value'));
                     }
                 }
 
@@ -161,6 +163,7 @@
                         $judge_groups = $action.find('.ks-accordion-andjudge-list');
 
                     judge = {};
+                    judge.id = $judge_comp.attr('id').slice($judge_comp.attr('id').lastIndexOf('-') + 1);
                     judge.events = [];
                     judge.groups = [];
                     
@@ -175,10 +178,11 @@
                     for(let gi = 0; gi < $judge_groups.length; gi++) {
                         let $g = $($judge_groups[gi]);
                         let $g_items = $g.find('.ks-accordion-andjudge-item');
+                        let group_item = {};
                         let group_item_map = new Map();
 
-                        // console.log('$judge_groups: ', $judge_groups.length)
-                        // console.log('$g_items: ', $g_items.length)
+                        group_item.id = $g.attr('id').slice($g.attr('id').lastIndexOf('-') + 1);
+
 
                         for(let i = 0; i < $g_items.length; i++) {
                             let $g_item  = $($g_items[i]);
@@ -189,13 +193,11 @@
                                 group_item_map.set(name, value);
                             }
                         }
-
-                        judge.groups.push(group_item_map);
+                        group_item.map = group_item_map;
+                        judge.groups.push(group_item);
                     }
 
-                    // console.log(judge);
                 }
-                console.log('judge: ', judge);
 
                 ///// Selector
                 if($selector_comp.length) {
@@ -325,7 +327,6 @@
                     ks_code_fg_tag = `<li class="ks-code-indent-1">[<font class="color-teal">fg</font> src=<font class="color-orange">"${fg.name}"</font> layer=<font class="color-orange">"${fg.layer}"</font>]</li>`;
                 }
                 if (lines && lines.list && lines.list.length) {
-                    // console.log(lines.list)
                     for (let i = 0; i < lines.list.length; i++) {
                         let line = lines.list[i];
                         ks_code_line_tags += `
@@ -337,10 +338,10 @@
                 }
 
                 if (adjuster) {
-                    if (adjuster.get('is-adjuster-actived') === 'true') {
-                        adjuster.delete('is-adjuster-actived');
-                        ks_code_adjuster_tag = `<li class="ks-code-indent-1">[<font class="color-teal">adjuster</font> id=<font class="color-orange">"adjuster-${++GV.adjuster_id}"</font>]</li>`;
-                        adjuster.forEach(function (v, k) {
+                    if (adjuster.values.get('is-adjuster-actived') === 'true') {
+                        adjuster.values.delete('is-adjuster-actived');
+                        ks_code_adjuster_tag = `<li class="ks-code-indent-1">[<font class="color-teal">adjuster</font> id=<font class="color-orange">"adjuster-${adjuster.id}"</font>]</li>`;
+                        adjuster.values.forEach(function (v, k) {
                             ks_code_adjuster_tag += `<li class="ks-code-indent-2"> [<font class="color-teal">pair</font> name=<font class="color-orange">"${k.split('_')[1]}"</font> value=<font class="color-orange">"${v}"</font>]</li>`;
                         });
                         ks_code_adjuster_tag += '<li class="ks-code-indent-1">[<font class="color-teal">adjuster</font>]</li>';
@@ -348,12 +349,11 @@
                 }
 
                 if(judge) {
-                    console.log('111111');
-                    ks_code_judge_tag = `<li class="ks-code-indent-1">[<font class="color-teal">judge</font> id=<font class="color-orange">"judge-${++GV.judge_id}"</font> events=<font class="color-orange">"${judge.events.join(',')}"</font>]</li>`;
+                    ks_code_judge_tag = `<li class="ks-code-indent-1">[<font class="color-teal">judge</font> id=<font class="color-orange">"judge-${judge.id}"</font> events=<font class="color-orange">"${judge.events.join(',')}"</font>]</li>`;
                     judge.groups.forEach(function(g) {
-                        if(g.size) {
-                            ks_code_judge_tag += `<li class="ks-code-indent-2">[<font class="color-teal">group</font> id=<font class="color-orange">"group-${++GV.group_id}"</font>]</li>`;
-                            g.forEach(function(v, k) {
+                        if(g.map.size) {
+                            ks_code_judge_tag += `<li class="ks-code-indent-2">[<font class="color-teal">group</font> id=<font class="color-orange">"group-${g.id}"</font>]</li>`;
+                            g.map.forEach(function(v, k) {
                                 ks_code_judge_tag += `<li class="ks-code-indent-3">[<font class="color-teal">pair</font> name=<font class="color-orange">"${k}"</font> value=<font class="color-orange">"${v}"</font>]</li>`;
                             });
                             ks_code_judge_tag += `<li class="ks-code-indent-2">[<font class="color-teal">group</font>]</li>`;
@@ -361,9 +361,6 @@
                     });
                     ks_code_judge_tag += `<li class="ks-code-indent-1">[<font class="color-teal">judge</font>]</li>`;
                 }
-
-                // console.log(adjuster)
-                // console.log(selector)
 
                 if(selector && selector.length) {
                     ks_code_selector_tag = '<li class="ks-code-indent-1">[<font class="color-teal">select</font> type=<font class="color-orange">"horizontal"</font>]</li>';
@@ -379,7 +376,6 @@
                         //     ks_code_selector_tag += `<li class="ks-code-indent-3">[voice src="${si.voice.name}" action=<font class="color-orange">"${si.voice.action}"</font>${si.voice.volume?' volume=<font class="color-orange">"'+si.voice.volume+'"</font>':''}${si.voice.loop ? ' loop': ''}]</li>`;
                         // }
                         if (si.lines && si.lines.length) {
-                            // console.log(lines.list)
                             for (let i = 0; i < si.lines.length; i++) {
                                 let line = si.lines[i];
                                 ks_code_selector_tag += `
@@ -430,7 +426,6 @@
                     </div>
                     `);
                 }
-                // console.log($('#y-area-codetext').text().replace(/\s{2,}/g, ' ').replace(/\s+\[/g, '[').replace(/\]/g, ']\n'))
             }
         },
         removeAction: {
@@ -438,7 +433,6 @@
                 if ($(action_node).length) {
                     $(`#ks-code-${$(action_node).attr('id')}`).remove()
                 }
-                // console.log($('#y-area-codetext').text().replace(/\s{2,}/g, ' ').replace(/\s+\[/g, '[').replace(/\]/g, ']\n'))
             }
         }
     });

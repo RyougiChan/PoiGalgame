@@ -12,7 +12,7 @@
     widget_mapper.set('ks-video', KsConstant.builder.get_VIDEO_ACTION_NODE);
 
     jsPlumb.ready(function () {
-        
+
         // Custom default setting of jsPlumb
         jsPlumb.importDefaults({
             PaintStyle: {
@@ -23,18 +23,23 @@
             Endpoints: [["Dot", { radius: 5 }], ["Dot", { radius: 5 }]],
             EndpointStyles: [{ outlineStroke: "#007fff" }, { outlineStroke: "#007fff" }],
 
-            // MaxConnections: 1,
+            MaxConnections : 1,
             Connector: ['Flowchart'], // Bezier: 贝塞尔曲线 Flowchart: 具有90度转折点的流程线 StateMachine: 状态机 Straight: 直线
             Anchor: ['Left', 'Right'],
             //PaintStyle: { stroke: '#007fff', strokeWidth: 3 },
-            Overlays: [['Arrow', { width: 12, length: 12, location: 0.5 }]]
+            Overlays: [['Arrow', { width: 12, length: 12, location: 1.0 }]]
         });
 
+        // jsPlumb.bind('click', function (conn, originalEvent) {
+        //     if(confirm('Detach this connection?')) {
+        //         jsPlumb.deleteConnection(conn);
+        //     }
+        // });
+
         jsPlumb.bind("connection", function (connInfo, originalEvent) {
-            console.log('connInfo', connInfo)
             if (connInfo.connection.sourceId == connInfo.connection.targetId) {
                 jsPlumb.deleteConnection(connInfo.connection);
-                alert("cannot connect self");
+                alert("Cannot connect self");
             }
 
             let uuids = connInfo.connection.getUuids();
@@ -52,16 +57,15 @@
         });
 
         jsPlumb.bind("connectionDetached", function (conn, originalEvent) {
-            // console.log('conn', conn)
             let uuids = conn.connection.getUuids();
             GV.jsplumb_connect_uuids.delete(JSON.stringify(uuids));
 
-            $(`#${conn.source_id}`).removeAttr('data-next-action-id');
+            $(`#${conn.sourceId}`).removeAttr('data-next-action-id');
             $('#y-area-draggable > input[name=jsplumb-connect-uuids]').val(
                 JSON.stringify([...GV.jsplumb_connect_uuids])
             );
-            // KsCode.updateAction(`#${conn.source_id}`);
-            KsUtil.refreshAction(`#${conn.source_id}`);
+            KsCode.updateAction(`#${conn.sourceId}`);
+            KsUtil.refreshAction(`#${conn.sourceId}`);
         });
 
         $('#y-area-operation').on('wheel', (evt) => {
@@ -85,7 +89,7 @@
                     // Active event listener
                     KsUtil.refreshAction($('.ks-action').last());
                     // GV.Observer.observe ($('.ks-action').last()[0], GV.obsConfig);
-                    KsUtil.addEndpoints($('.ks-action').last().attr('id'));
+                    // KsUtil.addEndpoints($('.ks-action').last().attr('id'));
                     // jsPlumb.draggable($('.ks-action').last().attr('id'))
                 }
             }
@@ -98,64 +102,30 @@
                 let reader = new FileReader();
                 reader.onload = function () {
                     $('#y-area-draggable').html(this.result);
-                    // console.log(this.result);
                     // Get scale
                     GV.y_area_scale = parseInt($('#y-area-draggable').find('input[name=scale-value]').val()) / 100;
                     jsPlumb.setZoom(GV.y_area_scale);
-                    // Get max action id
-                    let $all_actions = $('#y-area-draggable').find('.ks-action');
-                    if($all_actions.length) {
-                        let action_id_list = [];
-                        for(let i = 0; i < $all_actions.length; i++) {
-                            let action_id = $all_actions[i].id;
-                            action_id_list.push(action_id.slice(action_id.lastIndexOf('-') + 1));
-                        }
-                        // console.log(Math.max.apply(null, action_id_list));
-                        KsRecorder.set('max_action_id', Math.max.apply(null, action_id_list));
-                    }
-                    // Get max event id
-                    let $all_events = $('#y-area-draggable').find('.ks-judge-event');
-                    if($all_events.length) {
-                        let event_id_list = [];
-                        for(let i = 0; i < $all_events.length; i++) {
-                            let event_id = $all_events[i].id;
-                            event_id_list.push(event_id.slice(event_id.lastIndexOf('-') + 1));
-                        }
-                        console.log(Math.max.apply(null, event_id_list));
-                        KsRecorder.set('max_common_event_id', Math.max.apply(null, event_id_list));
-                    }
-                    // Get max line id
-                    let $all_lines = $('#y-area-draggable').find('.ks-line-text');
-                    if($all_lines.length) {
-                        let line_id_list = [];
-                        for(let i = 0; i < $all_lines.length; i++) {
-                            let line_id = $all_lines[i].id;
-                            line_id_list.push(line_id.slice(line_id.lastIndexOf('-') + 1));
-                        }
-                        console.log(Math.max.apply(null, line_id_list));
-                        KsRecorder.set('max_line_id', Math.max.apply(null, line_id_list));
-                    }
+
+                    KsRecorder = new Map(JSON.parse($('#y-area-draggable > input[name="ks-recorder"]').val()));
+
                     // Get connection info
-                    // console.log(GV.jsplumb_connect_uuids);
                     let save_uuids = $('#y-area-draggable > input[name=jsplumb-connect-uuids]').val();
-                    if(save_uuids) {
+                    if (save_uuids) {
                         let save_uuids_list = JSON.parse(save_uuids);
-                        //console.log(GV.jsplumb_connect_uuids);
 
                         GV.jsplumb_connect_uuids = new Map(save_uuids_list);
-                        // console.log(Math.max.apply(null, [...GV.jsplumb_connect_uuids.values()].flat()));
                         KsRecorder.set('max_jsplumb_uuid', Math.max.apply(null, [...GV.jsplumb_connect_uuids.values()].flat()));
                     }
 
-                    // console.log(KsRecorder);
-
                     $('#y-area-codetext').html('');
                     KsUtil.refreshAction($('#y-area-draggable')[0]);
+                    KsUtil.rebuildConnection(GV.jsplumb_connect_uuids);
+                    jsPlumb.repaintEverything();
                 };
                 reader.readAsText(file);
             }
         });
-        
+
     });
 
     window.onbeforeunload = function (e) {
@@ -230,8 +200,9 @@
         return false;
     });
 
-    $('#y-area-zoom-v > input').on('change', (evt) => {
+    $('#y-area-draggable').on('change', '#y-area-zoom-v > input', (evt) => {
         let v = parseInt($(evt.target).val());
+        
         if (!isNaN(v)) {
             GV.y_area_scale = v / 100;
             $('#y-area-scaleable').css('transform', `scale(${GV.y_area_scale})`);
@@ -240,22 +211,22 @@
 
     $('#y-button-export').on('click', function (evt) {
         let all_selects = $('#y-area-draggable').find('.ks-select');
-        if(all_selects.length) {
-            for(let i = 0; i < all_selects.length; i++) {
+        if (all_selects.length) {
+            for (let i = 0; i < all_selects.length; i++) {
                 let $select = $(all_selects[i]),
                     $selected_option = $select.find(`option[value='${$select.val()}']`) || $select.find(`option:contains('${$select.val()}')`);
 
-                console.log($selected_option[0]);
 
                 $select.find('option').removeAttr('selected');
                 $selected_option.attr('selected', 'selected');
             }
         }
 
+        $('#y-area-draggable > input[name="ks-recorder"]').attr('value', JSON.stringify([...KsRecorder]));
         let ks_content = $('#y-area-codetext').text().replace(/\s{2,}/g, ' ').replace(/\s+\[/g, '[').replace(/\]/g, ']\n');
         if (ks_content) {
             let file_name = 'Chapter-' + (new Date().getTime()) + '.ks';
-            
+
             KsUtil.download(ks_content, file_name);
         }
         let $sn = $($('#y-area-draggable').prop('outerHTML'));
@@ -277,6 +248,6 @@
     });
 
 
-    
+
 
 })();
