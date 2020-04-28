@@ -17,6 +17,7 @@ body {
 
 #main-container > .y-level1-container > .y-level2-container {
     margin: 28px 24px 0 24px;
+    line-height: 1.4rem;
 }
 
 #main-container > .y-level1-container img {
@@ -164,6 +165,8 @@ body {
 #y-area-code > #y-area-codeop > button#y-button-import {
     color: black;
     background: white;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 #y-area-code > #y-area-codeop > button#y-button-import:hover {
@@ -174,6 +177,8 @@ body {
 #y-area-code > #y-area-codeop > button#y-button-export {
     color: white;
     background: #212121;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 #y-area-code > #y-area-codeop > button#y-button-export:hover {
@@ -536,4 +541,75 @@ body {
 }
 .jtk-endpoint,svg {
     z-index: 9999;
+}
+
+#tlyPageGuideWrapper {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#tlyPageGuideWrapper #tlyPageGuideToggles {
+    top: 1rem;
+}
+
+#tlyPageGuideWrapper #tlyPageGuideMessages .tlypageguide_close {
+    background: #2196F3;
+}
+
+.tlypageguide-open #tlyPageGuideWrapper .tlypageguide_toggle.tlyPageGuideToggleActive {
+    background: rgba(33, 150, 243, 0.9);
+}
+
+.tlypageguide-active .tlyPageGuideStepIndex {
+    background: rgba(33, 150, 243, 0.95);
+}
+
+.tlyPageGuideStepIndex {
+    background: rgba(33, 150, 243, 0.3);
+}
+
+.tlyPageGuideStepIndex:hover {
+    background: rgba(33, 150, 243, 0.95);
+}
+
+.tlyPageGuideStepIndex:hover.tlypageguide_right:after, .tlyPageGuideStepIndex:hover.tlypageguide_left:after, .tlyPageGuideStepIndex:hover.tlypageguide_top:after {
+    border-top: 15px solid rgba(33, 150, 243, 0.95);
+}
+
+.tlyPageGuideStepIndex.tlypageguide_right:after {
+    border-top: 15px solid rgba(33, 150, 243, 0.3);
+}
+
+.tlyPageGuideStepIndex.tlypageguide_left:after {
+    border-top: 15px solid rgba(33, 150, 243, 0.3);
+}
+
+.tlyPageGuideStepIndex.tlypageguide_top:after {
+    border-top: 15px solid rgba(33, 150, 243, 0.3);
+}
+
+.tlyPageGuideStepIndex.tlypageguide_bottom:after {
+    border-top: 15px solid rgba(33, 150, 243, 0.3);
+}
+
+.tlypageguide-active .tlyPageGuideStepIndex.tlypageguide_right:after, .tlypageguide-active .tlyPageGuideStepIndex.tlypageguide_left:after, .tlypageguide-active .tlyPageGuideStepIndex.tlypageguide_top:after {
+    border-top: 15px solid rgba(33, 150, 243, 0.95);
+}
+
+#tlyPageGuideWrapper #tlyPageGuideMessages span {
+    background: rgba(33, 150, 243, 0.95);
+}
+
+
+.tlypageguide_shadow {
+    background-color: rgba(33, 150, 243,0.1);
+    -webkit-box-shadow: 0 0 1px 1px rgba(0, 80, 134, 0.25);
+    -moz-box-shadow: 0 0 1px 1px rgba(0, 80, 134,0.25);
+    -o-box-shadow: 0 0 1px 1px rgba(0, 80, 134,0.25);
+    box-shadow: 0 0 1px 1px rgba(0, 80, 134,0.25);
+}
+
+#tlyPageGuideWrapper #tlyPageGuideMessages {
+    width: 50%;
+    margin: 0 25% 0 25%;
 }

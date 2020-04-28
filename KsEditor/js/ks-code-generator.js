@@ -315,23 +315,35 @@
                     ks_code_judge_tag = '',
                     ks_code_line_tags = '';
                 if (bgm) {
-                    ks_code_bgm_tag = `<li class="ks-code-indent-1">[<font class="color-teal">bgm</font> ${bgm.name ? 'src=<font class="color-orange">"' + bgm.name + '"</font>' : ''} ${bgm.volume ? 'volume=<font class="color-orange">"' + bgm.volume + '"</font>' : ''} ${bgm.loop ? 'loop' : ''} action=<font class="color-orange">"${bgm.action}"</font>]</li>`;
+                    ks_code_bgm_tag = `
+                    <li class="ks-code-indent-1">
+                    [<font class="color-teal">bgm</font> ${bgm.name ? 'src=<font class="color-orange">"' + bgm.name + '"</font>' : ''} ${bgm.volume ? 'volume=<font class="color-orange">"' + bgm.volume + '"</font>' : ''} ${bgm.loop ? 'loop' : ''} action=<font class="color-orange">"${bgm.action}"</font>]\n
+                    </li>`;
                 }
                 if (video) {
-                    ks_code_video_tag = `<li class="ks-code-indent-1">[<font class="color-teal">video</font> ${video.name ? 'src=<font class="color-orange">"' + video.name + '"</font>' : ''} ${video.volume ? 'volume=<font class="color-orange">"' + video.volume + '"</font>' : ''} ${video.loop ? 'loop' : ''} action=<font class="color-orange">"${video.action}"</font>]</li>`;
+                    ks_code_video_tag = `
+                    <li class="ks-code-indent-1">
+                    [<font class="color-teal">video</font> ${video.name ? 'src=<font class="color-orange">"' + video.name + '"</font>' : ''} ${video.volume ? 'volume=<font class="color-orange">"' + video.volume + '"</font>' : ''} ${video.loop ? 'loop' : ''} action=<font class="color-orange">"${video.action}"</font>]\n
+                    </li>`;
                 }
                 if (bg) {
-                    ks_code_bg_tag = `<li class="ks-code-indent-1">[<font class="color-teal">bg</font> src=<font class="color-orange">"${bg.name}"</font> layer=<font class="color-orange">"${bg.layer}"</font>]</li>`;
+                    ks_code_bg_tag = `
+                    <li class="ks-code-indent-1">
+                    [<font class="color-teal">bg</font> src=<font class="color-orange">"${bg.name}"</font> layer=<font class="color-orange">"${bg.layer}"</font>]\n
+                    </li>`;
                 }
                 if (fg) {
-                    ks_code_fg_tag = `<li class="ks-code-indent-1">[<font class="color-teal">fg</font> src=<font class="color-orange">"${fg.name}"</font> layer=<font class="color-orange">"${fg.layer}"</font>]</li>`;
+                    ks_code_fg_tag = `
+                    <li class="ks-code-indent-1">
+                    [<font class="color-teal">fg</font> src=<font class="color-orange">"${fg.name}"</font> layer=<font class="color-orange">"${fg.layer}"</font>]\n
+                    </li>`;
                 }
                 if (lines && lines.list && lines.list.length) {
                     for (let i = 0; i < lines.list.length; i++) {
                         let line = lines.list[i];
                         ks_code_line_tags += `
                         <li id="${line.id}" class="ks-code-indent-1">
-                        [<font class="color-teal">line</font> actor=<font class="color-orange">"${line.actor}"</font> line=<font class="color-orange">"${line.text}"</font>${line.voice_file ? ' voice=<font class="color-orange">"' + line.voice_file + '"</font>' : ''}${lines.size ? ' fsize=<font class="color-orange">"' + lines.size + '"</font>' : ''}${lines.linespacing ? ' linespacing=<font class="color-orange">"' + lines.linespacing + '"</font>' : ''}${lines.color ? ' fcolor=<font class="color-orange">"' + lines.color + '"</font>' : ''}${lines.style ? ' fstyle=<font class="color-orange">"' + lines.style + '"</font>' : ''}] 
+                    [<font class="color-teal">line</font> actor=<font class="color-orange">"${line.actor}"</font> line=<font class="color-orange">"${line.text}"</font>${line.voice_file ? ' voice=<font class="color-orange">"' + line.voice_file + '"</font>' : ''}${lines.size ? ' fsize=<font class="color-orange">"' + lines.size + '"</font>' : ''}${lines.linespacing ? ' linespacing=<font class="color-orange">"' + lines.linespacing + '"</font>' : ''}${lines.color ? ' fcolor=<font class="color-orange">"' + lines.color + '"</font>' : ''}${lines.style ? ' fstyle=<font class="color-orange">"' + lines.style + '"</font>' : ''}]
                         </li>
                         `;
                     }
@@ -340,54 +352,90 @@
                 if (adjuster) {
                     if (adjuster.values.get('is-adjuster-actived') === 'true') {
                         adjuster.values.delete('is-adjuster-actived');
-                        ks_code_adjuster_tag = `<li class="ks-code-indent-1">[<font class="color-teal">adjuster</font> id=<font class="color-orange">"adjuster-${adjuster.id}"</font>]</li>`;
+                        ks_code_adjuster_tag = `
+                        <li class="ks-code-indent-1">
+                    [<font class="color-teal">adjuster</font> id=<font class="color-orange">"adjuster-${adjuster.id}"</font>]\n
+                        </li>`;
                         adjuster.values.forEach(function (v, k) {
-                            ks_code_adjuster_tag += `<li class="ks-code-indent-2"> [<font class="color-teal">pair</font> name=<font class="color-orange">"${k.split('_')[1]}"</font> value=<font class="color-orange">"${v}"</font>]</li>`;
+                            ks_code_adjuster_tag += `
+                            <li class="ks-code-indent-2"> 
+                        [<font class="color-teal">pair</font> name=<font class="color-orange">"${k.split('_')[1]}"</font> value=<font class="color-orange">"${v}"</font>]\n
+                            </li>`;
                         });
-                        ks_code_adjuster_tag += '<li class="ks-code-indent-1">[<font class="color-teal">adjuster</font>]</li>';
+                        ks_code_adjuster_tag += `
+                        <li class="ks-code-indent-1">
+                    [<font class="color-teal">adjuster</font>]\n
+                        </li>`;
                     }
                 }
 
                 if(judge) {
-                    ks_code_judge_tag = `<li class="ks-code-indent-1">[<font class="color-teal">judge</font> id=<font class="color-orange">"judge-${judge.id}"</font> events=<font class="color-orange">"${judge.events.join(',')}"</font>]</li>`;
+                    ks_code_judge_tag = `
+                    <li class="ks-code-indent-1">
+                    [<font class="color-teal">judge</font> id=<font class="color-orange">"judge-${judge.id}"</font> events=<font class="color-orange">"${judge.events.join(',')}"</font>]\n
+                    </li>`;
                     judge.groups.forEach(function(g) {
                         if(g.map.size) {
-                            ks_code_judge_tag += `<li class="ks-code-indent-2">[<font class="color-teal">group</font> id=<font class="color-orange">"group-${g.id}"</font>]</li>`;
+                            ks_code_judge_tag += `
+                            <li class="ks-code-indent-2">
+                        [<font class="color-teal">group</font> id=<font class="color-orange">"group-${g.id}"</font>]\n
+                            </li>`;
                             g.map.forEach(function(v, k) {
-                                ks_code_judge_tag += `<li class="ks-code-indent-3">[<font class="color-teal">pair</font> name=<font class="color-orange">"${k}"</font> value=<font class="color-orange">"${v}"</font>]</li>`;
+                                ks_code_judge_tag += `
+                                <li class="ks-code-indent-3">
+                            [<font class="color-teal">pair</font> name=<font class="color-orange">"${k}"</font> value=<font class="color-orange">"${v}"</font>]\n
+                                </li>`;
                             });
-                            ks_code_judge_tag += `<li class="ks-code-indent-2">[<font class="color-teal">group</font>]</li>`;
+                            ks_code_judge_tag += `
+                            <li class="ks-code-indent-2">
+                        [<font class="color-teal">group</font>]\n
+                            </li>`;
                         }
                     });
-                    ks_code_judge_tag += `<li class="ks-code-indent-1">[<font class="color-teal">judge</font>]</li>`;
+                    ks_code_judge_tag += `
+                    <li class="ks-code-indent-1">
+                    [<font class="color-teal">judge</font>]\n
+                    </li>`;
                 }
 
                 if(selector && selector.length) {
-                    ks_code_selector_tag = '<li class="ks-code-indent-1">[<font class="color-teal">select</font> type=<font class="color-orange">"horizontal"</font>]</li>';
+                    ks_code_selector_tag = `
+                    <li class="ks-code-indent-1">
+                    [<font class="color-teal">select</font> type=<font class="color-orange">"horizontal"</font>]\n
+                    </li>`;                    
                     selector.forEach(function(si) {
-                        ks_code_selector_tag += `<li class="ks-code-indent-2">[<font class="color-teal">option</font>{{text-anchor}}{{bg-anchor}}{{bgm-anchor}}]</li>`;
+                        ks_code_selector_tag += `
+                        <li class="ks-code-indent-2">
+                        [<font class="color-teal">option</font>{{text-anchor}}{{bg-anchor}}{{bgm-anchor}}]\n
+                        </li>`;
                         ks_code_selector_tag= ks_code_selector_tag.replace('{{text-anchor}}', si.text ? ` text=<font class="color-orange">"${si.text}"</font>` : '');
                         ks_code_selector_tag=ks_code_selector_tag.replace('{{bg-anchor}}', si.bg ? ` bg=<font class="color-orange">"${si.bg.name}"</font>` : '');
                         ks_code_selector_tag=ks_code_selector_tag.replace('{{bgm-anchor}}', si.bgm ? ` bgm=<font class="color-orange">"${si.bgm.name}"</font>` : '');
                         // if(si.bgm) {
-                        //     ks_code_selector_tag += `<li class="ks-code-indent-3">[bgm src="${si.bgm.name}" action=<font class="color-orange">"${si.bgm.action}"</font>${si.bgm.volume?' volume=<font class="color-orange">"'+si.bgm.volume+'"</font>':''}${si.bgm.loop ? ' loop': ''}]</li>`;
+                        //     ks_code_selector_tag += `<li class="ks-code-indent-3">[bgm src="${si.bgm.name}" action=<font class="color-orange">"${si.bgm.action}"</font>${si.bgm.volume?' volume=<font class="color-orange">"'+si.bgm.volume+'"</font>':''}${si.bgm.loop ? ' loop': ''}]\n</li>`;
                         // }
                         // if(si.voice) {
-                        //     ks_code_selector_tag += `<li class="ks-code-indent-3">[voice src="${si.voice.name}" action=<font class="color-orange">"${si.voice.action}"</font>${si.voice.volume?' volume=<font class="color-orange">"'+si.voice.volume+'"</font>':''}${si.voice.loop ? ' loop': ''}]</li>`;
+                        //     ks_code_selector_tag += `<li class="ks-code-indent-3">[voice src="${si.voice.name}" action=<font class="color-orange">"${si.voice.action}"</font>${si.voice.volume?' volume=<font class="color-orange">"'+si.voice.volume+'"</font>':''}${si.voice.loop ? ' loop': ''}]\n</li>`;
                         // }
                         if (si.lines && si.lines.length) {
                             for (let i = 0; i < si.lines.length; i++) {
                                 let line = si.lines[i];
                                 ks_code_selector_tag += `
                                 <li id="${line.id}" class="ks-code-indent-3">
-                                [<font class="color-teal">line</font> actor=<font class="color-orange">"${line.actor}"</font> line=<font class="color-orange">"${line.text}"</font> ${line.voice_file ? 'voice=<font class="color-orange">"' + line.voice_file + '"</font>' : ''}] 
+                            [<font class="color-teal">line</font> actor=<font class="color-orange">"${line.actor}"</font> line=<font class="color-orange">"${line.text}"</font> ${line.voice_file ? 'voice=<font class="color-orange">"' + line.voice_file + '"</font>' : ''}]
                                 </li>
                                 `;
                             }
                         }
-                        ks_code_selector_tag += `<li class="ks-code-indent-2">[<font class="color-teal">option</font>]</li>`;
+                        ks_code_selector_tag += `
+                        <li class="ks-code-indent-2">
+                        [<font class="color-teal">option</font>]\n
+                        </li>`;
                     });
-                    ks_code_selector_tag += '<li class="ks-code-indent-1">[<font class="color-teal">select</font>]</li>';
+                    ks_code_selector_tag += `
+                    <li class="ks-code-indent-1">
+                    [<font class="color-teal">select</font>]\n
+                    </li>`;
                 }
 
                 let ks_code_action_id = 'ks-code-' + $action.attr('id');
@@ -396,34 +444,34 @@
 
                 if ($(`#${ks_code_action_id}`).length) {
                     $(`#${ks_code_action_id}`).html(`
-                    [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_id ? ' nextActionId=<font class="color-orange">"' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"</font>' : ''}]
-                        <ul>
-                        ${ks_code_bg_tag}
-                        ${ks_code_fg_tag}
-                        ${ks_code_bgm_tag}
-                        ${ks_code_video_tag}
-                        ${ks_code_adjuster_tag}
-                        ${ks_code_judge_tag}
-                        ${ks_code_selector_tag}
-                        ${ks_code_line_tags}
-                        </ul>
-                    [<font class="color-teal">action</font>]
-                    `);
+                [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_id ? ' nextActionId=<font class="color-orange">"' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"</font>' : ''}]
+                    <ul>
+                    ${ks_code_bg_tag}
+                    ${ks_code_fg_tag}
+                    ${ks_code_bgm_tag}
+                    ${ks_code_video_tag}
+                    ${ks_code_adjuster_tag}
+                    ${ks_code_judge_tag}
+                    ${ks_code_selector_tag}
+                    ${ks_code_line_tags}
+                    </ul>
+                [<font class="color-teal">action</font>]
+                `);
                 } else {
                     $('#y-area-codetext').append(`
-                    <div class="ks-code-action" id="${ks_code_action_id}">
-                        [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_id ? ' nextActionId=<font class="color-orange">"' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"</font>' : ''}]
-                        <ul>
-                        ${ks_code_bg_tag}
-                        ${ks_code_fg_tag}
-                        ${ks_code_bgm_tag}
-                        ${ks_code_video_tag}
-                        ${ks_code_adjuster_tag}
-                        ${ks_code_judge_tag}
-                        ${ks_code_line_tags}
-                        </ul>
-                        [<font class="color-teal">action</font>]
-                    </div>
+                <div class="ks-code-action" id="${ks_code_action_id}">
+                [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_id ? ' nextActionId=<font class="color-orange">"' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"</font>' : ''}]
+                <ul>
+                ${ks_code_bg_tag}
+                ${ks_code_fg_tag}
+                ${ks_code_bgm_tag}
+                ${ks_code_video_tag}
+                ${ks_code_adjuster_tag}
+                ${ks_code_judge_tag}
+                ${ks_code_line_tags}
+                </ul>
+                [<font class="color-teal">action</font>]
+                </div>
                     `);
                 }
             }

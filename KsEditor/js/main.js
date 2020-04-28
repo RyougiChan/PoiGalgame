@@ -1,4 +1,4 @@
-(() => {
+(function () {
     'use strict';
 
     let widget_mapper = new Map();
@@ -23,7 +23,7 @@
             Endpoints: [["Dot", { radius: 5 }], ["Dot", { radius: 5 }]],
             EndpointStyles: [{ outlineStroke: "#007fff" }, { outlineStroke: "#007fff" }],
 
-            MaxConnections : 1,
+            MaxConnections: 1,
             Connector: ['Flowchart'], // Bezier: 贝塞尔曲线 Flowchart: 具有90度转折点的流程线 StateMachine: 状态机 Straight: 直线
             Anchor: ['Left', 'Right'],
             //PaintStyle: { stroke: '#007fff', strokeWidth: 3 },
@@ -114,7 +114,7 @@
                         let save_uuids_list = JSON.parse(save_uuids);
 
                         GV.jsplumb_connect_uuids = new Map(save_uuids_list);
-                        KsRecorder.set('max_jsplumb_uuid', Math.max.apply(null, [...GV.jsplumb_connect_uuids.values()].flat()));
+                        // KsRecorder.set('max_jsplumb_uuid', Math.max.apply(null, [...GV.jsplumb_connect_uuids.values()].flat()));
                     }
 
                     $('#y-area-codetext').html('');
@@ -202,7 +202,7 @@
 
     $('#y-area-draggable').on('change', '#y-area-zoom-v > input', (evt) => {
         let v = parseInt($(evt.target).val());
-        
+
         if (!isNaN(v)) {
             GV.y_area_scale = v / 100;
             $('#y-area-scaleable').css('transform', `scale(${GV.y_area_scale})`);
@@ -216,22 +216,24 @@
                 let $select = $(all_selects[i]),
                     $selected_option = $select.find(`option[value='${$select.val()}']`) || $select.find(`option:contains('${$select.val()}')`);
 
-
                 $select.find('option').removeAttr('selected');
                 $selected_option.attr('selected', 'selected');
             }
         }
 
         $('#y-area-draggable > input[name="ks-recorder"]').attr('value', JSON.stringify([...KsRecorder]));
-        let ks_content = $('#y-area-codetext').text().replace(/\s{2,}/g, ' ').replace(/\s+\[/g, '[').replace(/\]/g, ']\n');
+        // let ks_content = $('#y-area-codetext').text().replace(/\s{2,}/g, ' ').replace(/\s+\[/g, '[').replace(/\]/g, ']\n');
+        let ks_content = $('#y-area-codetext').text().replace(/\n\s+\n/g, '\n').replace(/ {16}/g, '    ');
         if (ks_content) {
             let file_name = 'Chapter-' + (new Date().getTime()) + '.ks';
 
-            KsUtil.download(ks_content, file_name);
+            KsUtil.download('[chs]' + ks_content.trimEnd() + '\n[che]\n', file_name);
         }
         let $sn = $($('#y-area-draggable').prop('outerHTML'));
         $sn.find('.jtk-endpoint').remove();
         $sn.find('.ui-selectmenu-button').remove();
+        $sn.find('.ui-accordion-header-icon').remove();
+        $sn.find('.ks-accordion h3').removeAttr('class');
         $sn.find('svg').remove();
         let ks_html_content = $sn.html();
         if (ks_html_content) {
@@ -247,7 +249,7 @@
         jsPlumb.repaintEverything();
     });
 
-
-
-
+    tl.pg.init({
+        pg_caption: 'GUIDE'
+    });
 })();

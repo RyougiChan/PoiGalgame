@@ -18,7 +18,7 @@
                         let t_index = parseInt($($all_actions[i]).css('z-index'));
                         max_index = t_index > max_index ? t_index : max_index;
                     }
-                    if(!$(container).next('.jtk-endpoint').length) {
+                    if(!$(container).next('.jtk-endpoint').length || ($(container).next('.jtk-endpoint').length && $(container).attr('id') === $all_actions.last().attr('id'))) {
                         this.addEndpoints($(container)[0].id);
                     }
     
@@ -151,7 +151,6 @@
                     anchor: 'Bottom',
                     uuid: uuids[1]
                 }, GV.jsPlumbConfig);
-                KsRecorder.set('max_jsplumb_uuid', uuids[1]);
             } else {
                 let action_ep_uuids = [];
                 KsRecorder.set('max_jsplumb_uuid', KsRecorder.get('max_jsplumb_uuid') + 1);

@@ -89,8 +89,8 @@
             $select_file[0].click();
             $select_file.on('change', function (file_evt) {
                 let files = file_evt.target.files;
-                if (files.length && $(this).parent().attr('id') !== 'y-button-import') {
-                    $(this).siblings('span').text(files[0].name);
+                if ($(this).parent().attr('id') !== 'y-button-import') {
+                    $(this).siblings('span').text(files.length ? files[0].name : 'File');
                 }
             });
         }
