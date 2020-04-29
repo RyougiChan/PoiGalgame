@@ -24,10 +24,6 @@ This editor developed base on monitor with resolution `1920*1080` and `2560*1440
 
 ## Components Introduction
 
-<style>
-table th:nth-of-type(2) { width: 160pt }
-</style>
-
 | Component | Introduction | Ks Support | Example |
 | --------- | ------------ | :--------: | ------- |
 | Common Action | A action contains most of widgets, including `Line`, `BGM`, `BG`, `FG`, `Adjuster` | YES | ![common action](./images/preview/comp-action-common.png) |
