@@ -49,11 +49,13 @@
                 target_id = `#${connInfo.targetId}`;
 
             $(source_id).attr('data-next-action-id', $(target_id).attr('id').slice($(target_id).attr('id').lastIndexOf('-') + 1));
+            $(target_id).attr('data-previous-action-id', $(source_id).attr('id').slice($(source_id).attr('id').lastIndexOf('-') + 1));
             $('#y-area-draggable > input[name=jsplumb-connect-uuids]').val(
                 JSON.stringify([...GV.jsplumb_connect_uuids])
             );
             // KsCode.updateAction(source_id);
             KsUtil.refreshAction(source_id);
+            KsUtil.refreshAction(target_id);
         });
 
         jsPlumb.bind("connectionDetached", function (conn, originalEvent) {
@@ -61,11 +63,14 @@
             GV.jsplumb_connect_uuids.delete(JSON.stringify(uuids));
 
             $(`#${conn.sourceId}`).removeAttr('data-next-action-id');
+            $(`#${conn.targetId}`).removeAttr('data-previous-action-id');
             $('#y-area-draggable > input[name=jsplumb-connect-uuids]').val(
                 JSON.stringify([...GV.jsplumb_connect_uuids])
             );
             KsCode.updateAction(`#${conn.sourceId}`);
+            KsCode.updateAction(`#${conn.targetId}`);
             KsUtil.refreshAction(`#${conn.sourceId}`);
+            KsUtil.refreshAction(`#${conn.targetId}`);
         });
 
         $('#y-area-operation').on('wheel', (evt) => {

@@ -6,13 +6,27 @@
 
 **KsEditor** is a JavaScript-based visual editor for [KsScript language](#). All you need is drag/create components to let JavaScript generate code autoly.
 
-## Compatibility
+## Requirements
+
+### Browser Requirement
 
 This editor developed using a quantity of new feature of **ES6+**(ECMAScript 6.0 and higher version).
 So we highly recommend using lastest [Google Chrome](https://chrome.google.com) browser.
 Otherwise, We are not responsible for anything strange that happens `（＞人＜；）`.
 
+### Priority Requirement
+
+You must allow your browser to download multiple files at the same time when using the **Export** feature.
+
+### Monitor Resolution Requirement
+
+This editor developed base on monitor with resolution `1920*1080` and `2560*1440`. Therefore it's better to use the  two resolutions for best experience.
+
 ## Components Introduction
+
+<style>
+table th:nth-of-type(2) { width: 160pt }
+</style>
 
 | Component | Introduction | Ks Support | Example |
 | --------- | ------------ | :--------: | ------- |
@@ -86,3 +100,7 @@ The following is a example of generated code
 [che]
 
 ```
+
+## Copyright
+
+Copyright © [RyougiChan](https://github.com/RyougiChan). All rights reserved.

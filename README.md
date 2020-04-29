@@ -22,7 +22,7 @@ There are some famous galgame development engine such as `KIRIKIRI`, `NScriptor`
 - [x] Basic Galgame elements
 - [x] Visual editing script framework
 - [x] Create a more readable script(like kirikiri)
-- [x] Provide a custom script editor tool
+- [x] Provide a custom script editor tool: KsEditor
 - [ ] Script update behavior monitoring (to be evaluated)
 - [ ] Real-time parsing, previewing and presentation
 - [ ] Tranform, animation, effect, etc.
@@ -44,7 +44,7 @@ There are some famous galgame development engine such as `KIRIKIRI`, `NScriptor`
 
 ## Declaration
 
-All resources in this project are based on [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), that means you can copy and reissue the contents of this project, but you will also have to provide the **original author information** as well as the **agreement statement**. At the same time, it **cannot be used for commercial purposes**. In accordance with our narrow understanding (Additional subsidiary terms), **all activities that are profitable are of commercial use.**
+Some resources using in the demo are from game CLANNAD, which copyright to [Key](http://key.visualarts.gr.jp) company. All other resources in this project are based on [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), that means you can copy and reissue the contents of this project, but you will also have to provide the **original author information** as well as the **agreement statement**. At the same time, it **cannot be used for commercial purposes**. In accordance with our narrow understanding (Additional subsidiary terms), **all activities that are profitable are of commercial use.**
 
 Released under the [Apache License 2.0](LICENSE)
 

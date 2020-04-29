@@ -441,10 +441,13 @@
                 let ks_code_action_id = 'ks-code-' + $action.attr('id');
                 let id_num = $action.attr('id').slice($action.attr('id').lastIndexOf('-') + 1);
                 let next_action_id = $action.attr('data-next-action-id');
+                let previous_action_id = $action.attr('data-previous-action-id');
+                let next_action_prop = next_action_id ? ' nextActionId=<font class="color-orange">"' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"</font>' : '';
+                let previous_action_prop = previous_action_id ? ' previousActionId=<font class="color-orange">"' +previous_action_id.slice(previous_action_id.lastIndexOf('-')+1)+ '"</font>' : '';
 
                 if ($(`#${ks_code_action_id}`).length) {
                     $(`#${ks_code_action_id}`).html(`
-                [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_id ? ' nextActionId=<font class="color-orange">"' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"</font>' : ''}]
+                [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_prop}${previous_action_prop}]
                     <ul>
                     ${ks_code_bg_tag}
                     ${ks_code_fg_tag}
@@ -460,7 +463,7 @@
                 } else {
                     $('#y-area-codetext').append(`
                 <div class="ks-code-action" id="${ks_code_action_id}">
-                [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_id ? ' nextActionId=<font class="color-orange">"' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"</font>' : ''}]
+                [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_prop}${previous_action_prop}]
                 <ul>
                 ${ks_code_bg_tag}
                 ${ks_code_fg_tag}

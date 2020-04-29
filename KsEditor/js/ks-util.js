@@ -18,7 +18,8 @@
                         let t_index = parseInt($($all_actions[i]).css('z-index'));
                         max_index = t_index > max_index ? t_index : max_index;
                     }
-                    if(!$(container).next('.jtk-endpoint').length || ($(container).next('.jtk-endpoint').length && $(container).attr('id') === $all_actions.last().attr('id'))) {
+                    if(!$(container).next('.jtk-endpoint').length || 
+                        (2 * $all_actions.length > $('#y-area-scaleable').find('.jtk-endpoint').length)) {
                         this.addEndpoints($(container)[0].id);
                     }
     
