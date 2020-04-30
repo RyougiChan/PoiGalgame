@@ -11,6 +11,10 @@ body {
     display: -webkit-flex;
 }
 
+#main-container a {
+    text-decoration: underline;
+}
+
 #main-container > .y-level1-container {
     height: 100%;
 }
@@ -64,6 +68,10 @@ body {
 
 .ks-code-indent-3 {
     text-indent: 3rem;
+}
+
+.ks-code-indent-4 {
+    text-indent: 4rem;
 }
 
 #y-area-components {

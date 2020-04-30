@@ -211,8 +211,11 @@ namespace Assets.Script.Utility
                                 case "id":
                                     ksTagProperty.id = propValue;
                                     break;
-                                case "nextaction":
+                                case "nextactionid":
                                     ksTagProperty.next_action_id = propValue;
+                                    break;
+                                case "previousactionid":
+                                    ksTagProperty.previous_action_id = propValue;
                                     break;
                                 case "tag":
                                     ksTagProperty.tag = propValue;
@@ -414,6 +417,7 @@ namespace Assets.Script.Utility
                         {
                             nowSelectorOption = new PSelectorOption();
                             nowSelectorOption.Actions = new List<GalgamePlainAction>();
+                            nowSelectorOption.DeltaGameValues = new GameValues();
                             nowSelectorOption.Bg = (Sprite)Resources.Load("Sprite/" + ksTagProperty.option_bg, typeof(Sprite));
                             nowSelectorOption.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.option_bgm, typeof(AudioClip));
                             nowSelectorOption.Text = new PText()
@@ -429,7 +433,11 @@ namespace Assets.Script.Utility
                         }
                         if (GalgameKsScriptTag.PAIR == tag)
                         {
-                            if(null != nowAdjuster && !string.IsNullOrEmpty(ksTagProperty.name) && !string.IsNullOrEmpty(ksTagProperty.value))
+                            if (null != nowSelectorOption && !string.IsNullOrEmpty(ksTagProperty.name) && !string.IsNullOrEmpty(ksTagProperty.value))
+                            {
+                                EntityUtil.SetDeepValue(nowSelectorOption.DeltaGameValues, ksTagProperty.name, ksTagProperty.value);
+                            }
+                            if (null != nowAdjuster && !string.IsNullOrEmpty(ksTagProperty.name) && !string.IsNullOrEmpty(ksTagProperty.value))
                             {
                                 EntityUtil.SetDeepValue(nowAdjuster.DeltaGameValues, ksTagProperty.name, ksTagProperty.value);
                             }
@@ -442,7 +450,7 @@ namespace Assets.Script.Utility
                         {
                             if (null != ksTagProperty.line)
                             {
-                                galgameAction.Line = new GalgameScriptLine()
+                                galgameAction.Lines.Add(new GalgameScriptLine()
                                 {
                                     text = ksTagProperty.line,
                                     ffamily = ksTagProperty.ffamily,
@@ -451,7 +459,12 @@ namespace Assets.Script.Utility
                                     linespacing = ksTagProperty.linespacing,
                                     align = ksTagProperty.align,
                                     fstyle = ksTagProperty.fstyle
-                                };
+                                });
+
+                                if(null == galgameAction.Line)
+                                {
+                                    galgameAction.Line = galgameAction.Lines[0];
+                                }
                             }
                             if (null != ksTagProperty.videosrc) galgameAction.Video = (VideoClip)Resources.Load("Video/" + ksTagProperty.videosrc, typeof(VideoClip));
                             if (null != ksTagProperty.bgmsrc) galgameAction.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.bgmsrc, typeof(AudioClip));

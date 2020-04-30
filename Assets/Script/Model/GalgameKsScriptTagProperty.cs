@@ -59,5 +59,6 @@ namespace Assets.Script.Model
         public string option_bgm;
         
         public string next_action_id;
+        public string previous_action_id;
     }
 }

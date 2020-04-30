@@ -41,6 +41,10 @@
         group_id : {
             value: 0,
             writable: true
+        },
+        is_removing_action: {
+            value: false,
+            writable: true
         }
     });
 

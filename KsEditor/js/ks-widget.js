@@ -72,14 +72,16 @@
     $('#main-container').on('click', '.ks-remove', function (evt) {
         let action_id = $(this).parents('.ks-action').attr('id');
         if($(this).parent()[0] === $(this).parents('.ks-action')[0]) {
+            GV.is_removing_action = true;
             jsPlumb.removeAllEndpoints(action_id);
             KsCode.removeAction(`#${action_id}`);
         }
         $(this).parent().remove();
-        if(action_id) {
+        if($(`#${action_id}`).length) {
             KsUtil.refreshAction(`#${action_id}`);
         }
         jsPlumb.repaintEverything();
+        GV.is_removing_action = false;
     });
 
     $('#main-container').on('click', '.ks-button', function (evt) {
@@ -139,6 +141,28 @@
             $($cont[0]).append(KsConstant.VOICE_ACCORDION_NODE
                 .replace(/\[\[action_id\]\]/g, action_id_num));
             $($cont[0]).find('.ks-select').selectmenu();
+            jsPlumb.repaintEverything();
+        }
+    });
+
+    $('#main-container').on('click', '.ks-accordion-addvoice', function (evt) {
+        let $cont = $(this).parent().next('div');
+        let action_id = $(this).parents('.ks-action').attr('id');
+        let action_id_num = action_id.slice(action_id.lastIndexOf('-') + 1);
+
+        if ($cont && !$($cont[0]).children('.ks-action-cont').children('.ks-voice-control').length) {
+            $($cont[0]).append(KsConstant.VOICE_ACCORDION_NODE
+                .replace(/\[\[action_id\]\]/g, action_id_num));
+            $($cont[0]).find('.ks-select').selectmenu();
+            jsPlumb.repaintEverything();
+        }
+    });
+
+    $('#main-container').on('click', '.ks-accordion-addadjuster', function (evt) {
+        let $cont = $(this).parent().next('div');
+
+        if ($cont && !$($cont[0]).children('.ks-action-cont').children('.ks-adjuster').length) {
+            $($cont[0]).append(KsConstant.builder.get_ADJUSTER_NODE());
             jsPlumb.repaintEverything();
         }
     });

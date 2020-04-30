@@ -18,8 +18,8 @@
                         let t_index = parseInt($($all_actions[i]).css('z-index'));
                         max_index = t_index > max_index ? t_index : max_index;
                     }
-                    if(!$(container).next('.jtk-endpoint').length || 
-                        (2 * $all_actions.length > $('#y-area-scaleable').find('.jtk-endpoint').length)) {
+                    
+                    if(2 * $all_actions.length > $('#y-area-scaleable').find('.jtk-endpoint').length && !GV.is_removing_action) {
                         this.addEndpoints($(container)[0].id);
                     }
     
@@ -27,6 +27,7 @@
     
                     $(container).find('.ks-select').selectmenu();
                     $(container).find('.ks-accordion').accordion();
+                    jsPlumb.repaintEverything();
     
                     $(container).draggable({
                         scroll: false,

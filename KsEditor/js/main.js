@@ -228,7 +228,7 @@
 
         $('#y-area-draggable > input[name="ks-recorder"]').attr('value', JSON.stringify([...KsRecorder]));
         // let ks_content = $('#y-area-codetext').text().replace(/\s{2,}/g, ' ').replace(/\s+\[/g, '[').replace(/\]/g, ']\n');
-        let ks_content = $('#y-area-codetext').text().replace(/\n\s+\n/g, '\n').replace(/ {16}/g, '    ');
+        let ks_content = $('#y-area-codetext').text().replace(/\n\s+\n/g, '\n').replace(/\n {16}/g, '\n    ');
         if (ks_content) {
             let file_name = 'Chapter-' + (new Date().getTime()) + '.ks';
 

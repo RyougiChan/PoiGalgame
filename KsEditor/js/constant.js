@@ -139,6 +139,23 @@
             </div>
             `;
         },
+        get_ADJUSTER_NODE() {
+            KsRecorder.set('max_adjuster_id', KsRecorder.get('max_adjuster_id') + 1);
+            let adjuster_id = KsRecorder.get('max_adjuster_id');
+            return `
+            <div class="ks-action-cont ks-action-grid">
+                <div class="ks-action-grid-item ks-adjuster" id="ks-adjuster-${adjuster_id}">
+                    <div class="ks-action-grid-item">
+                        <div class="ks-button ks-blue ks-square open-ks-aujuster-config" title="Change Adjuster Config">config</div>
+                    </div>
+                    <div class="ks-adjuster-editor-values">
+                    ${built_adjuster_values_list}
+                    </div>
+                </div>
+                <span class="ks-remove" title="Remove">×</span>
+            </div>
+            `;
+        },
         get_AND_JUDGE_ITEM_NODE() {
             return `
             <div class="ks-accordion-andjudge-item">
@@ -191,6 +208,7 @@
             <span class="ks-accordion-op ks-accordion-addbgm" title="Add BGM">bgm</span>
             <!--<span class="ks-accordion-op ks-accordion-addvoice" title="Add Voice">voice</span>-->
             <span class="ks-accordion-op ks-accordion-addbg" title="Add A Background Image">bg</span>
+            <span class="ks-accordion-op ks-accordion-addadjuster" title="Add Adjuster">adjuster</span>
             </h3>
             <div class="ks-accordion-item">
                 <input type="text" id="ks-action-[[action_id]]-selector-item-[[item_id]]_text" class="ks-input ks-accordion-item_text" placeholder="Item Text" title="Input Display Text">
@@ -360,6 +378,7 @@
                             <span class="ks-accordion-op ks-accordion-addbgm" title="Add BGM">bgm</span>
                             <!--<span class="ks-accordion-op ks-accordion-addvoice" title="Add Voice">voice</span>-->
                             <span class="ks-accordion-op ks-accordion-addbg" title="Add A Background Image">bg</span>
+                            <span class="ks-accordion-op ks-accordion-addadjuster" title="Add Adjuster">adjuster</span>
                         </h3>
                         <div class="ks-accordion-item">
                         <input type="text" id="ks-action-${action_id}-selector-item-1_text" class="ks-input ks-accordion-item_text" placeholder="Item Text" title="Input Display Text">

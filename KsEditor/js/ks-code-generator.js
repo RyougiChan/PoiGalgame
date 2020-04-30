@@ -56,7 +56,7 @@
                 }
 
                 ///// Adjuster
-                if ($adjuster_values.length) {
+                if ($adjuster_values.length && !$adjuster.parents('.ks-selector').length) {
                     adjuster = {};
                     adjuster.id = $adjuster.attr('id').slice($adjuster.attr('id').lastIndexOf('-') + 1);
                     adjuster.values = new Map();
@@ -217,7 +217,9 @@
                             $g_item_voice_loop = $g.children('.ks-action-cont').find('.ks-voice-control input[type=checkbox]'),
                             $g_item_bg_files = $g.find('.ks-bg-control input[type=file]'),
                             $g_item_bg_layer = $g.find('.ks-bg-control select'),
-                            $g_item_lines = $g.find('.ks-line')
+                            $g_item_lines = $g.find('.ks-line'),
+                            $g_item_adjuster = $g.find('.ks-adjuster'),
+                            $g_item_adjuster_values = $g.find('.ks-adjuster-editor-values input[type=hidden]')
                             ;
                         let item = {};
 
@@ -296,6 +298,16 @@
         
                                     item.lines.push(line_item);
                                 }
+                            }
+                        }
+
+                        if ($g_item_adjuster_values.length) {
+                            item.adjuster = {};
+                            item.adjuster.id = $g_item_adjuster.attr('id').slice($g_item_adjuster.attr('id').lastIndexOf('-') + 1);
+                            item.adjuster.values = new Map();
+                            for (let ai = 0; ai < $g_item_adjuster_values.length; ai++) {
+                                let $input = $($g_item_adjuster_values[ai]);
+                                item.adjuster.values.set($input.attr('name'), $input.attr('value'));
                             }
                         }
 
@@ -417,6 +429,25 @@
                         // if(si.voice) {
                         //     ks_code_selector_tag += `<li class="ks-code-indent-3">[voice src="${si.voice.name}" action=<font class="color-orange">"${si.voice.action}"</font>${si.voice.volume?' volume=<font class="color-orange">"'+si.voice.volume+'"</font>':''}${si.voice.loop ? ' loop': ''}]\n</li>`;
                         // }
+                        if (si.adjuster) {
+                            if (si.adjuster.values.get('is-adjuster-actived') === 'true') {
+                                si.adjuster.values.delete('is-adjuster-actived');
+                                ks_code_selector_tag += `
+                                <li class="ks-code-indent-3">
+                            [<font class="color-teal">adjuster</font> id=<font class="color-orange">"adjuster-${si.adjuster.id}"</font>]\n
+                                </li>`;
+                                si.adjuster.values.forEach(function (v, k) {
+                                    ks_code_selector_tag += `
+                                    <li class="ks-code-indent-4"> 
+                                [<font class="color-teal">pair</font> name=<font class="color-orange">"${k.split('_')[1]}"</font> value=<font class="color-orange">"${v}"</font>]\n
+                                    </li>`;
+                                });
+                                ks_code_selector_tag += `
+                                <li class="ks-code-indent-3">
+                            [<font class="color-teal">adjuster</font>]\n
+                                </li>`;
+                            }
+                        }
                         if (si.lines && si.lines.length) {
                             for (let i = 0; i < si.lines.length; i++) {
                                 let line = si.lines[i];

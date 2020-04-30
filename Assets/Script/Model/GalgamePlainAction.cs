@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -13,7 +14,8 @@ namespace Assets.Script.Model
         public int Id;                          // 当前场景ID
         public int PreviousActionId;            // 前一个场景ID
         public int NextActionId;                // 下一个场景ID
-        public GalgameScriptLine Line;          // Actor's lines | 台词
+        public GalgameScriptLine Line;          // Actor's line(Single) | 台词(单条)
+        public List<GalgameScriptLine> Lines;   // Actor's lines | 台词
         public VideoClip Video;                 // Video in this scene | 剧中视频
         public AudioClip Bgm;                   // Background music in current scene | 当前幕的背景音乐
         public AudioClip Voice;                 // Actor's voice | 台词语音
