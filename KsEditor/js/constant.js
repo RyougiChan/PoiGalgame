@@ -29,14 +29,14 @@
         built_adjuster_group_list += `<div class="ks-adjuster-item-group" name=ks-adjuster-group_${group_name}>`;
         group_items.forEach(function (item) {
             built_adjuster_group_list += `
-            <div class="ks-adjuster-item" id="ks-adjuster-item_${item.name.toLowerCase()}">
-                <label for="ks-adjuster-item_${item.name.toLowerCase()}">${item.display_name}:</label>
-                <input name="ks-adjuster-item_${item.name.toLowerCase()}" class="ks-input" type="number" min="${item.min}" max="${item.max}"
+            <div class="ks-adjuster-item" id="ks-adjuster-item_${item.name}">
+                <label for="ks-adjuster-item_${item.name}">${item.display_name}:</label>
+                <input name="ks-adjuster-item_${item.name}" class="ks-input" type="number" min="${item.min}" max="${item.max}"
                     value="${item.value}" />
                 <div class="ks-adjuster-slider"></div>
             </div>
             `;
-            built_adjuster_values_list += `<input type="hidden" name="ks-adjuster-item_${item.name.toLowerCase()}" value="${item.value}">`;
+            built_adjuster_values_list += `<input type="hidden" name="ks-adjuster-item_${item.name}" value="${item.value}">`;
         });
         built_adjuster_group_list += `</div>`;
     });
@@ -303,9 +303,10 @@
                     </div>
                     <div class="ks-action-grid-item">
                         <select id="ks-select_action-${action_id}_style" class="ks-select ks-action-textstyle" title="Select Text Weight Style">
-                            <option >normal</option>
-                            <option>bold</option>
-                            <option>italic</option>
+                            <option >Normal</option>
+                            <option>Bold</option>
+                            <option>Italic</option>
+                            <option>BoldAndItalic</option>
                         </select>
                     </div>
                 </div>

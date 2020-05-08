@@ -19,6 +19,8 @@ namespace Assets.Script.Model
         public float left;
         public bool visible;
         public Layer layer;
+        public Layer bg_layer;
+        public Layer fg_layer;
         public string method;
         public bool canskip;
         public int time;

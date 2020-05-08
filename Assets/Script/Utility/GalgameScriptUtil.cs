@@ -95,24 +95,23 @@ namespace Assets.Script.Utility
                     {
                         case GalgameKsScriptTag.SELECT:
                             nowSelector = null;
-                            break;
+                            continue;
                         case GalgameKsScriptTag.OPTION:
                             nowSelector.Options.Add(nowSelectorOption);
                             nowSelectorOption = null;
-                            break;
+                            continue;
                         case GalgameKsScriptTag.ACTION:
-                            galgameAction = null;
                             isWrappedByActionTag = false;
                             break;
                         case GalgameKsScriptTag.ADJUSTER:
                             nowAdjuster = null;
-                            break;
+                            continue;
                         case GalgameKsScriptTag.JUDGE:
                             nowJudge = null;
-                            break;
+                            continue;
                         case GalgameKsScriptTag.BATTLE:
                             nowBattle = null;
-                            break;
+                            continue;
                         case GalgameKsScriptTag.GROUP:
                             if(groupStack.Count > 0)
                             {
@@ -122,9 +121,8 @@ namespace Assets.Script.Utility
                                 }
                                 groupStack.Remove(groupStack.Last());
                             }
-                            break;
+                            continue;
                     }
-                    continue;
                 };
 
                 // Global property tags
@@ -243,6 +241,8 @@ namespace Assets.Script.Utility
                                     break;
                                 case "layer":
                                     ksTagProperty.layer = (Layer)Enum.Parse(typeof(Layer), propValue.ToUpper());
+                                    if (GalgameKsScriptTag.BG == tag) ksTagProperty.bg_layer = ksTagProperty.layer;
+                                    if (GalgameKsScriptTag.FG == tag) ksTagProperty.fg_layer = ksTagProperty.layer;
                                     break;
                                 case "method":
                                     ksTagProperty.method = propValue;
@@ -272,10 +272,10 @@ namespace Assets.Script.Utility
                                     ksTagProperty.ffamily = propValue;
                                     break;
                                 case "src":
-                                    if ("BG".Equals(tag)) ksTagProperty.bgsrc = propValue;
-                                    if ("FG".Equals(tagName)) ksTagProperty.fgsrc = propValue;
-                                    else if (tagName.Contains("BGM")) ksTagProperty.bgmsrc = propValue;
-                                    else if (tagName.Contains("VIDEO")) ksTagProperty.videosrc = propValue;
+                                    if (GalgameKsScriptTag.BG == tag) ksTagProperty.bgsrc = propValue;
+                                    if (GalgameKsScriptTag.FG == tag) ksTagProperty.fgsrc = propValue;
+                                    if (GalgameKsScriptTag.BGM == tag) ksTagProperty.bgmsrc = propValue;
+                                    if (GalgameKsScriptTag.VIDEO == tag) ksTagProperty.videosrc = propValue;
                                     // tagName = null;
                                     break;
                                 case "volume":
@@ -355,8 +355,11 @@ namespace Assets.Script.Utility
                         switch(tag)
                         {
                             case GalgameKsScriptTag.ACTION:
-                                isWrappedByActionTag = true;
-                                galgameAction = new GalgameAction();
+                                if(props.Count > 0)
+                                {
+                                    isWrappedByActionTag = true;
+                                    galgameAction = new GalgameAction();
+                                }
                                 break;
                             case GalgameKsScriptTag.SELECT:
                                 if(!string.IsNullOrEmpty(ksTagProperty.selector_type))
@@ -466,6 +469,10 @@ namespace Assets.Script.Utility
                                     galgameAction.Line = galgameAction.Lines[0];
                                 }
                             }
+
+                            if (!string.IsNullOrEmpty(ksTagProperty.id) && GalgameKsScriptTag.ACTION == tag) galgameAction.Id = ksTagProperty.id.Trim();
+                            if (!string.IsNullOrEmpty(ksTagProperty.previous_action_id) && GalgameKsScriptTag.ACTION == tag) galgameAction.PreviousActionId = ksTagProperty.previous_action_id.Trim();
+                            if (!string.IsNullOrEmpty(ksTagProperty.next_action_id) && GalgameKsScriptTag.ACTION == tag) galgameAction.NextActionId = ksTagProperty.next_action_id.Trim();
                             if (null != ksTagProperty.videosrc) galgameAction.Video = (VideoClip)Resources.Load("Video/" + ksTagProperty.videosrc, typeof(VideoClip));
                             if (null != ksTagProperty.bgmsrc) galgameAction.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.bgmsrc, typeof(AudioClip));
                             if (null != ksTagProperty.voice) galgameAction.Voice = (AudioClip)Resources.Load("Audio/" + ksTagProperty.voice, typeof(AudioClip));
@@ -475,6 +482,9 @@ namespace Assets.Script.Utility
                             if (null != ksTagProperty.line_bgm) galgameAction.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.line_bgm, typeof(AudioClip));
                             if (null != ksTagProperty.actor) galgameAction.Actor = (Actor)Enum.Parse(typeof(Actor), ksTagProperty.actor);
                             if (null != ksTagProperty.anim) galgameAction.ActorAnimation = ksTagProperty.anim;
+                            galgameAction.BgLayer = ksTagProperty.bg_layer;
+                            galgameAction.FgLayer = ksTagProperty.fg_layer;
+                            
                             if (null != nowSelector && null != nowSelectorOption)
                             {
                                 if (galgameAction.Actor != Actor.NULL)
@@ -492,9 +502,10 @@ namespace Assets.Script.Utility
                                     });
                                 }
                             }
-                            else if(null != galgameAction && !NOT_ACTION_TAGS.Contains(tag))
+                            else if(null != galgameAction && !NOT_ACTION_TAGS.Contains(tag) && !isWrappedByActionTag)
                             {
                                 galgameActions.Add(galgameAction);
+                                galgameAction = null;
                             }
                         }
                         

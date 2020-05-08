@@ -9,8 +9,9 @@ namespace Assets.Script.Model.Datas
     public class GameValues
     {
         // Commond RPG game values
-        public RoleStatus RoleStatus;
-        public RoleAbility RoleAbility;
+        public RoleStatus RoleStatus = new RoleStatus();
+        public RoleAbility RoleAbility = new RoleAbility();
+        public RoleMood RoleMood = new RoleMood();
 
         // ...
         public int ExampleOtherValue;
