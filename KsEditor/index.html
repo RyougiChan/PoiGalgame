@@ -60,6 +60,9 @@
                     <li data-widget="ks-adjuster">
                         <div class="y-widget y-widget-adjuster"></div><span>Adjuster</span>
                     </li>
+                    <li data-widget="ks-events">
+                        <div class="y-widget y-widget-events"></div><span>Events</span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -68,17 +71,28 @@
             <div id="y-area-draggable">
                 <input type="hidden" name="jsplumb-connect-uuids">
                 <input type="hidden" name="ks-recorder">
-                <div id="y-area-zoom">
+                <div id="y-area-zoom" class="y-area-draggable-header">
                     <div class="y-area-zoombtn" id="y-area-zoom-n">-</div>
                     <div class="y-area-zoombtn" id="y-area-zoom-v"><input class="no-border-input" name="scale-value"
                             type="number" placeholder="100" value="100"> %</div>
                     <div class="y-area-zoombtn" id="y-area-zoom-p">+</div>
                 </div>
-                <div id="y-area-scaleable"></div>
+                <div class="y-area-draggable-header" title="Round Selection">
+                    <label id="round-selection-icon">📅</label>
+                    <div id="ks-round-selection-container">
+                        <div class="ks-round-selection">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div id="y-area-scaleable" data-round-id="1"></div>
             </div>
         </div>
         <!-- Right Code Area -->
         <div id="y-area-code" class="y-level1-container">
+            <div id="y-area-codetext-for-export">
+
+            </div>
             <div id="y-area-codetext" class="y-level2-container">
 
             </div>

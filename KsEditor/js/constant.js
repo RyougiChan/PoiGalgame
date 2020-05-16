@@ -90,12 +90,42 @@
         get_JUDGE_EVENT_ITEM_NODE() {
             KsRecorder.set('max_common_event_id', KsRecorder.get('max_common_event_id') + 1);
             let common_event_id = KsRecorder.get('max_common_event_id');
+            KsRecorder.set('max_adjuster_id', KsRecorder.get('max_adjuster_id') + 1);
+            let adjuster_id = KsRecorder.get('max_adjuster_id');
             return `
             <div class="ks-action-cont ks-action-grid ks-action-event">
                 <div class="ks-action-grid-item ks-action-event-item">
-                    <select class="ks-select ks-judge-event" id="ks-action-[[action_id]]-common-event-${common_event_id}">
+                    <select class="ks-select ks-event ks-judge-event" id="ks-action-[[action_id]]-common-event-${common_event_id}">
                         ${built_options_common_event}
                     </select>
+                    <div class="ks-adjuster" id="ks-adjuster-${adjuster_id}">
+                        <div class="ks-button ks-blue ks-square open-ks-aujuster-config" title="Change Adjuster Config">config</div>
+                        <div class="ks-adjuster-editor-values">
+                        ${built_adjuster_values_list}
+                        </div>
+                    </div>
+                </div>
+                <span class="ks-remove" title="Remove">×</span>
+            </div>
+            `;
+        },
+        get_EVENT_ITEM_NODE() {
+            KsRecorder.set('max_common_event_id', KsRecorder.get('max_common_event_id') + 1);
+            let common_event_id = KsRecorder.get('max_common_event_id');
+            KsRecorder.set('max_adjuster_id', KsRecorder.get('max_adjuster_id') + 1);
+            let adjuster_id = KsRecorder.get('max_adjuster_id');
+            return `
+            <div class="ks-action-cont ks-action-grid ks-action-event">
+                <div class="ks-action-grid-item ks-action-event-item">
+                    <select class="ks-select ks-event" id="ks-action-[[action_id]]-common-event-${common_event_id}">
+                        ${built_options_common_event}
+                    </select>
+                    <div class="ks-adjuster" id="ks-adjuster-${adjuster_id}">
+                        <div class="ks-button ks-blue ks-square open-ks-aujuster-config" title="Change Adjuster Config">config</div>
+                        <div class="ks-adjuster-editor-values">
+                        ${built_adjuster_values_list}
+                        </div>
+                    </div>
                 </div>
                 <span class="ks-remove" title="Remove">×</span>
             </div>
@@ -229,10 +259,18 @@
         get_COMMON_EVENT_LIST_NODE() {
             KsRecorder.set('max_common_event_id', KsRecorder.get('max_common_event_id') + 1);
             let common_event_id = KsRecorder.get('max_common_event_id');
+            KsRecorder.set('max_adjuster_id', KsRecorder.get('max_adjuster_id') + 1);
+            let adjuster_id = KsRecorder.get('max_adjuster_id');
             return `
-            <select class="ks-select ks-judge-event" title="Select Common Event" id="ks-action-[[action_id]]-common-event-${common_event_id}">
+            <select class="ks-select ks-event ks-judge-event" title="Select Common Event" id="ks-action-[[action_id]]-common-event-${common_event_id}">
                 ${built_options_common_event}
             </select>
+            <div class="ks-adjuster" id="ks-adjuster-${adjuster_id}">
+                <div class="ks-button ks-blue ks-square open-ks-aujuster-config" title="Change Adjuster Config">config</div>
+                <div class="ks-adjuster-editor-values">
+                ${built_adjuster_values_list}
+                </div>
+            </div>
             `;
         },
         get_COMMON_ACTION_NODE() {
@@ -389,6 +427,43 @@
             </div>
             `;
         },
+        get_EVENTS_ACTION_NODE() {
+            KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
+            KsRecorder.set('max_common_event_id', KsRecorder.get('max_common_event_id') + 1);
+            KsRecorder.set('max_adjuster_id', KsRecorder.get('max_adjuster_id') + 1);
+            let adjuster_id = KsRecorder.get('max_adjuster_id');
+            let common_event_id = KsRecorder.get('max_common_event_id');
+            let action_id = KsRecorder.get('max_action_id');
+            return `
+            <div id="ks-action-${action_id}" class="ks-widget ks-action"  style="position: absolute; left: 300px; top: 255px;">
+                <span class="ks-remove" title="Remove">×</span>
+                <div class="ks-action-cont ks-action-info">
+                    <span>ID: ${action_id}</span>/<span>Events Action</span>
+                </div>
+                <div class="ks-events">
+                    <div class="ks-action-cont ks-action-grid">
+                        <div class="ks-action-grid-item">
+                            <div class="ks-button ks-blue ks-square add-ks-events-item" title="Add Trigger Event">+event</div>
+                        </div>
+                    </div>
+                    <div class="ks-action-cont ks-action-grid ks-action-event">
+                        <div class="ks-action-grid-item ks-action-event-item">
+                            <select class="ks-select ks-event" title="Select Common Event" id="ks-action-${action_id}-common-event-${common_event_id}">
+                                ${built_options_common_event}
+                            </select>
+                            <div class="ks-adjuster" id="ks-adjuster-${adjuster_id}">
+                                <div class="ks-button ks-blue ks-square open-ks-aujuster-config" title="Change Adjuster Config">config</div>
+                                <div class="ks-adjuster-editor-values">
+                                ${built_adjuster_values_list}
+                                </div>
+                            </div>
+                        </div>
+                        <span class="ks-remove" title="Remove">×</span>
+                    </div>
+                </div>
+            </div>
+            `;
+        },
         get_JUDGE_ACTION_NODE() {
             KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
             KsRecorder.set('max_common_event_id', KsRecorder.get('max_common_event_id') + 1);
@@ -398,6 +473,8 @@
             let judge_id = KsRecorder.get('max_judge_id');
             KsRecorder.set('max_group_id', KsRecorder.get('max_group_id') + 1);
             let group_id = KsRecorder.get('max_group_id');
+            KsRecorder.set('max_adjuster_id', KsRecorder.get('max_adjuster_id') + 1);
+            let adjuster_id = KsRecorder.get('max_adjuster_id');
             return `
             <div id="ks-action-${action_id}" class="ks-widget ks-action"  style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
@@ -413,9 +490,15 @@
                     </div>
                     <div class="ks-action-cont ks-action-grid ks-action-event">
                         <div class="ks-action-grid-item ks-action-event-item">
-                            <select class="ks-select ks-judge-event" title="Select Common Event" id="ks-action-${action_id}-common-event-${common_event_id}">
+                            <select class="ks-select ks-event ks-judge-event" title="Select Common Event" id="ks-action-${action_id}-common-event-${common_event_id}">
                                 ${built_options_common_event}
                             </select>
+                            <div class="ks-adjuster" id="ks-adjuster-${adjuster_id}">
+                                <div class="ks-button ks-blue ks-square open-ks-aujuster-config" title="Change Adjuster Config">config</div>
+                                <div class="ks-adjuster-editor-values">
+                                ${built_adjuster_values_list}
+                                </div>
+                            </div>
                         </div>
                         <span class="ks-remove" title="Remove">×</span>
                     </div>
@@ -601,13 +684,13 @@
                 <div class="ks-action-cont ks-action-grid">
                     <div class="ks-action-grid-item">
                         <div>
-                            <input id="ks-select_action-${action_id}_fontsize" class="no-border-input" type="number" value=""
+                            <input id="ks-select_action-${action_id}_fontsize" class="no-border-input ks-action-textsize" type="number" value=""
                                 placeholder="Size(px)" title="Set Text Size">
                         </div>
                     </div>
                     <div class="ks-action-grid-item">
                         <div>
-                            <input id="ks-select_action-${action_id}_linespacing" class="no-border-input" type="number"
+                            <input id="ks-select_action-${action_id}_linespacing" class="no-border-input ks-action-textlinespacing" type="number"
                                 value="" placeholder="Space(px)" title="Set Line Spacing">
                         </div>
                     </div>

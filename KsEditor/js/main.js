@@ -10,6 +10,7 @@
     widget_mapper.set('ks-bfg', KsConstant.builder.get_BFG_ACTION_NODE);
     widget_mapper.set('ks-line', KsConstant.builder.get_LINE_ACTION_NODE);
     widget_mapper.set('ks-video', KsConstant.builder.get_VIDEO_ACTION_NODE);
+    widget_mapper.set('ks-events', KsConstant.builder.get_EVENTS_ACTION_NODE);
 
     jsPlumb.ready(function () {
 
@@ -50,9 +51,25 @@
 
             $(source_id).attr('data-next-action-id', $(target_id).attr('id').slice($(target_id).attr('id').lastIndexOf('-') + 1));
             $(target_id).attr('data-previous-action-id', $(source_id).attr('id').slice($(source_id).attr('id').lastIndexOf('-') + 1));
-            $('#y-area-draggable > input[name=jsplumb-connect-uuids]').val(
+            if(!$(target_id).attr('data-next-action-id')) {
+                // If there is no a attribute named `data-next-action-id`,
+                // We consider it's the last action in this round and
+                // record it to attribute of `#y-area-scaleable`
+                $('#y-area-scaleable').attr('data-round-last-action-id', connInfo.targetId);
+            }
+            
+            // TODO: fix round_first_action/round_last_action undefined bug when importing
+            let round_first_action = KsUtil.getFirstAction()[0];
+            let round_last_action = KsUtil.getLastAction()[0];
+            
+            // console.log(round_first_action, round_last_action)
+            
+            $('#y-area-scaleable').attr('data-round-first-action-id', round_first_action.id);
+            $('#y-area-scaleable').attr('data-round-last-action-id', round_last_action.id);
+            $('#y-area-draggable > input[name=jsplumb-connect-uuids]').attr('value',
                 JSON.stringify([...GV.jsplumb_connect_uuids])
             );
+
             // KsCode.updateAction(source_id);
             KsUtil.refreshAction(source_id);
             KsUtil.refreshAction(target_id);
@@ -64,9 +81,18 @@
 
             $(`#${conn.sourceId}`).removeAttr('data-next-action-id');
             $(`#${conn.targetId}`).removeAttr('data-previous-action-id');
-            $('#y-area-draggable > input[name=jsplumb-connect-uuids]').val(
+            $('#y-area-draggable > input[name=jsplumb-connect-uuids]').attr('value',
                 JSON.stringify([...GV.jsplumb_connect_uuids])
             );
+            
+            let round_first_action = KsUtil.getFirstAction()[0];
+            let round_last_action = KsUtil.getLastAction()[0];
+
+            $('#y-area-scaleable').attr('data-round-first-action-id', round_first_action.id);
+            $('#y-area-scaleable').attr('data-round-last-action-id', round_last_action.id);
+
+            // console.log(round_first_action, round_last_action)
+
             KsCode.updateAction(`#${conn.sourceId}`);
             KsCode.updateAction(`#${conn.targetId}`);
             KsUtil.refreshAction(`#${conn.sourceId}`);
@@ -75,11 +101,17 @@
 
         $('#y-area-operation').on('wheel', (evt) => {
             GV.y_area_scale += event.deltaY * -0.001;
-            GV.y_area_scale = Math.min(Math.max(.125, GV.y_area_scale), 4);
-            $('#y-area-scaleable').css('transform', `scale(${GV.y_area_scale})`);
-            $('#y-area-zoom-v > input[name=scale-value]').val((Math.floor(GV.y_area_scale * 100)));
-            $('#y-area-zoom-v > input[name=scale-value]').attr('value', Math.floor(GV.y_area_scale * 100));
-            jsPlumb.setZoom(GV.y_area_scale);
+            KsUtil.setZoomAreaScale();
+        });
+
+        $('#main-container').on('click', '#y-area-zoom-n', function() {
+            GV.y_area_scale -= 0.01;
+            KsUtil.setZoomAreaScale();
+        });
+
+        $('#main-container').on('click', '#y-area-zoom-p', function() {
+            GV.y_area_scale += 0.01;
+            KsUtil.setZoomAreaScale();
         });
 
         $('#y-area-draggable').droppable({
@@ -88,14 +120,22 @@
                     widget_name = $dragged.data('widget');
 
                 if (widget_mapper.has(widget_name)) {
-                    $('#y-area-scaleable').append(widget_mapper.get(widget_name));
+                    $('#y-area-draggable >#y-area-scaleable').append(widget_mapper.get(widget_name));
                     // Append code
-                    // KsCode.updateAction($('.ks-action').last());
+                    // KsCode.updateAction($('#y-area-draggable .ks-action').last());
                     // Active event listener
-                    KsUtil.refreshAction($('.ks-action').last());
-                    // GV.Observer.observe ($('.ks-action').last()[0], GV.obsConfig);
-                    // KsUtil.addEndpoints($('.ks-action').last().attr('id'));
-                    // jsPlumb.draggable($('.ks-action').last().attr('id'))
+                    KsUtil.refreshAction($('#y-area-draggable .ks-action').last());
+                    
+                    let round_first_action = KsUtil.getFirstAction()[0];
+                    let round_last_action = KsUtil.getLastAction()[0];
+
+                    // console.log(round_first_action, round_last_action)
+                    
+                    $('#y-area-scaleable').attr('data-round-first-action-id', round_first_action.id);
+                    $('#y-area-scaleable').attr('data-round-last-action-id', round_last_action.id);
+                    // GV.Observer.observe ($('#y-area-draggable .ks-action').last()[0], GV.obsConfig);
+                    // KsUtil.addEndpoints($('#y-area-draggable .ks-action').last().attr('id'));
+                    // jsPlumb.draggable($('#y-area-draggable .ks-action').last().attr('id'))
                 }
             }
         });
@@ -106,6 +146,11 @@
                 let file = files[0];
                 let reader = new FileReader();
                 reader.onload = function () {
+                    
+                    // IMPORTANT: delete all endpoints and connections
+                    jsPlumb.deleteEveryEndpoint();
+                    jsPlumb.deleteEveryConnection();
+
                     $('#y-area-draggable').html(this.result);
                     // Get scale
                     GV.y_area_scale = parseInt($('#y-area-draggable').find('input[name=scale-value]').val()) / 100;
@@ -123,9 +168,11 @@
                     }
 
                     $('#y-area-codetext').html('');
-                    KsUtil.refreshAction($('#y-area-draggable')[0]);
-                    KsUtil.rebuildConnection(GV.jsplumb_connect_uuids);
-                    jsPlumb.repaintEverything();
+                    let $cur_active = $('#ks-round-selection-container > .ks-round-selection table td.active');
+                    KsUtil.loadRoundAction($cur_active);
+                    // KsUtil.refreshAction($('#y-area-draggable')[0]);
+                    // KsUtil.rebuildConnection(GV.jsplumb_connect_uuids);
+                    // jsPlumb.repaintEverything();
                 };
                 reader.readAsText(file);
             }
@@ -133,11 +180,81 @@
 
     });
 
-    window.onbeforeunload = function (e) {
-        let dialogText = 'Please make sure that you hava exported the script!';
-        e.returnValue = dialogText;
-        return dialogText;
-    };
+
+    $('#y-button-export').on('click', function (evt) {
+
+        let $cur_active = $('#ks-round-selection-container > .ks-round-selection table td.active');
+        KsUtil.saveRoundAction($cur_active);
+        
+        let $rounds_data_els = $('#ks-round-selection-container > .ks-round-selection table td > input[name="data-draggable-data"]');
+        let $all_actions = $('<div id="all-actions-shadow-node"></div>');
+
+        for(let i = 0; i < $rounds_data_els.length; i++) {
+            let $a = $($rounds_data_els[i]);
+            if($a.attr('value') && $a.attr('value').trim()) {
+                $all_actions.append($a.attr('value').trim());
+            }
+        }
+
+        KsUtil.loadRoundAction($cur_active);
+
+        $('#y-area-codetext').html('');
+
+        KsUtil.refreshAction($all_actions[0]);
+
+        $('#y-area-draggable > input[name="ks-recorder"]').attr('value', JSON.stringify([...KsRecorder]));
+        let ks_content = $('#y-area-codetext').text().replace(/\n\s+\n/g, '\n').replace(/\n {16}/g, '\n    ');
+        if (ks_content) {
+            let file_name = 'Chapter-' + (new Date().getTime()) + '.ks';
+
+            KsUtil.download('[chs]' + ks_content.trimEnd() + '\n[che]\n', file_name);
+        }
+        let $sn = $($('#y-area-draggable').prop('outerHTML'));
+        $sn.find('.jtk-endpoint').remove();
+        $sn.find('.ui-selectmenu-button').remove();
+        $sn.find('.ui-accordion-header-icon').remove();
+        $sn.find('.ks-accordion h3').removeAttr('class');
+        $sn.find('svg').remove();
+        let ks_html_content = $sn.html();
+        if (ks_html_content) {
+            let file_name = 'Chapter-' + (new Date().getTime()) + '.visual.ks';
+            KsUtil.download(ks_html_content, file_name);
+        }
+        
+        KsUtil.loadRoundAction($cur_active);
+
+        // let all_selects = $('#y-area-draggable').find('.ks-select');
+        // if (all_selects.length) {
+        //     for (let i = 0; i < all_selects.length; i++) {
+        //         let $select = $(all_selects[i]),
+        //             $selected_option = $select.find(`option[value='${$select.val()}']`) || $select.find(`option:contains('${$select.val()}')`);
+
+        //         $select.find('option').removeAttr('selected');
+        //         $selected_option.attr('selected', 'selected');
+        //     }
+        // }
+
+    });
+
+    // window.onbeforeunload = function (e) {
+    //     let dialogText = 'Please make sure that you hava exported the script!';
+    //     e.returnValue = dialogText;
+    //     return dialogText;
+    // };
+
+    $('#y-area-draggable').on('click', '#round-selection-icon', function(evt) {
+        if($('#ks-round-selection-container').css('display') !== 'block') {
+            $('#ks-round-selection-container').fadeIn(100);
+        } else {
+            $('#ks-round-selection-container').fadeOut(100);
+        }
+    });
+
+    $('#main-container').on('click', '#ks-round-selection-container', function(evt) {
+        if(this == evt.target) {
+            $(this).fadeOut(100);
+        }
+    });
 
     let drag_move = {};
     $('#y-area-draggable').on('mousedown', function (evt) {
@@ -145,8 +262,8 @@
             case 3:
                 // right button
                 drag_move = {
-                    startX: parseInt($('#y-area-scaleable').css('left')),
-                    startY: parseInt($('#y-area-scaleable').css('top')),
+                    startX: parseInt($('#y-area-draggable >#y-area-scaleable').css('left')),
+                    startY: parseInt($('#y-area-draggable >#y-area-scaleable').css('top')),
                     pageX: evt.pageX,
                     pageY: evt.pageY
                 };
@@ -164,8 +281,8 @@
 
                                 let tmp_moving_X = drag_move.startX + drag_move.total_move_x * 1;
                                 let tmp_moving_Y = drag_move.startY + drag_move.total_move_y * 1;
-                                $('#y-area-scaleable').css('left', tmp_moving_X + 'px');
-                                $('#y-area-scaleable').css('top', tmp_moving_Y + 'px');
+                                $('#y-area-draggable >#y-area-scaleable').css('left', tmp_moving_X + 'px');
+                                $('#y-area-draggable >#y-area-scaleable').css('top', tmp_moving_Y + 'px');
                             }
                             break;
                     }
@@ -174,7 +291,7 @@
         }
     });
 
-    // $('#y-area-scaleable').draggable({
+    // $('#y-area-draggable >#y-area-scaleable').draggable({
     //     grid: [ 50, 50 ]
     // });
 
@@ -198,7 +315,7 @@
             jsPlumb.repaintEverything();
 
         },
-        stack: '#y-area-scaleable .ks-widget'
+        stack: '#y-area-draggable > #y-area-scaleable .ks-widget'
     });
 
     $('#y-area-draggable').contextmenu(function (evt) {
@@ -210,40 +327,7 @@
 
         if (!isNaN(v)) {
             GV.y_area_scale = v / 100;
-            $('#y-area-scaleable').css('transform', `scale(${GV.y_area_scale})`);
-        }
-    });
-
-    $('#y-button-export').on('click', function (evt) {
-        let all_selects = $('#y-area-draggable').find('.ks-select');
-        if (all_selects.length) {
-            for (let i = 0; i < all_selects.length; i++) {
-                let $select = $(all_selects[i]),
-                    $selected_option = $select.find(`option[value='${$select.val()}']`) || $select.find(`option:contains('${$select.val()}')`);
-
-                $select.find('option').removeAttr('selected');
-                $selected_option.attr('selected', 'selected');
-            }
-        }
-
-        $('#y-area-draggable > input[name="ks-recorder"]').attr('value', JSON.stringify([...KsRecorder]));
-        // let ks_content = $('#y-area-codetext').text().replace(/\s{2,}/g, ' ').replace(/\s+\[/g, '[').replace(/\]/g, ']\n');
-        let ks_content = $('#y-area-codetext').text().replace(/\n\s+\n/g, '\n').replace(/\n {16}/g, '\n    ');
-        if (ks_content) {
-            let file_name = 'Chapter-' + (new Date().getTime()) + '.ks';
-
-            KsUtil.download('[chs]' + ks_content.trimEnd() + '\n[che]\n', file_name);
-        }
-        let $sn = $($('#y-area-draggable').prop('outerHTML'));
-        $sn.find('.jtk-endpoint').remove();
-        $sn.find('.ui-selectmenu-button').remove();
-        $sn.find('.ui-accordion-header-icon').remove();
-        $sn.find('.ks-accordion h3').removeAttr('class');
-        $sn.find('svg').remove();
-        let ks_html_content = $sn.html();
-        if (ks_html_content) {
-            let file_name = 'Chapter-' + (new Date().getTime()) + '.visual.ks';
-            KsUtil.download(ks_html_content, file_name);
+            KsUtil.setZoomAreaScale();
         }
     });
 

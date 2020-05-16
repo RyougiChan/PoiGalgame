@@ -9,24 +9,50 @@
                     {
                         name: 'Sorrow',
                         display_name: 'Sorrow',
-                        value: 50,
-                        min: 0,
+                        value: 0,
+                        min: -100,
                         max: 100
                     },
                     {
                         name: 'Angry',
                         display_name: 'Angry',
-                        value: 50,
-                        min: 0,
+                        value: 0,
+                        min: -100,
                         max: 100
                     },
                     {
                         name: 'Hate',
                         display_name: 'Hate',
-                        value: 50,
-                        min: 0,
+                        value: 0,
+                        min: -100,
                         max: 100
                     },
+                ]
+            },
+            {
+                group_name: "Skill",
+                group_items: [
+                    {
+                        name: 'Swordcraft',
+                        display_name: 'Swordcraft',
+                        value: 0,
+                        min: -100,
+                        max: 100
+                    },
+                    {
+                        name: 'Mount',
+                        display_name: 'Mount',
+                        value: 0,
+                        min: -100,
+                        max: 100
+                    },
+                    {
+                        name: 'Wrestling',
+                        display_name: 'Wrestling',
+                        value: 0,
+                        min: -100,
+                        max: 100
+                    }
                 ]
             }
         ],

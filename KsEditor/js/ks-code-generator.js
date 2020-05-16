@@ -9,7 +9,7 @@
                 let $action = $(action_id);
                 if (!$action.length) return;
 
-                let lines = {}, bgm, video, selector, adjuster, judge, actor, bg, fg;
+                let lines = {}, bgm, video, selector, adjuster, judge, events, actor, bg, fg;
 
                 let $text_color = $action.children('.ks-action-cont').find('.color-hex'),
                     $text_align = $action.children('.ks-action-cont').find('.ks-action-textalign'),
@@ -33,6 +33,7 @@
                     $fg_layer = $action.children('.ks-action-cont').find('.ks-action-fg select'),
                     $lines = $action.children('.ks-line'),
                     $judge_comp = $action.find('.ks-judge'),
+                    $events_comp = $action.find('.ks-events'),
                     $selector_comp = $action.find('.ks-selector')
                     ;
 
@@ -56,7 +57,7 @@
                 }
 
                 ///// Adjuster
-                if ($adjuster_values.length && !$adjuster.parents('.ks-selector').length) {
+                if ($adjuster_values.length && !$adjuster.parents('.ks-selector').length && !$adjuster.parents('.ks-events').length && !$adjuster.parents('.ks-judge').length) {
                     adjuster = {};
                     adjuster.id = $adjuster.attr('id').slice($adjuster.attr('id').lastIndexOf('-') + 1);
                     adjuster.values = new Map();
@@ -159,19 +160,30 @@
 
                 ///// Judge
                 if ($judge_comp.length) {
-                    let $judge_events = $action.find('.ks-judge-event'),
+                    let $events = $action.find('.ks-event.ks-judge-event'),
                         $judge_groups = $action.find('.ks-accordion-andjudge-list');
 
                     judge = {};
                     judge.id = $judge_comp.attr('id').slice($judge_comp.attr('id').lastIndexOf('-') + 1);
-                    judge.events = [];
                     judge.groups = [];
+                    judge.events = new Map();
                     
-                    for(let ji = 0; ji < $judge_events.length; ji++) {
-                        let $evt = $($judge_events[ji]);
+                    for(let ji = 0; ji < $events.length; ji++) {
+                        let $evt = $($events[ji]);
                         let v = $evt.attr('value') || $evt.val();
-                        if(!judge.events.includes(v)) {
-                            judge.events.push(v);
+
+                        let $adjuster = $evt.parent('.ks-action-grid-item').children('.ks-adjuster'),
+                            $adjuster_values = $adjuster.find('.ks-adjuster-editor-values input[type=hidden]');
+
+                        if(!judge.events.has(v)) {
+                            let adjuster = {};
+                            adjuster.id = $adjuster.attr('id').slice($adjuster.attr('id').lastIndexOf('-') + 1);
+                            adjuster.values = new Map();
+                            for (let ai = 0; ai < $adjuster_values.length; ai++) {
+                                let $input = $($adjuster_values[ai]);
+                                adjuster.values.set($input.attr('name'), $input.attr('value'));
+                            }
+                            judge.events.set(v, adjuster);
                         }
                     }
 
@@ -318,6 +330,31 @@
                     
                 }
 
+                ///// Events
+                if($events_comp.length) {
+                    events = new Map();
+                    let $events = $action.find('.ks-event');
+                    
+                    for(let ji = 0; ji < $events.length; ji++) {
+                        let $evt = $($events[ji]);
+                        let v = $evt.attr('value') || $evt.val();
+
+                        let $adjuster = $evt.parent('.ks-action-grid-item').children('.ks-adjuster'),
+                            $adjuster_values = $adjuster.find('.ks-adjuster-editor-values input[type=hidden]');
+
+                        if(!events.has(v)) {
+                            let adjuster = {};
+                            adjuster.id = $adjuster.attr('id').slice($adjuster.attr('id').lastIndexOf('-') + 1);
+                            adjuster.values = new Map();
+                            for (let ai = 0; ai < $adjuster_values.length; ai++) {
+                                let $input = $($adjuster_values[ai]);
+                                adjuster.values.set($input.attr('name'), $input.attr('value'));
+                            }
+                            events.set(v, adjuster);
+                        }
+                    }
+                }
+
                 let ks_code_bgm_tag = '',
                     ks_code_video_tag = '',
                     ks_code_bg_tag = '',
@@ -325,17 +362,18 @@
                     ks_code_selector_tag = '',
                     ks_code_adjuster_tag = '',
                     ks_code_judge_tag = '',
-                    ks_code_line_tags = '';
+                    ks_code_line_tags = '',
+                    ks_code_events_tag = '';
                 if (bgm) {
                     ks_code_bgm_tag = `
                     <li class="ks-code-indent-1">
-                    [<font class="color-teal">bgm</font> ${bgm.name ? 'src=<font class="color-orange">"' + bgm.name + '"</font>' : ''} ${bgm.volume ? 'volume=<font class="color-orange">"' + bgm.volume + '"</font>' : ''} ${bgm.loop ? 'loop' : ''} action=<font class="color-orange">"${bgm.action}"</font>]\n
+                    [<font class="color-teal">bgm</font>${bgm.name ? ' src=<font class="color-orange">"' + bgm.name + '"</font>' : ''}${bgm.volume ? ' volume=<font class="color-orange">"' + bgm.volume + '"</font>' : ''}${bgm.loop ? ' loop' : ''} action=<font class="color-orange">"${bgm.action}"</font>]\n
                     </li>`;
                 }
                 if (video) {
                     ks_code_video_tag = `
                     <li class="ks-code-indent-1">
-                    [<font class="color-teal">video</font> ${video.name ? 'src=<font class="color-orange">"' + video.name + '"</font>' : ''} ${video.volume ? 'volume=<font class="color-orange">"' + video.volume + '"</font>' : ''} ${video.loop ? 'loop' : ''} action=<font class="color-orange">"${video.action}"</font>]\n
+                    [<font class="color-teal">video</font>${video.name ? ' src=<font class="color-orange">"' + video.name + '"</font>' : ''}${video.volume ? ' volume=<font class="color-orange">"' + video.volume + '"</font>' : ''}${video.loop ? ' loop' : ''} action=<font class="color-orange">"${video.action}"</font>]\n
                     </li>`;
                 }
                 if (bg) {
@@ -360,7 +398,6 @@
                         `;
                     }
                 }
-
                 if (adjuster) {
                     if (adjuster.values.get('is-adjuster-actived') === 'true') {
                         adjuster.values.delete('is-adjuster-actived');
@@ -384,8 +421,39 @@
                 if(judge) {
                     ks_code_judge_tag = `
                     <li class="ks-code-indent-1">
-                    [<font class="color-teal">judge</font> id=<font class="color-orange">"judge-${judge.id}"</font> events=<font class="color-orange">"${judge.events.join(',')}"</font>]\n
+                    [<font class="color-teal">judge</font> id=<font class="color-orange">"judge-${judge.id}"</font>]\n
                     </li>`;
+                    judge.events.forEach(function(adjuster, event) {
+                        ks_code_judge_tag += `
+                            <li class="ks-code-indent-2">
+                        [<font class="color-teal">event</font> evtid=<font class="color-orange">"${event}"</font>]\n
+                            </li>`;
+                    
+                        if (adjuster) {
+                            if (adjuster.values.get('is-adjuster-actived') === 'true') {
+                                adjuster.values.delete('is-adjuster-actived');
+                                ks_code_judge_tag += `
+                                <li class="ks-code-indent-3">
+                            [<font class="color-teal">adjuster</font> id=<font class="color-orange">"adjuster-${adjuster.id}"</font>]\n
+                                </li>`;
+                                adjuster.values.forEach(function (v, k) {
+                                    ks_code_judge_tag += `
+                                    <li class="ks-code-indent-4"> 
+                                [<font class="color-teal">pair</font> name=<font class="color-orange">"${k.split('_')[1]}"</font> value=<font class="color-orange">"${v}"</font>]\n
+                                    </li>`;
+                                });
+                                ks_code_judge_tag += `
+                                <li class="ks-code-indent-3">
+                            [<font class="color-teal">adjuster</font>]\n
+                                </li>`;
+                            }
+                        }
+
+                        ks_code_judge_tag += `
+                            <li class="ks-code-indent-2">
+                        [<font class="color-teal">event</font>]\n
+                            </li>`;
+                    });
                     judge.groups.forEach(function(g) {
                         if(g.map.size) {
                             ks_code_judge_tag += `
@@ -407,6 +475,48 @@
                     ks_code_judge_tag += `
                     <li class="ks-code-indent-1">
                     [<font class="color-teal">judge</font>]\n
+                    </li>`;
+                }
+
+                if(events) {
+                    ks_code_events_tag = `
+                    <li class="ks-code-indent-1">
+                    [<font class="color-teal">events</font>]\n
+                    </li>`;
+                    events.forEach(function(adjuster, event) {
+                        ks_code_events_tag += `
+                            <li class="ks-code-indent-2">
+                        [<font class="color-teal">event</font> evtid=<font class="color-orange">"${event}"</font>]\n
+                            </li>`;
+                    
+                        if (adjuster) {
+                            if (adjuster.values.get('is-adjuster-actived') === 'true') {
+                                adjuster.values.delete('is-adjuster-actived');
+                                ks_code_events_tag += `
+                                <li class="ks-code-indent-3">
+                            [<font class="color-teal">adjuster</font> id=<font class="color-orange">"adjuster-${adjuster.id}"</font>]\n
+                                </li>`;
+                                adjuster.values.forEach(function (v, k) {
+                                    ks_code_events_tag += `
+                                    <li class="ks-code-indent-4"> 
+                                [<font class="color-teal">pair</font> name=<font class="color-orange">"${k.split('_')[1]}"</font> value=<font class="color-orange">"${v}"</font>]\n
+                                    </li>`;
+                                });
+                                ks_code_events_tag += `
+                                <li class="ks-code-indent-3">
+                            [<font class="color-teal">adjuster</font>]\n
+                                </li>`;
+                            }
+                        }
+
+                        ks_code_events_tag += `
+                            <li class="ks-code-indent-2">
+                        [<font class="color-teal">event</font>]\n
+                            </li>`;
+                    });
+                    ks_code_events_tag += `
+                    <li class="ks-code-indent-1">
+                    [<font class="color-teal">events</font>]\n
                     </li>`;
                 }
 
@@ -453,7 +563,7 @@
                                 let line = si.lines[i];
                                 ks_code_selector_tag += `
                                 <li id="${line.id}" class="ks-code-indent-3">
-                            [<font class="color-teal">line</font> actor=<font class="color-orange">"${line.actor}"</font> line=<font class="color-orange">"${line.text}"</font> ${line.voice_file ? 'voice=<font class="color-orange">"' + line.voice_file + '"</font>' : ''}]
+                            [<font class="color-teal">line</font> actor=<font class="color-orange">"${line.actor}"</font> line=<font class="color-orange">"${line.text}"</font>${line.voice_file ? ' voice=<font class="color-orange">"' + line.voice_file + '"</font>' : ''}${lines.size ? ' fsize=<font class="color-orange">"' + lines.size + '"</font>' : ''}${lines.linespacing ? ' linespacing=<font class="color-orange">"' + lines.linespacing + '"</font>' : ''}${lines.color ? ' fcolor=<font class="color-orange">"' + lines.color + '"</font>' : ''}${lines.style ? ' fstyle=<font class="color-orange">"' + lines.style + '"</font>' : ''}]
                                 </li>
                                 `;
                             }
@@ -471,14 +581,16 @@
 
                 let ks_code_action_id = 'ks-code-' + $action.attr('id');
                 let id_num = $action.attr('id').slice($action.attr('id').lastIndexOf('-') + 1);
+                let current_round_id = $action.attr('data-round-id') || $('#y-area-scaleable').attr('data-round-id');
                 let next_action_id = $action.attr('data-next-action-id');
                 let previous_action_id = $action.attr('data-previous-action-id');
+                let current_round_prop = current_round_id ? ' roundId=<font class="color-orange">"' +current_round_id+ '"</font>' : '';
                 let next_action_prop = next_action_id ? ' nextActionId=<font class="color-orange">"' +next_action_id.slice(next_action_id.lastIndexOf('-')+1)+ '"</font>' : '';
                 let previous_action_prop = previous_action_id ? ' previousActionId=<font class="color-orange">"' +previous_action_id.slice(previous_action_id.lastIndexOf('-')+1)+ '"</font>' : '';
-
+                //console.log('current_round_id', current_round_id)
                 if ($(`#${ks_code_action_id}`).length) {
                     $(`#${ks_code_action_id}`).html(`
-                [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_prop}${previous_action_prop}]
+                [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_prop}${previous_action_prop}${current_round_prop}]
                     <ul>
                     ${ks_code_bg_tag}
                     ${ks_code_fg_tag}
@@ -487,6 +599,7 @@
                     ${ks_code_adjuster_tag}
                     ${ks_code_judge_tag}
                     ${ks_code_selector_tag}
+                    ${ks_code_events_tag}
                     ${ks_code_line_tags}
                     </ul>
                 [<font class="color-teal">action</font>]
@@ -494,7 +607,7 @@
                 } else {
                     $('#y-area-codetext').append(`
                 <div class="ks-code-action" id="${ks_code_action_id}">
-                [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_prop}${previous_action_prop}]
+                [<font class="color-teal">action</font> id=<font class="color-orange">"${id_num}"</font>${next_action_prop}${previous_action_prop}${current_round_prop}]
                 <ul>
                 ${ks_code_bg_tag}
                 ${ks_code_fg_tag}
@@ -502,6 +615,8 @@
                 ${ks_code_video_tag}
                 ${ks_code_adjuster_tag}
                 ${ks_code_judge_tag}
+                ${ks_code_selector_tag}
+                ${ks_code_events_tag}
                 ${ks_code_line_tags}
                 </ul>
                 [<font class="color-teal">action</font>]

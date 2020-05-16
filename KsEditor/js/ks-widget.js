@@ -38,9 +38,6 @@
         }
     });
 
-    $('#main-container').on('change', 'select', function(evt) {
-    });
-
     $(document).on('click', '.ui-selectmenu-menu', function (evt) {
         let $t = $(evt.currentTarget);
         let labelby = $t.find('ul').attr('id');
@@ -209,6 +206,17 @@
         jsPlumb.repaintEverything();
     });
 
+    $('#main-container').on('click', '.add-ks-events-item', function (evt) {
+        let $cont = $(this).parents('.ks-events');
+        let action_id = $(this).parents('.ks-action').attr('id');
+        let action_id_num = action_id.slice(action_id.lastIndexOf('-') + 1);
+        $(KsConstant.builder.get_EVENT_ITEM_NODE()
+            .replace(/\[\[action_id\]\]/g, action_id_num))
+            .insertAfter($cont.find('.ks-action-event').last());
+        $cont.find('.ks-select').selectmenu();
+        jsPlumb.repaintEverything();
+    });
+
     $('#main-container').on('click', '.ks-accordion-add-andjudge', function (evt) {
         let $cont = $(this).parent().next('div');
         let action_id = $(this).parents('.ks-action').attr('id');
@@ -244,10 +252,12 @@
     });
 
     $('#main-container').on('click', '.open-ks-aujuster-config', function (evt) {
-        let $action = $(this).parents('.ks-action');
+        let $action = $(this).parents('.ks-action'),
+            $adjuster = $(this).parents('.ks-adjuster');
         $('#ks-adjuster-editor-container').attr('data-from-action', $action.attr('id'));
-        $('#ks-adjuster-editor-container').find('h3').text(`Adjuster Config: ${$action.attr('id')}`);
-        let $existing_values = $action.find('.ks-adjuster-editor-values > input[type=hidden]');
+        $('#ks-adjuster-editor-container').attr('data-from-adjuster', $adjuster.attr('id'));
+        $('#ks-adjuster-editor-container').find('h3').text(`Adjuster Config: ${$adjuster.attr('id')}`);
+        let $existing_values = $adjuster.find('.ks-adjuster-editor-values > input[type=hidden]');
 
         for (let i = 0; i < $existing_values.length; i++) {
             let name = $existing_values[i].name;
@@ -278,7 +288,8 @@
 
     $('#main-container').on('change', '.ks-adjuster-item > .ks-input', function (evt) {
         $(this).parent().find('.ks-adjuster-slider').slider('value', $(this).val());
-        $('#' + $('#ks-adjuster-editor-container').attr('data-from-action')).
+
+        $('#' + $('#ks-adjuster-editor-container').attr('data-from-adjuster')).
             find(`input[name=${$(this).attr('name')}]`).val($(this).val());
     });
 
