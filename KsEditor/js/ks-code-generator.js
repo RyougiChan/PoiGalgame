@@ -333,6 +333,7 @@
                 ///// Events
                 if($events_comp.length) {
                     events = new Map();
+                    events.set('id', $events_comp.attr('id').slice($events_comp.attr('id').lastIndexOf('-') + 1));
                     let $events = $action.find('.ks-event');
                     
                     for(let ji = 0; ji < $events.length; ji++) {
@@ -481,8 +482,9 @@
                 if(events) {
                     ks_code_events_tag = `
                     <li class="ks-code-indent-1">
-                    [<font class="color-teal">events</font>]\n
+                    [<font class="color-teal">events</font> id=<font class="color-orange">"events-${events.get('id')}"</font>]\n
                     </li>`;
+                    events.delete('id');
                     events.forEach(function(adjuster, event) {
                         ks_code_events_tag += `
                             <li class="ks-code-indent-2">

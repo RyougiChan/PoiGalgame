@@ -1,45 +1,3 @@
-# KsEditor
-
-## Overview
-
-![Preview](./images/preview/preview-main.png)
-
-**KsEditor** is a JavaScript-based visual editor for [KsScript language](#). All you need is drag/create components to let JavaScript generate code autoly.
-
-## Requirements
-
-### Browser Requirement
-
-This editor developed using a quantity of new feature of **ES6+**(ECMAScript 6.0 and higher version).
-So we highly recommend using lastest [Google Chrome](https://chrome.google.com) browser.
-Otherwise, We are not responsible for anything strange that happens `（＞人＜；）`.
-
-### Priority Requirement
-
-You must allow your browser to download multiple files at the same time when using the **Export** feature.
-
-### Monitor Resolution Requirement
-
-This editor developed base on monitor with resolution `1920*1080` and `2560*1440`. Therefore it's better to use the  two resolutions for best experience.
-
-## Components Introduction
-
-| Component | Introduction | Ks Support | Example |
-| --------- | ------------ | :--------: | ------- |
-| Common Action | A action contains most of widgets, including `Line`, `BGM`, `BG`, `FG`, `Adjuster` | YES | ![common action](./images/preview/comp-action-common.png) |
-| Line Action | A action to configure lines of character. Properties `font color`, `font size`, `line spacing` can be configured here | YES | ![Line action](./images/preview/comp-action-line.png) |
-| BG/FG Action | A action to configure background image and forground image(Picture of character in most case) | YES | ![Bg/Fg action](./images/preview/comp-action-bg_fg.png) |
-| BGM Action | A action to configure background music | YES | ![BGM action](./images/preview/comp-action-bgm.png) |
-| Video Action | A action to configure and play video | NO | ![Video action](./images/preview/comp-action-video.png) |
-| Selector Action | Configuring a select action to provide several choices for player. In every select item, you can configure `BG`, `BGM`. Also, you can provide special `Line` contents for this select | YES | ![Selector action](./images/preview/comp-action-selector.png) |
-| Judge Action | A action to trigger events specified by `Event ID` according to judge conditions set(can be multiple) | YES | ![Judge action](./images/preview/comp-action-judge.png) |
-| Adjuster Action | Manually adjust some value via this action | YES | ![Adjuster action](./images/preview/comp-action-adjuster_1.png) ![Adjuster action](./images/preview/comp-action-adjuster_2.png) |
-
-## Generated Code Example
-
-The following is a example of generated code
-
-```r
 [chs]
     [action id="1" nextActionId="2" roundId="1"]
         [bg src="test" layer="Background1"]
@@ -164,9 +122,3 @@ The following is a example of generated code
         [events]
     [action]
 [che]
-
-```
-
-## Copyright
-
-Copyright © [RyougiChan](https://github.com/RyougiChan). All rights reserved.

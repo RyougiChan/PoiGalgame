@@ -66,8 +66,12 @@ namespace Assets.Script.Utility
             PGameValuesAdjuster nowAdjuster = null;
             PJudge nowJudge = null;
             PBattle nowBattle = null;
+            PEvents nowEvents = null;
             List<GameValues> groupStack = new List<GameValues>();
+            List<PEventItem> eventStack = new List<PEventItem>();
             bool isWrappedByActionTag = false;
+            bool isWrappedByGroupTag = false;
+            bool isWrappedByEventTag = false;
 
             foreach (KsScriptLine ksScriptLine in ksScript)
             {
@@ -112,6 +116,9 @@ namespace Assets.Script.Utility
                         case GalgameKsScriptTag.BATTLE:
                             nowBattle = null;
                             continue;
+                        case GalgameKsScriptTag.EVENTS:
+                            nowEvents = null;
+                            continue;
                         case GalgameKsScriptTag.GROUP:
                             if(groupStack.Count > 0)
                             {
@@ -121,6 +128,26 @@ namespace Assets.Script.Utility
                                 }
                                 groupStack.Remove(groupStack.Last());
                             }
+                            if(eventStack.Count > 0)
+                            {
+                                if(null != nowJudge)
+                                {
+                                    nowJudge.Events.Add(eventStack.Last());
+                                }
+                                eventStack.Remove(eventStack.Last());
+                            }
+                            isWrappedByGroupTag = false;
+                            continue;
+                        case GalgameKsScriptTag.EVENT:
+                            if (eventStack.Count > 0)
+                            {
+                                if (null != nowEvents)
+                                {
+                                    nowEvents.Events.Add(eventStack.Last());
+                                }
+                                eventStack.Remove(eventStack.Last());
+                            }
+                            isWrappedByEventTag = false;
                             continue;
                     }
                 };
@@ -208,6 +235,12 @@ namespace Assets.Script.Utility
                             {
                                 case "id":
                                     ksTagProperty.id = propValue;
+                                    break;
+                                case "evtid":
+                                    ksTagProperty.evt_id = propValue;
+                                    break;
+                                case "roundid":
+                                    ksTagProperty.round_id = propValue;
                                     break;
                                 case "nextactionid":
                                     ksTagProperty.next_action_id = propValue;
@@ -387,19 +420,36 @@ namespace Assets.Script.Utility
                                     RoleAbility = new RoleAbility(),
                                     RoleStatus = new RoleStatus()
                                 };
-                                galgameAction.GameValuesAdjuster = nowAdjuster;
+
+                                if(null != nowSelector && null != nowSelectorOption) // Adjuster of selection option
+                                {
+                                    nowSelectorOption.DeltaGameValues = nowAdjuster.DeltaGameValues;
+                                }
+                                else if(null != nowJudge && eventStack.Count > 0)    // Adjuster of judge item
+                                {
+                                    eventStack.Last().DeltaGameValues = nowAdjuster.DeltaGameValues;
+                                }
+                                else if(null != nowEvents && eventStack.Count > 0)   // Adjuster of event
+                                {
+                                    eventStack.Last().DeltaGameValues = nowAdjuster.DeltaGameValues;
+                                }
+                                else // Adjuster of action
+                                {
+                                    galgameAction.GameValuesAdjuster = nowAdjuster;
+                                }
                                 break;
                             case GalgameKsScriptTag.JUDGE:
+                                nowJudge = new PJudge()
+                                {
+                                    Id = ksTagProperty.id
+                                };
                                 if (!string.IsNullOrEmpty(ksTagProperty.next_action_id))
                                 {
-                                    nowJudge = new PJudge()
-                                    {
-                                        Id = ksTagProperty.id,
-                                        NextActionId = ksTagProperty.next_action_id
-                                    };
-                                    nowJudge.MeetGameValues = new List<GameValues>();
-                                    galgameAction.Judge = nowJudge;
+                                    nowJudge.NextActionId = ksTagProperty.next_action_id;
                                 }
+                                nowJudge.MeetGameValues = new List<GameValues>();
+                                nowJudge.Events = new List<PEventItem>();
+                                galgameAction.Judge = nowJudge;
                                 break;
                             case GalgameKsScriptTag.BATTLE:
                                 nowBattle = new PBattle()
@@ -414,6 +464,18 @@ namespace Assets.Script.Utility
                                     RoleAbility = new RoleAbility(),
                                     RoleStatus = new RoleStatus()
                                 });
+                                isWrappedByGroupTag = true;
+                                break;
+                            case GalgameKsScriptTag.EVENTS:
+                                nowEvents = new PEvents();
+                                nowEvents.Events = new List<PEventItem>();
+                                galgameAction.Events = nowEvents;
+                                break;
+                            case GalgameKsScriptTag.EVENT:
+                                eventStack.Add(new PEventItem() {
+                                    EvtId = ksTagProperty.evt_id
+                                });
+                                isWrappedByEventTag = true;
                                 break;
                         }
                         if (null != nowSelector && GalgameKsScriptTag.OPTION.Equals(tag))
@@ -444,9 +506,20 @@ namespace Assets.Script.Utility
                             {
                                 EntityUtil.SetDeepValue(nowAdjuster.DeltaGameValues, ksTagProperty.name, ksTagProperty.value);
                             }
-                            if(null != nowJudge && !string.IsNullOrEmpty(ksTagProperty.name) && !string.IsNullOrEmpty(ksTagProperty.value))
+                            if (null != nowJudge && !string.IsNullOrEmpty(ksTagProperty.name) && !string.IsNullOrEmpty(ksTagProperty.value))
                             {
-                                EntityUtil.SetDeepValue(groupStack.Last(), ksTagProperty.name, ksTagProperty.value);
+                                if (isWrappedByGroupTag)
+                                {
+                                    EntityUtil.SetDeepValue(groupStack.Last(), ksTagProperty.name, ksTagProperty.value);
+                                }
+                                else if (isWrappedByEventTag)
+                                {
+                                    EntityUtil.SetDeepValue(eventStack.Last(), ksTagProperty.name, ksTagProperty.value);
+                                }
+                            }
+                            if (null != nowEvents && !string.IsNullOrEmpty(ksTagProperty.name) && !string.IsNullOrEmpty(ksTagProperty.value))
+                            {
+                                EntityUtil.SetDeepValue(eventStack.Last(), ksTagProperty.name, ksTagProperty.value);
                             }
                         }
                         if(null != galgameAction)
@@ -462,7 +535,7 @@ namespace Assets.Script.Utility
                                     linespacing = ksTagProperty.linespacing,
                                     align = ksTagProperty.align,
                                     fstyle = ksTagProperty.fstyle
-                                });
+                                }); ;
 
                                 if(null == galgameAction.Line)
                                 {
@@ -473,11 +546,12 @@ namespace Assets.Script.Utility
                             if (!string.IsNullOrEmpty(ksTagProperty.id) && GalgameKsScriptTag.ACTION == tag) galgameAction.Id = ksTagProperty.id.Trim();
                             if (!string.IsNullOrEmpty(ksTagProperty.previous_action_id) && GalgameKsScriptTag.ACTION == tag) galgameAction.PreviousActionId = ksTagProperty.previous_action_id.Trim();
                             if (!string.IsNullOrEmpty(ksTagProperty.next_action_id) && GalgameKsScriptTag.ACTION == tag) galgameAction.NextActionId = ksTagProperty.next_action_id.Trim();
+                            if (!string.IsNullOrEmpty(ksTagProperty.round_id) && GalgameKsScriptTag.ACTION == tag) galgameAction.RoundId = ksTagProperty.round_id.Trim();
                             if (null != ksTagProperty.videosrc) galgameAction.Video = (VideoClip)Resources.Load("Video/" + ksTagProperty.videosrc, typeof(VideoClip));
                             if (null != ksTagProperty.bgmsrc) galgameAction.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.bgmsrc, typeof(AudioClip));
                             if (null != ksTagProperty.voice) galgameAction.Voice = (AudioClip)Resources.Load("Audio/" + ksTagProperty.voice, typeof(AudioClip));
                             if (null != ksTagProperty.bgsrc) galgameAction.Background = (Sprite)Resources.Load("Sprite/" + ksTagProperty.bgsrc, typeof(Sprite));
-                            // A BG and BGM set int line property have a higher priority than set in tag [bg] and [bgm]
+                            // A BG and BGM set in line property have a higher priority than set in tag [bg] and [bgm]
                             if (null != ksTagProperty.line_bg) galgameAction.Background = (Sprite)Resources.Load("Sprite/" + ksTagProperty.line_bg, typeof(Sprite));
                             if (null != ksTagProperty.line_bgm) galgameAction.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.line_bgm, typeof(AudioClip));
                             if (null != ksTagProperty.actor) galgameAction.Actor = (Actor)Enum.Parse(typeof(Actor), ksTagProperty.actor);

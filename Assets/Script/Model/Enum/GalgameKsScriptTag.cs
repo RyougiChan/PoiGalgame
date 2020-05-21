@@ -36,6 +36,8 @@ namespace Assets.Script.Model
         BATTLE = 211,
         GROUP = 212,
         PAIR = 213,
-        ACTION = 214
+        ACTION = 214,
+        EVENTS = 215,
+        EVENT = 216
     }
 }

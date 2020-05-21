@@ -15,5 +15,6 @@ namespace Assets.Script.Model
         public PGameValuesAdjuster GameValuesAdjuster;
         public PJudge Judge;
         public PBattle Battle;
+        public PEvents Events;
     }
 }

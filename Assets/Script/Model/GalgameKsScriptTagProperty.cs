@@ -49,18 +49,22 @@ namespace Assets.Script.Model
         public string line_bgm;
         // Selector tag properties
         public string selector_type;      // horizontal | vertical
-        [Obsolete]
+        [Obsolete("Use option instead")]
         public string selector_text;      // Option: [A,B,C,...], optional
-        [Obsolete]
+        [Obsolete("Use option instead")]
         public string selector_bg;        // Option: [A,B,C,...], optional
-        [Obsolete]
+        [Obsolete("Use option instead")]
         public string selector_bgm;       // Option: [A,B,C,...], optional
         // Selector Option properties
         public string option_text;
         public string option_bg;
         public string option_bgm;
+        // Event properties
+        public string evt_id;
         
+        // Chain hook
         public string next_action_id;
         public string previous_action_id;
+        public string round_id;
     }
 }

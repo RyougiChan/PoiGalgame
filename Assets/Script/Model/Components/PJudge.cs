@@ -18,7 +18,12 @@ namespace Assets.Script.Model.Components
         public List<GameValues> MeetGameValues;
 
         /// <summary>
-        /// 下一个Action的ID
+        /// 满足裁决条件时应当触发的一系列事件
+        /// </summary>
+        public List<PEventItem> Events;
+
+        /// <summary>
+        /// 满足裁决条件执行最后跳转的下一个Action的ID
         /// </summary>
         public string NextActionId;
     }

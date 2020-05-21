@@ -585,8 +585,8 @@ body {
     left: 0;
     right: 0;
     width: 60%;
-    height: 50%;
-    padding: 5%;
+    height: 60%;
+    padding: 2% 5%;
     background: white;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
 }

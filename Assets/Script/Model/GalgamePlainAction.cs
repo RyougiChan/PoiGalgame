@@ -14,6 +14,7 @@ namespace Assets.Script.Model
         public string Id;                                                       // 当前场景ID
         public string PreviousActionId;                                         // 前一个场景ID
         public string NextActionId;                                             // 下一个场景ID
+        public string RoundId;                                                  // 轮次ID
         public GalgameScriptLine Line;                                          // Actor's line(Single) | 台词(单条)
         public List<GalgameScriptLine> Lines = new List<GalgameScriptLine>();   // Actor's lines | 台词
         public VideoClip Video;                                                 // Video in this scene | 剧中视频

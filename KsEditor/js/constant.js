@@ -248,7 +248,7 @@
         get_ADJUSTER_GROUP_LIST_NODE() {
             return `
             <div class="ks-adjuster-editor">
-                <h3></h3> <label for="ks-adjuster-isactived">ACTIVED</label> <input id="ks-adjuster-isactived" type="checkbox" />
+                <h3></h3> <label for="ks-adjuster-isactived">ACTIVED</label> <input id="ks-adjuster-isactived" type="checkbox" /> <font color="red" size="0.8rem">Notice: Values here are relative variation but not absolute variation!</font>
                 ${built_adjuster_group_list}
             </div>
             `;
@@ -431,16 +431,18 @@
             KsRecorder.set('max_action_id', KsRecorder.get('max_action_id') + 1);
             KsRecorder.set('max_common_event_id', KsRecorder.get('max_common_event_id') + 1);
             KsRecorder.set('max_adjuster_id', KsRecorder.get('max_adjuster_id') + 1);
+            KsRecorder.set('max_events_id', KsRecorder.get('max_events_id') + 1);
             let adjuster_id = KsRecorder.get('max_adjuster_id');
             let common_event_id = KsRecorder.get('max_common_event_id');
             let action_id = KsRecorder.get('max_action_id');
+            let events_id = KsRecorder.get('max_events_id');
             return `
             <div id="ks-action-${action_id}" class="ks-widget ks-action"  style="position: absolute; left: 300px; top: 255px;">
                 <span class="ks-remove" title="Remove">×</span>
                 <div class="ks-action-cont ks-action-info">
                     <span>ID: ${action_id}</span>/<span>Events Action</span>
                 </div>
-                <div class="ks-events">
+                <div class="ks-events" id="ks-events-${events_id}">
                     <div class="ks-action-cont ks-action-grid">
                         <div class="ks-action-grid-item">
                             <div class="ks-button ks-blue ks-square add-ks-events-item" title="Add Trigger Event">+event</div>
