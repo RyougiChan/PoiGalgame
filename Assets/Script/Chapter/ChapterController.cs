@@ -655,6 +655,14 @@ namespace Assets.Script.Chapter
         }
 
         /// <summary>
+        /// Switch action
+        /// </summary>
+        private void SwitchAction()
+        {
+
+        }
+
+        /// <summary>
         /// Show new line controller
         /// </summary>
         private void SwitchLine()
@@ -815,10 +823,27 @@ namespace Assets.Script.Chapter
             if(action.GetType().Equals(typeof(GalgameAction)))
             {
                 
-                // Is there a selector
+                // Is there a selector component
                 if (null != ((GalgameAction)action).Selector)
                 {
                     BuildSelector(((GalgameAction)action).Selector);
+                }
+
+                // Is there a adjuster component
+                if (null != ((GalgameAction)action).GameValuesAdjuster)
+                {
+                    ExecuteAdjuster(((GalgameAction)action).GameValuesAdjuster);
+                }
+
+                // Is there a events component
+                if (null != ((GalgameAction)action).Events)
+                {
+                    TriggerEvents(((GalgameAction)action).Events);
+                }
+
+                if(null != ((GalgameAction)action).Judge)
+                {
+                    ExecuteJudge(((GalgameAction)action).Judge);
                 }
             }
         }
@@ -964,6 +989,44 @@ namespace Assets.Script.Chapter
                 options.Add(o);
             }
             return options;
+        }
+
+        /// <summary>
+        /// Execute this adjuster to change global values
+        /// </summary>
+        /// <param name="adjuster"></param>
+        private void ExecuteAdjuster(PGameValuesAdjuster adjuster)
+        {
+            gameController.UpdateGlobalGameValues(adjuster.DeltaGameValues);                  // Update global values
+        }
+
+        /// <summary>
+        /// Trigger this adjuster to change global values
+        /// </summary>
+        private void TriggerEvents(PEvents events)
+        {
+            foreach(PEventItem eventItem in events.Events)
+            {
+                int evtId = Convert.ToInt32(eventItem.EvtId);
+                if(EventCollection.Instance.Get(evtId) != null)
+                {
+                    // TODO: Maybe display event description here.
+
+                    if(null != eventItem.DeltaGameValues)
+                    {
+                        gameController.UpdateGlobalGameValues(eventItem.DeltaGameValues);                  // Update global values
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Execute this judge component
+        /// </summary>
+        /// <param name="judge"></param>
+        public void ExecuteJudge(PJudge judge)
+        {
+            // TODO: deal with MeetGameValues
         }
 
         /// <summary>
