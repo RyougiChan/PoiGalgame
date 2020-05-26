@@ -657,7 +657,7 @@ namespace Assets.Script.Chapter
         /// <summary>
         /// Switch action
         /// </summary>
-        private void SwitchAction()
+        private void SwitchAction(string actionId)
         {
 
         }
@@ -823,24 +823,25 @@ namespace Assets.Script.Chapter
             if(action.GetType().Equals(typeof(GalgameAction)))
             {
                 
-                // Is there a selector component
+                // If there a selector component
                 if (null != ((GalgameAction)action).Selector)
                 {
                     BuildSelector(((GalgameAction)action).Selector);
                 }
 
-                // Is there a adjuster component
+                // If there a adjuster component
                 if (null != ((GalgameAction)action).GameValuesAdjuster)
                 {
                     ExecuteAdjuster(((GalgameAction)action).GameValuesAdjuster);
                 }
 
-                // Is there a events component
+                // If there a events component
                 if (null != ((GalgameAction)action).Events)
                 {
                     TriggerEvents(((GalgameAction)action).Events);
                 }
 
+                // If there a judge component
                 if(null != ((GalgameAction)action).Judge)
                 {
                     ExecuteJudge(((GalgameAction)action).Judge);
@@ -1008,7 +1009,8 @@ namespace Assets.Script.Chapter
             foreach(PEventItem eventItem in events.Events)
             {
                 int evtId = Convert.ToInt32(eventItem.EvtId);
-                if(EventCollection.Instance.Get(evtId) != null)
+                string evtDesc = EventCollection.Instance.Get(evtId);
+                if (!string.IsNullOrEmpty(evtDesc))
                 {
                     // TODO: Maybe display event description here.
 
@@ -1027,6 +1029,36 @@ namespace Assets.Script.Chapter
         public void ExecuteJudge(PJudge judge)
         {
             // TODO: deal with MeetGameValues
+            if(null != judge.MeetGameValues && judge.MeetGameValues.Count > 0)
+            {
+                foreach(GameValues gvs in judge.MeetGameValues)
+                {
+                    if(GlobalGameData.GameValues.Equals(gvs))
+                    {
+                        List<PEventItem> events = judge.Events;
+                        foreach (PEventItem eventItem in events)
+                        {
+                            int evtId = Convert.ToInt32(eventItem.EvtId);
+                            string evtDesc = EventCollection.Instance.Get(evtId);
+                            if (!string.IsNullOrEmpty(evtDesc))
+                            {
+                                // TODO: Maybe display event description here.
+
+                                if (null != eventItem.DeltaGameValues)
+                                {
+                                    gameController.UpdateGlobalGameValues(eventItem.DeltaGameValues);                  // Update global values
+                                }
+                            }
+                        }
+
+                        if(!string.IsNullOrEmpty(judge.NextActionId))
+                        {
+                            SwitchAction(judge.NextActionId);
+                        }
+                        break;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -1038,7 +1070,7 @@ namespace Assets.Script.Chapter
             {
                 currentActiveHistoryText.color = Color.white;
             }
-            nextActiveHistoryText.color = Color.cyan;
+            nextActiveHistoryText.color = Color.blue;
             currentActiveHistoryText = nextActiveHistoryText;
         }
 

@@ -8,9 +8,9 @@ namespace Assets.Script.Model.Datas
     [Serializable]
     public class RoleStatus
     {
-        public int HealthPoint;
-        public int ManaPoint;
-        public int ExperiencePoint;
-        public int SkillPoint;
+        public int HealthPoint = -9999;
+        public int ManaPoint = -9999;
+        public int ExperiencePoint = -9999;
+        public int SkillPoint = -9999;
     }
 }

@@ -8,8 +8,8 @@ namespace Assets.Script.Model.Datas
     [Serializable]
     public class RoleMood
     {
-        public int Sorrow;
-        public int Angry;
-        public int Hate;
+        public int Sorrow = -9999;
+        public int Angry = -9999;
+        public int Hate = -9999;
     }
 }

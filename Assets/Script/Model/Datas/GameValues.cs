@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Assets.Script.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Assets.Script.Model.Datas
@@ -14,7 +16,7 @@ namespace Assets.Script.Model.Datas
         public RoleMood RoleMood = new RoleMood();
 
         // ...
-        public int ExampleOtherValue;
+        public int ExampleOtherValue = -9999;
 
         public string ToJSONString()
         {
@@ -30,6 +32,37 @@ namespace Assets.Script.Model.Datas
                     .Append("\"ExampleOtherValue\":").Append(this.ExampleOtherValue)
                 .Append("}")
                 .ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!obj.GetType().Equals(typeof(GameValues))) return false;
+
+            GameValues gameValues = obj as GameValues;
+
+            List<FieldInfo> typeFields = new List<FieldInfo>();
+            EntityUtil.GetTypeFields<int>(GlobalGameData.GameValues, typeFields);
+
+            foreach (FieldInfo f in typeFields)
+            {
+                string fieldName = f.Name;
+                int v1 = EntityUtil.GetDeepValue<int>(gameValues, fieldName);
+                if(v1 != -9999)
+                {
+                    int v2 = EntityUtil.GetDeepValue<int>(GlobalGameData.GameValues, fieldName);
+                    if(v1 != v2)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

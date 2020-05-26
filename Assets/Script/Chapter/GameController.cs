@@ -1,11 +1,13 @@
 ﻿using Assets.Script.Model;
 using Assets.Script.Model.Datas;
+using Assets.Script.Utility;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -105,6 +107,8 @@ namespace Assets.Script.Chapter
 
             chapterController = GetComponent<ChapterController>();
             chapterController.InitSettingField();
+
+            GlobalGameData.GameValues = DefaultValues.DEFAULT_GAMEVALUES;
         }
 
         void FixedUpdate()
@@ -582,22 +586,35 @@ namespace Assets.Script.Chapter
 
         public void UpdateGlobalGameValues(GameValues gameValues)
         {
-            if(null != gameValues.RoleAbility)
+            List<FieldInfo> typeFields = new List<FieldInfo>();
+            EntityUtil.GetTypeFields<int>(GlobalGameData.GameValues, typeFields);
+
+            foreach (FieldInfo f in typeFields)
             {
-                RoleAbility ability = GlobalGameData.GameValues.RoleAbility;
-                ability.Attack += gameValues.RoleAbility.Attack;
-                ability.Defence += gameValues.RoleAbility.Defence;
-                ability.Evasion += gameValues.RoleAbility.Evasion;
+                string fieldName = f.Name;
+                int t1 = EntityUtil.GetDeepValue<int>(gameValues, fieldName);
+                int t2 = EntityUtil.GetDeepValue<int>(GlobalGameData.GameValues, fieldName);
+                int fieldValue = EntityUtil.GetDeepValue<int>(GlobalGameData.GameValues, fieldName) + EntityUtil.GetDeepValue<int>(gameValues, fieldName);
+
+                EntityUtil.SetDeepValue(GlobalGameData.GameValues, fieldName, fieldValue);
             }
-            if (null != gameValues.RoleStatus)
-            {
-                RoleStatus status = GlobalGameData.GameValues.RoleStatus;
-                status.HealthPoint += gameValues.RoleStatus.HealthPoint;
-                status.ManaPoint += gameValues.RoleStatus.ManaPoint;
-                status.SkillPoint += gameValues.RoleStatus.SkillPoint;
-                status.ExperiencePoint += gameValues.RoleStatus.ExperiencePoint;
-            }
-            GlobalGameData.GameValues.ExampleOtherValue += gameValues.ExampleOtherValue;
+
+            //if (null != gameValues.RoleAbility)
+            //{
+            //    RoleAbility ability = GlobalGameData.GameValues.RoleAbility;
+            //    ability.Attack += gameValues.RoleAbility.Attack;
+            //    ability.Defence += gameValues.RoleAbility.Defence;
+            //    ability.Evasion += gameValues.RoleAbility.Evasion;
+            //}
+            //if (null != gameValues.RoleStatus)
+            //{
+            //    RoleStatus status = GlobalGameData.GameValues.RoleStatus;
+            //    status.HealthPoint += gameValues.RoleStatus.HealthPoint;
+            //    status.ManaPoint += gameValues.RoleStatus.ManaPoint;
+            //    status.SkillPoint += gameValues.RoleStatus.SkillPoint;
+            //    status.ExperiencePoint += gameValues.RoleStatus.ExperiencePoint;
+            //}
+            //GlobalGameData.GameValues.ExampleOtherValue += gameValues.ExampleOtherValue;
         }
     }
 }

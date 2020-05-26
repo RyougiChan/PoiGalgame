@@ -8,8 +8,8 @@ namespace Assets.Script.Model.Datas
     [Serializable]
     public class RoleAbility
     {
-        public int Attack;
-        public int Defence;
-        public int Evasion;
+        public int Attack = -9999;
+        public int Defence = -9999;
+        public int Evasion = -9999;
     }
 }
