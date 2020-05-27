@@ -66,6 +66,11 @@
             
             $('#y-area-scaleable').attr('data-round-first-action-id', round_first_action.id);
             $('#y-area-scaleable').attr('data-round-last-action-id', round_last_action.id);
+            
+            if($('#y-area-scaleable').attr('data-round-id') === '1') {
+                GV.start_action_id = round_first_action.id.slice(round_first_action.id.lastIndexOf('-') + 1);
+            }
+
             $('#y-area-draggable > input[name=jsplumb-connect-uuids]').attr('value',
                 JSON.stringify([...GV.jsplumb_connect_uuids])
             );
@@ -90,6 +95,10 @@
 
             $('#y-area-scaleable').attr('data-round-first-action-id', round_first_action.id);
             $('#y-area-scaleable').attr('data-round-last-action-id', round_last_action.id);
+
+            if($('#y-area-scaleable').attr('data-round-id') === '1') {
+                GV.start_action_id = round_first_action.id.slice(round_first_action.id.lastIndexOf('-') + 1);
+            }
 
             // console.log(round_first_action, round_last_action)
 
@@ -129,10 +138,12 @@
                     let round_first_action = KsUtil.getFirstAction()[0];
                     let round_last_action = KsUtil.getLastAction()[0];
 
-                    // console.log(round_first_action, round_last_action)
-                    
                     $('#y-area-scaleable').attr('data-round-first-action-id', round_first_action.id);
                     $('#y-area-scaleable').attr('data-round-last-action-id', round_last_action.id);
+                    
+                    if($('#y-area-scaleable').attr('data-round-id') === '1') {
+                        GV.start_action_id = round_first_action.id.slice(round_first_action.id.lastIndexOf('-') + 1);
+                    }
                     // GV.Observer.observe ($('#y-area-draggable .ks-action').last()[0], GV.obsConfig);
                     // KsUtil.addEndpoints($('#y-area-draggable .ks-action').last().attr('id'));
                     // jsPlumb.draggable($('#y-area-draggable .ks-action').last().attr('id'))
@@ -207,7 +218,7 @@
         if (ks_content) {
             let file_name = 'Chapter-' + (new Date().getTime()) + '.ks';
 
-            KsUtil.download('[chs]' + ks_content.trimEnd() + '\n[che]\n', file_name);
+            KsUtil.download(`[chs startActionId="${GV.start_action_id}"]` + ks_content.trimEnd() + '\n[che]\n', file_name);
         }
         let $sn = $($('#y-area-draggable').prop('outerHTML'));
         $sn.find('.jtk-endpoint').remove();

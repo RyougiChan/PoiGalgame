@@ -10,8 +10,10 @@ namespace Assets.Scripts.Editors
         SerializedProperty ScriptName;
         SerializedProperty ChapterName;
         SerializedProperty ChapterAbstract;
+        SerializedProperty StartActionId;
         SerializedProperty Bg;
         SerializedProperty Bgm;
+        SerializedProperty Video;
         SerializedProperty GalgameActions;
 
         private void OnEnable()
@@ -19,8 +21,10 @@ namespace Assets.Scripts.Editors
             ScriptName = serializedObject.FindProperty("ScriptName");
             ChapterName = serializedObject.FindProperty("ChapterName");
             ChapterAbstract = serializedObject.FindProperty("ChapterAbstract");
+            StartActionId = serializedObject.FindProperty("StartActionId");
             Bg = serializedObject.FindProperty("Bg");
             Bgm = serializedObject.FindProperty("Bgm");
+            Video = serializedObject.FindProperty("Video");
             GalgameActions = serializedObject.FindProperty("GalgameActions");
         }
 
@@ -30,8 +34,10 @@ namespace Assets.Scripts.Editors
             EditorGUILayout.PropertyField(ScriptName);
             EditorGUILayout.PropertyField(ChapterName);
             EditorGUILayout.PropertyField(ChapterAbstract);
+            EditorGUILayout.PropertyField(StartActionId);
             EditorGUILayout.PropertyField(Bg);
             EditorGUILayout.PropertyField(Bgm);
+            EditorGUILayout.PropertyField(Video);
 
             for (int i = 0; i < GalgameActions.arraySize; i++)
             {

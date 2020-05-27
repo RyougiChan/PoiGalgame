@@ -10,6 +10,7 @@ namespace Assets.Script.Model
         public DateTime savedTime;
         // TODO: Remove it, replace it with `GalgameAction` or other
         public GalgameActionForSavedData galgameAction;
+        public string galgameActionId;
         public int galgameActionIndex;
         public GameValues gameValues;
     }

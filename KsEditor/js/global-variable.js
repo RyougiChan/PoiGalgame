@@ -45,6 +45,10 @@
         is_removing_action: {
             value: false,
             writable: true
+        },
+        start_action_id: {
+            value: '',
+            writable: true
         }
     });
 

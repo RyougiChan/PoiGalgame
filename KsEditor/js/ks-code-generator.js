@@ -525,7 +525,7 @@
                 if(selector && selector.length) {
                     ks_code_selector_tag = `
                     <li class="ks-code-indent-1">
-                    [<font class="color-teal">select</font> type=<font class="color-orange">"horizontal"</font>]\n
+                    [<font class="color-teal">select</font> id=<font class="color-orange">"selector-${$selector_comp.attr('id').slice($selector_comp.attr('id').lastIndexOf('-') + 1)}"</font> type=<font class="color-orange">"horizontal"</font>]\n
                     </li>`;                    
                     selector.forEach(function(si) {
                         ks_code_selector_tag += `

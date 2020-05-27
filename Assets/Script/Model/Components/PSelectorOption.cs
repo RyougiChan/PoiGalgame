@@ -13,6 +13,6 @@ namespace Assets.Script.Model.Components
         public AudioClip Bgm;
         // There should be properties about Game-Value
         public GameValues DeltaGameValues;
-        public List<GalgamePlainAction> Actions;
+        public GalgamePlainAction Action;
     }
 }

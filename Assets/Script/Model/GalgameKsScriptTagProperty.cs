@@ -63,6 +63,7 @@ namespace Assets.Script.Model
         public string evt_id;
         
         // Chain hook
+        public string start_action_id;
         public string next_action_id;
         public string previous_action_id;
         public string round_id;

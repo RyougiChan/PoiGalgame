@@ -13,5 +13,6 @@ namespace Assets.Script.Model
         public float linespacing;
         public Align align;
         public FontStyle fstyle;
+        public Actor actor;
     }
 }

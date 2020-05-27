@@ -236,6 +236,9 @@ namespace Assets.Script.Utility
                                 case "id":
                                     ksTagProperty.id = propValue;
                                     break;
+                                case "startactionid":
+                                    ksTagProperty.start_action_id = propValue;
+                                    break;
                                 case "evtid":
                                     ksTagProperty.evt_id = propValue;
                                     break;
@@ -369,6 +372,7 @@ namespace Assets.Script.Utility
                                 if (null != ksTagProperty.bgsrc) galgameScript.Bg = (Sprite)Resources.Load("Sprite/" + ksTagProperty.bgsrc, typeof(Sprite));
                                 if (null != ksTagProperty.name) galgameScript.ChapterName = ksTagProperty.name;
                                 if (null != ksTagProperty.value) galgameScript.ChapterAbstract = ksTagProperty.value;
+                                if (null != ksTagProperty.start_action_id) galgameScript.StartActionId = ksTagProperty.start_action_id;
                             }
                             continue;
                         }
@@ -481,7 +485,6 @@ namespace Assets.Script.Utility
                         if (null != nowSelector && GalgameKsScriptTag.OPTION.Equals(tag))
                         {
                             nowSelectorOption = new PSelectorOption();
-                            nowSelectorOption.Actions = new List<GalgamePlainAction>();
                             nowSelectorOption.DeltaGameValues = new GameValues();
                             nowSelectorOption.Bg = (Sprite)Resources.Load("Sprite/" + ksTagProperty.option_bg, typeof(Sprite));
                             nowSelectorOption.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.option_bgm, typeof(AudioClip));
@@ -534,7 +537,8 @@ namespace Assets.Script.Utility
                                     fsize = ksTagProperty.fsize,
                                     linespacing = ksTagProperty.linespacing,
                                     align = ksTagProperty.align,
-                                    fstyle = ksTagProperty.fstyle
+                                    fstyle = ksTagProperty.fstyle,
+                                    actor = (Actor)Enum.Parse(typeof(Actor), ksTagProperty.actor)
                                 }); ;
 
                                 if(null == galgameAction.Line)
@@ -544,6 +548,7 @@ namespace Assets.Script.Utility
                             }
 
                             if (!string.IsNullOrEmpty(ksTagProperty.id) && GalgameKsScriptTag.ACTION == tag) galgameAction.Id = ksTagProperty.id.Trim();
+                            if (!string.IsNullOrEmpty(ksTagProperty.start_action_id) && GalgameKsScriptTag.CHS == tag) galgameScript.StartActionId = ksTagProperty.start_action_id.Trim();
                             if (!string.IsNullOrEmpty(ksTagProperty.previous_action_id) && GalgameKsScriptTag.ACTION == tag) galgameAction.PreviousActionId = ksTagProperty.previous_action_id.Trim();
                             if (!string.IsNullOrEmpty(ksTagProperty.next_action_id) && GalgameKsScriptTag.ACTION == tag) galgameAction.NextActionId = ksTagProperty.next_action_id.Trim();
                             if (!string.IsNullOrEmpty(ksTagProperty.round_id) && GalgameKsScriptTag.ACTION == tag) galgameAction.RoundId = ksTagProperty.round_id.Trim();
@@ -561,23 +566,38 @@ namespace Assets.Script.Utility
                             
                             if (null != nowSelector && null != nowSelectorOption)
                             {
-                                if (galgameAction.Actor != Actor.NULL)
+                                if (galgameAction.Actor != Actor.NULL && tag == GalgameKsScriptTag.LINE)
                                 {
-                                    nowSelectorOption.Actions.Add(new GalgamePlainAction()
+                                    if(null == nowSelectorOption.Action)
                                     {
-                                        Actor = galgameAction.Actor,
-                                        ActorAnimation = galgameAction.ActorAnimation,
-                                        Background = galgameAction.Background,
-                                        Bgm = galgameAction.Bgm,
-                                        Line = galgameAction.Line,
-                                        Video = galgameAction.Video,
-                                        Voice = galgameAction.Voice,
-                                        Input = galgameAction.Input
-                                    });
+                                        GalgamePlainAction tmp = new GalgamePlainAction()
+                                        {
+                                            Actor = galgameAction.Actor,
+                                            ActorAnimation = galgameAction.ActorAnimation,
+                                            Background = galgameAction.Background,
+                                            Bgm = galgameAction.Bgm,
+                                            Line = galgameAction.Line,
+                                            Video = galgameAction.Video,
+                                            Voice = galgameAction.Voice,
+                                            Input = galgameAction.Input
+                                        };
+                                        tmp.Lines.Add(galgameAction.Line);
+                                        nowSelectorOption.Action = tmp;
+                                    }
+                                    else
+                                    {
+                                        nowSelectorOption.Action.Lines.Add(galgameAction.Lines.Last());
+                                    }
+
                                 }
                             }
                             else if(null != galgameAction && !NOT_ACTION_TAGS.Contains(tag) && !isWrappedByActionTag)
                             {
+                                if(null != galgameAction.Selector)
+                                {
+                                    galgameAction.Line = null;
+                                    galgameAction.Lines.Clear();
+                                }
                                 galgameActions.Add(galgameAction);
                                 galgameAction = null;
                             }

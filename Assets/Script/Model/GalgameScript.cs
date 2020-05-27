@@ -14,6 +14,7 @@ namespace Assets.Script.Model
         public string ScriptName;                           // 剧本名称
         public string ChapterName;                          // 章节名称
         public string ChapterAbstract;                      // 章节简介
+        public string StartActionId;                        // 第一幕ID
         public Sprite Bg;                                   // 初始背景图片
         public AudioClip Bgm;                               // 初始背景音乐
         public VideoClip Video;                             // 开场视频

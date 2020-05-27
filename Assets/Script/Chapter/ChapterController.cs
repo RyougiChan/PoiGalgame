@@ -111,9 +111,11 @@ namespace Assets.Script.Chapter
         public GameObject voiceAudioSource;
 
         private List<GalgameAction> galgameActions;
+        private Dictionary<string, GalgameAction> galgameActionsMap;
         private GalgameAction currentGalgameAction;
         private PSelectorOption ActiveSelectorOption;
         private int currentSelectorOptionActionIndex;
+        private int currentSelectorOptionLineIndex;
         // Current showing line's index in `currentScript`
         private int currentLineIndex;
         // Current showing line text's index of char
@@ -176,6 +178,13 @@ namespace Assets.Script.Chapter
             if (null != currentScript.Bg)
             {
                 bgSpriteRenderer.sprite = currentScript.Bg;
+            }
+
+            // Reload galgameAction as a hashtable
+            galgameActionsMap = new Dictionary<string, GalgameAction>();
+            foreach(GalgameAction a in currentScript.GalgameActions)
+            {
+                galgameActionsMap.Add(a.Id, a);
             }
 
             textShowWaitForSeconds = new WaitForSeconds(SettingModel.textShowDuration);
@@ -520,6 +529,7 @@ namespace Assets.Script.Chapter
         {
             currentLineIndex = 0;
             currentLineCharIndex = 0;
+            currentGalgameAction = null;
         }
 
         /// <summary>
@@ -659,13 +669,130 @@ namespace Assets.Script.Chapter
         /// </summary>
         private void SwitchAction(string actionId)
         {
+            if(!string.IsNullOrEmpty(actionId))
+            {
+                // set current galgame action
+                currentGalgameAction = galgameActionsMap[actionId];
+                // reset line index
+                currentLineIndex = 0;
+                // build acrrent game action
+                BuildAAction(currentGalgameAction);
 
+                // If this action do not contains Lines and other display components
+                if (currentGalgameAction.Lines.Count == 0
+                    && string.IsNullOrEmpty(currentGalgameAction.Selector.Id)
+                    && null == currentGalgameAction.Bgm 
+                    && null == currentGalgameAction.Background
+                    && null == currentGalgameAction.Video
+                    )
+                {
+                    // Continue immediately
+                    SwitchAction(currentGalgameAction.NextActionId);
+                }
+            }
+            else
+            {
+                // this chapter is end
+                if (SettingModel.isSkipModeOn)
+                {
+                    SetSkipMode(false);
+                }
+                if (SettingModel.isAutoReadingModeOn)
+                {
+                    SetAutoMode(false);
+                }
+                // TODO: maybe consider loading another chapter?
+                currentScript = Resources.Load<GalgameScript>("Chapter/Chapter-01");
+                actorName.text = string.Empty;
+                currentLineIndex = 0;
+                currentLineCharIndex = -1;
+                line.text = "『つづく...』";
+                return;
+            }
         }
 
         /// <summary>
         /// Show new line controller
         /// </summary>
         private void SwitchLine()
+        {
+            if(null == currentGalgameAction)
+            {
+                SwitchAction(currentScript.StartActionId);
+            }
+            line.text = string.Empty; // clear previous line
+            if (isShowingLine)
+            {
+                Debug.Log(DateTime.Now.ToString() + "准备跳过");
+                if (null != currentTextShowCoroutine)
+                {
+                    StopCoroutine(currentTextShowCoroutine);
+                    ShowLineImmediately(nextLine);
+                    AddHistoryText(nextLine); // Add line to history text list
+                    isShowingLine = false;
+                    Debug.Log(DateTime.Now.ToString() + "已跳过");
+                    return;
+                }
+            }
+
+            currentLineCharIndex = -1; // read from index: -1
+
+            if (isShowingSelectorOptionActionTime)
+            {
+                if (currentSelectorOptionLineIndex >= ActiveSelectorOption.Action.Lines.Count)
+                {
+                    isShowingSelectorOptionActionTime = false;
+                }
+                else
+                {
+                    GalgameScriptLine sLine = ActiveSelectorOption.Action.Lines[currentSelectorOptionLineIndex];
+                    nextLine = sLine.text.Replace("\\n", "\n");
+                    actorName.text = sLine.actor.ToString();
+                    if (SettingModel.isSkipModeOn)
+                    {
+                        ShowLineImmediately();
+                    }
+                    else
+                    {
+                        currentTextShowCoroutine = StartCoroutine(ShowLineTimeOut(nextLine));
+                    }
+                    currentSelectorOptionLineIndex++;
+                }
+                
+            }
+            else
+            {
+                if(IsSwitchLineAllowed() && currentLineIndex == currentGalgameAction.Lines.Count)
+                {
+                    // reach end point of current action, switch
+                    SwitchAction(currentGalgameAction.NextActionId);
+                    Debug.Log("Switch action: " + currentGalgameAction.Id + " to " + currentGalgameAction.NextActionId);
+                    return;
+                }
+
+                if(currentLineIndex < currentGalgameAction.Lines.Count)
+                {
+                    nextLine = currentGalgameAction.Lines[currentLineIndex].text.Replace("\\n", "\n");
+                    if (SettingModel.isSkipModeOn)
+                    {
+                        ShowLineImmediately();
+                    }
+                    else
+                    {
+                        currentTextShowCoroutine = StartCoroutine(ShowLineTimeOut(nextLine));
+                    }
+
+                    // Move index to next
+                    currentLineIndex++;
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Show new line controller
+        /// </summary>
+        private void SwitchLine_Old()
         {
             line.text = string.Empty; // clear previous line
             if (isShowingLine)
@@ -686,13 +813,12 @@ namespace Assets.Script.Chapter
 
             if (isShowingSelectorOptionActionTime)
             {
-                GalgamePlainAction action = ActiveSelectorOption.Actions[currentSelectorOptionActionIndex];
+                GalgamePlainAction action = ActiveSelectorOption.Action;
 
-                BuildAAction(action);
-                if (++currentSelectorOptionActionIndex >= ActiveSelectorOption.Actions.Count)
+                if(++currentSelectorOptionLineIndex >= ActiveSelectorOption.Action.Lines.Count)
                 {
                     isShowingSelectorOptionActionTime = false;
-                };
+                }
             }
             else
             {
@@ -740,15 +866,6 @@ namespace Assets.Script.Chapter
         /// <param name="action"></param>
         private void BuildAAction(GalgamePlainAction action)
         {
-            nextLine = action.Line.text.Replace("\\n", "\n");
-            if (SettingModel.isSkipModeOn)
-            {
-                ShowLineImmediately();
-            }
-            else
-            {
-                currentTextShowCoroutine = StartCoroutine(ShowLineTimeOut(nextLine));
-            }
             if (null != action.Bgm)
             {
                 // bgm
@@ -764,7 +881,7 @@ namespace Assets.Script.Chapter
             if (action.Actor != Actor.NULL)
             {
                 // actor's name
-                actorName.text = action.Actor.ToString();
+                // actorName.text = action.Actor.ToString();
             }
             else
             {
@@ -813,7 +930,7 @@ namespace Assets.Script.Chapter
             // font-color
             if (!string.IsNullOrEmpty(action.Line.fcolor))
             {
-                line.color = ColorUtil.HexToUnityColor(uint.Parse(action.Line.fcolor, System.Globalization.NumberStyles.HexNumber));
+                line.color = ColorUtil.HexToUnityColor(uint.Parse(action.Line.fcolor.Replace("0x", "").Substring(0, 6), System.Globalization.NumberStyles.HexNumber));
             }
             else if (!string.IsNullOrEmpty(DefaultScriptProperty.fcolor))
             {
@@ -824,26 +941,26 @@ namespace Assets.Script.Chapter
             {
                 
                 // If there a selector component
-                if (null != ((GalgameAction)action).Selector)
+                if (!string.IsNullOrEmpty(((GalgameAction)action).Selector.Id))
                 {
                     BuildSelector(((GalgameAction)action).Selector);
                 }
 
                 // If there a adjuster component
-                if (null != ((GalgameAction)action).GameValuesAdjuster)
-                {
+                if (!string.IsNullOrEmpty(((GalgameAction)action).GameValuesAdjuster.Id))
+                    {
                     ExecuteAdjuster(((GalgameAction)action).GameValuesAdjuster);
                 }
 
                 // If there a events component
-                if (null != ((GalgameAction)action).Events)
-                {
+                if (!string.IsNullOrEmpty(((GalgameAction)action).Events.Id))
+                    {
                     TriggerEvents(((GalgameAction)action).Events);
                 }
 
                 // If there a judge component
-                if(null != ((GalgameAction)action).Judge)
-                {
+                if (!string.IsNullOrEmpty(((GalgameAction)action).Judge.Id))
+                    {
                     ExecuteJudge(((GalgameAction)action).Judge);
                 }
             }
@@ -908,13 +1025,17 @@ namespace Assets.Script.Chapter
                 {
                     selector.IsSelected = true;
                     selector.SelectedItem = selector.Options.IndexOf(option);
-                    if(null != option.Actions && option.Actions.Count > 0)
+                    if(null != option.Action)
                     {
                         this.ActiveSelectorOption = option;
-                        this.isShowingSelectorOptionActionTime = true;
+                        this.isShowingSelectorOptionActionTime = true;                                  // Hide selector panel
+                        this.currentSelectorOptionLineIndex = 0;
+
+                        nextLine = option.Action.Lines.First().text.Replace("\\n", "\n");
+                        BuildAAction(option.Action);
                     }
                     gameController.UpdateGlobalGameValues(option.DeltaGameValues);                  // Update global values
-                    StartCoroutine(HideSelectorFieldTimeOut());                                     // Hide selector panel
+                    StartCoroutine(HideSelectorFieldTimeOut());   
                     SwitchLine();
                     Debug.Log("Global Values: \n"+GlobalGameData.GameValues.ToJSONString());
                 });
@@ -1315,9 +1436,9 @@ namespace Assets.Script.Chapter
         internal void SetCurrentGalgameAction(SavedDataModel theSavedData)
         {
             currentLineIndex = theSavedData.galgameActionIndex;
-            currentGalgameAction = galgameActions[currentLineIndex];
+            currentGalgameAction = galgameActionsMap[theSavedData.galgameActionId];
             bgSpriteRenderer.sprite = currentGalgameAction.Background;
-            nextLine = currentGalgameAction.Line.text.Replace("\\n","\n");
+            nextLine = currentGalgameAction.Lines[currentLineIndex].text.Replace("\\n","\n");
             GlobalGameData.GameValues = theSavedData.gameValues;
             line.text = string.Empty;
         }
