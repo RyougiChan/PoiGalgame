@@ -703,6 +703,7 @@ namespace Assets.Script.Chapter
                 }
                 // TODO: maybe consider loading another chapter?
                 currentScript = Resources.Load<GalgameScript>("Chapter/Chapter-01");
+                currentGalgameAction = null;
                 actorName.text = string.Empty;
                 currentLineIndex = 0;
                 currentLineCharIndex = -1;
@@ -766,7 +767,8 @@ namespace Assets.Script.Chapter
                 {
                     // reach end point of current action, switch
                     SwitchAction(currentGalgameAction.NextActionId);
-                    Debug.Log("Switch action: " + currentGalgameAction.Id + " to " + currentGalgameAction.NextActionId);
+                    // Debug.Log("Switch action: " + currentGalgameAction.Id + " to " + currentGalgameAction.NextActionId);
+                    SwitchLine();
                     return;
                 }
 
@@ -1081,7 +1083,7 @@ namespace Assets.Script.Chapter
                 // font-color
                 if (!string.IsNullOrEmpty(option.Text.fcolor))
                 {
-                    ot.color = ColorUtil.HexToUnityColor(uint.Parse(option.Text.fcolor, System.Globalization.NumberStyles.HexNumber));
+                    ot.color = ColorUtil.HexToUnityColor(uint.Parse(option.Text.fcolor.Replace("0x", "").Substring(0, 6), System.Globalization.NumberStyles.HexNumber));
                 }
                 else if (!string.IsNullOrEmpty(DefaultScriptProperty.fcolor))
                 {
@@ -1371,7 +1373,8 @@ namespace Assets.Script.Chapter
                             {
                                 savedDataIndex = savedDataIndex,
                                 savedTime = DateTime.Now,
-                                galgameActionIndex = currentLineIndex,
+                                galgameActionId = currentGalgameAction.Id,
+                                galgameActionLineIndex = currentLineIndex-1,
                                 gameValues = GlobalGameData.GameValues
                             };
                         }
@@ -1379,7 +1382,8 @@ namespace Assets.Script.Chapter
                         {
                             savedDatas[savedDataIndex].savedDataIndex = savedDataIndex;
                             savedDatas[savedDataIndex].savedTime = DateTime.Now;
-                            savedDatas[savedDataIndex].galgameActionIndex = currentLineIndex;
+                            savedDatas[savedDataIndex].galgameActionId = currentGalgameAction.Id;
+                            savedDatas[savedDataIndex].galgameActionLineIndex = currentLineIndex-1;
                             savedDatas[savedDataIndex].gameValues = GlobalGameData.GameValues;
                         }
                         // TODO: Considering doing this when application exit to avoid unnecessary IO operations?
@@ -1435,7 +1439,8 @@ namespace Assets.Script.Chapter
         /// <param name="theSavedData"></param>
         internal void SetCurrentGalgameAction(SavedDataModel theSavedData)
         {
-            currentLineIndex = theSavedData.galgameActionIndex;
+            //SwitchAction(theSavedData.galgameActionId);
+            currentLineIndex = theSavedData.galgameActionLineIndex;
             currentGalgameAction = galgameActionsMap[theSavedData.galgameActionId];
             bgSpriteRenderer.sprite = currentGalgameAction.Background;
             nextLine = currentGalgameAction.Lines[currentLineIndex].text.Replace("\\n","\n");

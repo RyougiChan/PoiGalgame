@@ -20,7 +20,7 @@ MonoBehaviour:
   Video: {fileID: 0}
   GalgameActions:
   - Id: 1
-    PreviousActionId: 0
+    PreviousActionId: 
     NextActionId: 2
     RoundId: 
     Line:
@@ -31,7 +31,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u4E00\u9762\u3001\u767D\u3044\u4E16\u754C..."
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 8300000, guid: 868e0e715eb5b0347b732db19aeeebb4, type: 3}
     Voice: {fileID: 0}
@@ -46,267 +55,12 @@ MonoBehaviour:
       Id: 0
       Name: 
       Type: 1
-      Texts:
-      - Id: 0
-        Name: 
-        text: "\u9009\u98791"
-        ffamily: 
-        fcolor: 
-        fsize: 0
-        linespacing: 0
-        align: 0
-        fstyle: 0
-      - Id: 0
-        Name: 
-        text: "\u9009\u98792"
-        ffamily: 
-        fcolor: 
-        fsize: 0
-        linespacing: 0
-        align: 0
-        fstyle: 0
-      - Id: 0
-        Name: 
-        text: "\u9009\u98793"
-        ffamily: 
-        fcolor: 0xffff00
-        fsize: 0
-        linespacing: 0
-        align: 4
-        fstyle: 0
+      Texts: []
       Bgs: []
       Bgms: []
-      IsSelected: 1
+      IsSelected: 0
       SelectedItem: 0
-      Options:
-      - Id: 0
-        Name: 
-        Text:
-          Id: 0
-          Name: 
-          text: "\u9009\u98791"
-          ffamily: 
-          fcolor: 
-          fsize: 0
-          linespacing: 0
-          align: 0
-          fstyle: 0
-        Bg: {fileID: 21300000, guid: 84ff0a16181adde4899c245830ce6871, type: 3}
-        Bgm: {fileID: 0}
-        DeltaGameValues:
-          RoleStatus:
-            HealthPoint: 10
-            ManaPoint: 0
-            ExperiencePoint: 10
-            SkillPoint: 0
-          RoleAbility:
-            Attack: 10
-            Defence: 5
-            Evasion: 15
-          RoleMood:
-            Sorrow: -9999
-            Angry: -9999
-            Hate: -9999
-          ExampleOtherValue: 3
-        Actions:
-        - Id: 0
-          PreviousActionId: 0
-          NextActionId: 0
-          RoundId: 
-          Line:
-            text: "\u5B50\u9009\u9879\u6587\u672C1"
-            ffamily: 
-            fcolor: 
-            fsize: 0
-            linespacing: 0
-            align: 0
-            fstyle: 0
-          Lines: []
-          Video: {fileID: 0}
-          Bgm: {fileID: 0}
-          Voice: {fileID: 0}
-          Background: {fileID: 0}
-          BgLayer: 4
-          Foreground: {fileID: 0}
-          FgLayer: 2
-          Actor: 0
-          ActorAnimation: 
-          Input: 
-        - Id: 0
-          PreviousActionId: 0
-          NextActionId: 0
-          RoundId: 
-          Line:
-            text: "\u5B50\u9009\u9879\u6587\u672C2"
-            ffamily: 
-            fcolor: 
-            fsize: 0
-            linespacing: 0
-            align: 0
-            fstyle: 0
-          Lines: []
-          Video: {fileID: 0}
-          Bgm: {fileID: 0}
-          Voice: {fileID: 0}
-          Background: {fileID: 0}
-          BgLayer: 4
-          Foreground: {fileID: 0}
-          FgLayer: 2
-          Actor: 0
-          ActorAnimation: 
-          Input: 
-        - Id: 0
-          PreviousActionId: 0
-          NextActionId: 0
-          RoundId: 
-          Line:
-            text: 3
-            ffamily: 
-            fcolor: 
-            fsize: 0
-            linespacing: 0
-            align: 0
-            fstyle: 0
-          Lines: []
-          Video: {fileID: 0}
-          Bgm: {fileID: 0}
-          Voice: {fileID: 0}
-          Background: {fileID: 0}
-          BgLayer: 4
-          Foreground: {fileID: 0}
-          FgLayer: 2
-          Actor: 0
-          ActorAnimation: 
-          Input: 
-        - Id: 0
-          PreviousActionId: 0
-          NextActionId: 0
-          RoundId: 
-          Line:
-            text: "\u5B50\u9009\u9879\u6587\u672C4"
-            ffamily: 
-            fcolor: 
-            fsize: 0
-            linespacing: 0
-            align: 0
-            fstyle: 0
-          Lines: []
-          Video: {fileID: 0}
-          Bgm: {fileID: 0}
-          Voice: {fileID: 0}
-          Background: {fileID: 0}
-          BgLayer: 4
-          Foreground: {fileID: 0}
-          FgLayer: 2
-          Actor: 0
-          ActorAnimation: 
-          Input: 
-        - Id: 0
-          PreviousActionId: 0
-          NextActionId: 0
-          RoundId: 
-          Line:
-            text: "\u5B50\u9009\u9879\u6587\u672C5"
-            ffamily: 
-            fcolor: 
-            fsize: 0
-            linespacing: 0
-            align: 0
-            fstyle: 0
-          Lines: []
-          Video: {fileID: 0}
-          Bgm: {fileID: 0}
-          Voice: {fileID: 0}
-          Background: {fileID: 0}
-          BgLayer: 4
-          Foreground: {fileID: 0}
-          FgLayer: 2
-          Actor: 0
-          ActorAnimation: 
-          Input: 
-        - Id: 0
-          PreviousActionId: 0
-          NextActionId: 0
-          RoundId: 
-          Line:
-            text: "\u5B50\u9009\u9879\u6587\u672C6"
-            ffamily: 
-            fcolor: 
-            fsize: 0
-            linespacing: 0
-            align: 0
-            fstyle: 0
-          Lines: []
-          Video: {fileID: 0}
-          Bgm: {fileID: 0}
-          Voice: {fileID: 0}
-          Background: {fileID: 0}
-          BgLayer: 4
-          Foreground: {fileID: 0}
-          FgLayer: 2
-          Actor: 0
-          ActorAnimation: 
-          Input: 
-      - Id: 0
-        Name: 
-        Text:
-          Id: 0
-          Name: 
-          text: "\u9009\u98792"
-          ffamily: 
-          fcolor: 
-          fsize: 0
-          linespacing: 0
-          align: 0
-          fstyle: 0
-        Bg: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
-        Bgm: {fileID: 0}
-        DeltaGameValues:
-          RoleStatus:
-            HealthPoint: 0
-            ManaPoint: 0
-            ExperiencePoint: 0
-            SkillPoint: 0
-          RoleAbility:
-            Attack: 0
-            Defence: 0
-            Evasion: 0
-          RoleMood:
-            Sorrow: -9999
-            Angry: -9999
-            Hate: -9999
-          ExampleOtherValue: 0
-        Actions: []
-      - Id: 0
-        Name: 
-        Text:
-          Id: 0
-          Name: 
-          text: "\u9009\u98793"
-          ffamily: 
-          fcolor: 
-          fsize: 0
-          linespacing: 0
-          align: 4
-          fstyle: 0
-        Bg: {fileID: 21300000, guid: 0060f4a7454053640a07f31eeb7d7ba3, type: 3}
-        Bgm: {fileID: 0}
-        DeltaGameValues:
-          RoleStatus:
-            HealthPoint: 0
-            ManaPoint: 0
-            ExperiencePoint: 0
-            SkillPoint: 0
-          RoleAbility:
-            Attack: 0
-            Defence: 0
-            Evasion: 0
-          RoleMood:
-            Sorrow: -9999
-            Angry: -9999
-            Hate: -9999
-          ExampleOtherValue: 0
-        Actions: []
+      Options: []
     GameValuesAdjuster:
       Id: 0
       Name: 
@@ -365,7 +119,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: '........'
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -430,7 +193,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u96EA..."
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -483,9 +255,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 4
+    PreviousActionId: 3
+    NextActionId: 5
     RoundId: 
     Line:
       text: "\u305D\u3046\u3001\u96EA\u3060\u3002"
@@ -495,7 +267,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u305D\u3046\u3001\u96EA\u3060\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -548,9 +329,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 5
+    PreviousActionId: 4
+    NextActionId: 6
     RoundId: 
     Line:
       text: "\u4ECA\u306A\u304A\u3001\u305D\u308C\u308F\u964D\u308A\u7D9A\u3051\u3001\u50D5\u306E\u4F53\u3092\u767D\u304F\u8986\u3063\u3066\u3044\u304F\u3002"
@@ -560,7 +341,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u4ECA\u306A\u304A\u3001\u305D\u308C\u308F\u964D\u308A\u7D9A\u3051\u3001\u50D5\u306E\u4F53\u3092\u767D\u304F\u8986\u3063\u3066\u3044\u304F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -613,9 +403,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 6
+    PreviousActionId: 5
+    NextActionId: 7
     RoundId: 
     Line:
       text: "\u3042\u3042..."
@@ -625,7 +415,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3042\u3042..."
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -678,9 +477,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 7
+    PreviousActionId: 6
+    NextActionId: 8
     RoundId: 
     Line:
       text: "\u50D5\u306F\u3053\u3093\u306A\u3068\u3053\u308D\u3067\u4F55\u3092\u3057\u3066\u3044\u308B\u306E\u3060\u308D\u3046..."
@@ -690,7 +489,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u50D5\u306F\u3053\u3093\u306A\u3068\u3053\u308D\u3067\u4F55\u3092\u3057\u3066\u3044\u308B\u306E\u3060\u308D\u3046..."
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -743,9 +551,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 8
+    PreviousActionId: 7
+    NextActionId: 9
     RoundId: 
     Line:
       text: "\u3044\u3064\u304B\u3089\u3053\u3093\u306A\u3068\u3053\u308D\u306B\u3001\u3072\u3068\u308A\u307C\u3063\u3061\u3067\u5C45\u308B\u306E\u3060\u308D\u3046...\u3002"
@@ -755,7 +563,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3044\u3064\u304B\u3089\u3053\u3093\u306A\u3068\u3053\u308D\u306B\u3001\u3072\u3068\u308A\u307C\u3063\u3061\u3067\u5C45\u308B\u306E\u3060\u308D\u3046...\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -808,9 +625,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 9
+    PreviousActionId: 8
+    NextActionId: 10
     RoundId: 
     Line:
       text: "........\u3002"
@@ -820,7 +637,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "........\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -873,9 +699,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 10
+    PreviousActionId: 9
+    NextActionId: 11
     RoundId: 
     Line:
       text: "\u96EA\u306B\u57CB\u3082\u308C\u305F...\u50D5\u306E\u624B\u3002"
@@ -885,7 +711,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u96EA\u306B\u57CB\u3082\u308C\u305F...\u50D5\u306E\u624B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -938,9 +773,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 11
+    PreviousActionId: 10
+    NextActionId: 12
     RoundId: 
     Line:
       text: "\u305D\u308C\u304C\u3001\u4F55\u304B\u3092\u63B4\u3093\u3067\u3044\u3060\u3002"
@@ -950,7 +785,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u305D\u308C\u304C\u3001\u4F55\u304B\u3092\u63B4\u3093\u3067\u3044\u3060\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1003,9 +847,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 12
+    PreviousActionId: 11
+    NextActionId: 13
     RoundId: 
     Line:
       text: "\u5F15\u304D\u4E0A\u3052\u308B\u3002"
@@ -1015,7 +859,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5F15\u304D\u4E0A\u3052\u308B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1068,9 +921,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 13
+    PreviousActionId: 12
+    NextActionId: 14
     RoundId: 
     Line:
       text: "\u771F\u3063\u767D\u306A\u624B\u3002"
@@ -1080,7 +933,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u771F\u3063\u767D\u306A\u624B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1133,9 +995,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 14
+    PreviousActionId: 13
+    NextActionId: 15
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u306E\u624B\u3060\u3063\u305F\u3002"
@@ -1145,7 +1007,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u306E\u624B\u3060\u3063\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1198,9 +1069,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 15
+    PreviousActionId: 14
+    NextActionId: 16
     RoundId: 
     Line:
       text: "\u3042\u3042\u3001\u305D\u3046\u3060\u3063\u305F...\u3002"
@@ -1210,7 +1081,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3042\u3042\u3001\u305D\u3046\u3060\u3063\u305F...\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1263,9 +1143,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 16
+    PreviousActionId: 15
+    NextActionId: 17
     RoundId: 
     Line:
       text: "\u50D5\u306F\u4E00\u4EBA\u304D\u308A\u3058\u3083\u306A\u304B\u3063\u305F\u3002"
@@ -1275,7 +1155,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u50D5\u306F\u4E00\u4EBA\u304D\u308A\u3058\u3083\u306A\u304B\u3063\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1328,9 +1217,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 17
+    PreviousActionId: 16
+    NextActionId: 18
     RoundId: 
     Line:
       text: "\u5F7C\u5973\u306E\u9854\u3092\u8986\u3046\u96EA\u3092\u6255\u3046\u3002"
@@ -1340,7 +1229,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5F7C\u5973\u306E\u9854\u3092\u8986\u3046\u96EA\u3092\u6255\u3046\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1393,9 +1291,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 18
+    PreviousActionId: 17
+    NextActionId: 19
     RoundId: 
     Line:
       text: "\u7A4F\u3084\u304B\u7720\u308B\u6A2A\u9854\u304C\u2019\u3001\u73FE\u308C\u305F\u3002"
@@ -1405,7 +1303,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u7A4F\u3084\u304B\u7720\u308B\u6A2A\u9854\u304C\u2019\u3001\u73FE\u308C\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1458,9 +1365,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 19
+    PreviousActionId: 18
+    NextActionId: 20
     RoundId: 
     Line:
       text: "\u305D\u3046..."
@@ -1470,7 +1377,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u305D\u3046..."
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1523,9 +1439,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 20
+    PreviousActionId: 19
+    NextActionId: 21
     RoundId: 
     Line:
       text: "\u3053\u306E\u5B50\u3068\u4E8C\u4EBA\u3067...\u3067\u3063\u3068\u5C45\u305F\u306E\u3060\u3002"
@@ -1535,7 +1451,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3053\u306E\u5B50\u3068\u4E8C\u4EBA\u3067...\u3067\u3063\u3068\u5C45\u305F\u306E\u3060\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1588,9 +1513,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 21
+    PreviousActionId: 20
+    NextActionId: 22
     RoundId: 
     Line:
       text: "\u3053\u306E\u4E16\u754C\u3067\u3002"
@@ -1600,7 +1525,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3053\u306E\u4E16\u754C\u3067\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1653,9 +1587,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 22
+    PreviousActionId: 21
+    NextActionId: 23
     RoundId: 
     Line:
       text: "\u3053\u306E\u3001\u8AB0\u3082\u3044\u306A\u3044\u3001\u3082\u306E\u60B2\u3057\u3044\u4E16\u754C\u3067\u3002"
@@ -1665,7 +1599,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3053\u306E\u3001\u8AB0\u3082\u3044\u306A\u3044\u3001\u3082\u306E\u60B2\u3057\u3044\u4E16\u754C\u3067\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1718,9 +1661,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 23
+    PreviousActionId: 22
+    NextActionId: 24
     RoundId: 
     Line:
       text: 
@@ -1730,7 +1673,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: 
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1783,9 +1735,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 24
+    PreviousActionId: 23
+    NextActionId: 25
     RoundId: 
     Line:
       text: "\u3053\u306E\u753A\u306F\u5ACC\u3044\u3060\u3002"
@@ -1795,7 +1747,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3053\u306E\u753A\u306F\u5ACC\u3044\u3060\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 8300000, guid: 0648c4d1fc8a59f468f020384df4089b, type: 3}
     Voice: {fileID: 0}
@@ -1848,9 +1809,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 25
+    PreviousActionId: 24
+    NextActionId: 26
     RoundId: 
     Line:
       text: "\u5FD8\u308C\u305F\u3044\u601D\u3044\u51FA\u304C\u67D3\u307F\u3064\u3044\u305F\u5834\u6240\u3060\u304B\u3089\u3002"
@@ -1860,7 +1821,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5FD8\u308C\u305F\u3044\u601D\u3044\u51FA\u304C\u67D3\u307F\u3064\u3044\u305F\u5834\u6240\u3060\u304B\u3089\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1913,9 +1883,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 26
+    PreviousActionId: 25
+    NextActionId: 27
     RoundId: 
     Line:
       text: "\u6BCE\u65E5\u5B66\u6821\u306B\u901A\u3044\u3001\u4FEE\u696D\u3092\u53D7\u3051\u3001\u53CB\u9054\u3068\u3060\u3079\u308A\u3001\u305D\u3057\u3066\u5E30\u308A\u3060\u304F\u3082\u306A\u3044\u5BB6\u306B\u5E30\u308B\u3002"
@@ -1925,7 +1895,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u6BCE\u65E5\u5B66\u6821\u306B\u901A\u3044\u3001\u4FEE\u696D\u3092\u53D7\u3051\u3001\u53CB\u9054\u3068\u3060\u3079\u308A\u3001\u305D\u3057\u3066\u5E30\u308A\u3060\u304F\u3082\u306A\u3044\u5BB6\u306B\u5E30\u308B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -1978,9 +1957,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 27
+    PreviousActionId: 26
+    NextActionId: 28
     RoundId: 
     Line:
       text: "\u4F55\u3082\u65B0\u3057\u3044\u3053\u3068\u306A\u3069\u59CB\u307E\u3089\u306A\u3044\u3002"
@@ -1990,7 +1969,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u4F55\u3082\u65B0\u3057\u3044\u3053\u3068\u306A\u3069\u59CB\u307E\u3089\u306A\u3044\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2043,9 +2031,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 28
+    PreviousActionId: 27
+    NextActionId: 29
     RoundId: 
     Line:
       text: "\u670B\u4E5F\uFF08\u3053\u3046\u3057\u3066\u3044\u3066\u3001\u4F55\u304B\u304C\u5909\u308F\u308B\u3093\u3060\u308D\u3046\u304B...\uFF09"
@@ -2055,7 +2043,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u670B\u4E5F\uFF08\u3053\u3046\u3057\u3066\u3044\u3066\u3001\u4F55\u304B\u304C\u5909\u308F\u308B\u3093\u3060\u308D\u3046\u304B...\uFF09"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2108,9 +2105,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 29
+    PreviousActionId: 28
+    NextActionId: 30
     RoundId: 
     Line:
       text: "\u670B\u4E5F\uFF08\u4FFA\u306E\u751F\u6D3B\u306F\u3001\u3044\u3064\u304B\u5909\u308F\u308B\u3093\u3060\u308D\u3046\u304B...\uFF09"
@@ -2120,7 +2117,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u670B\u4E5F\uFF08\u4FFA\u306E\u751F\u6D3B\u306F\u3001\u3044\u3064\u304B\u5909\u308F\u308B\u3093\u3060\u308D\u3046\u304B...\uFF09"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2173,9 +2179,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 30
+    PreviousActionId: 29
+    NextActionId: 31
     RoundId: 
     Line:
       text: "\u3084\u305F\u3089\u3068\u81EA\u7136\u304C\u591A\u3044\u753A\u3002"
@@ -2185,7 +2191,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3084\u305F\u3089\u3068\u81EA\u7136\u304C\u591A\u3044\u753A\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2238,9 +2253,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 31
+    PreviousActionId: 30
+    NextActionId: 32
     RoundId: 
     Line:
       text: "\u5C71\u3092\u8FC2\u56DE\u3057\u3066\u306E\u767B\u6821\u3002"
@@ -2250,7 +2265,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5C71\u3092\u8FC2\u56DE\u3057\u3066\u306E\u767B\u6821\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2303,9 +2327,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 32
+    PreviousActionId: 31
+    NextActionId: 33
     RoundId: 
     Line:
       text: "\u3059\u3079\u3066\u306E\u5C71\u3092\u5207\u308A\u958B\u3051\u3070\u3001\u3069\u308C\u3060\u3051\u697D\u306B\u767B\u6821\u3067\u304D\u308B\u3060\u308D\u3046\u304B\u3002"
@@ -2315,7 +2339,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3059\u3079\u3066\u306E\u5C71\u3092\u5207\u308A\u958B\u3051\u3070\u3001\u3069\u308C\u3060\u3051\u697D\u306B\u767B\u6821\u3067\u304D\u308B\u3060\u308D\u3046\u304B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2368,9 +2401,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 33
+    PreviousActionId: 32
+    NextActionId: 34
     RoundId: 
     Line:
       text: "\u76F4\u7DDA\u8DDD\u96E2\u3092\u53D6\u308C\u3070\u300120\u5206\u3050\u3089\u3044\u306F\u77ED\u7E2E\u3067\u304D\u305D\u3046\u3060\u3063\u305F\u3002"
@@ -2380,7 +2413,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u76F4\u7DDA\u8DDD\u96E2\u3092\u53D6\u308C\u3070\u300120\u5206\u3050\u3089\u3044\u306F\u77ED\u7E2E\u3067\u304D\u305D\u3046\u3060\u3063\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2433,9 +2475,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 34
+    PreviousActionId: 33
+    NextActionId: 35
     RoundId: 
     Line:
       text: "\u670B\u4E5F\uFF08\u4E00\u65E5\u300120\u5206...\uFF09"
@@ -2445,7 +2487,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u670B\u4E5F\uFF08\u4E00\u65E5\u300120\u5206...\uFF09"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2498,9 +2549,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 35
+    PreviousActionId: 34
+    NextActionId: 36
     RoundId: 
     Line:
       text: "\u670B\u4E5F\uFF08\u3059\u308B\u3068\u3001\u4E00\u5E74\u3067\u3069\u308C\u304F\u3089\u3044\u3001\u4FFA\u306F\u6642\u9593\u3092\u5F97\u3059\u308B\u3053\u3068\u306B\u306A\u308B\u3093\u3060...\uFF09"
@@ -2510,7 +2561,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u670B\u4E5F\uFF08\u3059\u308B\u3068\u3001\u4E00\u5E74\u3067\u3069\u308C\u304F\u3089\u3044\u3001\u4FFA\u306F\u6642\u9593\u3092\u5F97\u3059\u308B\u3053\u3068\u306B\u306A\u308B\u3093\u3060...\uFF09"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2563,9 +2623,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 36
+    PreviousActionId: 35
+    NextActionId: 37
     RoundId: 
     Line:
       text: "\u8A08\u7B97\u3057\u306A\u304C\u3089\u3001\u6B69\u304F\u3002"
@@ -2575,7 +2635,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u8A08\u7B97\u3057\u306A\u304C\u3089\u3001\u6B69\u304F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2628,9 +2697,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 37
+    PreviousActionId: 36
+    NextActionId: 38
     RoundId: 
     Line:
       text: "\u670B\u4E5F\uFF08\u3042\u3042\u3001\u3088\u304F\u308F\u304B\u3093\u306D\u3047...\uFF09"
@@ -2640,7 +2709,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u670B\u4E5F\uFF08\u3042\u3042\u3001\u3088\u304F\u308F\u304B\u3093\u306D\u3047...\uFF09"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2693,9 +2771,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 38
+    PreviousActionId: 37
+    NextActionId: 39
     RoundId: 
     Line:
       text: "\u8FBA\u308A\u306B\u540C\u6821\u306E\u751F\u5F92\u306E\u59FF\u306F\u306A\u3044\u3002"
@@ -2705,7 +2783,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u8FBA\u308A\u306B\u540C\u6821\u306E\u751F\u5F92\u306E\u59FF\u306F\u306A\u3044\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2758,9 +2845,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 39
+    PreviousActionId: 38
+    NextActionId: 40
     RoundId: 
     Line:
       text: "\u5B66\u6821\u306B\u7D9A\u304F\u5927\u901A\u308A\u3060\u304B\u3089\u3001\u672C\u6765\u3001\u751F\u5F92\u3067\u8CD1\u308F\u3063\u3066\u3044\u308B\u306F\u305A\u3060\u3063\u305F\u3002"
@@ -2770,7 +2857,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5B66\u6821\u306B\u7D9A\u304F\u5927\u901A\u308A\u3060\u304B\u3089\u3001\u672C\u6765\u3001\u751F\u5F92\u3067\u8CD1\u308F\u3063\u3066\u3044\u308B\u306F\u305A\u3060\u3063\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2823,9 +2919,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 40
+    PreviousActionId: 39
+    NextActionId: 41
     RoundId: 
     Line:
       text: "\u4ECA\u65E5\u304C\u3001\u4F11\u65E5\u3068\u3044\u3046\u308F\u3051\u3067\u3082\u306A\u3044\u3002"
@@ -2835,7 +2931,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u4ECA\u65E5\u304C\u3001\u4F11\u65E5\u3068\u3044\u3046\u308F\u3051\u3067\u3082\u306A\u3044\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2888,9 +2993,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 41
+    PreviousActionId: 40
+    NextActionId: 42
     RoundId: 
     Line:
       text: "\u3064\u307E\u308A\u306F...\u751F\u5F92\u304C\u767B\u6821\u3059\u3079\u304D\u6642\u9593\u3067\u306F\u306A\u3044\u3001\u3068\u3044\u3046\u3053\u3068\u3002"
@@ -2900,7 +3005,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3064\u307E\u308A\u306F...\u751F\u5F92\u304C\u767B\u6821\u3059\u3079\u304D\u6642\u9593\u3067\u306F\u306A\u3044\u3001\u3068\u3044\u3046\u3053\u3068\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -2953,9 +3067,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 42
+    PreviousActionId: 41
+    NextActionId: 43
     RoundId: 
     Line:
       text: "\u3051\u3069\u3001\u305D\u3093\u306A\u9591\u6563\u3068\u3057\u305F\u5149\u666F\u3092\u76EE\u306E\u5F53\u305F\u308A\u306B\u3057\u3066\u3082\u4FFA\u306F\u7126\u308B\u3053\u3068\u306A\u304F\u3001\u60A0\u9577\u306B\u6B69\u304D\u7D9A\u3051\u305F\u3002"
@@ -2965,7 +3079,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3051\u3069\u3001\u305D\u3093\u306A\u9591\u6563\u3068\u3057\u305F\u5149\u666F\u3092\u76EE\u306E\u5F53\u305F\u308A\u306B\u3057\u3066\u3082\u4FFA\u306F\u7126\u308B\u3053\u3068\u306A\u304F\u3001\u60A0\u9577\u306B\u6B69\u304D\u7D9A\u3051\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3018,9 +3141,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 43
+    PreviousActionId: 42
+    NextActionId: 44
     RoundId: 
     Line:
       text: ".........\u3002"
@@ -3030,7 +3153,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: ".........\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3083,9 +3215,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 44
+    PreviousActionId: 43
+    NextActionId: 45
     RoundId: 
     Line:
       text: "\u6821\u9580\u307E\u3067\u6B8B\u308A200\u30E1\u30FC\u30C8\u30EB\u3002"
@@ -3095,7 +3227,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u6821\u9580\u307E\u3067\u6B8B\u308A200\u30E1\u30FC\u30C8\u30EB\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3148,9 +3289,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 45
+    PreviousActionId: 44
+    NextActionId: 46
     RoundId: 
     Line:
       text: "\u4E00\u5EA6\u7ACB\u3061\u5C3D\u304F\u3059\u3002"
@@ -3160,7 +3301,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u4E00\u5EA6\u7ACB\u3061\u5C3D\u304F\u3059\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3213,9 +3363,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 46
+    PreviousActionId: 45
+    NextActionId: 47
     RoundId: 
     Line:
       text: "\u670B\u4E5F\u300C\u306F\u3041\u300D"
@@ -3225,7 +3375,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u670B\u4E5F\u300C\u306F\u3041\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3278,9 +3437,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 47
+    PreviousActionId: 46
+    NextActionId: 48
     RoundId: 
     Line:
       text: "\u305F\u3081\u606F\u3068\u5171\u306B\u7A7A\u3092\u4EF0\u3050\u3002"
@@ -3290,7 +3449,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u305F\u3081\u606F\u3068\u5171\u306B\u7A7A\u3092\u4EF0\u3050\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3343,9 +3511,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 48
+    PreviousActionId: 47
+    NextActionId: 49
     RoundId: 
     Line:
       text: 
@@ -3355,7 +3523,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: 
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3408,9 +3585,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 49
+    PreviousActionId: 48
+    NextActionId: 50
     RoundId: 
     Line:
       text: "\u305D\u306E\u5148\u306B\u6821\u9580\u306F\u3042\u3063\u305F\u3002"
@@ -3420,7 +3597,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u305D\u306E\u5148\u306B\u6821\u9580\u306F\u3042\u3063\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3473,9 +3659,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 50
+    PreviousActionId: 49
+    NextActionId: 51
     RoundId: 
     Line:
       text: "\u8AB0\u304C\u597D\u3093\u3067\u3001\u3042\u3093\u306A\u5834\u6240\u306B\u6821\u9580\u3092\u636E\u3048\u305F\u306E\u304B\u3002"
@@ -3485,7 +3671,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u8AB0\u304C\u597D\u3093\u3067\u3001\u3042\u3093\u306A\u5834\u6240\u306B\u6821\u9580\u3092\u636E\u3048\u305F\u306E\u304B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3538,9 +3733,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 51
+    PreviousActionId: 50
+    NextActionId: 52
     RoundId: 
     Line:
       text: "\u9577\u3044\u5742\u9053\u304C\u3001\u60AA\u5922\u306E\u3088\u3046\u306B\u5EF6\u3073\u3066\u3044\u305F\u3002"
@@ -3550,7 +3745,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u9577\u3044\u5742\u9053\u304C\u3001\u60AA\u5922\u306E\u3088\u3046\u306B\u5EF6\u3073\u3066\u3044\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3603,9 +3807,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 52
+    PreviousActionId: 51
+    NextActionId: 53
     RoundId: 
     Line:
       text: "\u58F0\u300C\u306F\u3041\u300D"
@@ -3615,7 +3819,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u58F0\u300C\u306F\u3041\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: f34589cb1c3bdb34a95a25de2f4b05c6, type: 3}
@@ -3668,9 +3881,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 53
+    PreviousActionId: 52
+    NextActionId: 54
     RoundId: 
     Line:
       text: "\u5225\u306E\u305F\u3081\u606F\u3002\u4FFA\u306E\u3088\u308A\u304B\u306F\u5C0F\u3055\u304F\u3001\u77ED\u304B\u3063\u305F\u3002"
@@ -3680,7 +3893,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5225\u306E\u305F\u3081\u606F\u3002\u4FFA\u306E\u3088\u308A\u304B\u306F\u5C0F\u3055\u304F\u3001\u77ED\u304B\u3063\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3733,9 +3955,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 54
+    PreviousActionId: 53
+    NextActionId: 55
     RoundId: 
     Line:
       text: "\u96A3\u3092\u898B\u3066\u307F\u308B\u3002"
@@ -3745,7 +3967,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u96A3\u3092\u898B\u3066\u307F\u308B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3798,9 +4029,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 55
+    PreviousActionId: 54
+    NextActionId: 56
     RoundId: 
     Line:
       text: "\u305D\u3053\u306B\u540C\u3058\u3088\u3046\u306B\u7ACB\u3061\u5C3D\u304F\u3059\u5973\u751F\u5F92\u304B\u3044\u305F\u3002"
@@ -3810,7 +4041,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u305D\u3053\u306B\u540C\u3058\u3088\u3046\u306B\u7ACB\u3061\u5C3D\u304F\u3059\u5973\u751F\u5F92\u304B\u3044\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 8300000, guid: 114b218e86c7c614b9f3c61917f334ef, type: 3}
     Voice: {fileID: 0}
@@ -3863,9 +4103,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 56
+    PreviousActionId: 55
+    NextActionId: 57
     RoundId: 
     Line:
       text: "\u6821\u7AE0\u306E\u8272\u304B\u3089\u3001\u540C\u3058\u4E09\u5E74\u751F\u3060\u3068\u308F\u304B\u308B\u3002"
@@ -3875,7 +4115,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u6821\u7AE0\u306E\u8272\u304B\u3089\u3001\u540C\u3058\u4E09\u5E74\u751F\u3060\u3068\u308F\u304B\u308B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3928,9 +4177,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 57
+    PreviousActionId: 56
+    NextActionId: 58
     RoundId: 
     Line:
       text: "\u3051\u3069\u3001\u898B\u6163\u308C\u306A\u3044\u9854\u3060\u3063\u305F\u3002"
@@ -3940,7 +4189,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3051\u3069\u3001\u898B\u6163\u308C\u306A\u3044\u9854\u3060\u3063\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -3993,9 +4251,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 58
+    PreviousActionId: 57
+    NextActionId: 59
     RoundId: 
     Line:
       text: "\u77ED\u3044\u9AEA\u304C\u3001\u80A9\u306E\u3059\u3050\u4E0A\u3067\u98A8\u306B\u305D\u3088\u3044\u3067\u3044\u308B\u3002"
@@ -4005,7 +4263,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u77ED\u3044\u9AEA\u304C\u3001\u80A9\u306E\u3059\u3050\u4E0A\u3067\u98A8\u306B\u305D\u3088\u3044\u3067\u3044\u308B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -4058,9 +4325,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 59
+    PreviousActionId: 58
+    NextActionId: 60
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u300C.........\u300D"
@@ -4070,7 +4337,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u300C.........\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 2291d41ec61513948b75ea4aa9f22d1b, type: 3}
@@ -4123,9 +4399,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 60
+    PreviousActionId: 59
+    NextActionId: 61
     RoundId: 
     Line:
       text: "\u4ECA\u306B\u3082\u6CE3\u304D\u3060\u3057\u305D\u3046\u306A\u9854\u3060\u3063\u305F\u3002"
@@ -4135,7 +4411,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u4ECA\u306B\u3082\u6CE3\u304D\u3060\u3057\u305D\u3046\u306A\u9854\u3060\u3063\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -4188,9 +4473,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 61
+    PreviousActionId: 60
+    NextActionId: 62
     RoundId: 
     Line:
       text: "\u4FFA\u306A\u3093\u304B\u306F\u5E38\u7FD2\u72AF\u3060\u3063\u305F\u304B\u3089\u306A\u3093\u3068\u3082\u601D\u308F\u306A\u3044\u304C\u3001\u771F\u9762\u76EE\u306A\u5974\u306A\u306E\u3060\u308D\u3046\u3002"
@@ -4200,7 +4485,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u4FFA\u306A\u3093\u304B\u306F\u5E38\u7FD2\u72AF\u3060\u3063\u305F\u304B\u3089\u306A\u3093\u3068\u3082\u601D\u308F\u306A\u3044\u304C\u3001\u771F\u9762\u76EE\u306A\u5974\u306A\u306E\u3060\u308D\u3046\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -4253,9 +4547,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 62
+    PreviousActionId: 61
+    NextActionId: 63
     RoundId: 
     Line:
       text: "\u3053\u306E\u6642\u9593\u306B\u3072\u3068\u308A\u6559\u5BA4\u306B\u5165\u3063\u3066\u3044\u304F\u3053\u3068\u306B\u62B5\u6297\u304C\u3042\u308B\u306E\u3060\u3002"
@@ -4265,7 +4559,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3053\u306E\u6642\u9593\u306B\u3072\u3068\u308A\u6559\u5BA4\u306B\u5165\u3063\u3066\u3044\u304F\u3053\u3068\u306B\u62B5\u6297\u304C\u3042\u308B\u306E\u3060\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -4318,9 +4621,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 63
+    PreviousActionId: 62
+    NextActionId: 64
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u300C\u3046\u3093\u3046\u3093\u300D"
@@ -4330,7 +4633,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u300C\u3046\u3093\u3046\u3093\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 98baacbdfa47d474ea7a7956627fddfd, type: 3}
@@ -4383,9 +4695,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 64
+    PreviousActionId: 63
+    NextActionId: 65
     RoundId: 
     Line:
       text: "\u4F55\u304B\u3092\u81EA\u5206\u306B\u8A00\u3044\u805E\u304B\u305B\u308B\u3088\u3046\u306B\u3001\u76EE\u3092\u7791\u3063\u3066\u3001\u3053\u304F\u3053\u304F\u3068\u9837\u3044\u3066\u3044\u308B\u3002"
@@ -4395,7 +4707,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u4F55\u304B\u3092\u81EA\u5206\u306B\u8A00\u3044\u805E\u304B\u305B\u308B\u3088\u3046\u306B\u3001\u76EE\u3092\u7791\u3063\u3066\u3001\u3053\u304F\u3053\u304F\u3068\u9837\u3044\u3066\u3044\u308B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -4448,9 +4769,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 65
+    PreviousActionId: 64
+    NextActionId: 66
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u300C.........\u300D"
@@ -4460,7 +4781,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u300C.........\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 5ff14aeec434d944989c3db67767fcbc, type: 3}
@@ -4513,9 +4843,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 66
+    PreviousActionId: 65
+    NextActionId: 67
     RoundId: 
     Line:
       text: "\u305D\u3057\u3066\u5C11\u5973\u306F\u76EE\u3092\u898B\u958B\u304F\u3002"
@@ -4525,7 +4855,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u305D\u3057\u3066\u5C11\u5973\u306F\u76EE\u3092\u898B\u958B\u304F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -4578,9 +4917,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 67
+    PreviousActionId: 66
+    NextActionId: 68
     RoundId: 
     Line:
       text: "\u3058\u3063\u3068\u3001\u9AD8\u898B\u306B\u3042\u308B\u6821\u9580\u3092\u898B\u3064\u3081\u305F\u3002"
@@ -4590,7 +4929,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3058\u3063\u3068\u3001\u9AD8\u898B\u306B\u3042\u308B\u6821\u9580\u3092\u898B\u3064\u3081\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -4643,9 +4991,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 68
+    PreviousActionId: 67
+    NextActionId: 69
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u300C\u3053\u306E\u5B66\u6821\u306F\u3001\u597D\u304D\u3067\u3059\u304B\u300D"
@@ -4655,7 +5003,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u300C\u3053\u306E\u5B66\u6821\u306F\u3001\u597D\u304D\u3067\u3059\u304B\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: edd23a7725f068541b13c1ea98607400, type: 3}
@@ -4708,9 +5065,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 69
+    PreviousActionId: 68
+    NextActionId: 70
     RoundId: 
     Line:
       text: "\u670B\u4E5F\u300C\u3048...\uFF1F\u300D"
@@ -4720,7 +5077,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u670B\u4E5F\u300C\u3048...\uFF1F\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -4773,9 +5139,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 70
+    PreviousActionId: 69
+    NextActionId: 71
     RoundId: 
     Line:
       text: "\u3044\u3084\u3001\u4FFA\u4E8C\u8A0A\u3044\u3066\u3044\u308B\u306E\u3067\u306F\u306A\u304B\u3063\u305F\u3002"
@@ -4785,7 +5151,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u3044\u3084\u3001\u4FFA\u4E8C\u8A0A\u3044\u3066\u3044\u308B\u306E\u3067\u306F\u306A\u304B\u3063\u305F\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -4838,9 +5213,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 71
+    PreviousActionId: 70
+    NextActionId: 72
     RoundId: 
     Line:
       text: "\u5984\u60F3\u306E\u4E2D\u306E\u8AB0\u304B\u306B\u554F\u3044\u304B\u3051\u3066\u3044\u308B\u306E\u3060\u3002"
@@ -4850,7 +5225,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5984\u60F3\u306E\u4E2D\u306E\u8AB0\u304B\u306B\u554F\u3044\u304B\u3051\u3066\u3044\u308B\u306E\u3060\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -4903,9 +5287,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 72
+    PreviousActionId: 71
+    NextActionId: 73
     RoundId: 
     Line:
       text: "\u305D\u306E\u5F7C\uFF08\u3042\u308B\u3044\u306F\u5F7C\u5973\uFF09\u306F\u3001\u3069\u3046\u7B54\u3048\u305F\u306E\u3060\u308D\u3046\u304B"
@@ -4915,7 +5299,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u305D\u306E\u5F7C\uFF08\u3042\u308B\u3044\u306F\u5F7C\u5973\uFF09\u306F\u3001\u3069\u3046\u7B54\u3048\u305F\u306E\u3060\u308D\u3046\u304B"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -4968,9 +5361,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 73
+    PreviousActionId: 72
+    NextActionId: 74
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u300C\u79C1\u306F\u3068\u3063\u3066\u3082\u3068\u3063\u3066\u3082\u597D\u304D\u3067\u3059\u300D"
@@ -4980,7 +5373,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u300C\u79C1\u306F\u3068\u3063\u3066\u3082\u3068\u3063\u3066\u3082\u597D\u304D\u3067\u3059\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 272cb884c1f98744c8575470364182c2, type: 3}
@@ -5033,9 +5435,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 74
+    PreviousActionId: 73
+    NextActionId: 75
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u300C\u3067\u3082\u3001\u306A\u306B\u3082\u304B\u3082...\u5909\u308F\u3089\u305A\u306B\u306F\u3044\u3089\u308C\u306A\u3044\u3067\u3059\u300D"
@@ -5045,7 +5447,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u300C\u3067\u3082\u3001\u306A\u306B\u3082\u304B\u3082...\u5909\u308F\u3089\u305A\u306B\u306F\u3044\u3089\u308C\u306A\u3044\u3067\u3059\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 4787d7a33307ee343a8614e59144d8d9, type: 3}
@@ -5098,9 +5509,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 75
+    PreviousActionId: 74
+    NextActionId: 76
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u300C\u697D\u3057\u3044\u3053\u3068\u3068\u304B\u3001\u3046\u308C\u3057\u3044\u3053\u3068\u3068\u304B\u3001\u5168\u90E8\u300D"
@@ -5110,7 +5521,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u300C\u697D\u3057\u3044\u3053\u3068\u3068\u304B\u3001\u3046\u308C\u3057\u3044\u3053\u3068\u3068\u304B\u3001\u5168\u90E8\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 49e8f6e50c8c88f4496bc3f0b990784a, type: 3}
@@ -5163,9 +5583,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 76
+    PreviousActionId: 75
+    NextActionId: 77
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u300C\u5168\u90E8\u3001\u5909\u308F\u3089\u306A\u305A\u306B\u306F\u3044\u3089\u308C\u306A\u3044\u3067\u3059\u300D"
@@ -5175,7 +5595,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u300C\u5168\u90E8\u3001\u5909\u308F\u3089\u306A\u305A\u306B\u306F\u3044\u3089\u308C\u306A\u3044\u3067\u3059\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: dc71678b951131545ba2b49fae3810f7, type: 3}
@@ -5228,9 +5657,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 77
+    PreviousActionId: 76
+    NextActionId: 78
     RoundId: 
     Line:
       text: "\u305F\u3069\u305F\u3069\u3057\u304F\u8A71\u3057\u7D9A\u3051\u308B\u3002"
@@ -5240,7 +5669,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u305F\u3069\u305F\u3069\u3057\u304F\u8A71\u3057\u7D9A\u3051\u308B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -5293,9 +5731,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 78
+    PreviousActionId: 77
+    NextActionId: 79
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u300C\u305D\u308C\u3067\u3082\u3001\u3053\u306E\u5834\u6240\u304C\u3059\u304D\u3067\u3044\u3089\u308C\u307E\u3059\u304B\u300D"
@@ -5305,7 +5743,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u300C\u305D\u308C\u3067\u3082\u3001\u3053\u306E\u5834\u6240\u304C\u3059\u304D\u3067\u3044\u3089\u308C\u307E\u3059\u304B\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 2e7aea80a26a07a4facced49c2dfeed5, type: 3}
@@ -5358,9 +5805,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 79
+    PreviousActionId: 78
+    NextActionId: 80
     RoundId: 
     Line:
       text: "........\u3002"
@@ -5370,7 +5817,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "........\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -5423,9 +5879,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 80
+    PreviousActionId: 79
+    NextActionId: 81
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u300C\u79C1\u306F...\u300D"
@@ -5435,7 +5891,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u300C\u79C1\u306F...\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: dffde0824d1fdbd43a619013cb963031, type: 3}
@@ -5488,9 +5953,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 81
+    PreviousActionId: 80
+    NextActionId: 82
     RoundId: 
     Line:
       text: "\u670B\u4E5F\u300C\u898B\u3064\u3051\u308C\u3070\u3044\u3044\u3060\u3051\u3060\u308D\u300D"
@@ -5500,7 +5965,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u670B\u4E5F\u300C\u898B\u3064\u3051\u308C\u3070\u3044\u3044\u3060\u3051\u3060\u308D\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -5553,9 +6027,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 82
+    PreviousActionId: 81
+    NextActionId: 83
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u300C\u3048\u3063...\uFF1F\u300D"
@@ -5565,7 +6039,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u300C\u3048\u3063...\uFF1F\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 9e36f89a606eb9343a8b6210cfe5a1cb, type: 3}
@@ -5618,9 +6101,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 83
+    PreviousActionId: 82
+    NextActionId: 84
     RoundId: 
     Line:
       text: "\u5C11\u5973\u304C\u9A5A\u3044\u3066\u3001\u4FFA\u306E\u9854\u3092\u898B\u308B\u3002"
@@ -5630,7 +6113,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5C11\u5973\u304C\u9A5A\u3044\u3066\u3001\u4FFA\u306E\u9854\u3092\u898B\u308B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -5683,9 +6175,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 84
+    PreviousActionId: 83
+    NextActionId: 85
     RoundId: 
     Line:
       text: "\u307E\u308B\u3067\u3001\u4ECA\u307E\u3067\u8AB0\u3082\u3044\u306A\u3044\u3068\u4FE1\u3058\u3066\u3044\u305F\u304B\u306E\u3088\u3046\u306B\u3060\u3002"
@@ -5695,7 +6187,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u307E\u308B\u3067\u3001\u4ECA\u307E\u3067\u8AB0\u3082\u3044\u306A\u3044\u3068\u4FE1\u3058\u3066\u3044\u305F\u304B\u306E\u3088\u3046\u306B\u3060\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -5748,9 +6249,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 85
+    PreviousActionId: 84
+    NextActionId: 86
     RoundId: 
     Line:
       text: "\u670B\u4E5F\u300C\u6B21\u306E\u697D\u3057\u3044\u3053\u3068\u3068\u304B\u3001\u3046\u308C\u3057\u3044\u3053\u3068\u3092\u898B\u3064\u3051\u308C\u3070\u3044\u3044\u3060\u3051\u3060\u308D\u300D"
@@ -5760,7 +6261,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u670B\u4E5F\u300C\u6B21\u306E\u697D\u3057\u3044\u3053\u3068\u3068\u304B\u3001\u3046\u308C\u3057\u3044\u3053\u3068\u3092\u898B\u3064\u3051\u308C\u3070\u3044\u3044\u3060\u3051\u3060\u308D\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -5813,9 +6323,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 86
+    PreviousActionId: 85
+    NextActionId: 87
     RoundId: 
     Line:
       text: "\u670B\u4E5F\u300C\u3042\u3093\u305F\u306E\u697D\u3057\u3044\u3053\u3068\u3084\u3001\u3046\u308C\u3057\u3044\u3053\u3068\u306F\u3072\u3068\u3064\u3060\u3051\u306A\u306E\u304B\uFF1F\u3000\u9055\u3046\u3060\u308D\u300D"
@@ -5825,7 +6335,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u670B\u4E5F\u300C\u3042\u3093\u305F\u306E\u697D\u3057\u3044\u3053\u3068\u3084\u3001\u3046\u308C\u3057\u3044\u3053\u3068\u306F\u3072\u3068\u3064\u3060\u3051\u306A\u306E\u304B\uFF1F\u3000\u9055\u3046\u3060\u308D\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -5878,9 +6397,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 87
+    PreviousActionId: 86
+    NextActionId: 88
     RoundId: 
     Line:
       text: "\u5973\u306E\u5B50\u300C........\u300D"
@@ -5890,7 +6409,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u5973\u306E\u5B50\u300C........\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 8300000, guid: 86a525bd660077c4bb223c06628884b4, type: 3}
@@ -5943,9 +6471,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 88
+    PreviousActionId: 87
+    NextActionId: 89
     RoundId: 
     Line:
       text: "\u305D\u3046\u3002"
@@ -5955,7 +6483,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u305D\u3046\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -6008,9 +6545,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 89
+    PreviousActionId: 88
+    NextActionId: 90
     RoundId: 
     Line:
       text: "\u4F55\u3082\u77E5\u3089\u306A\u304B\u3063\u305F\u7121\u57A2\u306A\u9803\u3002"
@@ -6020,7 +6557,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u4F55\u3082\u77E5\u3089\u306A\u304B\u3063\u305F\u7121\u57A2\u306A\u9803\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -6073,9 +6619,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 90
+    PreviousActionId: 89
+    NextActionId: 91
     RoundId: 
     Line:
       text: "\u8AB0\u306B\u3067\u3082\u3042\u308B\u3002"
@@ -6085,7 +6631,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u8AB0\u306B\u3067\u3082\u3042\u308B\u3002"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}
@@ -6138,9 +6693,9 @@ MonoBehaviour:
       Id: 
       Name: 
       Events: []
-  - Id: 0
-    PreviousActionId: 0
-    NextActionId: 0
+  - Id: 91
+    PreviousActionId: 90
+    NextActionId: 
     RoundId: 
     Line:
       text: "\u670B\u4E5F\u300C\u307B\u3089\u3001\u3044\u3053\u3046\u305C\u300D"
@@ -6150,7 +6705,16 @@ MonoBehaviour:
       linespacing: 0
       align: 0
       fstyle: 0
-    Lines: []
+      actor: 0
+    Lines:
+    - text: "\u670B\u4E5F\u300C\u307B\u3089\u3001\u3044\u3053\u3046\u305C\u300D"
+      ffamily: 
+      fcolor: 
+      fsize: 0
+      linespacing: 0
+      align: 0
+      fstyle: 0
+      actor: 0
     Video: {fileID: 0}
     Bgm: {fileID: 0}
     Voice: {fileID: 0}

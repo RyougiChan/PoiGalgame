@@ -11,7 +11,7 @@ namespace Assets.Script.Model
         // TODO: Remove it, replace it with `GalgameAction` or other
         public GalgameActionForSavedData galgameAction;
         public string galgameActionId;
-        public int galgameActionIndex;
+        public int galgameActionLineIndex;
         public GameValues gameValues;
     }
 }
