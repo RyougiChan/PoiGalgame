@@ -19,11 +19,11 @@ namespace Assets.Script.Chapter
     {
         public bool inGame;
 
-        public GameObject background;
-        public GameObject displayCanvas;
-        public GameObject videoPlayer;
-        public GameObject bgmAudioSource;
-        public GameObject voiceAudioSource;
+        private GameObject background;
+        private GameObject displayCanvas;
+        private GameObject videoPlayer;
+        private GameObject bgmAudioSource;
+        private GameObject voiceAudioSource;
 
         private SpriteRenderer bg;
         private GameObject titleContainer;
@@ -78,6 +78,11 @@ namespace Assets.Script.Chapter
 
         void Start()
         {
+            background = GameObject.Find("Background");
+            displayCanvas = GameObject.Find("DisplayCanvas");
+            videoPlayer = GameObject.Find("VideoPlayer/VideoPlayer");
+            bgmAudioSource = GameObject.Find("AudioSource/BgmAudioSource");
+            voiceAudioSource = GameObject.Find("AudioSource/VoiceAudioSource");
             startTime = Time.time;
             bg = background.transform.Find("Bg").gameObject.GetComponent<SpriteRenderer>();
             titleContainer = displayCanvas.transform.Find("TitleContainer").gameObject;

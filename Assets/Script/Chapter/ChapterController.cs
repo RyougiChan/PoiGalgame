@@ -37,17 +37,17 @@ namespace Assets.Script.Chapter
         private Font font;
 
         #region Game objects
-        public GameObject mainCanvas;
+        private GameObject mainCanvas;
 
         #region Prefabs
-        public Text historyTextPrefab;
-        public Button saveDataModelPrefab;
-        public Button selectorOptionPrefab;
+        private Text historyTextPrefab;
+        private Button saveDataModelPrefab;
+        private Button selectorOptionPrefab;
         #endregion
 
         #region History gameobjects
         private GameObject historyField;
-        public GameObject historyTexts;
+        private GameObject historyTexts;
         private Text currentActiveHistoryText;
         #endregion
 
@@ -87,7 +87,7 @@ namespace Assets.Script.Chapter
         #endregion
 
         #region Operation buttons
-        public GameObject operationButtons;
+        private GameObject operationButtons;
         private GameObject autoPlayButton;
         private GameObject skipButton;
         private GameObject saveButton;
@@ -104,11 +104,11 @@ namespace Assets.Script.Chapter
 
         // TODO: GalgameScript object may be a large data, so something must be done to optimize RAM.
         // Current displaying script
-        public GalgameScript currentScript;
-        public SpriteRenderer bgSpriteRenderer;
-        public GameObject videoPlayer;
-        public GameObject audioSource;
-        public GameObject voiceAudioSource;
+        private GalgameScript currentScript;
+        private SpriteRenderer bgSpriteRenderer;
+        private GameObject videoPlayer;
+        private GameObject audioSource;
+        private GameObject voiceAudioSource;
 
         private List<GalgameAction> galgameActions;
         private Dictionary<string, GalgameAction> galgameActionsMap;
@@ -156,6 +156,7 @@ namespace Assets.Script.Chapter
         // Use this for initialization
         void Start()
         {
+            mainCanvas = GameObject.Find("DisplayCanvas");
             gameController = Camera.main.GetComponent<GameController>();
 
             // Container
@@ -167,6 +168,20 @@ namespace Assets.Script.Chapter
             popupWindow = mainCanvas.transform.Find("PopupWindow").gameObject;
             menuField = mainCanvas.transform.Find("MenuField").gameObject;
             selectorField = mainCanvas.transform.Find("SelectorField").gameObject;
+            historyTexts = mainCanvas.transform.Find("HistoryField/Viewport/Content/HistoryTexts").gameObject;
+            operationButtons = mainCanvas.transform.Find("LineContainer/OperationBtn").gameObject;
+
+            // Prefabs
+            historyTextPrefab = Resources.Load<GameObject>("Prefabs/HistoryText").GetComponent<Text>();
+            saveDataModelPrefab = Resources.Load<GameObject>("Prefabs/SaveDataModel").GetComponent<Button>();
+            selectorOptionPrefab = Resources.Load<GameObject>("Prefabs/SelectorOption").GetComponent<Button>();
+
+            bgSpriteRenderer = GameObject.Find("Background/Bg").GetComponent<SpriteRenderer>();
+            videoPlayer = GameObject.Find("VideoPlayer/VideoPlayer");
+            audioSource = GameObject.Find("AudioSource/BgmAudioSource");
+            voiceAudioSource = GameObject.Find("AudioSource/VoiceAudioSource");
+
+            currentScript = Resources.Load<GalgameScript>("Chapter/Chapter-01");
 
             // Init line
             // Init currentScript, galgameActions, currentLineIndex
