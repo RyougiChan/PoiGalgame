@@ -63,27 +63,6 @@ namespace Assets.Script.Chapter
 
         #region Setting field
         private GameObject settingField;
-        private Toggle PlayMode_Manual;
-        private Toggle PlayMode_Auto;
-        private Toggle PlayMode_Skip;
-        private Toggle Visual_ShowCGInSkipMode;
-        private Toggle Visual_SpecialEffects;
-        private Toggle Visual_TextShadow;
-        private Toggle Visual_Animation;
-        private Toggle ScreenMode_FullScreen;
-        private Toggle ScreenMode_Windowed;
-        private Toggle Volume_MuteBGM;
-        private Toggle Volume_MuteVoices;
-        private Toggle Volume_MuteSound;
-        private Toggle Other_AppActiveInBackground;
-        private Slider Volume_BGM;
-        private Slider Volume_Voices;
-        private Slider Volume_Sound;
-        private Slider MessageSpeed_UnreadText;
-        private Slider MessageSpeed_AutoPlayDelayInterval;
-        private Slider MessageSpeed_SkipInterval;
-        private Dropdown ResolutionDropdown;
-        private Dropdown LanguageDropdown;
         #endregion
 
         #region Operation buttons
@@ -197,7 +176,7 @@ namespace Assets.Script.Chapter
 
             // Reload galgameAction as a hashtable
             galgameActionsMap = new Dictionary<string, GalgameAction>();
-            foreach(GalgameAction a in currentScript.GalgameActions)
+            foreach (GalgameAction a in currentScript.GalgameActions)
             {
                 galgameActionsMap.Add(a.Id, a);
             }
@@ -218,47 +197,8 @@ namespace Assets.Script.Chapter
             _bgmAudio = audioSource.GetComponent<AudioSource>();
             _voiceAudio = voiceAudioSource.GetComponent<AudioSource>();
 
-            // setting field
-            PlayMode_Manual = FindComponentByPath<Toggle>(settingField, "PlayMode:Manual:Toggle");
-            PlayMode_Auto = FindComponentByPath<Toggle>(settingField, "PlayMode:Auto:Toggle");
-            PlayMode_Skip = FindComponentByPath<Toggle>(settingField, "PlayMode:Skip:Toggle");
-            Visual_ShowCGInSkipMode = FindComponentByPath<Toggle>(settingField, "Visual:ShowCGInSkipMode:Toggle");
-            Visual_SpecialEffects = FindComponentByPath<Toggle>(settingField, "Visual:ShowCGInSkipMode:Toggle");
-            Visual_TextShadow = FindComponentByPath<Toggle>(settingField, "Visual:TextShadow:Toggle");
-            Visual_Animation = FindComponentByPath<Toggle>(settingField, "Visual:Animation:Toggle");
-            ScreenMode_FullScreen = FindComponentByPath<Toggle>(settingField, "ScreenMode:FullScreen:Toggle");
-            ScreenMode_Windowed = FindComponentByPath<Toggle>(settingField, "ScreenMode:Windowed:Toggle");
-            Other_AppActiveInBackground = FindComponentByPath<Toggle>(settingField, "Other:AppActiveInBackground:Toggle");
-            Volume_MuteBGM = FindComponentByPath<Toggle>(settingField, "Volume:BGM:Toggle");
-            Volume_MuteVoices = FindComponentByPath<Toggle>(settingField, "Volume:Voices:Toggle");
-            Volume_MuteSound = FindComponentByPath<Toggle>(settingField, "Volume:Sound:Toggle");
-            Volume_BGM = FindComponentByPath<Slider>(settingField, "Volume:BGM:Slider");
-            Volume_Voices = FindComponentByPath<Slider>(settingField, "Volume:Voices:Slider");
-            Volume_Sound = FindComponentByPath<Slider>(settingField, "Volume:Sound:Slider");
-            MessageSpeed_UnreadText = FindComponentByPath<Slider>(settingField, "MessageSpeed:UnreadText:Slider");
-            MessageSpeed_AutoPlayDelayInterval = FindComponentByPath<Slider>(settingField, "MessageSpeed:AutoPlayDelayInterval:Slider");
-            MessageSpeed_SkipInterval = FindComponentByPath<Slider>(settingField, "MessageSpeed:SkipInterval:Slider");
-            ResolutionDropdown = FindComponentByPath<Dropdown>(settingField, "ScreenMode:Windowed:Resolution");
-            LanguageDropdown = FindComponentByPath<Dropdown>(settingField, "Other:Language:Dropdown");
-
             // selector field
             selector = selectorField.transform.Find("Selector").gameObject;
-
-            bool isResInit = false;
-            // resolution dropdown list
-            foreach (Resolution res in Screen.resolutions)
-            {
-                if (res.refreshRate == 60)
-                {
-                    if (!isResInit)
-                    {
-                        SettingModel.resolution = string.Format("{0}x{1}", res.width, res.height);
-                        isResInit = true;
-                    }
-                    ResolutionDropdown.options.Add(new Dropdown.OptionData(string.Format("{0}x{1}", res.width, res.height)));
-                }
-            }
-            ResolutionDropdown.RefreshShownValue();
 
             // savedDatas = gameController.LoadSavedDatas();
             savedDataPanel = savedDataField.transform.Find("SavedDataPanel").gameObject;
@@ -547,88 +487,9 @@ namespace Assets.Script.Chapter
             currentGalgameAction = null;
         }
 
-        /// <summary>
-        /// Render SettingField game objects with <see cref="SettingModel"/>
-        /// </summary>
-        public void InitSettingField()
-        {
-            PlayMode_Manual.isOn = SettingModel.isManualModeOn;
-            PlayMode_Auto.isOn = SettingModel.isAutoReadingModeOn;
-            PlayMode_Skip.isOn = SettingModel.isSkipModeOn;
-
-            Visual_ShowCGInSkipMode.isOn = SettingModel.showCGInSkipMode;
-            Visual_SpecialEffects.isOn = SettingModel.showSpecialEffects;
-            Visual_TextShadow.isOn = SettingModel.showTextShadow;
-            Visual_Animation.isOn = SettingModel.showAnimation;
-
-            Volume_MuteBGM.isOn = SettingModel.isBgmMute;
-            Volume_MuteVoices.isOn = SettingModel.isVoicesMute;
-            Volume_MuteSound.isOn = SettingModel.isSoundMute;
-            Volume_BGM.value = SettingModel.bgmVolume;
-            Volume_Voices.value = SettingModel.voicesVolume;
-            Volume_Sound.value = SettingModel.soundVolume;
-
-            ScreenMode_FullScreen.isOn = SettingModel.isFullScreenModeOn;
-            ScreenMode_Windowed.isOn = !SettingModel.isFullScreenModeOn;
-            int resIndex = 0;
-            foreach (Resolution res in Screen.resolutions)
-            {
-                if (res.refreshRate == 60)
-                {
-                    if (string.Format("{0}x{1}", res.width, res.height).Equals(SettingModel.resolution))
-                    {
-                        break;
-                    }
-                    resIndex++;
-                }
-            }
-            ResolutionDropdown.value = resIndex;
-            ResolutionDropdown.RefreshShownValue();
-
-            MessageSpeed_UnreadText.value = SettingModel.textShowDuration / SettingModel.MAX_TEXT_SHOW_DURATION;
-            MessageSpeed_AutoPlayDelayInterval.value = SettingModel.lineSwitchDuration / SettingModel.MAX_LINE_SWITCH_DURATION;
-            MessageSpeed_SkipInterval.value = SettingModel.skipModeLineSwitchDuration / SettingModel.MAX_SKIP_MODE_LINE_SWITCH_DURATION;
-
-            Other_AppActiveInBackground.isOn = SettingModel.appActiveInBackground;
-
-            int langIndex = SettingModel.languages.IndexOf(SettingModel.appLanguage);
-            LanguageDropdown.value = langIndex;
-            LanguageDropdown.RefreshShownValue();
-
-            // TODO: Add Character voices controller
-        }
-
         #endregion
 
         #region Private methods
-        /// <summary>
-        /// Find child game component of <paramref name="parent"/> via <paramref name="fullPath"/>
-        /// </summary>
-        /// <typeparam name="T">Type of the game component</typeparam>
-        /// <param name="parent">parent game object</param>
-        /// <param name="fullPath">path format in `path1:path2:path3...`</param>
-        /// <returns>The component found or null</returns>
-        private T FindComponentByPath<T>(GameObject parent, string fullPath)
-        {
-            return (null == FindChildTransform(parent, fullPath) ? default(T) : FindChildTransform(parent, fullPath).GetComponent<T>());
-        }
-
-        /// <summary>
-        /// Find child tramsform of <paramref name="parent"/> via <paramref name="fullPath"/>
-        /// </summary>
-        /// <param name="parent">parent game object</param>
-        /// <param name="fullPath">path format in `path1:path2:path3...`</param>
-        /// <returns>The transform or null</returns>
-        private Transform FindChildTransform(GameObject parent, string fullPath)
-        {
-            Transform tmp = parent.transform;
-            string[] ps = fullPath.Split(':');
-            foreach (string p in ps)
-            {
-                if ((tmp = tmp.Find(p)) == null) return null;
-            }
-            return tmp;
-        }
 
         private void InitSceneGameObject()
         {
@@ -684,7 +545,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         private void SwitchAction(string actionId)
         {
-            if(!string.IsNullOrEmpty(actionId))
+            if (!string.IsNullOrEmpty(actionId))
             {
                 // set current galgame action
                 currentGalgameAction = galgameActionsMap[actionId];
@@ -696,7 +557,7 @@ namespace Assets.Script.Chapter
                 // If this action do not contains Lines and other display components
                 if (currentGalgameAction.Lines.Count == 0
                     && string.IsNullOrEmpty(currentGalgameAction.Selector.Id)
-                    && null == currentGalgameAction.Bgm 
+                    && null == currentGalgameAction.Bgm
                     && null == currentGalgameAction.Background
                     && null == currentGalgameAction.Video
                     )
@@ -732,7 +593,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         private void SwitchLine()
         {
-            if(null == currentGalgameAction)
+            if (null == currentGalgameAction)
             {
                 SwitchAction(currentScript.StartActionId);
             }
@@ -774,11 +635,11 @@ namespace Assets.Script.Chapter
                     }
                     currentSelectorOptionLineIndex++;
                 }
-                
+
             }
             else
             {
-                if(IsSwitchLineAllowed() && currentLineIndex == currentGalgameAction.Lines.Count)
+                if (IsSwitchLineAllowed() && currentLineIndex == currentGalgameAction.Lines.Count)
                 {
                     // reach end point of current action, switch
                     SwitchAction(currentGalgameAction.NextActionId);
@@ -787,7 +648,7 @@ namespace Assets.Script.Chapter
                     return;
                 }
 
-                if(currentLineIndex < currentGalgameAction.Lines.Count)
+                if (currentLineIndex < currentGalgameAction.Lines.Count)
                 {
                     nextLine = currentGalgameAction.Lines[currentLineIndex].text.Replace("\\n", "\n");
                     if (SettingModel.isSkipModeOn)
@@ -832,7 +693,7 @@ namespace Assets.Script.Chapter
             {
                 GalgamePlainAction action = ActiveSelectorOption.Action;
 
-                if(++currentSelectorOptionLineIndex >= ActiveSelectorOption.Action.Lines.Count)
+                if (++currentSelectorOptionLineIndex >= ActiveSelectorOption.Action.Lines.Count)
                 {
                     isShowingSelectorOptionActionTime = false;
                 }
@@ -954,9 +815,9 @@ namespace Assets.Script.Chapter
                 line.color = ColorUtil.HexToUnityColor(uint.Parse(DefaultScriptProperty.fcolor, System.Globalization.NumberStyles.HexNumber));
             }
 
-            if(action.GetType().Equals(typeof(GalgameAction)))
+            if (action.GetType().Equals(typeof(GalgameAction)))
             {
-                
+
                 // If there a selector component
                 if (!string.IsNullOrEmpty(((GalgameAction)action).Selector.Id))
                 {
@@ -965,19 +826,19 @@ namespace Assets.Script.Chapter
 
                 // If there a adjuster component
                 if (!string.IsNullOrEmpty(((GalgameAction)action).GameValuesAdjuster.Id))
-                    {
+                {
                     ExecuteAdjuster(((GalgameAction)action).GameValuesAdjuster);
                 }
 
                 // If there a events component
                 if (!string.IsNullOrEmpty(((GalgameAction)action).Events.Id))
-                    {
+                {
                     TriggerEvents(((GalgameAction)action).Events);
                 }
 
                 // If there a judge component
                 if (!string.IsNullOrEmpty(((GalgameAction)action).Judge.Id))
-                    {
+                {
                     ExecuteJudge(((GalgameAction)action).Judge);
                 }
             }
@@ -988,7 +849,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         private void BuildSelector(PSelector selector)
         {
-            if ((null == selector.Options || selector.Options.Count == 0) && (null == selector.Texts || selector.Texts.Count == 0) 
+            if ((null == selector.Options || selector.Options.Count == 0) && (null == selector.Texts || selector.Texts.Count == 0)
                 && (null == selector.Bgms || selector.Bgms.Count == 0) && (null == selector.Bgs || selector.Bgs.Count == 0))
                 return;
 
@@ -1042,7 +903,7 @@ namespace Assets.Script.Chapter
                 {
                     selector.IsSelected = true;
                     selector.SelectedItem = selector.Options.IndexOf(option);
-                    if(null != option.Action)
+                    if (null != option.Action)
                     {
                         this.ActiveSelectorOption = option;
                         this.isShowingSelectorOptionActionTime = true;                                  // Hide selector panel
@@ -1052,16 +913,16 @@ namespace Assets.Script.Chapter
                         BuildAAction(option.Action);
                     }
                     gameController.UpdateGlobalGameValues(option.DeltaGameValues);                  // Update global values
-                    StartCoroutine(HideSelectorFieldTimeOut());   
+                    StartCoroutine(HideSelectorFieldTimeOut());
                     SwitchLine();
-                    Debug.Log("Global Values: \n"+GlobalGameData.GameValues.ToJSONString());
+                    Debug.Log("Global Values: \n" + GlobalGameData.GameValues.ToJSONString());
                 });
                 newEmptyOption.onClick = optionClickEvent;
                 if (null != option.Bg)
                 {
                     newEmptyOption.GetComponent<RawImage>().texture = option.Bg.texture;
                 }
-                if(null != option.Bgm)
+                if (null != option.Bgm)
                 {
                     newEmptyOption.GetComponent<AudioSource>().clip = option.Bgm;
                 }
@@ -1119,12 +980,12 @@ namespace Assets.Script.Chapter
         {
             List<PSelectorOption> options = new List<PSelectorOption>();
             int optionNumber = new int[] { selector.Bgms.Count, selector.Bgs.Count, selector.Texts.Count }.Max();
-            for(int n = 0; n < optionNumber; n++)
+            for (int n = 0; n < optionNumber; n++)
             {
                 PSelectorOption o = new PSelectorOption();
-                o.Text = n > selector.Texts.Count-1 ? default(PText) : selector.Texts[n];
-                o.Bg = n > selector.Bgs.Count-1 ? default(Sprite) : selector.Bgs[n];
-                o.Bgm = n > selector.Bgms.Count-1 ? default(AudioClip) : selector.Bgms[n];
+                o.Text = n > selector.Texts.Count - 1 ? default(PText) : selector.Texts[n];
+                o.Bg = n > selector.Bgs.Count - 1 ? default(Sprite) : selector.Bgs[n];
+                o.Bgm = n > selector.Bgms.Count - 1 ? default(AudioClip) : selector.Bgms[n];
                 options.Add(o);
             }
             return options;
@@ -1144,7 +1005,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         private void TriggerEvents(PEvents events)
         {
-            foreach(PEventItem eventItem in events.Events)
+            foreach (PEventItem eventItem in events.Events)
             {
                 int evtId = Convert.ToInt32(eventItem.EvtId);
                 string evtDesc = EventCollection.Instance.Get(evtId);
@@ -1152,7 +1013,7 @@ namespace Assets.Script.Chapter
                 {
                     // TODO: Maybe display event description here.
 
-                    if(null != eventItem.DeltaGameValues)
+                    if (null != eventItem.DeltaGameValues)
                     {
                         gameController.UpdateGlobalGameValues(eventItem.DeltaGameValues);                  // Update global values
                     }
@@ -1167,11 +1028,11 @@ namespace Assets.Script.Chapter
         public void ExecuteJudge(PJudge judge)
         {
             // TODO: deal with MeetGameValues
-            if(null != judge.MeetGameValues && judge.MeetGameValues.Count > 0)
+            if (null != judge.MeetGameValues && judge.MeetGameValues.Count > 0)
             {
-                foreach(GameValues gvs in judge.MeetGameValues)
+                foreach (GameValues gvs in judge.MeetGameValues)
                 {
-                    if(GlobalGameData.GameValues.Equals(gvs))
+                    if (GlobalGameData.GameValues.Equals(gvs))
                     {
                         List<PEventItem> events = judge.Events;
                         foreach (PEventItem eventItem in events)
@@ -1189,7 +1050,7 @@ namespace Assets.Script.Chapter
                             }
                         }
 
-                        if(!string.IsNullOrEmpty(judge.NextActionId))
+                        if (!string.IsNullOrEmpty(judge.NextActionId))
                         {
                             SwitchAction(judge.NextActionId);
                         }
@@ -1221,7 +1082,7 @@ namespace Assets.Script.Chapter
         private IEnumerator ShowLineTimeOut(string newLine, bool autoSwitchLine = false)
         {
             isShowingLine = true;
-            if(string.IsNullOrEmpty(newLine))
+            if (string.IsNullOrEmpty(newLine))
             {
                 if (SettingModel.isAutoReadingModeOn)
                 {
@@ -1389,7 +1250,7 @@ namespace Assets.Script.Chapter
                                 savedDataIndex = savedDataIndex,
                                 savedTime = DateTime.Now,
                                 galgameActionId = currentGalgameAction.Id,
-                                galgameActionLineIndex = currentLineIndex-1,
+                                galgameActionLineIndex = currentLineIndex - 1,
                                 gameValues = GlobalGameData.GameValues
                             };
                         }
@@ -1398,7 +1259,7 @@ namespace Assets.Script.Chapter
                             savedDatas[savedDataIndex].savedDataIndex = savedDataIndex;
                             savedDatas[savedDataIndex].savedTime = DateTime.Now;
                             savedDatas[savedDataIndex].galgameActionId = currentGalgameAction.Id;
-                            savedDatas[savedDataIndex].galgameActionLineIndex = currentLineIndex-1;
+                            savedDatas[savedDataIndex].galgameActionLineIndex = currentLineIndex - 1;
                             savedDatas[savedDataIndex].gameValues = GlobalGameData.GameValues;
                         }
                         // TODO: Considering doing this when application exit to avoid unnecessary IO operations?
@@ -1458,7 +1319,7 @@ namespace Assets.Script.Chapter
             currentLineIndex = theSavedData.galgameActionLineIndex;
             currentGalgameAction = galgameActionsMap[theSavedData.galgameActionId];
             bgSpriteRenderer.sprite = currentGalgameAction.Background;
-            nextLine = currentGalgameAction.Lines[currentLineIndex].text.Replace("\\n","\n");
+            nextLine = currentGalgameAction.Lines[currentLineIndex].text.Replace("\\n", "\n");
             GlobalGameData.GameValues = theSavedData.gameValues;
             line.text = string.Empty;
         }

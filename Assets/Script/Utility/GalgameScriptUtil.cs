@@ -16,7 +16,7 @@ namespace Assets.Script.Utility
 {
     public class GalgameScriptUtil : ScriptableObject
     {
-        public static List<GalgameKsScriptTag> BLOCK_TYPE_TAGS = new List<GalgameKsScriptTag> { GalgameKsScriptTag.LINE, GalgameKsScriptTag.ADJUSTER, GalgameKsScriptTag.BATTLE, GalgameKsScriptTag.SELECT, GalgameKsScriptTag.JUDGE, GalgameKsScriptTag.GROUP };
+        public static List<GalgameKsScriptTag> BLOCK_TYPE_TAGS = new List<GalgameKsScriptTag> { GalgameKsScriptTag.LINE, GalgameKsScriptTag.BG, GalgameKsScriptTag.FG, GalgameKsScriptTag.BGM, GalgameKsScriptTag.ADJUSTER, GalgameKsScriptTag.BATTLE, GalgameKsScriptTag.SELECT, GalgameKsScriptTag.JUDGE, GalgameKsScriptTag.GROUP };
         public static List<GalgameKsScriptTag> NOT_ACTION_TAGS = new List<GalgameKsScriptTag>() { GalgameKsScriptTag.PAIR, GalgameKsScriptTag.OPTION, GalgameKsScriptTag.GROUP };
         //public static string[] GalgameScriptTags;
         public static void CreateGalgameScriptAsset()
@@ -31,20 +31,24 @@ namespace Assets.Script.Utility
             CreateGalgameScriptAsset(ggs, assetFileFullPath);
         }
 
-        public static void CreateGalgameScriptAsset(GalgameScript ggs, string assetFileFullPath = null)
+        public static void CreateGalgameScriptAsset(GalgameScript ggs, string saveName = null, string assetFileFullPath = null)
         {
-            if(null == assetFileFullPath)
+            if (null == assetFileFullPath)
             {
                 string path = AssetDatabase.GetAssetPath(Selection.activeObject);
                 if (path == "")
                 {
-                    path = "Assets";
+                    path = "Assets/Resources/Chapter";
                 }
                 else if (Path.GetExtension(path) != "")
                 {
                     path = path.Replace(Path.GetFileName(AssetDatabase.GetAssetPath(Selection.activeObject)), "");
                 }
-                assetFileFullPath = AssetDatabase.GenerateUniqueAssetPath(path + "/NewGalgameScript.gs.asset");
+                if (null == saveName)
+                {
+                    saveName = "NewGalgameScript.asset";
+                }
+                assetFileFullPath = AssetDatabase.GenerateUniqueAssetPath(path + "/" + saveName);
             }
             AssetDatabase.CreateAsset(ggs, assetFileFullPath);
             AssetDatabase.SaveAssets();
@@ -57,7 +61,10 @@ namespace Assets.Script.Utility
         {
             if (null == ksScript || ksScript.Count == 0) return null;
             //if (null == GalgameScriptTags) GalgameScriptTags = Enum.GetNames(typeof(GalgameKsScriptTag));
-            GalgameScript galgameScript = new GalgameScript();
+            GalgameScript galgameScript = new GalgameScript()
+            {
+                StartActionId = "1"
+            };
             List<GalgameAction> galgameActions = new List<GalgameAction>();
 
             GalgameAction galgameAction = null;
@@ -72,6 +79,8 @@ namespace Assets.Script.Utility
             bool isWrappedByActionTag = false;
             bool isWrappedByGroupTag = false;
             bool isWrappedByEventTag = false;
+
+            int presetActionID = 0;
 
             foreach (KsScriptLine ksScriptLine in ksScript)
             {
@@ -120,17 +129,17 @@ namespace Assets.Script.Utility
                             nowEvents = null;
                             continue;
                         case GalgameKsScriptTag.GROUP:
-                            if(groupStack.Count > 0)
+                            if (groupStack.Count > 0)
                             {
-                                if(null != nowJudge)
+                                if (null != nowJudge)
                                 {
                                     nowJudge.MeetGameValues.Add(groupStack.Last());
                                 }
                                 groupStack.Remove(groupStack.Last());
                             }
-                            if(eventStack.Count > 0)
+                            if (eventStack.Count > 0)
                             {
-                                if(null != nowJudge)
+                                if (null != nowJudge)
                                 {
                                     nowJudge.Events.Add(eventStack.Last());
                                 }
@@ -308,7 +317,10 @@ namespace Assets.Script.Utility
                                     ksTagProperty.ffamily = propValue;
                                     break;
                                 case "src":
-                                    if (GalgameKsScriptTag.BG == tag) ksTagProperty.bgsrc = propValue;
+                                    if (GalgameKsScriptTag.BG == tag)
+                                    {
+                                        ksTagProperty.bgsrc = propValue;
+                                    }
                                     if (GalgameKsScriptTag.FG == tag) ksTagProperty.fgsrc = propValue;
                                     if (GalgameKsScriptTag.BGM == tag) ksTagProperty.bgmsrc = propValue;
                                     if (GalgameKsScriptTag.VIDEO == tag) ksTagProperty.videosrc = propValue;
@@ -379,7 +391,7 @@ namespace Assets.Script.Utility
 
                         // if (null == galgameAction) galgameAction = new GalgameAction();
 
-                        if(BLOCK_TYPE_TAGS.Contains(tag))
+                        if (BLOCK_TYPE_TAGS.Contains(tag))
                         {
                             ForceCloseAllBlockTag(nowSelector, nowAdjuster, nowJudge, nowBattle);
                             // If these block-type elements are not wrapped by [action] tag, generate a new action autoly
@@ -388,18 +400,18 @@ namespace Assets.Script.Utility
                                 galgameAction = new GalgameAction();
                             }
                         }
-                        
-                        switch(tag)
+
+                        switch (tag)
                         {
                             case GalgameKsScriptTag.ACTION:
-                                if(props.Count > 0)
+                                if (props.Count > 0)
                                 {
                                     isWrappedByActionTag = true;
                                     galgameAction = new GalgameAction();
                                 }
                                 break;
                             case GalgameKsScriptTag.SELECT:
-                                if(!string.IsNullOrEmpty(ksTagProperty.selector_type))
+                                if (!string.IsNullOrEmpty(ksTagProperty.selector_type))
                                 {
                                     nowSelector = new PSelector()
                                     {
@@ -425,15 +437,15 @@ namespace Assets.Script.Utility
                                     RoleStatus = new RoleStatus()
                                 };
 
-                                if(null != nowSelector && null != nowSelectorOption) // Adjuster of selection option
+                                if (null != nowSelector && null != nowSelectorOption) // Adjuster of selection option
                                 {
                                     nowSelectorOption.DeltaGameValues = nowAdjuster.DeltaGameValues;
                                 }
-                                else if(null != nowJudge && eventStack.Count > 0)    // Adjuster of judge item
+                                else if (null != nowJudge && eventStack.Count > 0)    // Adjuster of judge item
                                 {
                                     eventStack.Last().DeltaGameValues = nowAdjuster.DeltaGameValues;
                                 }
-                                else if(null != nowEvents && eventStack.Count > 0)   // Adjuster of event
+                                else if (null != nowEvents && eventStack.Count > 0)   // Adjuster of event
                                 {
                                     eventStack.Last().DeltaGameValues = nowAdjuster.DeltaGameValues;
                                 }
@@ -476,7 +488,8 @@ namespace Assets.Script.Utility
                                 galgameAction.Events = nowEvents;
                                 break;
                             case GalgameKsScriptTag.EVENT:
-                                eventStack.Add(new PEventItem() {
+                                eventStack.Add(new PEventItem()
+                                {
                                     EvtId = ksTagProperty.evt_id
                                 });
                                 isWrappedByEventTag = true;
@@ -525,7 +538,7 @@ namespace Assets.Script.Utility
                                 EntityUtil.SetDeepValue(eventStack.Last(), ksTagProperty.name, ksTagProperty.value);
                             }
                         }
-                        if(null != galgameAction)
+                        if (null != galgameAction)
                         {
                             if (null != ksTagProperty.line)
                             {
@@ -541,11 +554,16 @@ namespace Assets.Script.Utility
                                     actor = (Actor)Enum.Parse(typeof(Actor), ksTagProperty.actor)
                                 }); ;
 
-                                if(null == galgameAction.Line)
+                                if (null == galgameAction.Line)
                                 {
                                     galgameAction.Line = galgameAction.Lines[0];
                                 }
                             }
+
+                            galgameAction.Id = (presetActionID + 1).ToString();
+                            if (presetActionID > 0) galgameAction.PreviousActionId = (presetActionID).ToString();
+                            if (ksScript.IndexOf(ksScriptLine) != ksScript.Count - 2) galgameAction.NextActionId = (presetActionID + 2).ToString();
+                            presetActionID++;
 
                             if (!string.IsNullOrEmpty(ksTagProperty.id) && GalgameKsScriptTag.ACTION == tag) galgameAction.Id = ksTagProperty.id.Trim();
                             if (!string.IsNullOrEmpty(ksTagProperty.start_action_id) && GalgameKsScriptTag.CHS == tag) galgameScript.StartActionId = ksTagProperty.start_action_id.Trim();
@@ -555,7 +573,10 @@ namespace Assets.Script.Utility
                             if (null != ksTagProperty.videosrc) galgameAction.Video = (VideoClip)Resources.Load("Video/" + ksTagProperty.videosrc, typeof(VideoClip));
                             if (null != ksTagProperty.bgmsrc) galgameAction.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.bgmsrc, typeof(AudioClip));
                             if (null != ksTagProperty.voice) galgameAction.Voice = (AudioClip)Resources.Load("Audio/" + ksTagProperty.voice, typeof(AudioClip));
-                            if (null != ksTagProperty.bgsrc) galgameAction.Background = (Sprite)Resources.Load("Sprite/" + ksTagProperty.bgsrc, typeof(Sprite));
+                            if (null != ksTagProperty.bgsrc)
+                            {
+                                galgameAction.Background = (Sprite)Resources.Load("Sprite/" + ksTagProperty.bgsrc, typeof(Sprite));
+                            }
                             // A BG and BGM set in line property have a higher priority than set in tag [bg] and [bgm]
                             if (null != ksTagProperty.line_bg) galgameAction.Background = (Sprite)Resources.Load("Sprite/" + ksTagProperty.line_bg, typeof(Sprite));
                             if (null != ksTagProperty.line_bgm) galgameAction.Bgm = (AudioClip)Resources.Load("Audio/" + ksTagProperty.line_bgm, typeof(AudioClip));
@@ -563,12 +584,12 @@ namespace Assets.Script.Utility
                             if (null != ksTagProperty.anim) galgameAction.ActorAnimation = ksTagProperty.anim;
                             galgameAction.BgLayer = ksTagProperty.bg_layer;
                             galgameAction.FgLayer = ksTagProperty.fg_layer;
-                            
+
                             if (null != nowSelector && null != nowSelectorOption)
                             {
                                 if (galgameAction.Actor != Actor.NULL && tag == GalgameKsScriptTag.LINE)
                                 {
-                                    if(null == nowSelectorOption.Action)
+                                    if (null == nowSelectorOption.Action)
                                     {
                                         GalgamePlainAction tmp = new GalgamePlainAction()
                                         {
@@ -591,9 +612,9 @@ namespace Assets.Script.Utility
 
                                 }
                             }
-                            else if(null != galgameAction && !NOT_ACTION_TAGS.Contains(tag) && !isWrappedByActionTag)
+                            else if (null != galgameAction && !NOT_ACTION_TAGS.Contains(tag) && !isWrappedByActionTag)
                             {
-                                if(null != galgameAction.Selector)
+                                if (null != galgameAction.Selector)
                                 {
                                     galgameAction.Line = null;
                                     galgameAction.Lines.Clear();
@@ -602,11 +623,11 @@ namespace Assets.Script.Utility
                                 galgameAction = null;
                             }
                         }
-                        
+
                         break;
                 }
             }
-            if(null != galgameActions)
+            if (null != galgameActions)
             {
                 galgameScript.GalgameActions = galgameActions;
             }

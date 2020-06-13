@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -30,13 +31,37 @@ namespace Assets.Script.Chapter
         private GameObject lineContainer;
         private GameObject historyField;
         private GameObject savedDataField;
-        private GameObject settingField;
         private GameObject menuField;
         private GameObject popupWindow;
         private VideoPlayer _video;
         private AudioSource _bgmAudio;
         private AudioSource _voiceAudio;
         private AudioClip bgmMusic;
+
+        #region Setting field
+        private GameObject settingField;
+        private Toggle PlayMode_Manual;
+        private Toggle PlayMode_Auto;
+        private Toggle PlayMode_Skip;
+        private Toggle Visual_ShowCGInSkipMode;
+        private Toggle Visual_SpecialEffects;
+        private Toggle Visual_TextShadow;
+        private Toggle Visual_Animation;
+        private Toggle ScreenMode_FullScreen;
+        private Toggle ScreenMode_Windowed;
+        private Toggle Volume_MuteBGM;
+        private Toggle Volume_MuteVoices;
+        private Toggle Volume_MuteSound;
+        private Toggle Other_AppActiveInBackground;
+        private Slider Volume_BGM;
+        private Slider Volume_Voices;
+        private Slider Volume_Sound;
+        private Slider MessageSpeed_UnreadText;
+        private Slider MessageSpeed_AutoPlayDelayInterval;
+        private Slider MessageSpeed_SkipInterval;
+        private Dropdown ResolutionDropdown;
+        private Dropdown LanguageDropdown;
+        #endregion
 
         private ChapterController chapterController;
 
@@ -56,7 +81,7 @@ namespace Assets.Script.Chapter
         public static int lastLoadedSavedDataPage;
         public static string settingConfigPath;
         public static string settingConfig;
-        public static string settingConfigFullName ;
+        public static string settingConfigFullName;
 
         public static List<SavedDataModel> savedDatas;
         public static GameObject[] historyQuene;
@@ -98,10 +123,49 @@ namespace Assets.Script.Chapter
             _bgmAudio = bgmAudioSource.GetComponent<AudioSource>();
             _voiceAudio = voiceAudioSource.GetComponent<AudioSource>();
 
+            // setting field
+            PlayMode_Manual = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "PlayMode:Manual:Toggle");
+            PlayMode_Auto = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "PlayMode:Auto:Toggle");
+            PlayMode_Skip = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "PlayMode:Skip:Toggle");
+            Visual_ShowCGInSkipMode = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "Visual:ShowCGInSkipMode:Toggle");
+            Visual_SpecialEffects = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "Visual:ShowCGInSkipMode:Toggle");
+            Visual_TextShadow = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "Visual:TextShadow:Toggle");
+            Visual_Animation = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "Visual:Animation:Toggle");
+            ScreenMode_FullScreen = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "ScreenMode:FullScreen:Toggle");
+            ScreenMode_Windowed = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "ScreenMode:Windowed:Toggle");
+            Other_AppActiveInBackground = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "Other:AppActiveInBackground:Toggle");
+            Volume_MuteBGM = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "Volume:BGM:Toggle");
+            Volume_MuteVoices = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "Volume:Voices:Toggle");
+            Volume_MuteSound = GameObjectUtil.FindComponentByPath<Toggle>(settingField, "Volume:Sound:Toggle");
+            Volume_BGM = GameObjectUtil.FindComponentByPath<Slider>(settingField, "Volume:BGM:Slider");
+            Volume_Voices = GameObjectUtil.FindComponentByPath<Slider>(settingField, "Volume:Voices:Slider");
+            Volume_Sound = GameObjectUtil.FindComponentByPath<Slider>(settingField, "Volume:Sound:Slider");
+            MessageSpeed_UnreadText = GameObjectUtil.FindComponentByPath<Slider>(settingField, "MessageSpeed:UnreadText:Slider");
+            MessageSpeed_AutoPlayDelayInterval = GameObjectUtil.FindComponentByPath<Slider>(settingField, "MessageSpeed:AutoPlayDelayInterval:Slider");
+            MessageSpeed_SkipInterval = GameObjectUtil.FindComponentByPath<Slider>(settingField, "MessageSpeed:SkipInterval:Slider");
+            ResolutionDropdown = GameObjectUtil.FindComponentByPath<Dropdown>(settingField, "ScreenMode:Windowed:Resolution");
+            LanguageDropdown = GameObjectUtil.FindComponentByPath<Dropdown>(settingField, "Other:Language:Dropdown");
+
+            bool isResInit = false;
+            // resolution dropdown list
+            foreach (Resolution res in Screen.resolutions)
+            {
+                if (res.refreshRate == 60)
+                {
+                    if (!isResInit)
+                    {
+                        SettingModel.resolution = string.Format("{0}x{1}", res.width, res.height);
+                        isResInit = true;
+                    }
+                    ResolutionDropdown.options.Add(new Dropdown.OptionData(string.Format("{0}x{1}", res.width, res.height)));
+                }
+            }
+            ResolutionDropdown.RefreshShownValue();
+
             bgmMusic = (AudioClip)Resources.Load("Audio/BGM30", typeof(AudioClip));
 
             historyQuene = new GameObject[] { null, titleContainer };
-            if(null == GlobalGameData.GameValues) GlobalGameData.GameValues = new GameValues();
+            if (null == GlobalGameData.GameValues) GlobalGameData.GameValues = new GameValues();
 
             defaultMenuLocalPos = menuField.transform.localPosition;
             shownMenuLocalPos = new Vector3(defaultMenuLocalPos.x, defaultMenuLocalPos.y - menuField.GetComponent<RectTransform>().sizeDelta.y, defaultMenuLocalPos.z);
@@ -110,15 +174,15 @@ namespace Assets.Script.Chapter
             _bgmAudio.loop = true;
             _bgmAudio.Play();
 
-            chapterController = GetComponent<ChapterController>();
-            chapterController.InitSettingField();
-
             GlobalGameData.GameValues = DefaultValues.DEFAULT_GAMEVALUES;
+            chapterController = this.GetComponent<ChapterController>();
+
+            InitSettingField();
         }
 
         void FixedUpdate()
         {
-            if(inGame)
+            if (inGame)
             {
                 if (Input.mousePosition.y > Screen.height - menuField.GetComponent<RectTransform>().sizeDelta.y)
                 {
@@ -132,6 +196,57 @@ namespace Assets.Script.Chapter
                     chapterController.isMenuActive = false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Render SettingField game objects with <see cref="SettingModel"/>
+        /// </summary>
+        public void InitSettingField()
+        {
+            PlayMode_Manual.isOn = SettingModel.isManualModeOn;
+            PlayMode_Auto.isOn = SettingModel.isAutoReadingModeOn;
+            PlayMode_Skip.isOn = SettingModel.isSkipModeOn;
+
+            Visual_ShowCGInSkipMode.isOn = SettingModel.showCGInSkipMode;
+            Visual_SpecialEffects.isOn = SettingModel.showSpecialEffects;
+            Visual_TextShadow.isOn = SettingModel.showTextShadow;
+            Visual_Animation.isOn = SettingModel.showAnimation;
+
+            Volume_MuteBGM.isOn = SettingModel.isBgmMute;
+            Volume_MuteVoices.isOn = SettingModel.isVoicesMute;
+            Volume_MuteSound.isOn = SettingModel.isSoundMute;
+            Volume_BGM.value = SettingModel.bgmVolume;
+            Volume_Voices.value = SettingModel.voicesVolume;
+            Volume_Sound.value = SettingModel.soundVolume;
+
+            ScreenMode_FullScreen.isOn = SettingModel.isFullScreenModeOn;
+            ScreenMode_Windowed.isOn = !SettingModel.isFullScreenModeOn;
+            int resIndex = 0;
+            foreach (Resolution res in Screen.resolutions)
+            {
+                if (res.refreshRate == 60)
+                {
+                    if (string.Format("{0}x{1}", res.width, res.height).Equals(SettingModel.resolution))
+                    {
+                        break;
+                    }
+                    resIndex++;
+                }
+            }
+            ResolutionDropdown.value = resIndex;
+            ResolutionDropdown.RefreshShownValue();
+
+            MessageSpeed_UnreadText.value = SettingModel.textShowDuration / SettingModel.MAX_TEXT_SHOW_DURATION;
+            MessageSpeed_AutoPlayDelayInterval.value = SettingModel.lineSwitchDuration / SettingModel.MAX_LINE_SWITCH_DURATION;
+            MessageSpeed_SkipInterval.value = SettingModel.skipModeLineSwitchDuration / SettingModel.MAX_SKIP_MODE_LINE_SWITCH_DURATION;
+
+            Other_AppActiveInBackground.isOn = SettingModel.appActiveInBackground;
+
+            int langIndex = SettingModel.languages.IndexOf(SettingModel.appLanguage);
+            LanguageDropdown.value = langIndex;
+            LanguageDropdown.RefreshShownValue();
+
+            // TODO: Add Character voices controller
         }
 
         /// <summary>
@@ -295,7 +410,7 @@ namespace Assets.Script.Chapter
         /// <param name="notice">The notice text</param>
         public void OpenPopup(string callback, string notice)
         {
-            if(!string.IsNullOrEmpty(notice)) popupNoticeText.text = notice;
+            if (!string.IsNullOrEmpty(notice)) popupNoticeText.text = notice;
             popupCallbackText.text = callback.Trim();
             // ActiveGameObject(popupWindow);
             popupWindow.SetActive(true);
@@ -316,7 +431,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         public void PopupCallback()
         {
-            switch(popupCallbackText.text)
+            switch (popupCallbackText.text)
             {
                 case "QuitGame":
                     QuitGame();
@@ -437,7 +552,7 @@ namespace Assets.Script.Chapter
         /// <param name="index">The index in <see cref="Screen.resolutions"/></param>
         public void SetWindowedResoulution(int index)
         {
-            Resolution selected = Screen.resolutions[index]; 
+            Resolution selected = Screen.resolutions[index];
             Screen.SetResolution(selected.width, selected.height, SettingModel.isFullScreenModeOn);
             SettingModel.resolution = string.Format("{0}x{1}", selected.width, selected.height);
         }
@@ -487,7 +602,7 @@ namespace Assets.Script.Chapter
         /// </summary>
         public void PersistSettingConfig()
         {
-            if(!Directory.Exists(settingConfigPath))
+            if (!Directory.Exists(settingConfigPath))
             {
                 Directory.CreateDirectory(settingConfigPath);
             }
@@ -557,7 +672,7 @@ namespace Assets.Script.Chapter
             gameObject.SetActive(false);
             historyQuene[1] = historyQuene[0];
             historyQuene[0] = gameObject;
-            Debug.Log( DateTime.Now.ToString() + ": " + (null == historyQuene[0] ? "" : historyQuene[0].name) + " - " + (null == historyQuene[1] ? "" : historyQuene[1].name));
+            Debug.Log(DateTime.Now.ToString() + ": " + (null == historyQuene[0] ? "" : historyQuene[0].name) + " - " + (null == historyQuene[1] ? "" : historyQuene[1].name));
             //gameObject.SetActive(false);
         }
 

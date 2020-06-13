@@ -25,7 +25,7 @@ namespace Assets.Script.Utility
         /// <returns></returns>
         public void KsToAsset(string ksFileFullPath, string assetFileFullPath)
         {
-            if(File.Exists(ksFileFullPath))
+            if (File.Exists(ksFileFullPath))
             {
                 using (FileStream kfs = new FileStream(ksFileFullPath, FileMode.Open, FileAccess.Read))
                 {
@@ -54,13 +54,13 @@ namespace Assets.Script.Utility
                                 tagType = tagRegex.Match(currentLine).Groups[1].Value.ToUpper();
                             }
                             // Properties | 属性
-                            if(propRegex.IsMatch(currentLine))
+                            if (propRegex.IsMatch(currentLine))
                             {
-                                foreach(Match propMatch in propRegex.Matches(currentLine))
+                                foreach (Match propMatch in propRegex.Matches(currentLine))
                                 {
                                     propName = propMatch.Groups[1].Value;
                                     propValue = propMatch.Groups[2].Value;
-                                    propPairs.Add(new KsScriptLineProperty() { name=propName, value=propValue });
+                                    propPairs.Add(new KsScriptLineProperty() { name = propName, value = propValue });
                                 }
                             }
                             line.tag = (GalgameKsScriptTag)Enum.Parse(typeof(GalgameKsScriptTag), tagType);
@@ -69,7 +69,9 @@ namespace Assets.Script.Utility
                         }
                         // Convert to GalgameScript
                         GalgameScript gs = GalgameScriptUtil.KsScriptToGalgameScript(ksScriptLines);
-                        GalgameScriptUtil.CreateGalgameScriptAsset(gs, assetFileFullPath);
+                        string fileName = new FileInfo(ksFileFullPath).Name;
+                        fileName = fileName.Substring(0, fileName.IndexOf(".")) + ".asset";
+                        GalgameScriptUtil.CreateGalgameScriptAsset(gs, fileName, assetFileFullPath);
                     }
                 }
             }
