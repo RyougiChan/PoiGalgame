@@ -41,7 +41,7 @@ namespace Assets.Script.Model
         public bool loop;
         public string action;
         // Line tag properties
-        public string actor;
+        public string actor = "NULL";
         public string voice;
         public string line;
         public string anim;

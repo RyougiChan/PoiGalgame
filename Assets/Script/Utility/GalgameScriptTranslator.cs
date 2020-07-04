@@ -13,7 +13,7 @@ namespace Assets.Script.Utility
     /// </summary>
     public class GalgameScriptTranslator : MonoBehaviour
     {
-        public void KsToAsset(string ksFileFullPath)
+        public static void KsToAsset(string ksFileFullPath)
         {
             KsToAsset(ksFileFullPath, null);
         }
@@ -23,7 +23,7 @@ namespace Assets.Script.Utility
         /// <param name="ksFileFullPath"></param>
         /// <param name="assetFileFullPath"></param>
         /// <returns></returns>
-        public void KsToAsset(string ksFileFullPath, string assetFileFullPath)
+        public static void KsToAsset(string ksFileFullPath, string assetFileFullPath)
         {
             if (File.Exists(ksFileFullPath))
             {

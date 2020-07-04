@@ -22,7 +22,7 @@ public class TranslateController : MonoBehaviour {
             if(!string.IsNullOrEmpty(fileName) && File.Exists(path + fileName))
             {
                 Debug.Log("Start translate " + fileName);
-                new GalgameScriptTranslator().KsToAsset(path + fileName);
+                GalgameScriptTranslator.KsToAsset(path + fileName);
             } else {
                 Debug.Log("File no existed");
             }
