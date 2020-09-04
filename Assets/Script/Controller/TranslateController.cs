@@ -1,4 +1,5 @@
-﻿using Assets.Script.Utility;
+﻿using Assets.Script.Model.Datas;
+using Assets.Script.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,9 @@ public class TranslateController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        GlobalGameData.GameValues = new GameValues();
+
         path = Application.dataPath + "/Resources/Chapter.ks/";
         input = GameObject.Find("DisplayCanvas/MenuField/InputField").GetComponent<InputField>();
         translateBtn = GameObject.Find("DisplayCanvas/MenuField/Ks2ScriptBtn").GetComponent<Button>();
@@ -28,7 +32,23 @@ public class TranslateController : MonoBehaviour {
             }
         });
         translateBtn.onClick = clickedEvent;
-        Debug.Log("translateBtn: " + translateBtn.name);
-        Debug.Log("path: " + path);
+    }
+
+    public void TranslateAllInPath(string s)
+    {
+        if(string.IsNullOrEmpty(s))
+        {
+            s = path;
+        }
+        string[] files = Directory.GetFiles(path);
+        foreach(string f in files)
+        {
+            // Translate .ks file only
+            if(f.EndsWith(".ks"))
+            {
+                GalgameScriptTranslator.KsToAsset(f);
+                Debug.Log("Translate Success: " + f);
+            }
+        }
     }
 }

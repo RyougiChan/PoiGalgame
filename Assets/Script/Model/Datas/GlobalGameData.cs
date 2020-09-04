@@ -8,6 +8,6 @@ namespace Assets.Script.Model.Datas
     [Serializable]
     public class GlobalGameData
     {
-        public static GameValues GameValues;
+        public static GameValues GameValues = new GameValues();
     }
 }

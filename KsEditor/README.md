@@ -167,6 +167,20 @@ The following is a example of generated code
 
 ```
 
+## Translating Ks Code to Unity Asset
+
+Here we provide a way to achieve this goal by using scene named [Translator](../Assets/Scene/Translator.unity).
+
+1. Usage of **`スクリプト翻訳`**
+
+    1). Input file name(located in Chapter.ks folder and with extension .ks) or full path.
+    2). Click button **`スクリプト翻訳`**
+    3). The unity asset will be generated in the folder **[Chapter](../Resources/Chapter)**
+
+2. Usage of **`すべてを翻訳`**
+
+    By clicking this button, all you should do is wait. Then the unity asset will be generated in the folder **[Chapter](../Resources/Chapter)** or the folder of current file seleted
+
 ## Copyright
 
 Copyright © [RyougiChan](https://github.com/RyougiChan). All rights reserved.
