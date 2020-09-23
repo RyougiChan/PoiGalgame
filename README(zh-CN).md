@@ -13,7 +13,7 @@ PoiGalgame 是一个基于 Unity 引擎的 Galgame/美少女游戏/文字冒险�
 - 开发环境
   - Windows 10
 - 开发工具
-  - Unity 2018.2
+  - Unity 2020.1.0f1
   - Microsoft Visual Studio 2017
   - Microsoft Visual Studio Code
 
@@ -32,9 +32,23 @@ PoiGalgame 是一个基于 Unity 引擎的 Galgame/美少女游戏/文字冒险�
 
 **警告:** 本项目仍处于开发阶段！
 
+1. 写 KS 脚本并转换为 Unity Asset
+    1. 使用可视化编辑器 [KsEditor](KsEditor/README.md) 编写脚本.
+    2. 在 [KsEditor](KsEditor/README.md) 中通过点击导出按钮导出 KS 脚本(`.ks` 后缀).
+    3. 将步骤2导出的 KS 脚本放置在 Unity 的 `Assets/Resources/Chapter.ks`(推荐) 目录或其他目录中.
+    4. 在 Unity 编辑器模式下打开视图 `Translator`，输入步骤3放置的文件的完整路径，点击按钮 **`スクリプト翻訳`**.
+2. 在 [ChapterController](Assets/Script/Chapter/ChapterController.cs) 文件中加载剧本.
+  查找下面这一行并替换路径 `Chapter/Chapter-01`
+
+  ```cs
+  currentScript = Resources.Load<GalgameScript>("Chapter/Chapter-01");
+  ```
+
 ## 发布版本
 
-**警告:** 本项目仍处于开发阶段！所以到目前为止还没有任何发行版本！但是，你可以自行生成一个预览版（使用场景 `ChapterDisplay`）。
+**警告:** 本项目仍处于开发阶段！
+
+- [Pre-release](releases) 使用视图 `ChapterDisplay` 构建.
 
 ## 文档
 

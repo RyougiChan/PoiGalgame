@@ -13,7 +13,7 @@ There are some famous galgame development engine such as `KIRIKIRI`, `NScriptor`
 - Dev Eviroment
   - Windows 10
 - Dev Tools
-  - Unity 2018.2
+  - Unity 2020.1.0f1
   - Microsoft Visual Studio 2017
   - Microsoft Visual Studio Code
 
@@ -22,7 +22,7 @@ There are some famous galgame development engine such as `KIRIKIRI`, `NScriptor`
 - [x] Basic Galgame elements
 - [x] Visual editing script framework
 - [x] Create a more readable script(like kirikiri)
-- [x] Provide a custom script editor tool: KsEditor
+- [x] Provide a custom script editor tool: [KsEditor](KsEditor/README.md)
 - [ ] Script update behavior monitoring (to be evaluated)
 - [ ] Real-time parsing, previewing and presentation
 - [ ] Tranform, animation, effect, etc.
@@ -32,9 +32,23 @@ There are some famous galgame development engine such as `KIRIKIRI`, `NScriptor`
 
 **WARNING:** This project is still under development!
 
+1. Write your own script and translate to Unity asset.
+    1. Write your story using [KsEditor](KsEditor/README.md).
+    2. Export KS script(suffix with `.ks`) from [KsEditor](KsEditor/README.md) by clicking EXPORT button.
+    3. Place the exported KS script in the unity folder `Assets/Resources/Chapter.ks`(recommended) or other folder.
+    4. Open Scene `Translator` in unity editor mode and input full path of KS script file in step3, then click button: **`スクリプト翻訳`**.
+2. Load script in [ChapterController](Assets/Script/Chapter/ChapterController.cs).
+  find the following line and change the path `Chapter/Chapter-01`
+
+  ```cs
+  currentScript = Resources.Load<GalgameScript>("Chapter/Chapter-01");
+  ```
+
 ## Releases
 
-**WARNING:** This project is still under development! So there is no release so far! But you can build one for yourself(Using Scene `ChapterDisplay`).
+**WARNING:** This project is still under development!
+
+- [Pre-release](releases) built using Scene `ChapterDisplay`.
 
 ## Documentation
 
