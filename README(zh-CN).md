@@ -48,7 +48,7 @@ PoiGalgame 是一个基于 Unity 引擎的 Galgame/美少女游戏/文字冒险�
 
 **警告:** 本项目仍处于开发阶段！
 
-- [Pre-release](releases) 使用视图 `ChapterDisplay` 构建.
+- [Pre-release](https://github.com/RyougiChan/PoiGalgame/releases) 使用视图 `ChapterDisplay` 构建.
 
 ## 文档
 

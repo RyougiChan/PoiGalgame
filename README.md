@@ -48,7 +48,7 @@ There are some famous galgame development engine such as `KIRIKIRI`, `NScriptor`
 
 **WARNING:** This project is still under development!
 
-- [Pre-release](releases) built using Scene `ChapterDisplay`.
+- [Pre-release](https://github.com/RyougiChan/PoiGalgame/releases) built using Scene `ChapterDisplay`.
 
 ## Documentation
 
