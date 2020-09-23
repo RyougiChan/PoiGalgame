@@ -1,7 +1,6 @@
-﻿using Assets.Script.Model.Datas;
+﻿#if UNITY_EDITOR
+using Assets.Script.Model.Datas;
 using Assets.Script.Utility;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,3 +51,4 @@ public class TranslateController : MonoBehaviour {
         }
     }
 }
+#endif

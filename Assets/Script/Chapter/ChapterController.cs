@@ -1,21 +1,15 @@
 ﻿using Assets.Script.Model;
+using Assets.Script.Model.Components;
+using Assets.Script.Model.Datas;
 using Assets.Script.Utility;
 using System;
-using System.IO;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.Text;
 using UnityEngine.Video;
-using UnityEditor;
-using Assets.Script.Model.Components;
-using System.Linq;
-using Assets.Script.Model.Datas;
 
 namespace Assets.Script.Chapter
 {
